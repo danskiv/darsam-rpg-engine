@@ -10,7 +10,7 @@ from fastapi.responses import HTMLResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 
-app = FastAPI(title="Darsam RPG Dungeon Engine - Infinite AI Edition")
+app = FastAPI(title="Darsam RPG Dungeon Engine - Grandmaster Edition")
 
 os.makedirs("/home/ubuntu/Github/darsam-rpg-engine/static", exist_ok=True)
 os.makedirs("/home/ubuntu/Github/darsam-rpg-engine/templates", exist_ok=True)
@@ -21,7 +21,6 @@ templates = Jinja2Templates(directory="/home/ubuntu/Github/darsam-rpg-engine/tem
 
 SAVE_FILE = "/home/ubuntu/Github/darsam-rpg-engine/saves/dungeon_save.json"
 
-# Load 9Router API Key
 def get_9router_key() -> str:
     env_path = os.path.expanduser("~/.hermes/.env")
     if os.path.exists(env_path):
@@ -33,58 +32,63 @@ def get_9router_key() -> str:
 
 NINE_ROUTER_KEY = get_9router_key()
 
+# 4 Starting Origins (Ordinary Commoner to Legendary Hero)
 CLASSES_INFO = {
-    "paladin": {
-        "title": "Ksatria Suci (Holy Paladin)",
-        "icon": "🛡️",
-        "desc": "Ahli pedang berbaju zirah tebal dengan kemampuan mukjizat penyembuhan suci.",
-        "base_hp": 130,
-        "base_mp": 35,
-        "str": 16,
+    "peasant": {
+        "title": "Hardy Peasant",
+        "icon": "🌾",
+        "desc": "Petani tangguh berotot liat. Bertahan hidup dengan stamina alamiah, ketabahan mental, dan insting tanah liat.",
+        "base_hp": 110,
+        "base_mp": 15,
+        "str": 14,
         "dex": 10,
-        "int": 10,
-        "wis": 14,
-        "starting_items": ["Pedang Panjang Baja", "Perisai Lambang Garuda", "Elixir Suci (x2)", "Lambang Iman Kuno"],
-        "passive": "Baju zirah suci mengurangi 3 kerusakan dari serangan musuh."
-    },
-    "sorcerer": {
-        "title": "Penyihir Bayangan (Shadow Sorcerer)",
-        "icon": "🔮",
-        "desc": "Penguasa mantra elemen petir dan kehampaan. Rapuh dalam benturan fisik namun mematikan dari kejauhan.",
-        "base_hp": 75,
-        "base_mp": 100,
-        "str": 8,
-        "dex": 14,
-        "int": 18,
+        "con": 14,
+        "int": 8,
         "wis": 12,
-        "starting_items": ["Tongkat Kristal Obsidian", "Gulungan Mantra Petir", "Ramuan Pemulih Mana (x3)", "Batu Api Kosmik"],
-        "passive": "Mendapat bonus +3 saat melakukan Uji Sihir (INT)."
+        "starting_items": ["Rusty Hoe", "Harvest Sickle", "Dry Ration Bread", "Hemp Rope (15m)"],
+        "passive": "Hardy Survivalist: Memulihkan +10 HP ekstra saat mengambil action Rest/Camp."
     },
-    "rogue": {
-        "title": "Pendekar Bayangan (Shadow Assassin)",
-        "icon": "🗡️",
-        "desc": "Bergerak tanpa jejak dalam kegelapan, ahli membobol kunci perangkap dan serangan mematikan dari belakang.",
-        "base_hp": 90,
-        "base_mp": 45,
-        "str": 10,
-        "dex": 18,
-        "int": 12,
+    "blacksmith": {
+        "title": "Smith Apprentice",
+        "icon": "🔨",
+        "desc": "Magang bengkel tempa desa. Lengan kokoh terbiasa memukul baja panas, paham titik lemah struktur logam & batu.",
+        "base_hp": 120,
+        "base_mp": 10,
+        "str": 16,
+        "dex": 9,
+        "con": 13,
+        "int": 9,
         "wis": 10,
-        "starting_items": ["Sepasang Belati Berbisa", "Kumpulan Kunci Pembobol (Lockpick)", "Bom Asap Gelap (x2)", "Jubah Samaran"],
-        "passive": "Peluang Critical Hit D20 berlaku pada angka 19 dan 20."
+        "starting_items": ["Heavy Smith Hammer", "Leather Apron", "Iron Spikes (x5)", "Grindstone"],
+        "passive": "Heavy Impact: Attack menggunakan blunt weapons mendapat bonus +2 STR Modifier."
     },
-    "berserker": {
-        "title": "Pendekar Tempur (Raging Berserker)",
-        "icon": "🪓",
-        "desc": "Pejuang buas dengan kapak raksasa yang semakin ganas dan kuat ketika darahnya bercucuran.",
-        "base_hp": 140,
+    "scholar": {
+        "title": "Village Scholar",
+        "icon": "📜",
+        "desc": "Asisten tabib dan pembaca naskah tua. Fisik ringkih namun cerdas mengurai ancient runes dan ramuan herbal.",
+        "base_hp": 80,
+        "base_mp": 55,
+        "str": 7,
+        "dex": 11,
+        "con": 9,
+        "int": 16,
+        "wis": 14,
+        "starting_items": ["Carving Knife", "Ancient Lore Diary", "Healing Herbal Salve (x2)", "Flint & Tinder"],
+        "passive": "Arcane Insight: Mendapat bonus +3 INT Check saat membaca runes, glyphs, atau spell traps."
+    },
+    "trapper": {
+        "title": "Forest Trapper",
+        "icon": "🏹",
+        "desc": "Pemburu satwa lereng bukit berkabut. Langkah hening tanpa jejak, awas jebakan, dan ahli membidik di kegelapan.",
+        "base_hp": 90,
         "base_mp": 20,
-        "str": 18,
-        "dex": 12,
-        "int": 7,
-        "wis": 9,
-        "starting_items": ["Kapak Ganda Algojo", "Cincin Darah Liar", "Daging Kering Keras", "Obor Kayu"],
-        "passive": "Jika HP di bawah 40%, semua lemparan serangan (STR) mendapat tambahan +4."
+        "str": 10,
+        "dex": 16,
+        "con": 11,
+        "int": 10,
+        "wis": 13,
+        "starting_items": ["Crude Shortbow & 10 Arrows", "Skinning Dagger", "Wire Snare Trap", "Pine Resin Torch"],
+        "passive": "Silent Stalker: Selalu mendapat Advantage (+2 DEX Check) saat Stealth atau Escape."
     }
 }
 
@@ -92,34 +96,35 @@ DEFAULT_GAME_STATE = {
     "status": "character_creation",
     "floor": 1,
     "step": 0,
+    "active_sound_theme": "creation", # creation | dungeon | danger | mystery | suspense
     "story_history": [],
     "player": {
         "name": "Danas",
-        "class_id": "paladin",
-        "class_name": "Ksatria Suci (Holy Paladin)",
-        "class_icon": "🛡️",
-        "hp": 130,
-        "max_hp": 130,
-        "mp": 35,
-        "max_mp": 35,
-        "gold": 30,
+        "class_id": "peasant",
+        "class_name": "Hardy Peasant",
+        "class_icon": "🌾",
+        "hp": 110,
+        "max_hp": 110,
+        "mp": 15,
+        "max_mp": 15,
+        "gold": 5,
         "exp": 0,
         "level": 1,
-        "stats": {"str": 16, "dex": 10, "int": 10, "wis": 14},
-        "inventory": ["Pedang Panjang Baja", "Perisai Lambang Garuda", "Elixir Suci (x2)"]
+        "stats": {"str": 14, "dex": 10, "con": 14, "int": 8, "wis": 12},
+        "inventory": ["Rusty Hoe", "Harvest Sickle", "Dry Ration Bread", "Hemp Rope (15m)"]
     },
     "scene": {
-        "chapter": "Bab 1: Pintu Masuk Makam Kuno",
-        "title": "Gerbang Besi Berkepala Naga",
-        "location": "Kedalaman Bawah Tanah Oakhaven",
-        "narrative": "Kabut pekat beraroma belerang menyelimuti tangga batu yang runtuh. Di hadapan Paduka, berdiri sebuah gerbang besi berkepala naga bermata safir yang memancarkan hawa sedingin es. Rantai segel kuno bergetar seolah menyambut kedatangan darah baru.",
+        "chapter": "Chapter 1: The Descent",
+        "title": "Collapse into the Forgotten Crypt",
+        "location": "Underground Ruins - Floor 1",
+        "narrative": "Paduka hanyalah seorang warga biasa yang mencari kayu bakar di lereng bukit berkabut. Tanpa peringatan, tanah di bawah kaki amblas runtuh seketika! Paduka terperosok ke dalam rongga makam kuno bawah tanah yang gelap, lembap, dan berbau belerang. Runtuhan batu besar telah menutup rapat jalan kembali ke atas. Di hadapan Paduka terbentang lorong batu purba yang memancarkan hawa dingin menusuk tulang.",
         "choices": [
-            {"id": "A", "text": "Hunus senjata dan dobrak gerbang dengan tenaga penuh (Uji STR - DC 12)", "type": "roll", "dc": 12, "stat": "STR"},
-            {"id": "B", "text": "Sentuh mata safir dan selaraskan energi gaib pembuka segel (Uji INT - DC 11)", "type": "roll", "dc": 11, "stat": "INT"},
-            {"id": "C", "text": "Periksa lantai obsidian untuk melucuti kawat pemicu jebakan (Uji DEX - DC 9)", "type": "roll", "dc": 9, "stat": "DEX"},
-            {"id": "D", "text": "Buka tas perbekalan, siapkan ramuan dan atur pernapasan", "type": "action"}
+            {"id": "A", "text": "Inspect the stone wall & search for weak structural points (Perception / WIS Check - DC 10)", "type": "roll", "dc": 10, "stat": "WIS"},
+            {"id": "B", "text": "Use farming/smithing tools to clear heavy debris (Athletics / STR Check - DC 12)", "type": "roll", "dc": 12, "stat": "STR"},
+            {"id": "C", "text": "Light a pine torch and stealthily navigate the corridor (Stealth / DEX Check - DC 9)", "type": "roll", "dc": 9, "stat": "DEX"},
+            {"id": "D", "text": "Take a short rest, catch breath, and inspect inventory (Action)", "type": "action"}
         ],
-        "log": ["Petualangan agung tak terbatas bersama AI Dungeon Master dimulai..."]
+        "log": ["A commoner's survival journey in the dark subterranean ruins begins..."]
     }
 }
 
@@ -186,7 +191,7 @@ class ConnectionManager:
 
 manager = ConnectionManager()
 
-# ASYNC LLM DUNGEON MASTER CALLER (GEMINI 3.7 FLASH LOW)
+# GRANDMASTER AI DUNGEON MASTER PROMPT (GEMINI 3.7 FLASH LOW)
 async def generate_infinite_story(player: Dict[str, Any], current_scene: Dict[str, Any], action_taken: str, roll_result: int, roll_status: str, history: List[str]) -> Dict[str, Any]:
     url = "http://127.0.0.1:20128/v1/chat/completions"
     headers = {
@@ -194,53 +199,61 @@ async def generate_infinite_story(player: Dict[str, Any], current_scene: Dict[st
         "Authorization": f"Bearer {NINE_ROUTER_KEY}"
     }
 
-    system_prompt = """Kamu adalah Dungeon Master (DM) Darsam legendaris untuk game RPG Tabletop Dark Fantasy berlatar dungeon kastil kuno, kutukan, monster purba, sihir terlarang, intrik mistis, dan bahaya mematikan.
-Kamu bertugas melanjutkan alur cerita yang SANGAT NYAMBUNG, KOHEKTIF, DRAMATIS, DAN PENUH KETEGANGAN berdasarkan keputusan pemain dan hasil lemparan dadu D20.
+    system_prompt = """You are Dungeon Master Darsam — an elite, atmospheric, and responsive Grandmaster TTRPG storyteller running a dark fantasy solo campaign (Zero to Hero edition).
 
-ATURAN PENTING:
-1. Cerita harus logis, berbobot (high dark fantasy lore), dan konsekuensi aksi harus terasa nyata (apakah berhasil, gagal luka, atau mendapat harta/kunci rahasia).
-2. Sediakan 4 pilihan tindakan baru (A, B, C, D) yang kreatif dan beragam (ada Uji STR, DEX, INT, WIS, CON, atau Aksi Taktis/Item).
-3. Selalu sertakan perkiraan kerusakan (damage 0-30 jika gagal) atau hadiah (gold 10-50, exp 20-80) yang rasional.
-4. Format output WAJIB HANYA JSON murni (valid JSON) tanpa awalan atau akhiran markdown triple backticks.
+PHILOSOPHY & TONE:
+- Tone: Gritty, visceral, atmospheric Dark Fantasy (inspired by Dark Souls, Ravenloft, and classic D&D).
+- Core Premise: The protagonist is an ordinary commoner fighting for survival with rustic tools, makeshift grit, and wit, gradually unearthing ancient lore, artifacts, and combat prowess.
+- Narrative Language: Indonesian with royal respect and immersive sensory descriptions (address player as 'Paduka').
+- TECHNICAL & GAMEPLAY TERMS: MUST BE IN CLEAN STANDARD ENGLISH (e.g. 'STR Check', 'DEX Check', 'INT Check', 'WIS Check', 'CON Check', 'DC 12', 'Critical Hit', 'Critical Fail', 'Success', 'Fail', 'Sneak Attack', 'Perception Check', 'Arcana Check', 'Healing Salve', 'Short Rest').
 
-SCHEMA JSON OUTPUT:
+STORYTELLING PRINCIPLES:
+1. Show, Don't Tell: Describe sensory details (the smell of ozone, cold moisture dripping on stone, the metallic scrape of bone against iron).
+2. Fail-Forward Mechanics: Failure NEVER stalls the story. A failed check creates complications, damage, loss of torches, or draws enemy attention while still moving the scene forward.
+3. Meaningful Agency: Provide 4 distinct tactical choices (A, B, C, D) with varied mechanics (Physical, Stealth, Mental/Arcane, Item/Rest).
+4. Audio Theme Control: Select the most fitting mood for the scene: 'dungeon' (exploration), 'danger' (combat/trap), 'mystery' (shrine/merchant/relic).
+5. OUTPUT CONTRACT: Output ONLY valid, pure JSON without any markdown formatting or code blocks.
+
+JSON SCHEMA:
 {
-  "chapter": "Bab X: Judul Babak",
-  "location": "Nama Tempat / Ruangan",
-  "title": "Nama Adegan / Pertemuan Spesifik",
-  "outcome_summary": "1-2 kalimat ringkas hasil aksi langsung sang pemain (misal: Tebasan pedang Paduka membelah zirah kerangka!)",
-  "narrative": "Paragraf deskripsi narasi kelanjutan situasi ruangan/tantangan baru berikutnya (3-5 kalimat atmosferik yang imersif).",
-  "hp_change": 0, // negatif jika terluka, positif jika sembuh
-  "mp_change": 0, // negatif jika pakai sihir, positif jika pulih
-  "gold_change": 15, // bonus koin yang ditemukan
-  "exp_change": 35, // pengalaman yang didapat
+  "chapter": "Chapter X: Title",
+  "location": "Specific Underground Room / Chamber Name",
+  "title": "Scene / Encounter Title",
+  "outcome_summary": "1-2 concise Indonesian sentences explaining the immediate impact of the player's action (using English technical terms).",
+  "narrative": "3-5 rich, immersive, atmospheric Indonesian sentences describing the evolving crisis and environment.",
+  "audio_theme": "dungeon" | "danger" | "mystery",
+  "hp_change": 0, // negative for damage (-5 to -25), positive for heal
+  "mp_change": 0,
+  "gold_change": 5, // coins found or looted
+  "exp_change": 25,
   "choices": [
-    {"id": "A", "text": "Deskripsi tindakan A (Uji STR - DC 12)", "type": "roll", "stat": "STR", "dc": 12},
-    {"id": "B", "text": "Deskripsi tindakan B (Uji INT - DC 11)", "type": "roll", "stat": "INT", "dc": 11},
-    {"id": "C", "text": "Deskripsi tindakan C (Uji DEX - DC 13)", "type": "roll", "stat": "DEX", "dc": 13},
-    {"id": "D", "text": "Deskripsi tindakan bertahan / gunakan item", "type": "action"}
+    {"id": "A", "text": "Action description (STR / Athletics Check - DC 12)", "type": "roll", "stat": "STR", "dc": 12},
+    {"id": "B", "text": "Action description (DEX / Stealth Check - DC 11)", "type": "roll", "stat": "DEX", "dc": 11},
+    {"id": "C", "text": "Action description (INT / Arcana Check - DC 10)", "type": "roll", "stat": "INT", "dc": 10},
+    {"id": "D", "text": "Tactical action / Use item / Take Short Rest (Action)", "type": "action"}
   ]
 }"""
 
-    user_prompt = f"""PROFIL KARAKTER:
-- Nama: {player['name']}
-- Kelas: {player['class_name']}
-- Level: {player['level']} | HP: {player['hp']}/{player['max_hp']} | MP: {player['mp']}/{player['max_mp']} | Gold: {player['gold']} G
-- Item: {', '.join(player.get('inventory', []))}
+    user_prompt = f"""PROTAGONIST PROFILE:
+- Name: {player['name']}
+- Origin / Class: {player['class_name']}
+- Stats: STR {player['stats']['str']} | DEX {player['stats']['dex']} | CON {player['stats']['con']} | INT {player['stats']['int']} | WIS {player['stats']['wis']}
+- Current Vitals: Level {player['level']} | HP: {player['hp']}/{player['max_hp']} | MP: {player['mp']}/{player['max_mp']} | Gold: {player['gold']} G
+- Equipment: {', '.join(player.get('inventory', []))}
 
-SITUASI SEBELUMNYA:
-- Bab/Lokasi: {current_scene.get('chapter')} - {current_scene.get('location')}
-- Judul Adegan: {current_scene.get('title')}
-- Narasi Lalu: {current_scene.get('narrative')}
+CURRENT SITUATION:
+- Chapter & Location: {current_scene.get('chapter')} - {current_scene.get('location')}
+- Encounter Title: {current_scene.get('title')}
+- Previous Narrative: {current_scene.get('narrative')}
 
-AKSI YANG DILAKUKAN PEMAIN:
-- Tindakan: "{action_taken}"
-- Hasil Dadu D20: {roll_result} (Status: {roll_status})
+PLAYER ACTION TAKEN:
+- Action: "{action_taken}"
+- D20 Dice Roll: {roll_result} (Result: {roll_status})
 
-RIWAYAT PERJALANAN TERAKHIR:
-{chr(10).join(history[-3:]) if history else "- Petualangan baru dimulai."}
+CHRONICLE LOG:
+{chr(10).join(history[-3:]) if history else "- Collapsed through the ground into the ancient ruins."}
 
-Tolong ciptakan kelanjutan cerita yang dramatis, saling menyambung, dan berikan 4 pilihan tindakan baru!"""
+Narrate the next chapter of this dark fantasy survival tale!"""
 
     payload = {
         "model": "ag/gemini-3.7-flash-low",
@@ -248,7 +261,7 @@ Tolong ciptakan kelanjutan cerita yang dramatis, saling menyambung, dan berikan 
             {"role": "system", "content": system_prompt},
             {"role": "user", "content": user_prompt}
         ],
-        "temperature": 0.8,
+        "temperature": 0.78,
         "max_tokens": 1200
     }
 
@@ -261,7 +274,6 @@ Tolong ciptakan kelanjutan cerita yang dramatis, saling menyambung, dan berikan 
             )
             with urllib.request.urlopen(req, timeout=12) as resp:
                 raw = resp.read().decode("utf-8")
-                # Parse SSE chunks or regular JSON
                 full_content = ""
                 for line in raw.split("\n"):
                     line = line.strip()
@@ -283,7 +295,6 @@ Tolong ciptakan kelanjutan cerita yang dramatis, saling menyambung, dan berikan 
         loop = asyncio.get_event_loop()
         content = await loop.run_in_executor(None, _call_api)
         
-        # Clean markdown codeblocks if any
         clean_json = content.strip()
         if clean_json.startswith("```json"):
             clean_json = clean_json[7:]
@@ -298,38 +309,39 @@ Tolong ciptakan kelanjutan cerita yang dramatis, saling menyambung, dan berikan 
 
     except Exception as e:
         print("LLM Generation Fallback triggered:", e)
-        # Robust Procedural Fallback
         is_success = roll_result >= 10 if roll_result > 0 else True
-        dmg = random.randint(10, 20) if not is_success else 0
-        gold = random.randint(10, 25) if is_success else 0
-        exp = 30 if is_success else 10
+        dmg = random.randint(8, 16) if not is_success else 0
+        gold = random.randint(5, 12) if is_success else 0
+        exp = 25 if is_success else 10
         return {
-            "chapter": current_scene.get("chapter", "Bab Petualangan"),
-            "location": "Kedalaman Lorong Bawah Makam",
-            "title": "Lorong Misteri yang Bergema",
-            "outcome_summary": f"Takdir Dadu ({roll_result}): Aksi Paduka {'berhasil meretas bahaya!' if is_success else 'memicu hambatan dan luka!'}",
-            "narrative": "Langkah kaki Paduka bergema di lantai batu basah. Cahaya obor menari di dinding yang dipenuhi relief pertempuran para raja kuno. Dari kejauhan, tercium aroma dupa magis dan terdengar suara tetesan air mistis.",
+            "chapter": current_scene.get("chapter", "Chapter 1: The Dark Vault"),
+            "location": "Subterranean Ruins - Floor 1",
+            "title": "Echoing Stone Chambers",
+            "outcome_summary": f"D20 Roll ({roll_result}): {'Aksi Paduka berhasil meretas rintangan!' if is_success else 'Paduka tergores bebatuan tajam dan menerima damage!'}",
+            "narrative": "Tetesan air dingin menggema di lorong batu obsidian. Bau lumut purba menyelimuti udara. Di hadapan Paduka, sebuah pintu batu berukir lambang kerajaan kuno memancarkan pendar cahaya keemasan redup.",
+            "audio_theme": "dungeon",
             "hp_change": -dmg,
             "mp_change": 0,
             "gold_change": gold,
             "exp_change": exp,
             "choices": [
-                {"id": "A", "text": "Maju dengan senjata terhunus siap bertempur (Uji STR - DC 12)", "type": "roll", "stat": "STR", "dc": 12},
-                {"id": "B", "text": "Raba dinding mencari sakelar pintu rahasia (Uji DEX - DC 11)", "type": "roll", "stat": "DEX", "dc": 11},
-                {"id": "C", "text": "Pindai keberadaan aura sihir di sekitar (Uji INT - DC 10)", "type": "roll", "stat": "INT", "dc": 10},
-                {"id": "D", "text": "Istirahat sejenak dan teguk ramuan pemulih", "type": "action"}
+                {"id": "A", "text": "Force open the reinforced stone gate (STR Check - DC 11)", "type": "roll", "stat": "STR", "dc": 11},
+                {"id": "B", "text": "Examine the glowing lock mechanism (INT / Arcana Check - DC 10)", "type": "roll", "stat": "INT", "dc": 10},
+                {"id": "C", "text": "Search for a concealed bypass passage (Perception / WIS Check - DC 9)", "type": "roll", "stat": "WIS", "dc": 9},
+                {"id": "D", "text": "Consume dry rations & rest to restore Health (Action)", "type": "action"}
             ]
         }
 
 def init_new_character(name: str, class_id: str):
     global game_state
-    c = CLASSES_INFO.get(class_id, CLASSES_INFO["paladin"])
+    c = CLASSES_INFO.get(class_id, CLASSES_INFO["peasant"])
     game_state["status"] = "playing"
     game_state["floor"] = 1
     game_state["step"] = 0
+    game_state["active_sound_theme"] = "dungeon"
     game_state["story_history"] = []
     game_state["player"] = {
-        "name": name if name.strip() else "Danas the Champion",
+        "name": name if name.strip() else "Danas",
         "class_id": class_id,
         "class_name": c["title"],
         "class_icon": c["icon"],
@@ -337,29 +349,30 @@ def init_new_character(name: str, class_id: str):
         "max_hp": c["base_hp"],
         "mp": c["base_mp"],
         "max_mp": c["base_mp"],
-        "gold": 30,
+        "gold": 5,
         "exp": 0,
         "level": 1,
         "stats": {
             "str": c["str"],
             "dex": c["dex"],
+            "con": c.get("con", 10),
             "int": c["int"],
             "wis": c["wis"]
         },
         "inventory": list(c["starting_items"])
     }
     game_state["scene"] = {
-        "chapter": "Bab 1: Gerbang Kehancuran",
-        "title": "Pintu Gerbang Besi Berkepala Naga",
-        "location": "Makam Kuno Oakhaven - Lantai 1",
-        "narrative": f"Sang {c['title']}, {game_state['player']['name']}, melangkah menuruni tangga batu berlumut. Di hadapan Paduka, berdiri sebuah gerbang besi berkepala naga bermata safir yang memancarkan hawa sedingin es. Rantai segel kuno bergetar seolah menyambut kedatangan darah baru.",
+        "chapter": "Chapter 1: The Descent",
+        "title": "Collapse into the Forgotten Crypt",
+        "location": "Underground Ruins - Floor 1",
+        "narrative": f"Sang {c['title']}, {game_state['player']['name']}, hanyalah warga biasa yang hidup sederhana di desa. Namun takdir berkata lain: saat sedang mencari kayu di bukit, tanah amblas runtuh seketika! Paduka terperosok ke dalam rongga makam kuno bawah tanah. Lubang keluar di atas tertutup reruntuhan tebal. Satu-satunya jalan bertahan hidup adalah menembus lorong batu berlumut yang dingin dan gelap di depan mata.",
         "choices": [
-            {"id": "A", "text": "Hunus senjata dan dobrak gerbang dengan tenaga penuh (Uji STR - DC 12)", "type": "roll", "dc": 12, "stat": "STR"},
-            {"id": "B", "text": "Sentuh mata safir dan selaraskan energi gaib pembuka segel (Uji INT - DC 11)", "type": "roll", "dc": 11, "stat": "INT"},
-            {"id": "C", "text": "Periksa lantai obsidian untuk melucuti kawat pemicu jebakan (Uji DEX - DC 9)", "type": "roll", "dc": 9, "stat": "DEX"},
-            {"id": "D", "text": "Buka tas perbekalan, siapkan ramuan dan atur pernapasan", "type": "action"}
+            {"id": "A", "text": "Examine the ancient wall runes to find an exit path (WIS / Perception Check - DC 10)", "type": "roll", "dc": 10, "stat": "WIS"},
+            {"id": "B", "text": "Use farming/smithing tools to clear heavy debris (STR / Athletics Check - DC 12)", "type": "roll", "dc": 12, "stat": "STR"},
+            {"id": "C", "text": "Light a torch and stealthily navigate the corridor (DEX / Stealth Check - DC 9)", "type": "roll", "dc": 9, "stat": "DEX"},
+            {"id": "D", "text": "Take a short rest, catch breath, and inspect inventory (Action)", "type": "action"}
         ],
-        "log": [f"Karakter baru '{game_state['player']['name']}' ({c['title']}) telah bangkit!"]
+        "log": [f"Commoner '{game_state['player']['name']}' ({c['title']}) begins the underground survival journey!"]
     }
     save_game()
 
@@ -370,9 +383,9 @@ async def process_live_turn(choice_id: str, choice_text: str = "", custom_text: 
     game_state["step"] = game_state.get("step", 0) + 1
     
     action_description = custom_text if custom_text else choice_text
-    roll_status = "Biasa / Tanpa Dadu"
+    roll_status = "Direct Action"
     if roll_val > 0:
-        if roll_val == 20 or (roll_val >= 19 and p.get("class_id") == "rogue"):
+        if roll_val >= 20:
             roll_status = "CRITICAL SUCCESS"
         elif roll_val == 1:
             roll_status = "CRITICAL FAIL"
@@ -393,13 +406,11 @@ async def process_live_turn(choice_id: str, choice_text: str = "", custom_text: 
 
     # Apply Stats Changes
     hp_diff = ai_response.get("hp_change", 0)
-    if hp_diff < 0 and p.get("class_id") == "paladin":
-        hp_diff = min(0, hp_diff + 3) # Paladin passive armor
-    
     p["hp"] = max(0, min(p["max_hp"], p["hp"] + hp_diff))
     p["mp"] = max(0, min(p["max_mp"], p["mp"] + ai_response.get("mp_change", 0)))
     p["gold"] = max(0, p["gold"] + ai_response.get("gold_change", 0))
     p["exp"] = p["exp"] + max(0, ai_response.get("exp_change", 20))
+    game_state["active_sound_theme"] = ai_response.get("audio_theme", "dungeon")
 
     outcome = f"🎲 [{roll_status}] {ai_response.get('outcome_summary', '')}"
     if hp_diff < 0:
@@ -409,14 +420,14 @@ async def process_live_turn(choice_id: str, choice_text: str = "", custom_text: 
     if ai_response.get("gold_change", 0) > 0:
         outcome += f" (+{ai_response['gold_change']} Gold)"
 
-    # Level Up Check
-    if p["exp"] >= 100 * p["level"]:
+    # Level Up Check (Zero to Hero Progression)
+    if p["exp"] >= 80 * p["level"]:
         p["level"] += 1
-        p["max_hp"] += 25
+        p["max_hp"] += 20
         p["hp"] = p["max_hp"]
-        p["max_mp"] += 15
+        p["max_mp"] += 10
         p["mp"] = p["max_mp"]
-        outcome += f" 🌟 LEVEL UP! Paduka mencapai Level {p['level']}!"
+        outcome += f" 🌟 LEVEL UP! Paduka naik ke Level {p['level']}! Stats & Survival Prowess meningkat!"
 
     # Append History
     game_state.setdefault("story_history", []).append(f"Aksi: {action_description} -> {ai_response.get('outcome_summary')}")
@@ -425,9 +436,9 @@ async def process_live_turn(choice_id: str, choice_text: str = "", custom_text: 
 
     # Update Scene State
     game_state["scene"]["chapter"] = ai_response.get("chapter", scene.get("chapter"))
-    game_state["scene"]["title"] = ai_response.get("title", "Ruangan Misteri")
+    game_state["scene"]["title"] = ai_response.get("title", "Dungeon Chamber")
     game_state["scene"]["location"] = ai_response.get("location", scene.get("location"))
-    game_state["scene"]["narrative"] = ai_response.get("narrative", "Kabut dungeon semakin tebal...")
+    game_state["scene"]["narrative"] = ai_response.get("narrative", "Suasana gua semakin mencekam...")
     game_state["scene"]["choices"] = ai_response.get("choices", scene.get("choices"))
     game_state["scene"]["log"].append(outcome)
     if len(game_state["scene"]["log"]) > 5:
@@ -479,12 +490,12 @@ async def ws_controller(websocket: WebSocket):
 
             if action_type == "create_character":
                 char_name = data.get("name", "Danas")
-                class_id = data.get("class_id", "paladin")
+                class_id = data.get("class_id", "peasant")
                 init_new_character(char_name, class_id)
                 await manager.broadcast_all({
                     "type": "state_update",
                     "state": game_state,
-                    "outcome": f"Karakter {game_state['player']['name']} telah siap bertualang!"
+                    "outcome": f"Karakter {game_state['player']['name']} telah siap memulai petualangan!"
                 })
 
             elif action_type == "select_choice":
@@ -516,7 +527,7 @@ async def ws_controller(websocket: WebSocket):
                 roll_result = random.randint(1, 20)
                 await manager.broadcast_all({
                     "type": "dice_rolling",
-                    "choice_text": f"Aksi Bebas: {custom_text}",
+                    "choice_text": f"Custom Action: {custom_text}",
                     "stat": "D20"
                 })
                 await asyncio.sleep(2.5)
@@ -534,7 +545,7 @@ async def ws_controller(websocket: WebSocket):
                 game_state["status"] = "character_creation"
                 if os.path.exists(SAVE_FILE):
                     os.remove(SAVE_FILE)
-                await manager.broadcast_all({"type": "state_update", "state": game_state, "outcome": "Game telah di-reset ke Ruang Penciptaan Karakter."})
+                await manager.broadcast_all({"type": "state_update", "state": game_state, "outcome": "Game di-reset ke Ruang Asal-Usul Karakter."})
 
     except WebSocketDisconnect:
         await manager.disconnect_controller(websocket)
