@@ -1,0 +1,192 @@
+{
+  "status": "playing",
+  "floor": 1,
+  "step": 2,
+  "active_sound_theme": "danger",
+  "torch_turns": 11,
+  "rations": 3,
+  "story_history": [],
+  "player": {
+    "name": "Danas",
+    "class_id": "blacksmith",
+    "class_name": "Smith Apprentice",
+    "class_icon": "\ud83d\udd28",
+    "level": 1,
+    "exp": 0,
+    "exp_next": 75,
+    "hp": 125,
+    "max_hp": 125,
+    "mp": 10,
+    "max_mp": 10,
+    "gold": 27,
+    "stats": {
+      "str": 16,
+      "dex": 9,
+      "con": 14,
+      "int": 9,
+      "wis": 10,
+      "cha": 8
+    },
+    "equipped": {
+      "main_hand": {
+        "id": "w_smith_hammer",
+        "name": "Heavy Smith Hammer",
+        "rarity": "uncommon",
+        "type": "weapon",
+        "slot": "main_hand",
+        "icon": "\ud83d\udd28",
+        "bonus": {
+          "str": 2,
+          "atk": 6
+        },
+        "val": 8
+      },
+      "off_hand": null,
+      "armor": {
+        "id": "a_apron",
+        "name": "Thick Leather Apron",
+        "rarity": "common",
+        "type": "armor",
+        "slot": "armor",
+        "icon": "\ud83e\uddba",
+        "bonus": {
+          "con": 1,
+          "def": 2
+        },
+        "val": 5
+      },
+      "accessory": null
+    },
+    "inventory": [
+      {
+        "id": "m_spikes",
+        "name": "Iron Spikes (x5)",
+        "rarity": "common",
+        "type": "material",
+        "icon": "\ud83d\udd29",
+        "desc": "Wedge doors or climb walls",
+        "val": 3
+      },
+      {
+        "id": "m_whetstone",
+        "name": "Smith Whetstone",
+        "rarity": "common",
+        "type": "consumable",
+        "icon": "\ud83e\udea8",
+        "effect": "buff_atk_2",
+        "desc": "+2 ATK on equipped weapon",
+        "val": 4
+      },
+      {
+        "id": "c_ration_1",
+        "name": "Smoked Meat Jerky",
+        "rarity": "common",
+        "type": "consumable",
+        "icon": "\ud83e\udd69",
+        "effect": "heal_hp_25",
+        "desc": "Restores 25 HP",
+        "val": 3
+      },
+      {
+        "id": "c_torch_1",
+        "name": "Pine Pitch Torch",
+        "rarity": "common",
+        "type": "consumable",
+        "icon": "\ud83d\udd6f\ufe0f",
+        "effect": "add_light_5",
+        "desc": "+5 Torch Light turns",
+        "val": 3
+      },
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null
+    ],
+    "skills": [
+      {
+        "id": "sk_anvil",
+        "name": "Anvil Crush",
+        "cost_mp": 5,
+        "cd": 3,
+        "desc": "Deals massive STR-based blunt damage and stuns the monster for 1 turn."
+      }
+    ],
+    "status_effects": []
+  },
+  "current_node": {
+    "type": "combat",
+    "title": "Collapse into the Forgotten Crypt",
+    "location": "Subterranean Vault - Floor 1",
+    "chapter": "Chapter 1: The Descent"
+  },
+  "monster": {
+    "name": "Corrosive Slime Mass (Lv.1)",
+    "title": "Corrosive Slime Mass",
+    "icon": "\ud83e\udda0",
+    "desc": "Acidic Jelly Organism",
+    "level": 1,
+    "tier": "common",
+    "hp": 26,
+    "max_hp": 26,
+    "attack": 6,
+    "exp_reward": 15,
+    "gold_reward": 10,
+    "status": "active"
+  },
+  "merchant_stock": [],
+  "scene": {
+    "chapter": "Chapter 1: The Descent",
+    "title": "Unearthing the Restless Crypt",
+    "location": "Subterranean Vault - Antechamber of Bones",
+    "narrative": "Debu batu kapur yang pekat perlahan memudar di udara lembap yang berbau anyir dan belerang dingin. Di balik reruntuhan yang hancur berkeping-keping, terbentang sebuah koridor batu berlapis lumut purba, dihiasi tengkorak-tengkorak retak yang tertanam di dinding. Namun, dentuman dahsyat palu Paduka rupanya membangunkan seonggok kerangka prajurit kuno berkarat yang bangkit dengan mata menyala merah saga, merayap keluar dari celah sarkofagus dengan pedang tumpul terhunus.",
+    "choices": [
+      {
+        "id": "A",
+        "text": "Ayunkan Heavy Smith Hammer langsung ke persendian tengkorak lawan (STR Check - DC 12)",
+        "type": "roll",
+        "stat": "STR",
+        "dc": 12
+      },
+      {
+        "id": "B",
+        "text": "Lompat mundur menghindari sabetan pedang lalu incar titik lemahnya (DEX Check - DC 13)",
+        "type": "roll",
+        "stat": "DEX",
+        "dc": 13
+      },
+      {
+        "id": "C",
+        "text": "Analisis konstruksi tulang rapuh monster untuk mencari celah paling fatal (WIS Check - DC 11)",
+        "type": "roll",
+        "stat": "WIS",
+        "dc": 11
+      },
+      {
+        "id": "D",
+        "text": "Pasang kuda-kuda bertahan kokoh di balik Thick Leather Apron (Shield Wall Action)",
+        "type": "action"
+      }
+    ],
+    "log": [
+      "Commoner 'Danas' (Smith Apprentice) begins the underground survival journey!",
+      "\ud83c\udfb2 [CRITICAL SUCCESS] Critical Success! Ayunan bertenaga palu tempa Paduka menghancurkan bongkahan batu besar berkeping-keping seketika, membuka celah lorong sekaligus menyingkap kantung koin kuno tanpa menguras stamina."
+    ]
+  }
+}
