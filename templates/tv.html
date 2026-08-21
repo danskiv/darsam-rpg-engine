@@ -9,7 +9,7 @@
         @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Plus+Jakarta+Sans:wght@400;600;700&display=swap');
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
-            background-color: #08090c;
+            background-color: #06070a;
             color: #e2e8f0;
             overflow: hidden;
         }
@@ -17,20 +17,10 @@
             font-family: 'Cinzel', serif;
         }
         .glow-gold {
-            text-shadow: 0 0 20px rgba(234, 179, 8, 0.4);
-        }
-        .glow-red {
-            text-shadow: 0 0 20px rgba(239, 68, 68, 0.5);
+            text-shadow: 0 0 25px rgba(245, 158, 11, 0.45);
         }
         .glow-cyan {
-            text-shadow: 0 0 20px rgba(6, 182, 212, 0.5);
-        }
-        @keyframes pulse-slow {
-            0%, 100% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.85; transform: scale(1.02); }
-        }
-        .animate-pulse-slow {
-            animation: pulse-slow 3s infinite ease-in-out;
+            text-shadow: 0 0 25px rgba(6, 182, 212, 0.5);
         }
         @keyframes roll-shake {
             0% { transform: rotate(0deg) scale(1); }
@@ -40,62 +30,119 @@
             100% { transform: rotate(0deg) scale(1); }
         }
         .animate-roll {
-            animation: roll-shake 0.3s infinite linear;
+            animation: roll-shake 0.25s infinite linear;
         }
     </style>
 </head>
 <body class="h-screen w-screen flex flex-col justify-between p-8 select-none">
 
+    <!-- CHARACTER CREATION SCREEN OVERLAY (TV) -->
+    <div id="creation-overlay" class="hidden absolute inset-0 bg-[#06070a] z-40 flex flex-col justify-between p-12">
+        <div class="text-center space-y-3">
+            <p class="text-xs uppercase tracking-[0.3em] font-bold text-amber-500">RUANG PENCIPTAAN TAKDIR</p>
+            <h1 class="text-5xl font-black font-cinzel text-amber-400 glow-gold">Bangkitkan Sang Ksatria</h1>
+            <p class="text-zinc-400 text-sm">Pilih Job Karakter dan tentukan Nama Sang Juara melalui layar HP Paduka...</p>
+        </div>
+
+        <div class="grid grid-cols-4 gap-6 my-auto">
+            <!-- Paladin Card -->
+            <div class="bg-zinc-900/60 border border-zinc-800 p-6 rounded-3xl space-y-4 text-center relative overflow-hidden">
+                <div class="text-5xl">🛡️</div>
+                <h3 class="text-xl font-bold font-cinzel text-amber-300">Holy Paladin</h3>
+                <p class="text-xs text-zinc-400 leading-relaxed">Ksatria Zirah Baja pelindung suci. Tahan banting dengan HP tinggi.</p>
+                <div class="bg-zinc-950/80 p-2.5 rounded-xl text-[11px] text-zinc-300 font-mono">
+                    HP: 130 • STR: 16 • WIS: 14
+                </div>
+            </div>
+
+            <!-- Sorcerer Card -->
+            <div class="bg-zinc-900/60 border border-zinc-800 p-6 rounded-3xl space-y-4 text-center relative overflow-hidden">
+                <div class="text-5xl">🔮</div>
+                <h3 class="text-xl font-bold font-cinzel text-cyan-300">Shadow Sorcerer</h3>
+                <p class="text-xs text-zinc-400 leading-relaxed">Penguasa mantra petir & kehampaan kosmik. Damage dahsyat jarak jauh.</p>
+                <div class="bg-zinc-950/80 p-2.5 rounded-xl text-[11px] text-zinc-300 font-mono">
+                    HP: 75 • MP: 100 • INT: 18
+                </div>
+            </div>
+
+            <!-- Rogue Card -->
+            <div class="bg-zinc-900/60 border border-zinc-800 p-6 rounded-3xl space-y-4 text-center relative overflow-hidden">
+                <div class="text-5xl">🗡️</div>
+                <h3 class="text-xl font-bold font-cinzel text-emerald-300">Shadow Assassin</h3>
+                <p class="text-xs text-zinc-400 leading-relaxed">Ahli belati senyap & lockpick. Memiliki peluang Critical Hit D20 ganda.</p>
+                <div class="bg-zinc-950/80 p-2.5 rounded-xl text-[11px] text-zinc-300 font-mono">
+                    HP: 90 • DEX: 18 • INT: 12
+                </div>
+            </div>
+
+            <!-- Berserker Card -->
+            <div class="bg-zinc-900/60 border border-zinc-800 p-6 rounded-3xl space-y-4 text-center relative overflow-hidden">
+                <div class="text-5xl">🪓</div>
+                <h3 class="text-xl font-bold font-cinzel text-red-400">Raging Berserker</h3>
+                <p class="text-xs text-zinc-400 leading-relaxed">Pejuang kapak buas. Semakin darahnya tipis, kekuatannya kian tak terbendung.</p>
+                <div class="bg-zinc-950/80 p-2.5 rounded-xl text-[11px] text-zinc-300 font-mono">
+                    HP: 140 • STR: 18 • DEX: 12
+                </div>
+            </div>
+        </div>
+
+        <div class="flex justify-between items-center text-xs text-zinc-500 border-t border-zinc-900 pt-4">
+            <span class="text-amber-400 font-mono font-bold">📱 Menunggu input konfigurasi dari HP...</span>
+            <span class="text-emerald-400 font-semibold">● Live Session Active</span>
+        </div>
+    </div>
+
+    <!-- MAIN GAMEPLAY SCREEN (TV) -->
     <!-- Top Status Bar -->
-    <header class="flex justify-between items-center border-b border-zinc-800 pb-4">
+    <header class="flex justify-between items-center border-b border-zinc-800/80 pb-4">
         <div class="flex items-center space-x-4">
-            <div class="w-12 h-12 rounded-xl bg-gradient-to-tr from-amber-600 to-yellow-400 flex items-center justify-center font-cinzel font-bold text-2xl text-black shadow-lg shadow-amber-500/20">
-                ⚔️
+            <div id="player-icon" class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-amber-600 to-yellow-400 flex items-center justify-center text-2xl shadow-lg shadow-amber-500/20">
+                🛡️
             </div>
             <div>
-                <h1 class="text-2xl font-bold font-cinzel tracking-wider text-amber-400 glow-gold" id="player-name">Danas the Champion</h1>
-                <p class="text-xs uppercase tracking-widest text-zinc-400 font-semibold" id="player-class">Spellblade Knight • Level 1</p>
+                <h1 class="text-2xl font-bold font-cinzel tracking-wider text-amber-400 glow-gold" id="player-name">Danas</h1>
+                <p class="text-xs uppercase tracking-widest text-zinc-400 font-semibold" id="player-class">Holy Paladin • Level 1 (EXP: 0/100)</p>
             </div>
         </div>
 
         <!-- Resource Stats -->
-        <div class="flex items-center space-x-8">
+        <div class="flex items-center space-x-6">
             <!-- HP -->
-            <div class="flex items-center space-x-3 bg-zinc-900/80 px-4 py-2 rounded-xl border border-red-950/60">
+            <div class="flex items-center space-x-3 bg-zinc-900/80 px-4 py-2 rounded-2xl border border-red-950/60">
                 <span class="text-xl">❤️</span>
                 <div>
-                    <div class="flex justify-between text-xs font-bold mb-1">
+                    <div class="flex justify-between text-[11px] font-bold mb-1">
                         <span class="text-red-400">HEALTH</span>
-                        <span id="hp-text" class="text-zinc-200">100 / 100</span>
+                        <span id="hp-text" class="text-zinc-200">130 / 130</span>
                     </div>
-                    <div class="w-36 h-2.5 bg-zinc-800 rounded-full overflow-hidden">
+                    <div class="w-32 h-2.5 bg-zinc-800 rounded-full overflow-hidden">
                         <div id="hp-bar" class="h-full bg-red-600 transition-all duration-500" style="width: 100%;"></div>
                     </div>
                 </div>
             </div>
 
             <!-- MP -->
-            <div class="flex items-center space-x-3 bg-zinc-900/80 px-4 py-2 rounded-xl border border-cyan-950/60">
+            <div class="flex items-center space-x-3 bg-zinc-900/80 px-4 py-2 rounded-2xl border border-cyan-950/60">
                 <span class="text-xl">✨</span>
                 <div>
-                    <div class="flex justify-between text-xs font-bold mb-1">
+                    <div class="flex justify-between text-[11px] font-bold mb-1">
                         <span class="text-cyan-400">MANA</span>
-                        <span id="mp-text" class="text-zinc-200">50 / 50</span>
+                        <span id="mp-text" class="text-zinc-200">35 / 35</span>
                     </div>
-                    <div class="w-36 h-2.5 bg-zinc-800 rounded-full overflow-hidden">
+                    <div class="w-32 h-2.5 bg-zinc-800 rounded-full overflow-hidden">
                         <div id="mp-bar" class="h-full bg-cyan-500 transition-all duration-500" style="width: 100%;"></div>
                     </div>
                 </div>
             </div>
 
             <!-- Gold -->
-            <div class="flex items-center space-x-2 bg-amber-950/30 px-4 py-2 rounded-xl border border-amber-900/40">
-                <span class="text-xl">🪙</span>
-                <span id="gold-text" class="font-cinzel text-lg font-bold text-amber-400">25 G</span>
+            <div class="flex items-center space-x-2 bg-amber-950/30 px-3.5 py-2 rounded-2xl border border-amber-900/40">
+                <span class="text-lg">🪙</span>
+                <span id="gold-text" class="font-cinzel text-base font-bold text-amber-400">30 G</span>
             </div>
 
             <!-- Connection Indicator -->
-            <div class="flex items-center space-x-2 bg-emerald-950/40 px-3 py-1.5 rounded-lg border border-emerald-800/40">
+            <div class="flex items-center space-x-2 bg-emerald-950/40 px-3 py-1.5 rounded-xl border border-emerald-800/40">
                 <div class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></div>
                 <span class="text-xs text-emerald-300 font-semibold tracking-wider">LIVE TV</span>
             </div>
@@ -105,54 +152,54 @@
     <!-- Main Center Area -->
     <main class="grid grid-cols-12 gap-8 my-auto items-center">
         <!-- Narrative Area -->
-        <div class="col-span-8 space-y-6">
-            <div class="space-y-2">
-                <div class="flex items-center space-x-2 text-amber-400 text-sm font-semibold tracking-widest uppercase">
-                    <span>📍</span>
-                    <span id="scene-location">Bawah Tanah Kastil Oakhaven</span>
+        <div class="col-span-8 space-y-5">
+            <div class="space-y-1">
+                <div class="flex items-center space-x-3 text-amber-400 text-xs font-semibold tracking-widest uppercase">
+                    <span id="scene-chapter" class="bg-amber-950/60 border border-amber-800/60 px-2.5 py-0.5 rounded-md">Bab 1</span>
+                    <span id="scene-location">📍 Makam Kuno Oakhaven</span>
                 </div>
-                <h2 id="scene-title" class="text-4xl font-bold font-cinzel text-zinc-100 tracking-wide glow-gold">
-                    Gerbang Kehancuran: Makam Terlupakan
+                <h2 id="scene-title" class="text-3xl font-bold font-cinzel text-zinc-100 tracking-wide glow-gold pt-1">
+                    Pintu Gerbang Besi Berkepala Naga
                 </h2>
             </div>
 
-            <div class="relative bg-gradient-to-b from-zinc-900/90 to-zinc-950/90 p-6 rounded-2xl border border-zinc-800 shadow-2xl backdrop-blur">
-                <p id="scene-narrative" class="text-xl leading-relaxed text-zinc-300 font-normal">
-                    Kabut pekat beraroma belerang menyelimuti tangga batu yang runtuh. Di hadapan Paduka, berdiri sebuah gerbang besi berkepala naga bermata safir yang bersinar redup. Suara rantai berdencing dari dalam kegelapan, diiringi hembusan angin sedingin es.
+            <div class="relative bg-gradient-to-b from-zinc-900/90 to-zinc-950/90 p-6 rounded-3xl border border-zinc-800 shadow-2xl backdrop-blur">
+                <p id="scene-narrative" class="text-lg leading-relaxed text-zinc-300 font-normal">
+                    Kabut pekat beraroma belerang menyelimuti tangga batu yang runtuh...
                 </p>
                 <!-- Outcome Highlight Banner -->
-                <div id="outcome-banner" class="hidden mt-4 p-4 rounded-xl bg-amber-950/40 border border-amber-500/50 text-amber-200 font-semibold text-lg animate-pulse-slow">
+                <div id="outcome-banner" class="hidden mt-4 p-4 rounded-2xl bg-amber-950/40 border border-amber-500/50 text-amber-200 font-semibold text-base">
                     <!-- Populated by JS -->
                 </div>
             </div>
 
             <!-- Choices Grid on TV -->
-            <div class="space-y-3">
-                <p class="text-xs uppercase font-bold tracking-widest text-zinc-400">PILIHAN TINDAKAN DI HP:</p>
-                <div id="choices-container" class="grid grid-cols-2 gap-4">
+            <div class="space-y-2.5">
+                <p class="text-[11px] uppercase font-bold tracking-widest text-zinc-400">PILIHAN TINDAKAN DI HP:</p>
+                <div id="choices-container" class="grid grid-cols-2 gap-3.5">
                     <!-- Generated Dynamically -->
                 </div>
             </div>
         </div>
 
         <!-- Right Side: Dice Roll / Visual Focus Area -->
-        <div class="col-span-4 flex flex-col items-center justify-center p-6 bg-zinc-900/40 rounded-3xl border border-zinc-800/80 min-h-[420px] relative overflow-hidden">
+        <div class="col-span-4 flex flex-col items-center justify-center p-6 bg-zinc-900/40 rounded-3xl border border-zinc-800/80 min-h-[440px] relative overflow-hidden">
             
             <!-- Default Atmosphere Badge -->
             <div id="dice-idle-view" class="text-center space-y-4">
-                <div class="w-32 h-32 mx-auto rounded-3xl bg-zinc-800/50 border border-zinc-700/60 flex items-center justify-center text-6xl shadow-inner">
+                <div class="w-28 h-28 mx-auto rounded-3xl bg-zinc-800/50 border border-zinc-700/60 flex items-center justify-center text-5xl shadow-inner">
                     🏰
                 </div>
                 <div class="space-y-1">
-                    <p class="font-cinzel text-lg font-bold text-zinc-300">Dungeon Master Darsam</p>
-                    <p class="text-xs text-zinc-400">Menunggu keputusan Paduka dari HP...</p>
+                    <p class="font-cinzel text-base font-bold text-zinc-200">Dungeon Master Darsam</p>
+                    <p class="text-xs text-zinc-400">Menanti keputusan Sang Ksatria dari HP...</p>
                 </div>
             </div>
 
             <!-- Active Dice Roll Overlay -->
             <div id="dice-active-view" class="hidden flex flex-col items-center justify-center space-y-4">
-                <p id="dice-label" class="text-sm uppercase font-bold tracking-widest text-amber-400">UJI TANTANGAN DADU D20</p>
-                <div id="dice-box" class="w-36 h-36 rounded-3xl bg-gradient-to-br from-amber-600 via-yellow-500 to-amber-700 flex items-center justify-center text-6xl font-cinzel font-extrabold text-black shadow-2xl shadow-amber-500/40 animate-roll">
+                <p id="dice-label" class="text-xs uppercase font-bold tracking-widest text-amber-400">UJI TANTANGAN DADU D20</p>
+                <div id="dice-box" class="w-32 h-32 rounded-3xl bg-gradient-to-br from-amber-600 via-yellow-500 to-amber-700 flex items-center justify-center text-5xl font-cinzel font-extrabold text-black shadow-2xl shadow-amber-500/40 animate-roll">
                     ?
                 </div>
                 <p id="dice-subtext" class="text-xs text-zinc-300 animate-pulse">Menggelindingkan takdir...</p>
@@ -160,9 +207,9 @@
 
             <!-- Log History Drawer -->
             <div class="w-full mt-6 pt-4 border-t border-zinc-800/60">
-                <p class="text-[10px] uppercase font-bold tracking-widest text-zinc-400 mb-2">CATATAN PETUALANGAN TERAKHIR:</p>
+                <p class="text-[10px] uppercase font-bold tracking-widest text-zinc-400 mb-2">CATATAN PERISTIWA TERAKHIR:</p>
                 <ul id="log-list" class="space-y-1 text-xs text-zinc-400">
-                    <li class="truncate">• Petualangan di Makam Terlupakan telah dimulai...</li>
+                    <li class="truncate">• Petualangan dimulai...</li>
                 </ul>
             </div>
         </div>
@@ -174,7 +221,7 @@
             <span>📱 Buka di HP Paduka:</span>
             <span class="font-mono bg-zinc-800 text-amber-400 px-2 py-0.5 rounded font-bold">http://10.10.10.1:8090/controller</span>
         </div>
-        <p>⚔️ Engine: FastAPI WebSocket • Dark Fantasy Edition</p>
+        <p>⚔️ Engine: FastAPI WebSocket • Dark Fantasy Edition (Auto-Save Active)</p>
     </footer>
 
     <script>
@@ -196,11 +243,14 @@
 
         function handleMessage(data) {
             if (data.type === "init" || data.type === "state_update") {
-                updateUI(data.state);
-                if (data.outcome) {
-                    showOutcome(data.outcome);
+                if (data.state.status === "character_creation") {
+                    document.getElementById('creation-overlay').classList.remove('hidden');
+                } else {
+                    document.getElementById('creation-overlay').classList.add('hidden');
+                    updateUI(data.state);
+                    if (data.outcome) showOutcome(data.outcome);
+                    resetDiceView();
                 }
-                resetDiceView();
             } else if (data.type === "dice_rolling") {
                 triggerDiceRolling(data.choice_text, data.stat);
             } else if (data.type === "dice_result") {
@@ -213,14 +263,16 @@
             const s = state.scene;
 
             document.getElementById('player-name').innerText = p.name;
-            document.getElementById('player-class').innerText = `${p.class} • Level 1`;
+            document.getElementById('player-icon').innerText = p.class_icon || '⚔️';
+            document.getElementById('player-class').innerText = `${p.class_name} • Level ${p.level || 1} (EXP: ${p.exp || 0}/${(p.level||1)*100})`;
             document.getElementById('hp-text').innerText = `${p.hp} / ${p.max_hp}`;
             document.getElementById('hp-bar').style.width = `${(p.hp / p.max_hp) * 100}%`;
             document.getElementById('mp-text').innerText = `${p.mp} / ${p.max_mp}`;
             document.getElementById('mp-bar').style.width = `${(p.mp / p.max_mp) * 100}%`;
             document.getElementById('gold-text').innerText = `${p.gold} G`;
 
-            document.getElementById('scene-location').innerText = s.location;
+            document.getElementById('scene-chapter').innerText = s.chapter || 'Bab 1';
+            document.getElementById('scene-location').innerText = `📍 ${s.location}`;
             document.getElementById('scene-title').innerText = s.title;
             document.getElementById('scene-narrative').innerText = s.narrative;
 
@@ -228,9 +280,9 @@
             container.innerHTML = '';
             s.choices.forEach(c => {
                 const div = document.createElement('div');
-                div.className = "flex items-center space-x-3 p-3.5 rounded-xl bg-zinc-900/70 border border-zinc-800 text-zinc-200 text-sm";
+                div.className = "flex items-center space-x-3 p-3 rounded-2xl bg-zinc-900/70 border border-zinc-800 text-zinc-200 text-sm";
                 div.innerHTML = `
-                    <span class="w-7 h-7 rounded-lg bg-amber-500/20 text-amber-400 font-cinzel font-bold flex items-center justify-center border border-amber-500/30">${c.id}</span>
+                    <span class="w-7 h-7 rounded-xl bg-amber-500/20 text-amber-400 font-cinzel font-bold flex items-center justify-center border border-amber-500/30 flex-shrink-0">${c.id}</span>
                     <span class="truncate">${c.text}</span>
                 `;
                 container.appendChild(div);
@@ -257,7 +309,7 @@
             document.getElementById('dice-active-view').classList.remove('hidden');
             document.getElementById('dice-label').innerText = `UJI TANTANGAN ${stat}`;
             const box = document.getElementById('dice-box');
-            box.className = "w-36 h-36 rounded-3xl bg-gradient-to-br from-amber-600 via-yellow-500 to-amber-700 flex items-center justify-center text-6xl font-cinzel font-extrabold text-black shadow-2xl shadow-amber-500/40 animate-roll";
+            box.className = "w-32 h-32 rounded-3xl bg-gradient-to-br from-amber-600 via-yellow-500 to-amber-700 flex items-center justify-center text-5xl font-cinzel font-extrabold text-black shadow-2xl shadow-amber-500/40 animate-roll";
             box.innerText = "?";
             document.getElementById('dice-subtext').innerText = choiceText;
         }
@@ -266,17 +318,17 @@
             const box = document.getElementById('dice-box');
             box.classList.remove('animate-roll');
             box.innerText = val;
-            if (val === 20) {
-                box.className = "w-36 h-36 rounded-3xl bg-gradient-to-br from-emerald-500 to-green-600 flex items-center justify-center text-7xl font-cinzel font-black text-white shadow-2xl shadow-green-500/80 scale-110 transition-transform";
+            if (val >= 19) {
+                box.className = "w-32 h-32 rounded-3xl bg-gradient-to-br from-emerald-500 to-green-600 flex items-center justify-center text-6xl font-cinzel font-black text-white shadow-2xl shadow-green-500/80 scale-105 transition-transform";
                 document.getElementById('dice-subtext').innerText = "🔥 CRITICAL SUCCESS!";
             } else if (val === 1) {
-                box.className = "w-36 h-36 rounded-3xl bg-gradient-to-br from-red-600 to-rose-900 flex items-center justify-center text-7xl font-cinzel font-black text-white shadow-2xl shadow-red-500/80 scale-110 transition-transform";
+                box.className = "w-32 h-32 rounded-3xl bg-gradient-to-br from-red-600 to-rose-900 flex items-center justify-center text-6xl font-cinzel font-black text-white shadow-2xl shadow-red-500/80 scale-105 transition-transform";
                 document.getElementById('dice-subtext').innerText = "💀 CRITICAL FAIL!";
             } else if (val >= 10) {
-                box.className = "w-36 h-36 rounded-3xl bg-gradient-to-br from-blue-600 to-cyan-500 flex items-center justify-center text-7xl font-cinzel font-black text-white shadow-2xl shadow-cyan-500/60 scale-105 transition-transform";
+                box.className = "w-32 h-32 rounded-3xl bg-gradient-to-br from-blue-600 to-cyan-500 flex items-center justify-center text-6xl font-cinzel font-black text-white shadow-2xl scale-105 transition-transform";
                 document.getElementById('dice-subtext').innerText = "⚔️ SUCCESS";
             } else {
-                box.className = "w-36 h-36 rounded-3xl bg-gradient-to-br from-zinc-700 to-zinc-900 flex items-center justify-center text-7xl font-cinzel font-black text-red-400 shadow-xl border border-red-500/40";
+                box.className = "w-32 h-32 rounded-3xl bg-gradient-to-br from-zinc-700 to-zinc-900 flex items-center justify-center text-6xl font-cinzel font-black text-red-400 border border-red-500/40";
                 document.getElementById('dice-subtext').innerText = "⚠️ FAIL";
             }
         }
