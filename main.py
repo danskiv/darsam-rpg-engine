@@ -8,7 +8,7 @@ from fastapi.responses import HTMLResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 
-app = FastAPI(title="Darsam RPG Dungeon Engine - Advanced Edition")
+app = FastAPI(title="Darsam RPG Dungeon Engine - Master Edition")
 
 os.makedirs("/home/ubuntu/Github/darsam-rpg-engine/static", exist_ok=True)
 os.makedirs("/home/ubuntu/Github/darsam-rpg-engine/templates", exist_ok=True)
@@ -74,8 +74,97 @@ CLASSES_INFO = {
     }
 }
 
+DUNGEON_BIOMES = [
+    {
+        "chapter": "Bab 1: Gerbang Kehancuran",
+        "location": "Makam Kuno Oakhaven - Lantai 1",
+        "title": "Pintu Gerbang Besi Berkepala Naga",
+        "narrative": "Kabut pekat beraroma belerang menyelimuti tangga batu yang runtuh. Di hadapan Paduka, berdiri sebuah gerbang besi berkepala naga bermata safir yang memancarkan hawa sedingin es. Rantai segel kuno bergetar seolah menyambut kedatangan darah baru.",
+        "choices": [
+            {"id": "A", "text": "Hunus senjata dan dobrak gerbang dengan tenaga penuh (Uji STR - DC 12)", "type": "roll", "dc": 12, "stat": "STR"},
+            {"id": "B", "text": "Sentuh mata safir dan selaraskan energi gaib pembuka segel (Uji INT - DC 11)", "type": "roll", "dc": 11, "stat": "INT"},
+            {"id": "C", "text": "Periksa lantai obsidian untuk melucuti kawat pemicu jebakan (Uji DEX - DC 9)", "type": "roll", "dc": 9, "stat": "DEX"},
+            {"id": "D", "text": "Buka tas perbekalan, siapkan ramuan dan atur pernapasan", "type": "action"}
+        ]
+    },
+    {
+        "chapter": "Bab 2: Aula Tulang & Altar Obsidian",
+        "location": "Kubah Kematian - Lantai 2",
+        "title": "Altar Jantung Kegelapan",
+        "narrative": "Lantai marmer hitam retak ditaburi ribuan tengkorak ksatria masa lalu. Di atas altar melayang kristal berdenyut berwarna merah darah. Dua Prajurit Kerangka Raksasa berpedang api bangkit dari tumpukan tulang!",
+        "choices": [
+            {"id": "A", "text": "Ayunkan serangan putar dahsyat menghantam kedua kerangka (Uji STR - DC 13)", "type": "roll", "dc": 13, "stat": "STR"},
+            {"id": "B", "text": "Keluarkan mantra badai halilintar untuk menghancurkan kristal altar (Uji INT - DC 12)", "type": "roll", "dc": 12, "stat": "INT"},
+            {"id": "C", "text": "Menyelinap di balik bayangan pilar dan tusuk titik lemah inti tengkorak (Uji DEX - DC 14)", "type": "roll", "dc": 14, "stat": "DEX"},
+            {"id": "D", "text": "Lemparkan koin perak kuno untuk mengacaukan pandangan sihir musuh", "type": "action"}
+        ]
+    },
+    {
+        "chapter": "Bab 3: Labirin Air Terjun Beracun",
+        "location": "Gua Jamur Bercahaya - Lantai 3",
+        "title": "Jembatan Batu Gantung yang Rapuh",
+        "narrative": "Suara gemuruh air terjun asam kehijauan menggema di gua raksasa. Jembatan tali berlumut bergoyang tertiup angin bawah tanah. Di seberang, seekor Chimera Bersayap Kelelawar sedang tertidur menjaga peti harta karun berlapis emas.",
+        "choices": [
+            {"id": "A", "text": "Melangkah perlahan menyeberangi jembatan tanpa mengeluarkan suara (Uji DEX - DC 12)", "type": "roll", "dc": 12, "stat": "DEX"},
+            {"id": "B", "text": "Lontarkan panah/mantra jarak jauh tepat ke leher Chimera (Uji DEX/INT - DC 14)", "type": "roll", "dc": 14, "stat": "DEX"},
+            {"id": "C", "text": "Pelajari aliran angin dan temukan jalur tebing alternatif (Uji WIS - DC 10)", "type": "roll", "dc": 10, "stat": "WIS"},
+            {"id": "D", "text": "Teguk ramuan stamina dan siapkan posisi tempur", "type": "action"}
+        ]
+    },
+    {
+        "chapter": "Bab 4: Singgasana Raja Terkutuk",
+        "location": "Kuil Kehampaan - Lantai Terdalam",
+        "title": "Kemunculan Sang Lich Lord Malakor",
+        "narrative": "Singgasana dari besi tempa neraka menjulang tinggi. Sesosok Lich purba berjubah ungu gelap melayang turun dengan tongkat bermata intan hitam. Matanya menyala biru menusuk jiwa. 'Siapa yang berani mengotori kesunyian makamku?!' gelegarnya!",
+        "choices": [
+            {"id": "A", "text": "Terjang langsung dengan segenap tekad dan tebaskan senjata pusaka (Uji STR - DC 15)", "type": "roll", "dc": 15, "stat": "STR"},
+            {"id": "B", "text": "Rapal mantra pembalik kutukan suci untuk melumpuhkan pelindung Lich (Uji INT/WIS - DC 14)", "type": "roll", "dc": 14, "stat": "INT"},
+            {"id": "C", "text": "Gulingkan tubuh ke samping dan lemparkan belati/bom ke jimat pengikat roh (Uji DEX - DC 13)", "type": "roll", "dc": 13, "stat": "DEX"},
+            {"id": "D", "text": "Gunakan Elixir Tertinggi untuk memulihkan seluruh tenaga dan pertahanan", "type": "action"}
+        ]
+    }
+]
+
+RANDOM_EVENTS = [
+    {
+        "title": "Pedagang Misterius dari Kegelapan",
+        "desc": "Sesosok makhluk kerdil bertudung kain perak muncul dari balik pilar retak. Matanya berbinar melihat kantung koin Paduka. 'Peralatan langka untuk ksatria sejati, Tuan...' bisiknya.",
+        "type": "merchant",
+        "choices": [
+            {"id": "A", "text": "Beli 'Elixir Darah Naga' (+60 HP Maksimal) seharga 25 Gold", "type": "action", "cost": 25, "effect": "buy_elixir"},
+            {"id": "B", "text": "Beli 'Gulungan Mantra Kosmik' (+40 MP Maksimal) seharga 25 Gold", "type": "action", "cost": 25, "effect": "buy_mana"},
+            {"id": "C", "text": "Tolak tawaran secara sopan dan lanjutkan perjalanan", "type": "action", "effect": "pass"},
+            {"id": "D", "text": "Ancam pedagang untuk mendapatkan diskon (Uji STR/CHA - DC 13)", "type": "roll", "dc": 13, "stat": "STR"}
+        ]
+    },
+    {
+        "title": "Mata Air Suci Kuno",
+        "desc": "Di sudut reruntuhan memancar mata air bercahaya biru keemasan. Gemericik airnya memancarkan aroma bunga teratai mistis yang menenangkan jiwa.",
+        "type": "shrine",
+        "choices": [
+            {"id": "A", "text": "Basuh luka dan minum air suci (Pulihkan 50 HP & 30 MP)", "type": "action", "effect": "heal_full"},
+            {"id": "B", "text": "Celupkan senjata ke dalam mata air untuk memberkati daya serang (Uji WIS - DC 11)", "type": "roll", "dc": 11, "stat": "WIS"},
+            {"id": "C", "text": "Isi botol kosong dengan air suci sebagai cadangan perbekalan", "type": "action", "effect": "get_potion"},
+            {"id": "D", "text": "Heningkan cipta berdoa kepada para leluhur kerajaan", "type": "action", "effect": "blessing"}
+        ]
+    },
+    {
+        "title": "Peti Harta Terjebak Mimic",
+        "desc": "Sebuah peti kayu berukir emas tergeletak tanpa penjagaan. Namun lidah kayu di kuncinya tampak bergerak sedikit seperti bernapas...",
+        "type": "mimic",
+        "choices": [
+            {"id": "A", "text": "Buka peti dengan cepat dan tebas lidahnya sebelum bergerak (Uji STR - DC 13)", "type": "roll", "dc": 13, "stat": "STR"},
+            {"id": "B", "text": "Bakar peti dari kejauhan dengan semburan api mantra (Uji INT - DC 11)", "type": "roll", "dc": 11, "stat": "INT"},
+            {"id": "C", "text": "Lempar potongan daging kering untuk menguji apakah itu monster Mimic", "type": "action", "effect": "feed_mimic"},
+            {"id": "D", "text": "Abaikan peti mencurigakan ini dan ambil rute memutar", "type": "action", "effect": "pass"}
+        ]
+    }
+]
+
 DEFAULT_GAME_STATE = {
-    "status": "character_creation", # "character_creation" | "playing" | "game_over"
+    "status": "character_creation",
+    "floor": 1,
+    "step": 0,
     "player": {
         "name": "Danas",
         "class_id": "paladin",
@@ -92,17 +181,12 @@ DEFAULT_GAME_STATE = {
         "inventory": ["Pedang Panjang Baja", "Perisai Lambang Garuda", "Elixir Suci (x2)"]
     },
     "scene": {
-        "chapter": "Bab 1: Reruntuhan yang Menjerit",
-        "title": "Pintu Gerbang Besi Berkepala Naga",
-        "location": "Makam Kuno Oakhaven - Lantai 1",
-        "narrative": "Kabut pekat beraroma belerang dan lumut basah menyelimuti tangga batu yang runtuh. Di hadapan Paduka, berdiri sebuah gerbang besi berkepala naga bermata safir yang memancarkan aura dingin mencekam. Dari dalam kegelapan lorong di balik pintu, terdengar suara geraman rendah dan bunyi logam bergesekan.",
-        "choices": [
-            {"id": "A", "text": "Hunus senjata dan dobrak gerbang dengan tenaga penuh (Uji STR - DC 12)", "type": "roll", "dc": 12, "stat": "STR"},
-            {"id": "B", "text": "Sentuh mata safir dan selaraskan energi gaib pembuka segel (Uji INT - DC 11)", "type": "roll", "dc": 11, "stat": "INT"},
-            {"id": "C", "text": "Periksa lantai obsidian untuk melucuti kawat pemicu jebakan (Uji DEX - DC 9)", "type": "roll", "dc": 9, "stat": "DEX"},
-            {"id": "D", "text": "Buka tas perbekalan, siapkan ramuan dan atur pernapasan", "type": "action"}
-        ],
-        "log": ["Ksatria telah memasuki Makam Kuno Oakhaven. Petualangan dimulai..."]
+        "chapter": DUNGEON_BIOMES[0]["chapter"],
+        "title": DUNGEON_BIOMES[0]["title"],
+        "location": DUNGEON_BIOMES[0]["location"],
+        "narrative": DUNGEON_BIOMES[0]["narrative"],
+        "choices": DUNGEON_BIOMES[0]["choices"],
+        "log": ["Petualangan agung di Makam Kuno Oakhaven dimulai..."]
     }
 }
 
@@ -173,6 +257,8 @@ def init_new_character(name: str, class_id: str):
     global game_state
     c = CLASSES_INFO.get(class_id, CLASSES_INFO["paladin"])
     game_state["status"] = "playing"
+    game_state["floor"] = 1
+    game_state["step"] = 0
     game_state["player"] = {
         "name": name if name.strip() else "Danas the Champion",
         "class_id": class_id,
@@ -193,18 +279,14 @@ def init_new_character(name: str, class_id: str):
         },
         "inventory": list(c["starting_items"])
     }
+    first_biome = DUNGEON_BIOMES[0]
     game_state["scene"] = {
-        "chapter": "Bab 1: Reruntuhan yang Menjerit",
-        "title": "Pintu Gerbang Besi Berkepala Naga",
-        "location": "Makam Kuno Oakhaven - Lantai 1",
+        "chapter": first_biome["chapter"],
+        "title": first_biome["title"],
+        "location": first_biome["location"],
         "narrative": f"Sang {c['title']}, {game_state['player']['name']}, melangkah menuruni tangga batu berlumut. Di hadapan Paduka, berdiri sebuah gerbang besi berkepala naga bermata safir yang memancarkan hawa sedingin es. Rantai segel kuno bergetar seolah menyambut kedatangan darah baru.",
-        "choices": [
-            {"id": "A", "text": "Hunus senjata dan dobrak gerbang dengan tenaga penuh (Uji STR - DC 12)", "type": "roll", "dc": 12, "stat": "STR"},
-            {"id": "B", "text": "Sentuh mata safir dan selaraskan energi gaib pembuka segel (Uji INT - DC 11)", "type": "roll", "dc": 11, "stat": "INT"},
-            {"id": "C", "text": "Periksa lantai obsidian untuk melucuti kawat pemicu jebakan (Uji DEX - DC 9)", "type": "roll", "dc": 9, "stat": "DEX"},
-            {"id": "D", "text": "Buka tas perbekalan, siapkan ramuan dan atur pernapasan", "type": "action"}
-        ],
-        "log": [f"Karakter baru '{game_state['player']['name']}' ({c['title']}) telah dibangkitkan."]
+        "choices": list(first_biome["choices"]),
+        "log": [f"Karakter baru '{game_state['player']['name']}' ({c['title']}) telah bangkit!"]
     }
     save_game()
 
@@ -212,103 +294,108 @@ def advance_dungeon_scene(choice_id: str, custom_text: str = "", roll_val: int =
     global game_state
     p = game_state["player"]
     scene = game_state["scene"]
+    game_state["step"] = game_state.get("step", 0) + 1
     
+    # Check trigger for Random Encounter Event (Every 3-4 steps)
+    trigger_random_event = (game_state["step"] % 3 == 0) and random.random() < 0.75
+
     if roll_val > 0:
-        is_crit = roll_val == 20 or (roll_val >= 19 and p.get("class_id") == "rogue")
+        is_crit = roll_val >= 20 or (roll_val >= 19 and p.get("class_id") == "rogue")
         is_fail = roll_val == 1
         is_success = roll_val >= 10
 
         if is_crit:
-            p["gold"] += 25
-            p["exp"] += 50
-            outcome = f"🔥 CRITICAL SUCCESS! (Dadu: {roll_val}). Serangan spektakuler Paduka memancarkan ledakan aura dahsyat! Rantai penahan hancur berkeping-keping dan ditemukan peti kuno berisi 25 Keping Emas (+50 EXP)."
-            next_scene = {
-                "chapter": "Bab 2: Ruang Altar Hitam",
-                "title": "Ruang Altar Jantung Bayangan",
-                "location": "Kedalaman Makam - Lantai 2",
-                "narrative": "Sebuah altar marmer obsidian berdiri di tengah danau darah yang membeku. Di atas altar melayang 'Jantung Bayangan' yang berdenyut memancarkan kekuatan kosmik. Dua ksatria kerangka berzirah hitam bangkit dengan pedang menyala!",
-                "choices": [
-                    {"id": "A", "text": "Terjang dan tebas kedua kerangka dengan tebasan badai melingkar (Uji STR - DC 13)", "type": "roll", "dc": 13, "stat": "STR"},
-                    {"id": "B", "text": "Lepaskan gelombang api suci untuk membakar altar dan mengusir roh (Uji INT - DC 12)", "type": "roll", "dc": 12, "stat": "INT"},
-                    {"id": "C", "text": "Melompat lincah ke pilar atas dan bidik Jantung Bayangan (Uji DEX - DC 14)", "type": "roll", "dc": 14, "stat": "DEX"},
-                    {"id": "D", "text": "Teguk ramuan pemulihan dan pasang kuda-kuda bertahan", "type": "action"}
-                ]
-            }
+            gold_gain = random.randint(25, 45)
+            exp_gain = random.randint(50, 75)
+            p["gold"] += gold_gain
+            p["exp"] += exp_gain
+            outcome = f"🔥 CRITICAL SUCCESS! (Dadu: {roll_val}). Serangan spektakuler Paduka memancarkan ledakan aura dahsyat! Rantai penahan hancur berkeping-keping dan ditemukan peti pusaka berisi {gold_gain} Keping Emas (+{exp_gain} EXP)!"
         elif is_fail:
-            dmg = 25
+            dmg = random.randint(18, 28)
+            if p.get("class_id") == "paladin":
+                dmg = max(5, dmg - 3)
             p["hp"] = max(0, p["hp"] - dmg)
-            outcome = f"💀 CRITICAL FAIL! (Dadu: {roll_val}). Pijakan batu runtuh seketika! Jebakan tombak beracun menembus bahu Paduka (-{dmg} HP). Gerbang terbuka karena sistem darurat, namun Paduka terluka cukup parah!"
-            next_scene = {
-                "chapter": "Bab 1: Lorong Malapetaka",
-                "title": "Lorong Semburan Gas Beracun",
-                "location": "Lorong Bawah Makam",
-                "narrative": "Darah menetes ke lantai obsidian yang dingin. Dari celah dinding batu, deretan patung gargoyle mulai menyemburkan gas beracun berwarna hijau lumut. Pintu keluar di ujung lorong perlahan mulai menutup!",
-                "choices": [
-                    {"id": "A", "text": "Berlari sekuat tenaga menembus kabut gas beracun (Uji STR/DEX - DC 13)", "type": "roll", "dc": 13, "stat": "DEX"},
-                    {"id": "B", "text": "Gunakan perisai/senjata untuk menghancurkan kepala patung penyembur (Uji STR - DC 12)", "type": "roll", "dc": 12, "stat": "STR"},
-                    {"id": "C", "text": "Luncurkan mantra perisai angin pelindung (Uji INT - DC 10)", "type": "roll", "dc": 10, "stat": "INT"},
-                    {"id": "D", "text": "Gunakan ramuan penyembuh untuk menetralkan rasa sakit", "type": "action"}
-                ]
-            }
+            outcome = f"💀 CRITICAL FAIL! (Dadu: {roll_val}). Pijakan batu runtuh seketika! Jebakan tombak menusuk bahu Paduka (-{dmg} HP). Paduka terluka namun berhasil merayap maju!"
         elif is_success:
-            p["gold"] += 10
-            p["exp"] += 25
-            outcome = f"⚔️ KEBERHASILAN! (Dadu: {roll_val}). Tindakan Paduka sukses tanpa cela! Mekanisme gerbang terbuka perlahan tanpa memicu jebakan alarm (+10 Gold, +25 EXP)."
-            next_scene = {
-                "chapter": "Bab 2: Aula Pilar Kuno",
-                "title": "Aula Pilar Kuno & Penjaga Hantu",
-                "location": "Kedalaman Makam - Lantai 2",
-                "narrative": "Sebuah aula megah ditopang pilar-pilar batu raksasa terbentang luas. Di sudut ruangan tampak peti harta karun berkunci perak, dijaga oleh sesosok bayangan Spectre berpunggung sayap yang melayang tanpa suara.",
-                "choices": [
-                    {"id": "A", "text": "Sergap Spectre dengan serangan kejutan kilat (Uji STR - DC 11)", "type": "roll", "dc": 11, "stat": "STR"},
-                    {"id": "B", "text": "Buka peti harta karun dengan lockpick senyap tanpa menarik perhatian (Uji DEX - DC 12)", "type": "roll", "dc": 12, "stat": "DEX"},
-                    {"id": "C", "text": "Berdialog dalam bahasa roh kuno untuk menjinakkan Spectre (Uji INT/WIS - DC 10)", "type": "roll", "dc": 10, "stat": "INT"},
-                    {"id": "D", "text": "Lempar koin emas ke arah sudut pilar untuk mengalihkan pandangannya", "type": "action"}
-                ]
-            }
+            gold_gain = random.randint(10, 20)
+            exp_gain = random.randint(25, 40)
+            p["gold"] += gold_gain
+            p["exp"] += exp_gain
+            outcome = f"⚔️ KEBERHASILAN! (Dadu: {roll_val}). Tindakan Paduka sukses tanpa cela! Jalan pintas terbuka (+{gold_gain} Gold, +{exp_gain} EXP)."
         else:
-            dmg = 12
+            dmg = random.randint(8, 15)
+            if p.get("class_id") == "paladin":
+                dmg = max(3, dmg - 3)
             p["hp"] = max(0, p["hp"] - dmg)
-            outcome = f"⚠️ GAGAL! (Dadu: {roll_val}). Sentuhan Paduka ditolak oleh rune pelindung, melepaskan sengatan listrik kuno (-{dmg} HP). Namun hentakan energi tersebut meremukkan engsel pintu."
-            next_scene = {
-                "chapter": "Bab 2: Aula Pilar Kuno",
-                "title": "Aula Pilar Kuno (Kondisi Waspada)",
-                "location": "Kedalaman Makam - Lantai 2",
-                "narrative": "Dengan tubuh masih terasa perih akibat sengatan listrik, Paduka melangkah masuk ke aula pilar. Di kejauhan, hantu Spectre telah mendeteksi suara dentuman dan kini bersiap menyerang!",
-                "choices": [
-                    {"id": "A", "text": "Pasang posisi bertahan dan tangkis tebasan sabit hantu (Uji STR - DC 12)", "type": "roll", "dc": 12, "stat": "STR"},
-                    {"id": "B", "text": "Mundur cepat dan lemparkan mantra pengusir roh (Uji INT - DC 11)", "type": "roll", "dc": 11, "stat": "INT"},
-                    {"id": "C", "text": "Gunakan item penyembuh atau elixir dari tas", "type": "action"},
-                    {"id": "D", "text": "Berlari mencari jalan tembus rahasia di balik pilar", "type": "action"}
-                ]
-            }
+            outcome = f"⚠️ GAGAL! (Dadu: {roll_val}). Serangan ditangkis atau jebakan menyengat Paduka (-{dmg} HP). Namun hentakan energi membuka celah ruangan berikutnya."
     else:
-        # Non-roll / Rest / Item
-        if "ramuan" in choice_id.lower() or "elixir" in choice_id.lower() or choice_id == "D":
-            heal = 40
+        # Action handler
+        if choice_id == "buy_elixir" and p["gold"] >= 25:
+            p["gold"] -= 25
+            p["max_hp"] += 40
+            p["hp"] = p["max_hp"]
+            outcome = f"🍷 Paduka membeli dan meminum Elixir Darah Naga! Kekuatan fisik melonjak dahsyat (+40 Max HP)!"
+        elif choice_id == "buy_mana" and p["gold"] >= 25:
+            p["gold"] -= 25
+            p["max_mp"] += 30
+            p["mp"] = p["max_mp"]
+            outcome = f"📜 Paduka mempelajari Gulungan Mantra Kosmik! Kapasitas energi sihir membesar (+30 Max MP)!"
+        elif choice_id == "heal_full":
+            p["hp"] = p["max_hp"]
+            p["mp"] = p["max_mp"]
+            outcome = f"🌊 Paduka membasuh diri di Mata Air Suci! Seluruh luka menutup dan stamina pulih sempurna (HP & MP Penuh)!"
+        elif "ramuan" in choice_id.lower() or "elixir" in choice_id.lower() or choice_id == "D":
+            heal = 45
             p["hp"] = min(p["max_hp"], p["hp"] + heal)
-            outcome = f"🧪 Paduka meneguk Elixir Penyembuh! Tubuh terasa hangat berdenyut, luka menutup (+{heal} HP)."
+            outcome = f"🧪 Paduka meneguk Elixir Penyembuh! Tubuh terasa hangat, luka menutup (+{heal} HP)."
         elif custom_text:
-            outcome = f"✨ Paduka bersabda: \"{custom_text}\". Takdir merespons kehendak sang ksatria dengan guncangan mistis!"
+            outcome = f"✨ Paduka bersabda: \"{custom_text}\". Takdir merespons kehendak sang ksatria dengan aura magis!"
         else:
             outcome = f"🛡️ Paduka mengambil posisi bersiap dan memindai suasana dengan tatapan tajam."
-            
+
+    # Next Scene Selection (Random Event vs Progressive Biome)
+    if trigger_random_event:
+        event = random.choice(RANDOM_EVENTS)
         next_scene = {
-            "chapter": scene.get("chapter", "Bab 1"),
-            "title": scene.get("title", "Gerbang Makam"),
-            "location": scene.get("location", "Makam Kuno"),
-            "narrative": scene.get("narrative", "..."),
-            "choices": scene.get("choices", [])
+            "chapter": f"Peristiwa Acak: Pertemuan Takdir",
+            "title": event["title"],
+            "location": "Ruang Rahasia Tersembunyi",
+            "narrative": event["desc"],
+            "choices": list(event["choices"])
+        }
+    else:
+        current_floor_idx = (game_state.get("floor", 1) - 1) % len(DUNGEON_BIOMES)
+        game_state["floor"] = (current_floor_idx + 1) + 1
+        biome = DUNGEON_BIOMES[(current_floor_idx + 1) % len(DUNGEON_BIOMES)]
+        next_scene = {
+            "chapter": biome["chapter"],
+            "title": biome["title"],
+            "location": biome["location"],
+            "narrative": biome["narrative"],
+            "choices": list(biome["choices"])
         }
 
     # Level Up Check
     if p["exp"] >= 100 * p["level"]:
         p["level"] += 1
-        p["max_hp"] += 20
+        p["max_hp"] += 25
         p["hp"] = p["max_hp"]
         p["max_mp"] += 15
         p["mp"] = p["max_mp"]
-        outcome += f" 🌟 LEVEL UP! Paduka mencapai Level {p['level']}! Max HP & MP meningkat tajam!"
+        outcome += f" 🌟 LEVEL UP! Paduka naik ke Level {p['level']}! HP & MP pulih dan bertambah maksimal!"
+
+    # Check Game Over
+    if p["hp"] <= 0:
+        outcome = f"💀 PADUKA TELAH GUGUR DALAM PERTEMPURAN! Jiwa sang ksatria terserap oleh Makam Kuno..."
+        next_scene = {
+            "chapter": "Akhir Petualangan",
+            "title": "Makam Abadi",
+            "location": "Kehampaan",
+            "narrative": "Tubuh Paduka jatuh berlutut ke tanah dingin. Kegelapan menyelimuti pandangan, namun legenda keberanian Paduka akan terus bergema di lorong-lorong batu ini...",
+            "choices": [
+                {"id": "A", "text": "Bangkit kembali dari abu makam (Mulai Ulang)", "type": "action"}
+            ]
+        }
 
     game_state["scene"]["chapter"] = next_scene["chapter"]
     game_state["scene"]["title"] = next_scene["title"]

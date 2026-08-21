@@ -1,0 +1,67 @@
+{
+  "status": "playing",
+  "player": {
+    "name": "Danas",
+    "class_id": "berserker",
+    "class_name": "Pendekar Tempur (Raging Berserker)",
+    "class_icon": "\ud83e\ude93",
+    "hp": 140,
+    "max_hp": 140,
+    "mp": 20,
+    "max_mp": 20,
+    "gold": 30,
+    "exp": 0,
+    "level": 1,
+    "stats": {
+      "str": 18,
+      "dex": 12,
+      "int": 7,
+      "wis": 9
+    },
+    "inventory": [
+      "Kapak Ganda Algojo",
+      "Cincin Darah Liar",
+      "Daging Kering Keras",
+      "Obor Kayu"
+    ]
+  },
+  "scene": {
+    "chapter": "Bab 1: Lorong Malapetaka",
+    "title": "Lorong Semburan Gas Beracun",
+    "location": "Lorong Bawah Makam",
+    "narrative": "Darah menetes ke lantai obsidian yang dingin. Dari celah dinding batu, deretan patung gargoyle mulai menyemburkan gas beracun berwarna hijau lumut. Pintu keluar di ujung lorong perlahan mulai menutup!",
+    "choices": [
+      {
+        "id": "A",
+        "text": "Berlari sekuat tenaga menembus kabut gas beracun (Uji STR/DEX - DC 13)",
+        "type": "roll",
+        "dc": 13,
+        "stat": "DEX"
+      },
+      {
+        "id": "B",
+        "text": "Gunakan perisai/senjata untuk menghancurkan kepala patung penyembur (Uji STR - DC 12)",
+        "type": "roll",
+        "dc": 12,
+        "stat": "STR"
+      },
+      {
+        "id": "C",
+        "text": "Luncurkan mantra perisai angin pelindung (Uji INT - DC 10)",
+        "type": "roll",
+        "dc": 10,
+        "stat": "INT"
+      },
+      {
+        "id": "D",
+        "text": "Gunakan ramuan penyembuh untuk menetralkan rasa sakit",
+        "type": "action"
+      }
+    ],
+    "log": [
+      "Karakter baru 'Danas' (Pendekar Tempur (Raging Berserker)) telah dibangkitkan.",
+      "\ud83d\udc80 CRITICAL FAIL! (Dadu: 1). Pijakan batu runtuh seketika! Jebakan tombak beracun menembus bahu Paduka (-25 HP). Gerbang terbuka karena sistem darurat, namun Paduka terluka cukup parah!",
+      "\ud83e\uddea Paduka meneguk Elixir Penyembuh! Tubuh terasa hangat berdenyut, luka menutup (+40 HP)."
+    ]
+  }
+}
