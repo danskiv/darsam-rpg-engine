@@ -9,7 +9,7 @@
         @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Plus+Jakarta+Sans:wght@400;600;700&display=swap');
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
-            background-color: #06070a;
+            background-color: #050608;
             color: #e2e8f0;
             overflow: hidden;
         }
@@ -22,6 +22,9 @@
         .glow-cyan {
             text-shadow: 0 0 25px rgba(6, 182, 212, 0.5);
         }
+        .glow-red {
+            text-shadow: 0 0 25px rgba(239, 68, 68, 0.6);
+        }
         @keyframes roll-shake {
             0% { transform: rotate(0deg) scale(1); }
             25% { transform: rotate(-15deg) scale(1.1); }
@@ -32,12 +35,19 @@
         .animate-roll {
             animation: roll-shake 0.25s infinite linear;
         }
+        @keyframes pulse-music {
+            0%, 100% { transform: scale(1); opacity: 0.8; }
+            50% { transform: scale(1.15); opacity: 1; filter: drop-shadow(0 0 8px rgba(234, 179, 8, 0.8)); }
+        }
+        .music-active {
+            animation: pulse-music 1.8s infinite ease-in-out;
+        }
     </style>
 </head>
 <body class="h-screen w-screen flex flex-col justify-between p-8 select-none">
 
     <!-- CHARACTER CREATION SCREEN OVERLAY (TV) -->
-    <div id="creation-overlay" class="hidden absolute inset-0 bg-[#06070a] z-40 flex flex-col justify-between p-12">
+    <div id="creation-overlay" class="hidden absolute inset-0 bg-[#050608] z-40 flex flex-col justify-between p-12">
         <div class="text-center space-y-3">
             <p class="text-xs uppercase tracking-[0.3em] font-bold text-amber-500">RUANG PENCIPTAAN TAKDIR</p>
             <h1 class="text-5xl font-black font-cinzel text-amber-400 glow-gold">Bangkitkan Sang Ksatria</h1>
@@ -105,8 +115,17 @@
             </div>
         </div>
 
-        <!-- Resource Stats -->
-        <div class="flex items-center space-x-6">
+        <!-- Resource Stats & Audio Theme Bar -->
+        <div class="flex items-center space-x-5">
+            <!-- Music Theme Indicator -->
+            <div id="music-indicator" class="flex items-center space-x-2 bg-zinc-900/90 border border-zinc-700/60 px-3.5 py-2 rounded-2xl cursor-pointer" onclick="toggleAudio()">
+                <span id="music-icon" class="text-base music-active">🎵</span>
+                <div>
+                    <p class="text-[9px] uppercase font-bold text-zinc-400 tracking-wider">TEMA SUASANA:</p>
+                    <p id="music-theme-name" class="text-xs font-cinzel font-bold text-amber-300">Makam Kuno (Ambient)</p>
+                </div>
+            </div>
+
             <!-- HP -->
             <div class="flex items-center space-x-3 bg-zinc-900/80 px-4 py-2 rounded-2xl border border-red-950/60">
                 <span class="text-xl">❤️</span>
@@ -115,7 +134,7 @@
                         <span class="text-red-400">HEALTH</span>
                         <span id="hp-text" class="text-zinc-200">130 / 130</span>
                     </div>
-                    <div class="w-32 h-2.5 bg-zinc-800 rounded-full overflow-hidden">
+                    <div class="w-28 h-2.5 bg-zinc-800 rounded-full overflow-hidden">
                         <div id="hp-bar" class="h-full bg-red-600 transition-all duration-500" style="width: 100%;"></div>
                     </div>
                 </div>
@@ -129,7 +148,7 @@
                         <span class="text-cyan-400">MANA</span>
                         <span id="mp-text" class="text-zinc-200">35 / 35</span>
                     </div>
-                    <div class="w-32 h-2.5 bg-zinc-800 rounded-full overflow-hidden">
+                    <div class="w-28 h-2.5 bg-zinc-800 rounded-full overflow-hidden">
                         <div id="mp-bar" class="h-full bg-cyan-500 transition-all duration-500" style="width: 100%;"></div>
                     </div>
                 </div>
@@ -139,12 +158,6 @@
             <div class="flex items-center space-x-2 bg-amber-950/30 px-3.5 py-2 rounded-2xl border border-amber-900/40">
                 <span class="text-lg">🪙</span>
                 <span id="gold-text" class="font-cinzel text-base font-bold text-amber-400">30 G</span>
-            </div>
-
-            <!-- Connection Indicator -->
-            <div class="flex items-center space-x-2 bg-emerald-950/40 px-3 py-1.5 rounded-xl border border-emerald-800/40">
-                <div class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></div>
-                <span class="text-xs text-emerald-300 font-semibold tracking-wider">LIVE TV</span>
             </div>
         </div>
     </header>
@@ -221,12 +234,298 @@
             <span>📱 Buka di HP Paduka:</span>
             <span class="font-mono bg-zinc-800 text-amber-400 px-2 py-0.5 rounded font-bold">http://10.10.10.1:8090/controller</span>
         </div>
-        <p>⚔️ Engine: FastAPI WebSocket • Dark Fantasy Edition (Auto-Save Active)</p>
+        <p>⚔️ Engine: Web Audio Procedural Soundtrack • Dark Fantasy Edition</p>
     </footer>
 
+    <!-- INTERACTIVE PROCEDURAL WEB AUDIO SYNTHESIZER -->
+    <script>
+        class SoundEngine {
+            constructor() {
+                this.ctx = null;
+                this.currentTheme = null;
+                this.isPlaying = false;
+                this.masterGain = null;
+                this.ambientInterval = null;
+                this.bassOsc = null;
+                this.bassGain = null;
+            }
+
+            init() {
+                if (!this.ctx) {
+                    const AudioContext = window.AudioContext || window.webkitAudioContext;
+                    this.ctx = new AudioContext();
+                    this.masterGain = this.ctx.createGain();
+                    this.masterGain.gain.setValueAtTime(0.35, this.ctx.currentTime);
+                    this.masterGain.connect(this.ctx.destination);
+                    this.isPlaying = true;
+                }
+                if (this.ctx.state === 'suspended') {
+                    this.ctx.resume();
+                }
+            }
+
+            playTheme(themeName) {
+                this.init();
+                if (this.currentTheme === themeName) return;
+                this.currentTheme = themeName;
+                this.stopThemeLoops();
+
+                const label = document.getElementById('music-theme-name');
+
+                if (themeName === 'creation') {
+                    if (label) label.innerText = "Ruang Takdir (Ethereal)";
+                    this.startEtherealTheme();
+                } else if (themeName === 'dungeon') {
+                    if (label) label.innerText = "Makam Kuno (Dark Ambient)";
+                    this.startDungeonTheme();
+                } else if (themeName === 'danger') {
+                    if (label) label.innerText = "Pertempuran Sengit (Battle Pulse)";
+                    this.startBattleTheme();
+                } else if (themeName === 'suspense') {
+                    if (label) label.innerText = "Lemparan Dadu (Suspense)";
+                    this.startSuspenseDrone();
+                }
+            }
+
+            stopThemeLoops() {
+                if (this.ambientInterval) {
+                    clearInterval(this.ambientInterval);
+                    this.ambientInterval = null;
+                }
+                if (this.bassOsc) {
+                    try {
+                        this.bassGain.gain.linearRampToValueAtTime(0.001, this.ctx.currentTime + 0.5);
+                        setTimeout(() => {
+                            if (this.bassOsc) {
+                                this.bassOsc.stop();
+                                this.bassOsc.disconnect();
+                                this.bassOsc = null;
+                            }
+                        }, 600);
+                    } catch(e) {}
+                }
+            }
+
+            // Theme 1: Ethereal Chords for Character Creation
+            startEtherealTheme() {
+                const notes = [220, 277.18, 329.63, 440, 554.37, 659.25]; // A major / mystical scale
+                this.ambientInterval = setInterval(() => {
+                    if (!this.isPlaying) return;
+                    const freq = notes[Math.floor(Math.random() * notes.length)];
+                    this.playCrystalNote(freq, 2.5);
+                }, 1200);
+            }
+
+            // Theme 2: Dark Dungeon Exploration Drone + Drops
+            startDungeonTheme() {
+                // Continuous deep dark drone (D1 / D2)
+                this.bassOsc = this.ctx.createOscillator();
+                this.bassGain = this.ctx.createGain();
+                this.bassOsc.type = 'sawtooth';
+                this.bassOsc.frequency.setValueAtTime(36.71, this.ctx.currentTime); // D1 deep bass
+
+                // Lowpass filter for muffled dark dungeon warmth
+                const filter = this.ctx.createBiquadFilter();
+                filter.type = 'lowpass';
+                filter.frequency.setValueAtTime(140, this.ctx.currentTime);
+
+                this.bassGain.gain.setValueAtTime(0.001, this.ctx.currentTime);
+                this.bassGain.gain.linearRampToValueAtTime(0.18, this.ctx.currentTime + 2);
+
+                this.bassOsc.connect(filter);
+                filter.connect(this.bassGain);
+                this.bassGain.connect(this.masterGain);
+                this.bassOsc.start();
+
+                // Periodic mysterious bell / resonance drops
+                const darkNotes = [110, 130.81, 146.83, 164.81, 196.00, 220]; // D minor ambient
+                this.ambientInterval = setInterval(() => {
+                    if (!this.isPlaying) return;
+                    const freq = darkNotes[Math.floor(Math.random() * darkNotes.length)];
+                    this.playDungeonBell(freq, 3.0);
+                }, 2200);
+            }
+
+            // Theme 3: Battle / High Threat Rhythmic Stabs
+            startBattleTheme() {
+                let beat = 0;
+                this.ambientInterval = setInterval(() => {
+                    if (!this.isPlaying) return;
+                    // War drum heartbeat kick
+                    this.playWarDrum();
+                    if (beat % 2 === 0) {
+                        this.playTensionStab(87.31 + (beat % 4) * 10); // F2 ominous stab
+                    }
+                    beat++;
+                }, 600);
+            }
+
+            // Theme 4: Suspense Drone during D20 rolling
+            startSuspenseDrone() {
+                this.bassOsc = this.ctx.createOscillator();
+                this.bassGain = this.ctx.createGain();
+                this.bassOsc.type = 'triangle';
+                this.bassOsc.frequency.setValueAtTime(65.41, this.ctx.currentTime); // C2
+                this.bassOsc.frequency.exponentialRampToValueAtTime(261.63, this.ctx.currentTime + 3.5); // Rising tension pitch!
+
+                this.bassGain.gain.setValueAtTime(0.05, this.ctx.currentTime);
+                this.bassGain.gain.linearRampToValueAtTime(0.25, this.ctx.currentTime + 3.5);
+
+                this.bassOsc.connect(this.bassGain);
+                this.bassGain.connect(this.masterGain);
+                this.bassOsc.start();
+            }
+
+            // SFX 1: Crystal Note for Ethereal
+            playCrystalNote(freq, dur) {
+                const osc = this.ctx.createOscillator();
+                const gain = this.ctx.createGain();
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(freq, this.ctx.currentTime);
+
+                gain.gain.setValueAtTime(0.001, this.ctx.currentTime);
+                gain.gain.linearRampToValueAtTime(0.08, this.ctx.currentTime + 0.3);
+                gain.gain.exponentialRampToValueAtTime(0.0001, this.ctx.currentTime + dur);
+
+                osc.connect(gain);
+                gain.connect(this.masterGain);
+                osc.start();
+                osc.stop(this.ctx.currentTime + dur);
+            }
+
+            // SFX 2: Deep Dungeon Bell
+            playDungeonBell(freq, dur) {
+                const osc = this.ctx.createOscillator();
+                const gain = this.ctx.createGain();
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(freq, this.ctx.currentTime);
+
+                gain.gain.setValueAtTime(0.12, this.ctx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.0001, this.ctx.currentTime + dur);
+
+                osc.connect(gain);
+                gain.connect(this.masterGain);
+                osc.start();
+                osc.stop(this.ctx.currentTime + dur);
+            }
+
+            // SFX 3: War Drum Pulse
+            playWarDrum() {
+                const osc = this.ctx.createOscillator();
+                const gain = this.ctx.createGain();
+                osc.frequency.setValueAtTime(100, this.ctx.currentTime);
+                osc.frequency.exponentialRampToValueAtTime(30, this.ctx.currentTime + 0.15);
+
+                gain.gain.setValueAtTime(0.3, this.ctx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + 0.18);
+
+                osc.connect(gain);
+                gain.connect(this.masterGain);
+                osc.start();
+                osc.stop(this.ctx.currentTime + 0.18);
+            }
+
+            // SFX 4: Tension Stab
+            playTensionStab(freq) {
+                const osc = this.ctx.createOscillator();
+                const gain = this.ctx.createGain();
+                osc.type = 'sawtooth';
+                osc.frequency.setValueAtTime(freq, this.ctx.currentTime);
+
+                const filter = this.ctx.createBiquadFilter();
+                filter.type = 'lowpass';
+                filter.frequency.setValueAtTime(350, this.ctx.currentTime);
+
+                gain.gain.setValueAtTime(0.15, this.ctx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + 0.4);
+
+                osc.connect(filter);
+                filter.connect(gain);
+                gain.connect(this.masterGain);
+                osc.start();
+                osc.stop(this.ctx.currentTime + 0.4);
+            }
+
+            // SFX 5: Critical Victory / Fanfare
+            playVictoryFanfare() {
+                this.init();
+                const chords = [261.63, 329.63, 392.00, 523.25, 659.25]; // C major triumph
+                chords.forEach((f, idx) => {
+                    setTimeout(() => {
+                        this.playCrystalNote(f, 2.0);
+                    }, idx * 120);
+                });
+            }
+
+            // SFX 6: Critical Fail / Doom Thud
+            playDoomThud() {
+                this.init();
+                const osc = this.ctx.createOscillator();
+                const gain = this.ctx.createGain();
+                osc.type = 'sawtooth';
+                osc.frequency.setValueAtTime(65, this.ctx.currentTime);
+                osc.frequency.exponentialRampToValueAtTime(20, this.ctx.currentTime + 0.8);
+
+                gain.gain.setValueAtTime(0.35, this.ctx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + 0.8);
+
+                osc.connect(gain);
+                gain.connect(this.masterGain);
+                osc.start();
+                osc.stop(this.ctx.currentTime + 0.8);
+            }
+
+            // SFX 7: Dice Click
+            playDiceTick() {
+                if (!this.ctx) return;
+                const osc = this.ctx.createOscillator();
+                const gain = this.ctx.createGain();
+                osc.type = 'square';
+                osc.frequency.setValueAtTime(400 + Math.random() * 600, this.ctx.currentTime);
+
+                gain.gain.setValueAtTime(0.08, this.ctx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + 0.04);
+
+                osc.connect(gain);
+                gain.connect(this.masterGain);
+                osc.start();
+                osc.stop(this.ctx.currentTime + 0.04);
+            }
+        }
+
+        const sound = new SoundEngine();
+
+        function toggleAudio() {
+            sound.init();
+            const icon = document.getElementById('music-icon');
+            if (sound.isPlaying) {
+                sound.isPlaying = false;
+                sound.stopThemeLoops();
+                if (icon) {
+                    icon.classList.remove('music-active');
+                    icon.innerText = "🔇";
+                }
+            } else {
+                sound.isPlaying = true;
+                if (icon) {
+                    icon.classList.add('music-active');
+                    icon.innerText = "🎵";
+                }
+                sound.playTheme(currentGameState && currentGameState.status === 'character_creation' ? 'creation' : 'dungeon');
+            }
+        }
+
+        // Auto-initialize audio on first window click/keyevent
+        window.addEventListener('click', () => sound.init(), { once: true });
+        window.addEventListener('keydown', () => sound.init(), { once: true });
+    </script>
+
+    <!-- WEBSOCKET & UI CONTROLLER -->
     <script>
         const wsUrl = `ws://${window.location.host}/ws/tv`;
         let socket;
+        let currentGameState = null;
+        let diceTickInterval = null;
 
         function connect() {
             socket = new WebSocket(wsUrl);
@@ -243,15 +542,27 @@
 
         function handleMessage(data) {
             if (data.type === "init" || data.type === "state_update") {
+                currentGameState = data.state;
                 if (data.state.status === "character_creation") {
                     document.getElementById('creation-overlay').classList.remove('hidden');
+                    sound.playTheme('creation');
                 } else {
                     document.getElementById('creation-overlay').classList.add('hidden');
                     updateUI(data.state);
                     if (data.outcome) showOutcome(data.outcome);
                     resetDiceView();
+                    
+                    // Adapt theme based on scene
+                    const sceneTitle = data.state.scene.title.toLowerCase();
+                    const narrative = data.state.scene.narrative.toLowerCase();
+                    if (sceneTitle.includes('altar') || sceneTitle.includes('gas') || sceneTitle.includes('waspada') || narrative.includes('serangan')) {
+                        sound.playTheme('danger');
+                    } else {
+                        sound.playTheme('dungeon');
+                    }
                 }
             } else if (data.type === "dice_rolling") {
+                sound.playTheme('suspense');
                 triggerDiceRolling(data.choice_text, data.stat);
             } else if (data.type === "dice_result") {
                 showDiceResult(data.value);
@@ -312,24 +623,39 @@
             box.className = "w-32 h-32 rounded-3xl bg-gradient-to-br from-amber-600 via-yellow-500 to-amber-700 flex items-center justify-center text-5xl font-cinzel font-extrabold text-black shadow-2xl shadow-amber-500/40 animate-roll";
             box.innerText = "?";
             document.getElementById('dice-subtext').innerText = choiceText;
+
+            // Rattle sound ticks
+            if (diceTickInterval) clearInterval(diceTickInterval);
+            diceTickInterval = setInterval(() => {
+                sound.playDiceTick();
+            }, 120);
         }
 
         function showDiceResult(val) {
+            if (diceTickInterval) {
+                clearInterval(diceTickInterval);
+                diceTickInterval = null;
+            }
+
             const box = document.getElementById('dice-box');
             box.classList.remove('animate-roll');
             box.innerText = val;
             if (val >= 19) {
                 box.className = "w-32 h-32 rounded-3xl bg-gradient-to-br from-emerald-500 to-green-600 flex items-center justify-center text-6xl font-cinzel font-black text-white shadow-2xl shadow-green-500/80 scale-105 transition-transform";
                 document.getElementById('dice-subtext').innerText = "🔥 CRITICAL SUCCESS!";
+                sound.playVictoryFanfare();
             } else if (val === 1) {
                 box.className = "w-32 h-32 rounded-3xl bg-gradient-to-br from-red-600 to-rose-900 flex items-center justify-center text-6xl font-cinzel font-black text-white shadow-2xl shadow-red-500/80 scale-105 transition-transform";
                 document.getElementById('dice-subtext').innerText = "💀 CRITICAL FAIL!";
+                sound.playDoomThud();
             } else if (val >= 10) {
                 box.className = "w-32 h-32 rounded-3xl bg-gradient-to-br from-blue-600 to-cyan-500 flex items-center justify-center text-6xl font-cinzel font-black text-white shadow-2xl scale-105 transition-transform";
-                document.getElementById('dice-subtext').innerText = "⚔️ SUCCESS";
+                document.getElementById('dice-subtext').innerText = `⚔️ SUCCESS (${val})`;
+                sound.playCrystalNote(523.25, 1.2);
             } else {
                 box.className = "w-32 h-32 rounded-3xl bg-gradient-to-br from-zinc-700 to-zinc-900 flex items-center justify-center text-6xl font-cinzel font-black text-red-400 border border-red-500/40";
-                document.getElementById('dice-subtext').innerText = "⚠️ FAIL";
+                document.getElementById('dice-subtext').innerText = `⚠️ FAIL (${val})`;
+                sound.playWarDrum();
             }
         }
 
