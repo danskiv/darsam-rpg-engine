@@ -6,7 +6,7 @@
     <title>Darsam Dungeon Story & Controller</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Plus+Jakarta+Sans:wght@500;600;700;800&family=JetBrains+Mono:wght@500;700;800&display=swap');
         
         * {
             box-sizing: border-box;
@@ -29,8 +29,21 @@
             font-family: 'Cinzel', serif;
         }
 
+        .font-mono {
+            font-family: 'JetBrains Mono', monospace;
+        }
+
         .choice-btn:active {
             transform: scale(0.97);
+        }
+
+        /* Slide-up drawer animation */
+        @keyframes slideUp {
+            from { transform: translateY(100%); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        .animate-slide-up {
+            animation: slideUp 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
     </style>
 </head>
@@ -92,32 +105,35 @@
         </button>
     </div>
 
-    <!-- 2. MAIN CONTROLLER VIEW (COMPLETE STORY + CHOICES ON MOBILE) -->
+    <!-- 2. MAIN CONTROLLER VIEW (COMPLETE STORY + CHOICES + TOGGLEABLE STATS) -->
     <div id="m-gameplay-view" class="flex-1 flex flex-col justify-between space-y-2.5">
         
-        <!-- Mobile Top Header (Status Mini) -->
-        <header class="flex justify-between items-center bg-zinc-900/90 border border-zinc-800 p-2.5 rounded-2xl shadow-lg">
+        <!-- Mobile Top Header (Tappable to Toggle Stats Modal) -->
+        <header onclick="toggleStatsModal()" class="flex justify-between items-center bg-zinc-900/95 border border-zinc-800 p-2.5 rounded-2xl shadow-lg cursor-pointer active:scale-[0.99] transition-transform">
             <div class="flex items-center space-x-2">
                 <div id="m-char-icon" class="w-8 h-8 rounded-xl bg-gradient-to-tr from-amber-600 to-yellow-400 flex items-center justify-center text-sm font-bold text-black shadow">
                     🌾
                 </div>
                 <div>
-                    <h1 id="m-char-name" class="text-xs font-bold font-cinzel text-amber-400 truncate max-w-[110px]">Danas</h1>
-                    <p id="m-char-level" class="text-[8px] uppercase tracking-wider text-zinc-400">Lv.1 Peasant</p>
+                    <h1 id="m-char-name" class="text-xs font-bold font-cinzel text-amber-400 truncate max-w-[100px]">Danas</h1>
+                    <p id="m-char-level" class="text-[8px] uppercase tracking-wider text-zinc-400 font-bold">Lv.1 Peasant</p>
                 </div>
             </div>
 
-            <!-- Vital Stats -->
-            <div class="flex space-x-1.5 text-[10px] font-bold font-mono">
-                <div class="bg-red-950/60 border border-red-800/60 px-2 py-1 rounded-lg text-red-300">
+            <!-- Vitals Preview + Toggle Button -->
+            <div class="flex items-center space-x-1.5 text-[10px] font-bold font-mono">
+                <div class="bg-red-950/70 border border-red-800/70 px-2 py-1 rounded-lg text-red-300">
                     ❤️ <span id="m-hp">110</span>
                 </div>
-                <div class="bg-cyan-950/60 border border-cyan-800/60 px-2 py-1 rounded-lg text-cyan-300">
+                <div class="bg-cyan-950/70 border border-cyan-800/70 px-2 py-1 rounded-lg text-cyan-300">
                     ✨ <span id="m-mp">15</span>
                 </div>
-                <div class="bg-amber-950/60 border border-amber-800/60 px-2 py-1 rounded-lg text-amber-300">
+                <div class="bg-amber-950/70 border border-amber-800/70 px-2 py-1 rounded-lg text-amber-300">
                     🪙 <span id="m-gold">5</span>
                 </div>
+                <button class="bg-zinc-800 border border-zinc-700 text-amber-400 px-2 py-1 rounded-lg text-[9px] font-bold uppercase tracking-wider">
+                    📊 STATS
+                </button>
             </div>
         </header>
 
@@ -173,10 +189,105 @@
         </footer>
     </div>
 
+    <!-- 3. COLLAPSIBLE STATS & INVENTORY DRAWER MODAL (POP-UP) -->
+    <div id="m-stats-modal" class="hidden fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex flex-col justify-end p-3">
+        <div class="bg-zinc-900 border border-zinc-700 rounded-3xl p-4 shadow-2xl space-y-3.5 max-h-[85vh] overflow-y-auto animate-slide-up">
+            
+            <!-- Modal Header -->
+            <div class="flex justify-between items-center border-b border-zinc-800 pb-2.5">
+                <div class="flex items-center space-x-2">
+                    <span class="text-xl">📊</span>
+                    <div>
+                        <h3 class="text-sm font-black font-cinzel text-amber-400" id="modal-char-name">Danas the Champion</h3>
+                        <p class="text-[9px] text-zinc-400 uppercase font-bold" id="modal-char-class">Hardy Peasant • Level 1</p>
+                    </div>
+                </div>
+                <button onclick="toggleStatsModal()" class="w-7 h-7 rounded-full bg-zinc-800 text-zinc-300 font-bold flex items-center justify-center text-xs active:bg-zinc-700">
+                    ✕
+                </button>
+            </div>
+
+            <!-- Vitals Bar (Detailed) -->
+            <div class="space-y-2">
+                <!-- HP -->
+                <div class="bg-zinc-950 p-2.5 rounded-xl border border-red-950">
+                    <div class="flex justify-between text-[10px] font-black">
+                        <span class="text-red-400">❤️ HEALTH POINTS</span>
+                        <span id="modal-hp-text" class="text-white font-mono">110 / 110</span>
+                    </div>
+                    <div class="w-full h-2 bg-zinc-800 rounded-full overflow-hidden mt-1">
+                        <div id="modal-hp-bar" class="h-full bg-red-600 rounded-full" style="width: 100%;"></div>
+                    </div>
+                </div>
+                <!-- MP -->
+                <div class="bg-zinc-950 p-2.5 rounded-xl border border-cyan-950">
+                    <div class="flex justify-between text-[10px] font-black">
+                        <span class="text-cyan-400">✨ MANA / ENERGY</span>
+                        <span id="modal-mp-text" class="text-white font-mono">15 / 15</span>
+                    </div>
+                    <div class="w-full h-2 bg-zinc-800 rounded-full overflow-hidden mt-1">
+                        <div id="modal-mp-bar" class="h-full bg-cyan-500 rounded-full" style="width: 100%;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 6 Core Ability Scores Grid -->
+            <div>
+                <p class="text-[9px] uppercase font-black tracking-widest text-amber-400 mb-1.5">6 CORE ABILITY SCORES:</p>
+                <div class="grid grid-cols-3 gap-2 text-center">
+                    <div class="bg-zinc-950 p-2 rounded-xl border border-zinc-800">
+                        <p class="text-[8px] font-bold text-zinc-400">STR</p>
+                        <p id="modal-stat-str" class="text-base font-black font-mono text-amber-400">14</p>
+                        <p class="text-[7px] text-zinc-300 font-mono">Strength</p>
+                    </div>
+                    <div class="bg-zinc-950 p-2 rounded-xl border border-zinc-800">
+                        <p class="text-[8px] font-bold text-zinc-400">DEX</p>
+                        <p id="modal-stat-dex" class="text-base font-black font-mono text-emerald-400">10</p>
+                        <p class="text-[7px] text-zinc-300 font-mono">Dexterity</p>
+                    </div>
+                    <div class="bg-zinc-950 p-2 rounded-xl border border-zinc-800">
+                        <p class="text-[8px] font-bold text-zinc-400">CON</p>
+                        <p id="modal-stat-con" class="text-base font-black font-mono text-rose-400">14</p>
+                        <p class="text-[7px] text-zinc-300 font-mono">Constitution</p>
+                    </div>
+                    <div class="bg-zinc-950 p-2 rounded-xl border border-zinc-800">
+                        <p class="text-[8px] font-bold text-zinc-400">INT</p>
+                        <p id="modal-stat-int" class="text-base font-black font-mono text-cyan-400">8</p>
+                        <p class="text-[7px] text-zinc-300 font-mono">Intelligence</p>
+                    </div>
+                    <div class="bg-zinc-950 p-2 rounded-xl border border-zinc-800">
+                        <p class="text-[8px] font-bold text-zinc-400">WIS</p>
+                        <p id="modal-stat-wis" class="text-base font-black font-mono text-purple-400">12</p>
+                        <p class="text-[7px] text-zinc-300 font-mono">Wisdom</p>
+                    </div>
+                    <div class="bg-zinc-950 p-2 rounded-xl border border-zinc-800">
+                        <p class="text-[8px] font-bold text-zinc-400">CHA</p>
+                        <p id="modal-stat-cha" class="text-base font-black font-mono text-yellow-400">10</p>
+                        <p class="text-[7px] text-zinc-300 font-mono">Charisma</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Inventory Items List -->
+            <div>
+                <p class="text-[9px] uppercase font-black tracking-widest text-amber-400 mb-1.5">🎒 INVENTORY & EQUIPMENT:</p>
+                <div id="modal-inventory-list" class="space-y-1 text-xs">
+                    <!-- Populated dynamically -->
+                </div>
+            </div>
+
+            <!-- Close Drawer Button -->
+            <button onclick="toggleStatsModal()" class="w-full bg-zinc-800 hover:bg-zinc-700 active:bg-zinc-600 text-zinc-200 font-bold text-xs py-2.5 rounded-xl border border-zinc-700 font-cinzel">
+                TUTUP STATUS (KEMBALI KE GAME)
+            </button>
+        </div>
+    </div>
+
     <script>
         const wsUrl = `ws://${window.location.host}/ws/controller`;
         let socket;
         let selectedClassId = "peasant";
+        let isStatsOpen = false;
 
         function connect() {
             socket = new WebSocket(wsUrl);
@@ -189,6 +300,17 @@
                 console.log("Socket closed, reconnecting...");
                 setTimeout(connect, 2000);
             };
+        }
+
+        function toggleStatsModal() {
+            isStatsOpen = !isStatsOpen;
+            const modal = document.getElementById('m-stats-modal');
+            if (isStatsOpen) {
+                modal.classList.remove('hidden');
+                if (navigator.vibrate) navigator.vibrate(20);
+            } else {
+                modal.classList.add('hidden');
+            }
         }
 
         function selectClass(cId) {
@@ -218,10 +340,13 @@
                 if (st.status === "character_creation") {
                     document.getElementById('m-creation-view').classList.remove('hidden');
                     document.getElementById('m-gameplay-view').classList.add('hidden');
+                    document.getElementById('m-stats-modal').classList.add('hidden');
+                    isStatsOpen = false;
                 } else {
                     document.getElementById('m-creation-view').classList.add('hidden');
                     document.getElementById('m-gameplay-view').classList.remove('hidden');
                     updateGameplayUI(st);
+                    updateStatsModalUI(st);
                     if (data.outcome) showOutcome(data.outcome);
                 }
             } else if (data.type === "dice_rolling") {
@@ -265,6 +390,36 @@
                     </div>
                 `;
                 container.appendChild(btn);
+            });
+        }
+
+        function updateStatsModalUI(state) {
+            const p = state.player;
+            const stats = p.stats || {};
+
+            document.getElementById('modal-char-name').innerText = p.name;
+            document.getElementById('modal-char-class').innerText = `${p.class_name} • Level ${p.level || 1} (EXP: ${p.exp || 0}/${(p.level||1)*80})`;
+
+            document.getElementById('modal-hp-text').innerText = `${p.hp} / ${p.max_hp}`;
+            document.getElementById('modal-hp-bar').style.width = `${Math.min(100, Math.max(0, (p.hp / p.max_hp) * 100))}%`;
+
+            document.getElementById('modal-mp-text').innerText = `${p.mp} / ${p.max_mp}`;
+            document.getElementById('modal-mp-bar').style.width = `${Math.min(100, Math.max(0, (p.mp / p.max_mp) * 100))}%`;
+
+            document.getElementById('modal-stat-str').innerText = stats.str || 10;
+            document.getElementById('modal-stat-dex').innerText = stats.dex || 10;
+            document.getElementById('modal-stat-con').innerText = stats.con || 10;
+            document.getElementById('modal-stat-int').innerText = stats.int || 10;
+            document.getElementById('modal-stat-wis').innerText = stats.wis || 10;
+            document.getElementById('modal-stat-cha').innerText = stats.cha || 10;
+
+            const invList = document.getElementById('modal-inventory-list');
+            invList.innerHTML = '';
+            (p.inventory || []).forEach(item => {
+                const div = document.createElement('div');
+                div.className = "flex items-center space-x-2 bg-zinc-950 p-2 rounded-xl border border-zinc-800 text-zinc-200";
+                div.innerHTML = `<span class="text-amber-400">📦</span> <span class="font-medium">${item}</span>`;
+                invList.appendChild(div);
             });
         }
 
