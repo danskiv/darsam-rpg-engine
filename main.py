@@ -1083,7 +1083,7 @@ async def process_live_turn(choice_id: str, choice_text: str = "", custom_text: 
         outcome += f" 💎 LOOT DROP: [{loot_dropped['rarity'].upper()}] {loot_dropped['name']}{qty_str}!"
     if hp_diff < 0: outcome += f" (-{-hp_diff} HP)"
     if leveled_up: outcome += f" 🌟 LEVEL UP! {p['name']} naik ke Level {p['level']} (Max HP/MP meningkat & HP pulih penuh)!"
-    if new_skill_unlocked: outcome += f" ⚡ JURUS BARU TERBUKA (Lv.{p['level']}): {new_skill_unlocked['name']}!"
+    if new_skill_unlocked: outcome += f" ⚡ NEW SKILL UNLOCKED (Lv.{p['level']}): {new_skill_unlocked['name']}!"
 
     # Update Scene State
     game_state["scene"]["chapter"] = ai_resp.get("chapter", scene.get("chapter"))
@@ -1347,43 +1347,43 @@ async def ws_controller(websocket: WebSocket):
             elif action_type == "equip_item":
                 item_idx = data.get("index")
                 equip_item(item_idx)
-                await manager.broadcast_all({"type": "state_update", "state": game_state, "outcome": "Perlengkapan berhasil dipasang!"})
+                await manager.broadcast_all({"type": "state_update", "state": game_state, "outcome": "Gear successfully equipped!"})
 
             elif action_type == "unequip_item":
                 slot_name = data.get("slot")
                 unequip_item(slot_name)
-                await manager.broadcast_all({"type": "state_update", "state": game_state, "outcome": "Perlengkapan dilepas ke tas!"})
+                await manager.broadcast_all({"type": "state_update", "state": game_state, "outcome": "Gear unequipped to backpack!"})
 
             elif action_type == "use_item":
                 item_idx = data.get("index")
                 use_consumable(item_idx)
-                await manager.broadcast_all({"type": "state_update", "state": game_state, "outcome": "Item konsumsi berhasil digunakan!"})
+                await manager.broadcast_all({"type": "state_update", "state": game_state, "outcome": "Consumable item used!"})
 
             elif action_type == "accept_awakening":
                 accept_awakening()
                 p_name = game_state['player']['name']
-                await manager.broadcast_all({"type": "state_update", "state": game_state, "outcome": f"🌟 TAKDIR DITERIMA! {p_name} telah bangkit menjadi [{game_state['player']['class_tier'].upper()}] {game_state['player']['class_name']}!"})
+                await manager.broadcast_all({"type": "state_update", "state": game_state, "outcome": f"🌟 DESTINY ACCEPTED! {p_name} has transcended into [{game_state['player']['class_tier'].upper()}] {game_state['player']['class_name']}!"})
 
             elif action_type == "decline_awakening":
                 decline_awakening()
-                await manager.broadcast_all({"type": "state_update", "state": game_state, "outcome": "Tawaran kebangkitan kelas ditolak."})
+                await manager.broadcast_all({"type": "state_update", "state": game_state, "outcome": "Destiny awakening declined."})
 
             elif action_type == "equip_skill":
                 sk_id = data.get("skill_id")
                 equip_active_skill(sk_id)
-                await manager.broadcast_all({"type": "state_update", "state": game_state, "outcome": "Jurus berhasil dipasang ke Slot Tempur!"})
+                await manager.broadcast_all({"type": "state_update", "state": game_state, "outcome": "Skill equipped to Active Combat Slot!"})
 
             elif action_type == "unequip_skill":
                 sk_id = data.get("skill_id")
                 unequip_active_skill(sk_id)
-                await manager.broadcast_all({"type": "state_update", "state": game_state, "outcome": "Jurus dilepas dari Slot Tempur!"})
+                await manager.broadcast_all({"type": "state_update", "state": game_state, "outcome": "Skill unequipped from Active Combat Slot!"})
 
             elif action_type == "change_model":
                 new_model = data.get("model_id")
                 if any(m["id"] == new_model for m in AVAILABLE_MODELS):
                     game_state["selected_model"] = new_model
                     save_game()
-                    await manager.broadcast_all({"type": "state_update", "state": game_state, "outcome": f"Model AI berhasil diubah ke: {new_model}"})
+                    await manager.broadcast_all({"type": "state_update", "state": game_state, "outcome": f"AI Engine switched to: {new_model}"})
 
             elif action_type == "reset_game":
                 game_state.clear()
@@ -1391,7 +1391,7 @@ async def ws_controller(websocket: WebSocket):
                 game_state["status"] = "character_creation"
                 if os.path.exists(SAVE_FILE):
                     os.remove(SAVE_FILE)
-                await manager.broadcast_all({"type": "state_update", "state": game_state, "outcome": "Game di-reset ke Ruang Asal-Usul Karakter."})
+                await manager.broadcast_all({"type": "state_update", "state": game_state, "outcome": "Game reset to Character Origin Chamber."})
 
     except WebSocketDisconnect:
         await manager.disconnect_controller(websocket)
