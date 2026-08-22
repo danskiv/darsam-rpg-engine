@@ -1010,6 +1010,9 @@ async def process_live_turn(choice_id: str, choice_text: str = "", custom_text: 
         history=game_state.get("story_history", [])
     )
 
+    # Node Type & Encounter Management
+    node_type = ai_resp.get("node_type", "exploration")
+
     # Combat Resolution if Monster is active
     loot_dropped = None
     monster_slain = False
@@ -1017,13 +1020,19 @@ async def process_live_turn(choice_id: str, choice_text: str = "", custom_text: 
     if active_m and active_m.get("status") == "active":
         total_stats = compute_total_stats(p)
         if roll_status in ["CRITICAL SUCCESS", "SUCCESS"]:
-            base_dmg = total_stats.get("atk", 4) + random.randint(6, 14)
+            base_dmg = total_stats.get("atk", 4) + random.randint(10, 20)
             if roll_status == "CRITICAL SUCCESS":
                 base_dmg = int(base_dmg * 2.0)
             
             active_m["hp"] = max(0, active_m["hp"] - base_dmg)
             
-            if active_m["hp"] <= 0:
+            # Check defeat condition: either HP <= 0 OR narrative declares monster defeated/crushed/slain
+            narr_lower = (ai_resp.get("narrative", "") + " " + ai_resp.get("outcome_summary", "")).lower()
+            defeat_keywords = ["dikalahkan", "tumbang", "tewas", "hancur", "terbelah", "lebur", "musnah", "slain", "defeated", "terkapar", "runtuh berserakan"]
+            is_narratively_defeated = any(kw in narr_lower for kw in defeat_keywords)
+            
+            # Also if AI node_type moved away from combat (e.g. into chest/exploration/merchant), monster is clearly defeated
+            if active_m["hp"] <= 0 or is_narratively_defeated or node_type in ["chest", "exploration", "merchant", "campfire", "crossroads"]:
                 active_m["hp"] = 0
                 active_m["status"] = "defeated"
                 monster_slain = True
@@ -1043,9 +1052,6 @@ async def process_live_turn(choice_id: str, choice_text: str = "", custom_text: 
     p["mp"] = max(0, min(p["max_mp"], p["mp"] + ai_resp.get("mp_change", 0)))
     p["gold"] = max(0, p["gold"] + ai_resp.get("gold_change", 0))
 
-    # Node Type & Encounter Management
-    node_type = ai_resp.get("node_type", "exploration")
-    
     # 1. Merchant Encounter Stock Generation
     if node_type == "merchant" and not game_state.get("merchant_stock"):
         game_state["merchant_stock"] = generate_merchant_stock(p["level"])

@@ -1,30 +1,30 @@
 {
   "status": "playing",
   "floor": 1,
-  "step": 2,
-  "active_sound_theme": "danger",
+  "step": 4,
+  "active_sound_theme": "dungeon",
   "selected_model": "openrouter/stealth/ox-alpha",
-  "torch_turns": 11,
+  "torch_turns": 9,
   "rations": 3,
   "story_history": [],
   "player": {
     "name": "Danas",
     "class_id": "peasant",
-    "class_name": "Hardy Peasant",
-    "class_icon": "\ud83c\udf3e",
-    "class_tier": "common",
+    "class_name": "Blood-Pact Zealot",
+    "class_icon": "\ud83e\ude78",
+    "class_tier": "special",
     "level": 1,
-    "exp": 0,
+    "exp": 30,
     "exp_next": 75,
-    "hp": 115,
+    "hp": 103,
     "max_hp": 115,
     "mp": 15,
     "max_mp": 15,
-    "gold": 12,
+    "gold": 18,
     "stats": {
-      "str": 14,
+      "str": 17,
       "dex": 10,
-      "con": 15,
+      "con": 17,
       "int": 8,
       "wis": 12,
       "cha": 8
@@ -171,6 +171,14 @@
         "dmg_type": "heal",
         "est_val": "+25 HP & +2 STR",
         "desc": "Memulihkan 25 HP seketika & memberi bonus +2 STR selama 2 turn."
+      },
+      {
+        "id": "sk_blood_strike",
+        "name": "Sanguine Cleave",
+        "cost_mp": 5,
+        "dmg_type": "damage",
+        "est_val": "45-60 Blood DMG",
+        "desc": "Mengorbankan 10 HP untuk menebas monster dengan 45-60 damage brutal."
       }
     ],
     "active_skills": [
@@ -182,69 +190,66 @@
         "dmg_type": "heal",
         "est_val": "+25 HP & +2 STR",
         "desc": "Memulihkan 25 HP seketika & memberi bonus +2 STR selama 2 turn."
+      },
+      {
+        "id": "sk_blood_strike",
+        "name": "Sanguine Cleave",
+        "cost_mp": 5,
+        "dmg_type": "damage",
+        "est_val": "45-60 Blood DMG",
+        "desc": "Mengorbankan 10 HP untuk menebas monster dengan 45-60 damage brutal."
       }
     ],
     "status_effects": []
   },
   "current_node": {
-    "type": "combat",
+    "type": "chest",
     "title": "Collapse into the Forgotten Crypt",
-    "location": "Crypt Antechamber - Floor 1",
+    "location": "Lorong Kiri - Lubuk Tulang Tergenang",
     "chapter": "Chapter 1: The Descent"
   },
-  "monster": {
-    "name": "Corrosive Slime Mass (Lv.1)",
-    "title": "Corrosive Slime Mass",
-    "icon": "\ud83e\udda0",
-    "desc": "Acidic Jelly Organism",
-    "level": 1,
-    "tier": "common",
-    "hp": 30,
-    "max_hp": 30,
-    "attack": 6,
-    "exp_reward": 25,
-    "gold_reward": 7,
-    "status": "active"
-  },
+  "monster": null,
   "merchant_stock": [],
   "merchant_discount": 0,
   "pending_awakening": null,
   "scene": {
     "chapter": "Chapter 1: The Descent",
-    "title": "False Echoes in the Crypt",
-    "location": "Crypt Antechamber - Floor 1",
-    "narrative": "Alih-alih menemukan tempat barter yang hangat, Danas justru tersandung pecahan tembikar tua yang bergema nyaring di sepanjang koridor lembap. Dari balik celah dinding makam yang retak, debu kuno berhamburan saat sesosok mayat berbalut kain kafan lusuh bangkit perlahan. Bau busuk tanah basah dan desis kering kematian seketika menyergap indra penciuman Danas. Cengkeraman cangkul tuanya mengerat ketika mata merah menyala menatap lurus ke arahnya.",
+    "title": "Semburan Darah di Genangan Tulang",
+    "location": "Lorong Kiri - Lubuk Tulang Tergenang",
+    "narrative": "Danas merobek luka terbuka di telapak tangannya sendiri dan membiarkan darah hangat merambati gagang cangkul karat itu. Sebuah bisikan kuno keluar dari bibirnya tanpa ia sadari, dan bilah logam buruk itu menyala merah seperti bara yang tengah bernapas. Ia memutar tubuh dalam satu ayunan melengkung \u2014 Sanguine Cleave meledak menjadi sabit cahaya kemerahan yang membelah kegelapan, memecahkan tengkorak, mencabik tulang rusuk, dan menebar serpihan tulang ke seluruh genangan. Delapan mata merah padam serentak, dan keheningan yang nyaris sakit turun menutupi galeri itu, hanya dipecahkan oleh suara air menetes dari langit-langit batu. Di antara reruntuhan tulang yang berasap tipis, pandangan Danas tertangkap pada sebuah peti besi tua berkaki pendek yang setengah tenggelam dalam lumpur, segel lilin merahnya masih utuh meski sudah berusia puluhan tahun.",
     "choices": [
       {
         "id": "A",
-        "text": "Ayunkan Rusty Farming Hoe sekuat tenaga ke arah kepala monster (STR Check - DC 11)",
+        "text": "Hantam langsung gembok korodenya dengan cangkul hingga terbuka paksa (STR Check - DC 10)",
         "type": "roll",
         "stat": "STR",
-        "dc": 11
-      },
-      {
-        "id": "B",
-        "text": "Menghindar ke samping dan cari celah sempit di antara reruntuhan (DEX Check - DC 10)",
-        "type": "roll",
-        "stat": "DEX",
         "dc": 10
       },
       {
-        "id": "C",
-        "text": "Amati pola gerak lambat kerangka untuk mencari titik rapuh (WIS Check - DC 9)",
+        "id": "B",
+        "text": "Periksa celah peti dan segel lilin untuk jebakan atau racun sebelum membukanya (DEX Check - DC 11)",
         "type": "roll",
-        "stat": "WIS",
+        "stat": "DEX",
+        "dc": 11
+      },
+      {
+        "id": "C",
+        "text": "Teliti ukiran kuno di permukaan peti untuk memahami asal-usulnya (INT Check - DC 9)",
+        "type": "roll",
+        "stat": "INT",
         "dc": 9
       },
       {
         "id": "D",
-        "text": "Pasang kuda-kuda bertahan menggunakan gagang cangkul (Action)",
+        "text": "Ambil napas panjang dan tekan luka di telapak tangan untuk menstabilkan diri sebelum menyentuh apa pun (Action)",
         "type": "action"
       }
     ],
     "log": [
       "Commoner 'Danas' (Hardy Peasant) begins the underground survival journey!",
-      "\ud83c\udfb2 [FAIL \u2022 D20: 3+2=5 vs DC 10] Danas gagal menemukan pedagang keliling dan langkah cerobohnya memicu kegaduhan (Fail on WIS Check). Suara gemeretak tulang bangkit dari tumpukan puing di sudut lorong."
+      "\ud83c\udfb2 [SUCCESS \u2022 D20: 18+2=20 vs DC 12] Critical Success! Danas menggeser lempeng batu raksasa hingga terbuka celah udara, namun terowongan ke atas ternyata tertimbun tanah pejal setebal bermeter. Saat menggali reruntuhan, mata cangkulnya mengenai sebuah pouch kulit lapuk berisi 6 gold kuno. (+15 EXP)",
+      "\ud83c\udfb2 [FAIL \u2022 D20: 4+0=4 vs DC 10] DEX Check gagal total \u2014 Danas terpeleset di lumut licin dan berguling jatuh ke galeri bawah tanah, menerima 6 Fall Damage. Gemuruh tubuhnya menghantam air menggema ke seluruh katakomba dan membangunkan kawanan Crypt Rat yang kelaparan. (-6 HP)",
+      "\ud83c\udfb2 [SUCCESS \u2022 D20: 12+3=15 vs DC 10] Sanguine Cleave SUCCESS! Ayunan sabit darah dari cangkul karat Danas menghancurkan tiga Restless Skeleton Grunt sekaligus dalam satu lengkungan mematikan, dengan harga 6 HP yang terkuras oleh Blood Pact. (+15 EXP) (-6 HP)"
     ]
   }
 }
