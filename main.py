@@ -853,6 +853,11 @@ JSON SCHEMA:
   "hp_change": 0,
   "mp_change": 0,
   "gold_change": 0,
+  "item_awarded": {
+    "name": "Item Name",
+    "type": "weapon" | "armor" | "head" | "feet" | "offhand" | "accessory" | "consumable",
+    "rarity": "common" | "uncommon" | "rare" | "epic" | "legendary"
+  },
   "monster_encounter": {
     "name": "Monster Name",
     "tier": "common" | "elite" | "boss",
@@ -1079,6 +1084,22 @@ async def process_live_turn(choice_id: str, choice_text: str = "", custom_text: 
     p["mp"] = max(0, min(eff_max_mp, p["mp"] + ai_resp.get("mp_change", 0)))
     p["gold"] = max(0, p["gold"] + ai_resp.get("gold_change", 0))
 
+    # Narrative Item Grant / Story Chest Loot Resolution
+    story_item = None
+    if ai_resp.get("item_awarded") and isinstance(ai_resp.get("item_awarded"), dict):
+        it_info = ai_resp["item_awarded"]
+        if it_info.get("name"):
+            cat_map = {"weapon": "weapons", "offhand": "offhands", "armor": "armors", "head": "helmets", "feet": "boots", "accessory": "accessories"}
+            cat = cat_map.get(it_info.get("type", "weapon"), "")
+            story_item = generate_dynamic_equipment(p["level"], category=cat, forced_rarity=it_info.get("rarity", "uncommon"))
+            if it_info.get("name"): story_item["name"] = it_info["name"]
+            add_item_to_inventory(p["inventory"], story_item)
+    elif roll_status in ["CRITICAL SUCCESS", "SUCCESS"] and any(k in action_description.lower() for k in ["peti", "chest", "gembok", "sarkofagus", "sarcophagus", "beli", "buy", "ambil"]):
+        # Automatic Chest Loot if not already handled
+        if random.randint(1, 100) <= 60 and not loot_dropped:
+            story_item = roll_dynamic_loot(p["level"], "elite" if roll_status == "CRITICAL SUCCESS" else "common")
+            add_item_to_inventory(p["inventory"], story_item)
+
     # 1. Merchant Encounter Stock Generation
     if node_type == "merchant" and not game_state.get("merchant_stock"):
         game_state["merchant_stock"] = generate_merchant_stock(p["level"])
@@ -1151,6 +1172,9 @@ async def process_live_turn(choice_id: str, choice_text: str = "", custom_text: 
     if loot_dropped: 
         qty_str = f" x{loot_dropped.get('qty', 1)}" if loot_dropped.get("qty", 1) > 1 else ""
         outcome += f" 💎 LOOT DROP: [{loot_dropped['rarity'].upper()}] {loot_dropped['name']}{qty_str}!"
+    elif story_item:
+        qty_str = f" x{story_item.get('qty', 1)}" if story_item.get("qty", 1) > 1 else ""
+        outcome += f" 🎁 ITEM OBTAINED: [{story_item['rarity'].upper()}] {story_item['name']}{qty_str}!"
     if hp_diff < 0: outcome += f" (-{-hp_diff} HP)"
     if leveled_up: outcome += f" 🌟 LEVEL UP! {p['name']} naik ke Level {p['level']} (Max HP/MP meningkat & HP pulih penuh)!"
     if new_skill_unlocked: outcome += f" ⚡ NEW SKILL UNLOCKED (Lv.{p['level']}): {new_skill_unlocked['name']}!"

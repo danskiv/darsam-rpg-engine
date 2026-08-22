@@ -1,7 +1,7 @@
 {
   "status": "playing",
   "floor": 3,
-  "step": 63,
+  "step": 138,
   "active_sound_theme": "mystery",
   "selected_model": "ag/gemini-3.7-flash-low",
   "torch_turns": 0,
@@ -13,52 +13,55 @@
     "class_name": "Ashen Dread-Emperor",
     "class_icon": "\ud83d\udc51",
     "class_tier": "legendary",
-    "level": 6,
-    "exp": 701,
-    "exp_next": 1318,
-    "hp": 293,
-    "max_hp": 240,
-    "mp": 55,
-    "max_mp": 55,
-    "gold": 3126,
+    "level": 10,
+    "exp": 1805,
+    "exp_next": 2985,
+    "hp": 454,
+    "max_hp": 300,
+    "mp": 416,
+    "max_mp": 87,
+    "gold": 6593,
     "stats": {
-      "str": 42,
+      "str": 46,
       "dex": 10,
-      "con": 40,
+      "con": 44,
       "int": 8,
       "wis": 26,
       "cha": 8
     },
     "equipped": {
       "head": {
-        "id": "item_28240",
-        "name": "Reinforced Leather Cap",
-        "item_level": 5,
-        "rarity": "rare",
+        "id": "item_87343",
+        "name": "Runed Scholar Cowl",
+        "item_level": 10,
+        "rarity": "epic",
         "type": "head",
         "slot": "head",
-        "icon": "\ud83e\udde2",
+        "icon": "\ud83e\uddd9",
         "bonus": {
-          "def": 12,
-          "wis": 7,
-          "cha": 7
+          "mp": 187,
+          "int": 15,
+          "con": 20,
+          "crit": 7,
+          "wis": 20
         },
-        "val": 54
+        "val": 150
       },
       "armor": {
-        "id": "item_37613",
+        "id": "item_54885",
         "name": "Riveted Chainmail Shirt",
-        "item_level": 2,
-        "rarity": "uncommon",
+        "item_level": 10,
+        "rarity": "rare",
         "type": "armor",
         "slot": "armor",
         "icon": "\ud83e\udd4b",
         "bonus": {
-          "def": 8,
-          "hp": 53,
-          "dex": 2
+          "def": 28,
+          "hp": 189,
+          "str": 14,
+          "cha": 14
         },
-        "val": 15
+        "val": 108
       },
       "feet": {
         "id": "item_14637",
@@ -93,26 +96,56 @@
         "val": 90
       },
       "main_hand": {
-        "id": "item_21304",
-        "name": "Zweihander Greatsword",
-        "item_level": 6,
-        "rarity": "rare",
+        "id": "item_43095",
+        "name": "Runed Battle-Cleaver",
+        "item_level": 8,
+        "rarity": "epic",
         "type": "weapon",
         "slot": "main_hand",
-        "icon": "\ud83d\udde1\ufe0f",
+        "icon": "\ud83e\ude93",
         "bonus": {
-          "atk": 37,
-          "str": 7,
-          "dodge": 5,
-          "dex": 8
+          "atk": 55,
+          "str": 12,
+          "dex": 16,
+          "int": 16
         },
-        "val": 64,
-        "handedness": "two_handed"
+        "val": 120,
+        "handedness": "main_hand_only"
       },
-      "off_hand": null
+      "off_hand": {
+        "id": "item_67262",
+        "name": "Spellcaster Grimoire",
+        "item_level": 7,
+        "rarity": "epic",
+        "type": "offhand",
+        "slot": "off_hand",
+        "icon": "\ud83d\udcd6",
+        "bonus": {
+          "mp": 142,
+          "int": 10,
+          "dex": 14,
+          "dodge": 7
+        },
+        "val": 105,
+        "handedness": "off_hand_only"
+      }
     },
     "inventory": [
-      null,
+      {
+        "id": "item_28240",
+        "name": "Reinforced Leather Cap",
+        "item_level": 5,
+        "rarity": "rare",
+        "type": "head",
+        "slot": "head",
+        "icon": "\ud83e\udde2",
+        "bonus": {
+          "def": 12,
+          "wis": 7,
+          "cha": 7
+        },
+        "val": 54
+      },
       {
         "id": "c_torch",
         "name": "Pine Pitch Torch",
@@ -120,36 +153,34 @@
         "rarity": "common",
         "type": "consumable",
         "icon": "\ud83d\udd6f\ufe0f",
-        "qty": 5,
+        "qty": 8,
         "effect": "add_light_6",
         "desc": "+6 Torch Light turns",
         "val": 3
       },
       {
-        "id": "m_rope",
-        "name": "Hemp Rope (15m)",
-        "item_level": 1,
-        "rarity": "common",
-        "type": "material",
-        "icon": "\ud83e\udea2",
-        "qty": 1,
-        "desc": "Utility rope for climbing",
-        "val": 2
+        "id": "cons_25797",
+        "name": "Aether Mana Flask",
+        "item_level": 10,
+        "rarity": "rare",
+        "type": "consumable",
+        "icon": "\u2728",
+        "qty": 2,
+        "effect": "heal_mp_170",
+        "desc": "Restores 170 MP",
+        "val": 30
       },
       {
-        "id": "w_hoe",
-        "name": "Rusty Farming Hoe",
-        "item_level": 1,
-        "rarity": "common",
-        "type": "weapon",
-        "slot": "main_hand",
-        "handedness": "versatile",
-        "icon": "\u26cf\ufe0f",
-        "bonus": {
-          "str": 1,
-          "atk": 4
-        },
-        "val": 3
+        "id": "cons_53717",
+        "name": "Healing Salve",
+        "item_level": 10,
+        "rarity": "rare",
+        "type": "consumable",
+        "icon": "\ud83e\uddea",
+        "qty": 2,
+        "effect": "heal_hp_175",
+        "desc": "Restores 175 HP",
+        "val": 30
       },
       {
         "id": "cons_76372",
@@ -158,7 +189,7 @@
         "rarity": "common",
         "type": "consumable",
         "icon": "\ud83c\udffa",
-        "qty": 3,
+        "qty": 4,
         "effect": "cure_curse_heal_30",
         "desc": "Cleanses Curse & heals 30 HP",
         "val": 6
@@ -175,75 +206,11 @@
         "desc": "Stops Bleeding & heals 20 HP",
         "val": 6
       },
-      {
-        "id": "f_sandals",
-        "name": "Woven Straw Sandals",
-        "item_level": 1,
-        "rarity": "common",
-        "type": "feet",
-        "slot": "feet",
-        "icon": "\ud83d\udc61",
-        "bonus": {
-          "dodge": 2
-        },
-        "val": 2
-      },
-      {
-        "id": "a_linen",
-        "name": "Homespun Tunic",
-        "item_level": 1,
-        "rarity": "common",
-        "type": "armor",
-        "slot": "armor",
-        "icon": "\ud83d\udc55",
-        "bonus": {
-          "hp": 5,
-          "def": 1
-        },
-        "val": 2
-      },
-      {
-        "id": "item_64159",
-        "name": "Silent Stalker Moccasins",
-        "item_level": 2,
-        "rarity": "common",
-        "type": "feet",
-        "slot": "feet",
-        "icon": "\ud83d\udc5f",
-        "bonus": {
-          "dodge": 5,
-          "dex": 2
-        },
-        "val": 12
-      },
-      {
-        "id": "item_39166",
-        "name": "Runed Battle-Cleaver",
-        "item_level": 1,
-        "rarity": "common",
-        "type": "weapon",
-        "slot": "main_hand",
-        "icon": "\ud83e\ude93",
-        "bonus": {
-          "atk": 8,
-          "str": 1
-        },
-        "val": 6,
-        "handedness": "main_hand_only"
-      },
-      {
-        "id": "h_straw",
-        "name": "Weathered Straw Hat",
-        "item_level": 1,
-        "rarity": "common",
-        "type": "head",
-        "slot": "head",
-        "icon": "\ud83d\udc52",
-        "bonus": {
-          "wis": 1
-        },
-        "val": 2
-      },
+      null,
+      null,
+      null,
+      null,
+      null,
       {
         "id": "item_83655",
         "name": "Amulet of Vitality",
@@ -260,16 +227,160 @@
         },
         "val": 75
       },
-      null,
-      null,
-      null,
-      null,
-      null,
-      null,
-      null,
-      null,
-      null,
-      null,
+      {
+        "id": "item_37613",
+        "name": "Riveted Chainmail Shirt",
+        "item_level": 2,
+        "rarity": "uncommon",
+        "type": "armor",
+        "slot": "armor",
+        "icon": "\ud83e\udd4b",
+        "bonus": {
+          "def": 8,
+          "hp": 53,
+          "dex": 2
+        },
+        "val": 15
+      },
+      {
+        "id": "item_21304",
+        "name": "Zweihander Greatsword",
+        "item_level": 6,
+        "rarity": "rare",
+        "type": "weapon",
+        "slot": "main_hand",
+        "icon": "\ud83d\udde1\ufe0f",
+        "bonus": {
+          "atk": 37,
+          "str": 7,
+          "dodge": 5,
+          "dex": 8
+        },
+        "val": 64,
+        "handedness": "two_handed"
+      },
+      {
+        "id": "item_33430",
+        "name": "Vanguard Plated Hauberk",
+        "item_level": 7,
+        "rarity": "rare",
+        "type": "armor",
+        "slot": "armor",
+        "icon": "\ud83d\udee1\ufe0f",
+        "bonus": {
+          "def": 25,
+          "hp": 172,
+          "dodge": 5
+        },
+        "val": 75
+      },
+      {
+        "id": "item_94561",
+        "name": "Iron Broadsword",
+        "item_level": 8,
+        "rarity": "rare",
+        "type": "weapon",
+        "slot": "main_hand",
+        "icon": "\u2694\ufe0f",
+        "bonus": {
+          "atk": 37,
+          "str": 9,
+          "wis": 11,
+          "con": 11
+        },
+        "val": 86,
+        "handedness": "main_hand_only"
+      },
+      {
+        "id": "cons_86287",
+        "name": "Healing Salve",
+        "item_level": 8,
+        "rarity": "uncommon",
+        "type": "consumable",
+        "icon": "\ud83e\uddea",
+        "qty": 1,
+        "effect": "heal_hp_145",
+        "desc": "Restores 145 HP",
+        "val": 24
+      },
+      {
+        "id": "item_12840",
+        "name": "Visored Iron Greathelm",
+        "item_level": 10,
+        "rarity": "rare",
+        "type": "head",
+        "slot": "head",
+        "icon": "\ud83e\ude96",
+        "bonus": {
+          "def": 27,
+          "int": 14,
+          "crit": 5
+        },
+        "val": 108
+      },
+      {
+        "id": "item_90283",
+        "name": "Runed Scholar Cowl",
+        "item_level": 10,
+        "rarity": "rare",
+        "type": "head",
+        "slot": "head",
+        "icon": "\ud83e\uddd9",
+        "bonus": {
+          "mp": 135,
+          "int": 10,
+          "crit": 5,
+          "str": 14
+        },
+        "val": 108
+      },
+      {
+        "id": "item_60810",
+        "name": "Acolyte Prayer Beads",
+        "item_level": 10,
+        "rarity": "rare",
+        "type": "offhand",
+        "slot": "off_hand",
+        "icon": "\ud83d\udcff",
+        "bonus": {
+          "mp": 135,
+          "wis": 10,
+          "cha": 14
+        },
+        "val": 108,
+        "handedness": "off_hand_only"
+      },
+      {
+        "id": "item_78952",
+        "name": "Visored Iron Greathelm",
+        "item_level": 6,
+        "rarity": "rare",
+        "type": "head",
+        "slot": "head",
+        "icon": "\ud83e\ude96",
+        "bonus": {
+          "def": 18,
+          "int": 8,
+          "str": 8
+        },
+        "val": 64
+      },
+      {
+        "id": "item_38118",
+        "name": "Vanguard Plated Hauberk",
+        "item_level": 7,
+        "rarity": "rare",
+        "type": "armor",
+        "slot": "armor",
+        "icon": "\ud83d\udee1\ufe0f",
+        "bonus": {
+          "def": 25,
+          "hp": 172,
+          "crit": 5,
+          "int": 10
+        },
+        "val": 75
+      },
       null,
       null,
       null,
@@ -331,6 +442,15 @@
         "dmg_type": "damage",
         "est_val": "35-48 Area DMG",
         "desc": "Ayunan sabit luas yang menebas musuh dengan kekuatan penuh (35-48 DMG)."
+      },
+      {
+        "id": "sk_titan_soil",
+        "name": "Titan of the Soil",
+        "cost_mp": 15,
+        "cd": 4,
+        "dmg_type": "buff",
+        "est_val": "+50 Max HP & Invuln",
+        "desc": "Menyerap energi bumi: kebal damage 1 turn dan menambah +50 Max HP."
       }
     ],
     "active_skills": [
@@ -364,9 +484,9 @@
     ]
   },
   "current_node": {
-    "type": "campfire",
+    "type": "crossroads",
     "title": "Collapse into the Forgotten Crypt",
-    "location": "Ossuary of the Forsaken Patriarch",
+    "location": "The Ethereal Black Market - Inner Antechamber",
     "chapter": "Chapter 5: The Archon's Sanctum"
   },
   "monster": null,
@@ -375,42 +495,42 @@
   "pending_awakening": null,
   "scene": {
     "chapter": "Chapter 5: The Archon's Sanctum",
-    "title": "Bisikan dari Retakan Keringat dan Debu",
-    "location": "Ossuary of the Forsaken Patriarch",
-    "narrative": "Danas menyandarkan punggung kokohnya pada susunan tengkorak kuno yang terasa sedingin es, membiarkan detak jantungnya kembali berirama tenang di tengah kehampaan gelap gulita. Hawa lembap dan aroma busuk makam meresap ke dalam tarikan napasnya, namun ketajaman pendengaran Danas kini mampu menangkap resonansi aneh dari dalam retakan dinding batu di sampingnya. Sesuatu yang berakar dari zaman kegelapan purba seakan berdenyut di balik susunan belulang, menawarkan rahasia kelam atau ancaman terkubur. Sambil menggenggam erat gagang Zweihander Greatsword, Danas merasakan aliran energi dingin mengalir melalui telapak tangannya.",
+    "title": "Pedang Sang Penguasa Kehampaan",
+    "location": "The Ethereal Black Market - Inner Antechamber",
+    "narrative": "Bilah hitam pekat itu bergetar liar saat Danas menggenggam gagangnya, memancarkan denyut ashen flame yang meresap ke dalam daging dan tulangnya. Pedagang berjubah bintang mengangguk pelan sebelum sosoknya memudar menjadi serpihan abu perak, meninggalkan aroma belerang dan besi dingin. Ruang marmer kini mulai berderak runtuh, membuka dua lorong gelap: satu mengarah ke altar pemujaan yang memancarkan aura nekrotik pekat, dan yang lain menuju tangga batu curam tempat desau angin purba berbisik. Danas harus segera menentukan langkah sebelum dimensi saku ini runtuh sepenuhnya ke dalam void.",
     "choices": [
       {
         "id": "A",
-        "text": "Meremukkan susunan tulang yang rapuh untuk membuka rongga tersembunyi (STR Check - DC 11)",
+        "text": "Menerobos reruntuhan menuju Altar Nekrotik dengan ayunan pedang baru (STR Check - DC 11)",
         "type": "roll",
         "stat": "STR",
         "dc": 11
       },
       {
         "id": "B",
-        "text": "Menyelidiki lekuk ukiran batu kuno dengan sentuhan jemari yang presisi (WIS Check - DC 10)",
+        "text": "Melompati puing marmer yang runtuh menuju Tangga Purba (DEX Check - DC 10)",
         "type": "roll",
-        "stat": "WIS",
+        "stat": "DEX",
         "dc": 10
       },
       {
         "id": "C",
-        "text": "Mendengarkan getaran udara dan frekuensi gaib di balik celah makam (WIS Check - DC 9)",
+        "text": "Merasakan aliran esensi void untuk mendeteksi jalur paling stabil (WIS Check - DC 9)",
         "type": "roll",
         "stat": "WIS",
         "dc": 9
       },
       {
         "id": "D",
-        "text": "Mengakhiri jeda dan bersiap melangkah maju ke lorong utama makam (Action)",
+        "text": "Menyalurkan Ashen Dread Aura untuk menstabilkan dimensi sementara (Action)",
         "type": "action"
       }
     ],
     "log": [
-      "\ud83c\udfb2 [SUCCESS \u2022 D20: 2+16=18 vs DC 10] Danas berhasil melakukan Looting mayat monster dengan hasil Success gemilang, menemukan pundi emas serta membuka akses langsung ke Ironbound Relic Chest. (+15 EXP)",
-      "\ud83c\udfb2 [Direct Action \u2022 Action] Danas mengambil Short Rest untuk memulihkan fokus mental, mengembalikan MP secara maksimal di tengah keheningan makam.",
-      "\ud83c\udfb2 [SUCCESS \u2022 D20: 7+16=23 vs DC 10] Danas berhasil membuka peti kuno dengan Success mutlak, mengamankan sejumlah Gold kuno dan melangkah lebih dalam melewati koridor tulang. (+15 EXP)",
-      "\ud83c\udfb2 [Direct Action \u2022 Action] Danas mengambil Short Rest di balik pilar tulang, memulihkan fokus indra meski status Blind masih mengaburkan penglihatan."
+      "\ud83c\udfb2 [SUCCESS \u2022 D20: 4+18=22 vs DC 10] Dengan Critical Success pada pengamatan tajam, Danas mendeteksi kompartemen rahasia bertatahkan rune kuno yang menyembunyikan artefak legendaris di balik jubah sang pedagang. (+15 EXP)",
+      "\ud83c\udfb2 [Direct Action \u2022 Action] Danas membeli Eye of the Void seharga 5000 Gold. Status Blind berhasil dipulihkan sepenuhnya berkat kekuatan Void Sight.",
+      "\ud83c\udfb2 [SUCCESS \u2022 D20: 11+18=29 vs DC 10] Dengan Success spektakuler pada penglihatan mistisnya, Danas berhasil menembus ilusi dinding dan menemukan kamar rahasia seorang Nether-Merchant legendaris. (+15 EXP)",
+      "\ud83c\udfb2 [Direct Action \u2022 Action] Danas menukarkan 4000 Gold untuk Dread Sovereign Greatsword, merasakan getaran Two-Handed weapon legendaris yang membakar telapak tangannya dengan kekuatan kehampaan murni."
     ]
   }
 }
