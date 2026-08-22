@@ -823,6 +823,34 @@
             if (el) el.classList.add('hidden');
         }
 
+        function parseChoiceVisual(rawText, stat, dc, isRoll) {
+            // Cleans up raw text from trailing parentheses like (STR Check - DC 11)
+            let clean = rawText.replace(/\s*\([^)]*(?:Check|DC|Action)[^)]*\)\s*$/i, '').trim();
+            
+            let badgeHtml = '';
+            if (isRoll && stat) {
+                const statIcons = {
+                    'STR': '💪', 'DEX': '🎯', 'CON': '🛡️',
+                    'INT': '🧠', 'WIS': '👁️', 'CHA': '👑'
+                };
+                const statColors = {
+                    'STR': 'border-amber-700 bg-amber-950/80 text-amber-300',
+                    'DEX': 'border-emerald-700 bg-emerald-950/80 text-emerald-300',
+                    'CON': 'border-rose-700 bg-rose-950/80 text-rose-300',
+                    'INT': 'border-cyan-700 bg-cyan-950/80 text-cyan-300',
+                    'WIS': 'border-purple-700 bg-purple-950/80 text-purple-300',
+                    'CHA': 'border-yellow-700 bg-yellow-950/80 text-yellow-300'
+                };
+                const sUpper = stat.toUpperCase();
+                const icon = statIcons[sUpper] || '🎲';
+                const col = statColors[sUpper] || 'border-amber-700 bg-amber-950/80 text-amber-300';
+                badgeHtml = `<span class="inline-flex items-center space-x-1 border px-2 py-0.5 rounded-lg text-[9px] font-mono font-bold ${col} flex-shrink-0 mt-1">${icon} <span>${sUpper}</span> <span class="text-zinc-400">•</span> <span class="text-amber-300">Target: ${dc || 10}</span></span>`;
+            } else {
+                badgeHtml = `<span class="inline-flex items-center space-x-1 border border-blue-800/80 bg-blue-950/80 text-blue-300 px-2 py-0.5 rounded-lg text-[9px] font-mono font-bold flex-shrink-0 mt-1">⚡ <span>ACTION</span></span>`;
+            }
+            return { cleanText: clean, badgeHtml: badgeHtml };
+        }
+
         function updateGameplayUI(state) {
             console.log("updateGameplayUI called with state:", state);
             const p = state.player || {};
@@ -928,16 +956,18 @@
 
                 choices.forEach(c => {
                     const btn = document.createElement('button');
-                    btn.className = "choice-btn w-full text-left p-3.5 rounded-2xl bg-zinc-950 border border-zinc-800 hover:border-amber-500/80 flex items-center space-x-3.5 transition-all active:scale-[0.98] shadow-md group cursor-pointer";
+                    btn.className = "choice-btn w-full text-left p-3.5 rounded-2xl bg-zinc-950 border border-zinc-800 hover:border-amber-500/80 flex items-start space-x-3.5 transition-all active:scale-[0.98] shadow-md group cursor-pointer";
                     btn.onclick = () => selectChoice(c);
                     
                     const isRoll = c.type === 'roll';
                     const badgeColor = isRoll ? 'bg-amber-500/20 border-amber-500/50 text-amber-300 group-hover:bg-amber-500 group-hover:text-black' : 'bg-blue-500/20 border-blue-500/50 text-blue-300 group-hover:bg-blue-500 group-hover:text-black';
+                    const visual = parseChoiceVisual(c.text, c.stat, c.dc, isRoll);
                     
                     btn.innerHTML = `
-                        <span class="w-8 h-8 rounded-xl ${badgeColor} font-cinzel font-black text-xs flex items-center justify-center border flex-shrink-0 transition-all">${c.id}</span>
-                        <div class="flex-1 min-w-0">
-                            <p class="text-xs lg:text-sm font-semibold text-zinc-100 leading-snug group-hover:text-amber-200 transition-all">${c.text}</p>
+                        <span class="w-8 h-8 rounded-xl ${badgeColor} font-cinzel font-black text-xs flex items-center justify-center border flex-shrink-0 transition-all mt-0.5">${c.id}</span>
+                        <div class="flex-1 min-w-0 flex flex-col justify-between">
+                            <p class="text-xs lg:text-sm font-semibold text-zinc-100 leading-snug group-hover:text-amber-200 transition-all">${visual.cleanText}</p>
+                            <div>${visual.badgeHtml}</div>
                         </div>
                     `;
                     container.appendChild(btn);

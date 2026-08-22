@@ -1,0 +1,310 @@
+{
+  "status": "playing",
+  "floor": 1,
+  "step": 19,
+  "active_sound_theme": "danger",
+  "selected_model": "ag/gemini-3.7-flash-low",
+  "torch_turns": 0,
+  "rations": 3,
+  "story_history": [],
+  "player": {
+    "name": "Danas",
+    "class_id": "peasant",
+    "class_name": "Blood-Pact Zealot",
+    "class_icon": "\ud83e\ude78",
+    "class_tier": "special",
+    "level": 3,
+    "exp": 13,
+    "exp_next": 434,
+    "hp": 117,
+    "max_hp": 145,
+    "mp": 31,
+    "max_mp": 31,
+    "gold": 100,
+    "stats": {
+      "str": 19,
+      "dex": 10,
+      "con": 19,
+      "int": 8,
+      "wis": 12,
+      "cha": 8
+    },
+    "equipped": {
+      "head": {
+        "id": "h_straw",
+        "name": "Weathered Straw Hat",
+        "item_level": 1,
+        "rarity": "common",
+        "type": "head",
+        "slot": "head",
+        "icon": "\ud83d\udc52",
+        "bonus": {
+          "wis": 1
+        },
+        "val": 2
+      },
+      "armor": {
+        "id": "a_linen",
+        "name": "Homespun Tunic",
+        "item_level": 1,
+        "rarity": "common",
+        "type": "armor",
+        "slot": "armor",
+        "icon": "\ud83d\udc55",
+        "bonus": {
+          "hp": 5,
+          "def": 1
+        },
+        "val": 2
+      },
+      "feet": {
+        "id": "f_sandals",
+        "name": "Woven Straw Sandals",
+        "item_level": 1,
+        "rarity": "common",
+        "type": "feet",
+        "slot": "feet",
+        "icon": "\ud83d\udc61",
+        "bonus": {
+          "dodge": 2
+        },
+        "val": 2
+      },
+      "accessory": null,
+      "main_hand": {
+        "id": "w_hoe",
+        "name": "Rusty Farming Hoe",
+        "item_level": 1,
+        "rarity": "common",
+        "type": "weapon",
+        "slot": "main_hand",
+        "handedness": "versatile",
+        "icon": "\u26cf\ufe0f",
+        "bonus": {
+          "str": 1,
+          "atk": 4
+        },
+        "val": 3
+      },
+      "off_hand": {
+        "id": "item_51077",
+        "name": "Tower Bastion Shield",
+        "item_level": 1,
+        "rarity": "common",
+        "type": "offhand",
+        "slot": "off_hand",
+        "icon": "\ud83d\udee1\ufe0f",
+        "bonus": {
+          "def": 6,
+          "con": 1
+        },
+        "val": 5,
+        "handedness": "off_hand_only"
+      }
+    },
+    "inventory": [
+      {
+        "id": "c_ration",
+        "name": "Dry Ration Bread",
+        "item_level": 1,
+        "rarity": "common",
+        "type": "consumable",
+        "icon": "\ud83c\udf5e",
+        "qty": 3,
+        "effect": "heal_hp_25",
+        "desc": "Restores 25 HP",
+        "val": 2
+      },
+      {
+        "id": "c_torch",
+        "name": "Pine Pitch Torch",
+        "item_level": 1,
+        "rarity": "common",
+        "type": "consumable",
+        "icon": "\ud83d\udd6f\ufe0f",
+        "qty": 3,
+        "effect": "add_light_6",
+        "desc": "+6 Torch Light turns",
+        "val": 3
+      },
+      {
+        "id": "m_rope",
+        "name": "Hemp Rope (15m)",
+        "item_level": 1,
+        "rarity": "common",
+        "type": "material",
+        "icon": "\ud83e\udea2",
+        "qty": 1,
+        "desc": "Utility rope for climbing",
+        "val": 2
+      },
+      {
+        "id": "item_65322",
+        "name": "Silent Stalker Moccasins",
+        "item_level": 3,
+        "rarity": "uncommon",
+        "type": "feet",
+        "slot": "feet",
+        "icon": "\ud83d\udc5f",
+        "bonus": {
+          "dodge": 6,
+          "dex": 2
+        },
+        "val": 19
+      },
+      {
+        "id": "item_86002",
+        "name": "Reinforced Leather Cap",
+        "item_level": 1,
+        "rarity": "uncommon",
+        "type": "head",
+        "slot": "head",
+        "icon": "\ud83e\udde2",
+        "bonus": {
+          "def": 2,
+          "dodge": 3
+        },
+        "val": 6
+      },
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null
+    ],
+    "grimoire": [
+      {
+        "id": "sk_adrenaline",
+        "name": "Adrenaline Surge",
+        "cost_mp": 5,
+        "cd": 3,
+        "dmg_type": "heal",
+        "est_val": "+25 HP & +2 STR",
+        "desc": "Memulihkan 25 HP seketika & memberi bonus +2 STR selama 2 turn."
+      },
+      {
+        "id": "sk_blood_strike",
+        "name": "Sanguine Cleave",
+        "cost_mp": 5,
+        "dmg_type": "damage",
+        "est_val": "45-60 Blood DMG",
+        "desc": "Mengorbankan 10 HP untuk menebas monster dengan 45-60 damage brutal."
+      }
+    ],
+    "active_skills": [
+      {
+        "id": "sk_adrenaline",
+        "name": "Adrenaline Surge",
+        "cost_mp": 5,
+        "cd": 3,
+        "dmg_type": "heal",
+        "est_val": "+25 HP & +2 STR",
+        "desc": "Memulihkan 25 HP seketika & memberi bonus +2 STR selama 2 turn."
+      },
+      {
+        "id": "sk_blood_strike",
+        "name": "Sanguine Cleave",
+        "cost_mp": 5,
+        "dmg_type": "damage",
+        "est_val": "45-60 Blood DMG",
+        "desc": "Mengorbankan 10 HP untuk menebas monster dengan 45-60 damage brutal."
+      }
+    ],
+    "status_effects": [
+      "blind"
+    ]
+  },
+  "current_node": {
+    "type": "combat",
+    "title": "Collapse into the Forgotten Crypt",
+    "location": "Subterranean Vault - Floor 1",
+    "chapter": "Chapter 1: The Descent"
+  },
+  "monster": {
+    "name": "Ravenous Cave Rat (Lv.1)",
+    "title": "Ravenous Cave Rat",
+    "icon": "\ud83d\udc00",
+    "desc": "Frenzied Rodent",
+    "level": 1,
+    "tier": "common",
+    "hp": 5,
+    "max_hp": 30,
+    "attack": 6,
+    "exp_reward": 25,
+    "gold_reward": 9,
+    "status": "active"
+  },
+  "pending_awakening": null,
+  "scene": {
+    "chapter": "Chapter 1: The Descent",
+    "title": "Stumble in the Dark",
+    "location": "Damp Ossuary",
+    "narrative": "Benturan keras Tower Bastion Shield menghantam dinding batu berlumut alih-alih mengenai target, mengirimkan getaran hebat yang melumpuhkan cengkeraman Danas dalam kebutaan. Ravenous Cave Rat memanfaatkan hilangnya momentum Danas dengan melompat buas ke atas dada, menancapkan cakar dan taring beracunnya ke pundak Danas hingga darah hangat membasahi lantai dingin. Bau anyir darah segar membakar udara pengap ossuary, memicu dengusan liar monster pengerat yang semakin bernafsu mengoyak mangsanya. Danas merasakan bobot tubuh makhluk menjijikkan itu menekan rongga dadanya, sementara cangkul di tangan kanannya tergelincir beberapa jengkal di atas tumpukan tulang.",
+    "choices": [
+      {
+        "id": "A",
+        "text": "Cengkeram leher tikus dengan tangan kosong lalu banting ke lantai batu (STR Check - DC 11)",
+        "type": "roll",
+        "stat": "STR",
+        "dc": 11
+      },
+      {
+        "id": "B",
+        "text": "Gulingkan tubuh ke samping untuk melepaskan tindihan monster (DEX Check - DC 12)",
+        "type": "roll",
+        "stat": "DEX",
+        "dc": 12
+      },
+      {
+        "id": "C",
+        "text": "Fokuskan pendengaran untuk merasakan titik kelemahan di tenggorokannya (WIS Check - DC 10)",
+        "type": "roll",
+        "stat": "WIS",
+        "dc": 10
+      },
+      {
+        "id": "D",
+        "text": "Kukuhkan pertahanan dan serap luka dengan daya tahan tubuh murni (CON Check - DC 9)",
+        "type": "roll",
+        "stat": "CON",
+        "dc": 9
+      }
+    ],
+    "log": [
+      "\ud83c\udfb2 [CRITICAL SUCCESS \u2022 D20: 20+0=20 vs DC 10] DEX Check Critical Success! Danas meluncur ke balik bayangan sarkofagus tanpa suara, sepenuhnya menghapus status Blind dan melancarkan Flanking Position yang sempurna. (+25 EXP)",
+      "\ud83c\udfb2 [SUCCESS \u2022 D20: 8+4=12 vs DC 9] Danas berhasil mengeksekusi serangan dadakan dengan STR Check (Success), menancapkan mata cangkul tepat ke leher goblin dan membunuhnya seketika, namun cipratan darah memicu kedatangan Ravenous Cave Rat. (+15 EXP) \ud83c\udf1f LEVEL UP! Danas naik ke Level 3 (Max HP/MP meningkat & HP pulih penuh)!",
+      "\ud83c\udfb2 [FAIL \u2022 D20: 8+0=8 vs DC 11] DEX Check gagal karena pandangan Danas terhalang status Blind. Ravenous Cave Rat menerjang cepat dan mencakar betis Danas, memberikan 8 Physical Damage. (-8 HP)",
+      "\ud83c\udfb2 [CRITICAL FAIL \u2022 D20: 1+4=5 vs DC 10] Danas mengalami Critical Fail pada STR Check; ayunan perisai yang meleset liar justru membuat Danas kehilangan keseimbangan dan terhempas ke lantai berbatu, menerima Piercing Damage telak dari gigitan Ravenous Cave Rat. (-16 HP)"
+    ]
+  }
+}
