@@ -65,7 +65,7 @@
         }
     </style>
 </head>
-<body class="select-none p-3 lg:p-6 max-w-7xl mx-auto pb-8">
+<body class="select-none p-3 lg:p-6 max-w-7xl mx-auto pb-12 min-h-screen flex flex-col justify-between">
 
     <!-- ======================================================== -->
     <!-- 1. CHARACTER CREATION VIEW (8 DIVERSE ORIGINS)           -->
@@ -669,7 +669,7 @@
                 hideDice();
                 currentGameState = data.state;
                 const st = data.state;
-                if (st.status === "character_creation") {
+                if (!st || st.status === "character_creation") {
                     document.getElementById('m-creation-view').classList.remove('hidden');
                     document.getElementById('m-creation-view').classList.add('flex');
                     document.getElementById('m-gameplay-view').classList.add('hidden');
@@ -751,22 +751,27 @@
             const container = document.getElementById('m-choices-list');
             container.innerHTML = '';
 
-            s.choices.forEach(c => {
+            const choices = (s && s.choices) ? s.choices : [];
+            choices.forEach(c => {
                 const btn = document.createElement('button');
-                btn.className = "choice-btn w-full text-left p-3 rounded-2xl bg-zinc-900/90 border border-zinc-800 hover:border-zinc-600 flex items-center space-x-3 transition-all active:scale-[0.98] shadow";
+                btn.className = "choice-btn w-full text-left p-3 rounded-2xl bg-zinc-950 border border-zinc-800 hover:border-amber-500/80 flex items-center space-x-3 transition-all active:scale-[0.98] shadow-md group";
                 btn.onclick = () => selectChoice(c);
                 
                 const isRoll = c.type === 'roll';
-                const badgeColor = isRoll ? 'bg-amber-500/20 border-amber-500/40 text-amber-300' : 'bg-blue-500/20 border-blue-500/40 text-blue-300';
+                const badgeColor = isRoll ? 'bg-amber-500/20 border-amber-500/50 text-amber-300 group-hover:bg-amber-500 group-hover:text-black' : 'bg-blue-500/20 border-blue-500/50 text-blue-300 group-hover:bg-blue-500 group-hover:text-black';
                 
                 btn.innerHTML = `
-                    <span class="w-7 h-7 rounded-lg ${badgeColor} font-cinzel font-bold text-xs flex items-center justify-center border flex-shrink-0">${c.id}</span>
+                    <span class="w-8 h-8 rounded-xl ${badgeColor} font-cinzel font-black text-xs flex items-center justify-center border flex-shrink-0 transition-all">${c.id}</span>
                     <div class="flex-1 min-w-0">
-                        <p class="text-xs lg:text-sm font-semibold text-zinc-100 leading-snug">${c.text}</p>
+                        <p class="text-xs lg:text-sm font-semibold text-zinc-100 leading-snug group-hover:text-amber-200 transition-all">${c.text}</p>
                     </div>
                 `;
                 container.appendChild(btn);
             });
+
+            if (choices.length === 0) {
+                container.innerHTML = '<p class="text-xs text-zinc-500 text-center py-4 bg-zinc-950 rounded-xl border border-zinc-800">Tidak ada pilihan aksi khusus. Silakan ketik tindakan bebas di bawah.</p>';
+            }
         }
 
         function renderCombatSkills(player) {

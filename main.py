@@ -374,7 +374,6 @@ def roll_dynamic_loot(player_lv: int, monster_tier: str = "common") -> Dict[str,
     loot_item = dict(base_item)
     loot_item["id"] = f"item_{random.randint(10000, 99999)}"
     
-    # Assign rarity
     roll = random.randint(1, 100)
     if monster_tier == "boss":
         loot_item["rarity"] = "legendary" if roll <= 30 else "epic"
@@ -447,6 +446,13 @@ def generate_monster(player_lv: int, is_boss: bool = False, is_elite: bool = Fal
 def get_required_exp_for_level(level: int) -> int:
     return int(75 * (level ** 1.6))
 
+INITIAL_CHAPTER_CHOICES = [
+    {"id": "A", "text": "Inspect the stone wall & search for weak structural points (Perception / WIS Check - DC 10)", "type": "roll", "dc": 10, "stat": "WIS"},
+    {"id": "B", "text": "Use tools to clear heavy rubble and force a breach (Athletics / STR Check - DC 12)", "type": "roll", "dc": 12, "stat": "STR"},
+    {"id": "C", "text": "Light a pine pitch torch and stealthily navigate the corridor (Stealth / DEX Check - DC 9)", "type": "roll", "dc": 9, "stat": "DEX"},
+    {"id": "D", "text": "Take a short rest, catch breath, and inspect 40-slot backpack (Action)", "type": "action"}
+]
+
 DEFAULT_GAME_STATE = {
     "status": "character_creation",
     "floor": 1,
@@ -460,7 +466,7 @@ DEFAULT_GAME_STATE = {
         "class_id": "peasant",
         "class_name": "Hardy Peasant",
         "class_icon": "🌾",
-        "class_tier": "common", # common | special | epic | legendary | mythic
+        "class_tier": "common",
         "level": 1,
         "exp": 0,
         "exp_next": 75,
@@ -478,9 +484,9 @@ DEFAULT_GAME_STATE = {
             "main_hand": None,
             "off_hand": None
         },
-        "inventory": [], # 40 slots
+        "inventory": [],
         "grimoire": [],
-        "active_skills": [], # Max 3
+        "active_skills": [],
         "status_effects": []
     },
     "current_node": {
@@ -490,15 +496,10 @@ DEFAULT_GAME_STATE = {
         "chapter": "Chapter 1: The Dark Descent"
     },
     "monster": None,
-    "pending_awakening": None, # Offer secret class change
+    "pending_awakening": None,
     "scene": {
         "narrative": "Paduka hanyalah seorang warga biasa yang mencari kayu di lereng bukit. Tanah mendadak amblas runtuh! Paduka jatuh terperosok ke dalam rongga makam kuno bawah tanah. Lubang keluar di atas tertutup bebatuan tebal. Di hadapan Paduka, lorong batu berlumut gelap memancarkan hembusan angin dingin purba.",
-        "choices": [
-            {"id": "A", "text": "Inspect the stone wall & search for weak structural points (Perception / WIS Check - DC 10)", "type": "roll", "dc": 10, "stat": "WIS"},
-            {"id": "B", "text": "Use tools to clear heavy rubble and force a breach (Athletics / STR Check - DC 12)", "type": "roll", "dc": 12, "stat": "STR"},
-            {"id": "C", "text": "Light a pine torch and stealthily navigate the corridor (Stealth / DEX Check - DC 9)", "type": "roll", "dc": 9, "stat": "DEX"},
-            {"id": "D", "text": "Take a short rest, catch breath, and inspect 40-slot backpack (Action)", "type": "action"}
-        ],
+        "choices": list(INITIAL_CHAPTER_CHOICES),
         "log": ["A commoner's dark fantasy survival journey begins in the underground crypt..."]
     }
 }
@@ -574,7 +575,6 @@ def compute_total_stats(player: Dict[str, Any]) -> Dict[str, int]:
     base["dodge"] = base["dex"] // 3
     
     eq = player.get("equipped", {})
-    # Check Dual Wielding
     m_hand = eq.get("main_hand")
     o_hand = eq.get("off_hand")
     if m_hand and o_hand and m_hand.get("handedness") == "versatile" and o_hand.get("handedness") == "versatile":
@@ -651,12 +651,7 @@ def init_new_character(name: str, class_id: str):
         "title": "Collapse into the Forgotten Crypt",
         "location": "Subterranean Vault - Floor 1",
         "narrative": f"Sang {c['title']}, {game_state['player']['name']}, hanyalah warga biasa yang hidup sederhana di desa. Namun takdir berkata lain: saat sedang mencari kayu di lereng bukit berkabut, tanah di bawah kaki amblas runtuh seketika! Paduka terperosok jatuh ke dalam rongga makam kuno bawah tanah. Lubang keluar di atas tertutup reruntuhan batu besar. Satu-satunya jalan bertahan hidup adalah menembus lorong batu berlumut yang dingin dan gelap di depan mata.",
-        "choices": [
-            {"id": "A", "text": "Examine the ancient wall runes to decipher structural exits (INT / Arcana Check - DC 10)", "type": "roll", "dc": 10, "stat": "INT"},
-            {"id": "B", "text": "Use farming/smithing tools to clear heavy debris (STR / Athletics Check - DC 12)", "type": "roll", "dc": 12, "stat": "STR"},
-            {"id": "C", "text": "Light a pine pitch torch and stealthily navigate the corridor (DEX / Stealth Check - DC 9)", "type": "roll", "dc": 9, "stat": "DEX"},
-            {"id": "D", "text": "Take a short rest, catch breath, and inspect 40-slot backpack (Action)", "type": "action"}
-        ],
+        "choices": list(INITIAL_CHAPTER_CHOICES),
         "log": [f"Commoner '{game_state['player']['name']}' ({c['title']}) begins the underground survival journey!"]
     }
     save_game()
@@ -852,7 +847,6 @@ async def process_live_turn(choice_id: str, choice_text: str = "", custom_text: 
             
             active_m["hp"] = max(0, active_m["hp"] - base_dmg)
             
-            # Check if monster died from damage OR if AI declared it dead
             narrative_lower = (ai_resp.get("outcome_summary", "") + " " + ai_resp.get("narrative", "")).lower()
             declared_dead = any(w in narrative_lower for w in ["mati", "tumbang", "tewas", "slain", "defeated", "hancur", "terbelah", "roboh", "terbunuh"])
             
@@ -864,7 +858,6 @@ async def process_live_turn(choice_id: str, choice_text: str = "", custom_text: 
                 p["gold"] += active_m["gold_reward"]
                 loot_dropped = roll_dynamic_loot(p["level"], active_m["tier"])
                 
-                # Add loot to first free slot in 40-slot backpack
                 for i in range(len(p["inventory"])):
                     if p["inventory"][i] is None:
                         p["inventory"][i] = loot_dropped
@@ -889,7 +882,6 @@ async def process_live_turn(choice_id: str, choice_text: str = "", custom_text: 
         game_state["monster"] = generate_monster(p["level"], is_boss=is_boss, is_elite=is_elite)
 
     # Dynamic Secret Job Awakening Trigger (RNG chance on exploration)
-    # Special: ~18%, Epic: ~6%, Legendary: ~1.5%, Mythic: ~0.1%
     if not game_state.get("monster") and not game_state.get("pending_awakening"):
         rng_job = random.randint(1, 1000)
         awakening_offer = None
@@ -973,20 +965,15 @@ def equip_item(item_index: int):
     slot = item.get("slot")
     if not slot or slot not in p["equipped"]: return
 
-    # Handedness Logic for Two-Handed Weapons
     if slot == "main_hand" and item.get("handedness") == "two_handed":
-        # Unequip offhand if present
         if p["equipped"]["off_hand"]:
-            # Find free slot in 40-slot bag
             for i in range(len(p["inventory"])):
                 if p["inventory"][i] is None:
                     p["inventory"][i] = p["equipped"]["off_hand"]
                     p["equipped"]["off_hand"] = None
                     break
 
-    # If equipping offhand but mainhand is two-handed, block or unequip mainhand
     if slot == "off_hand" and p["equipped"].get("main_hand") and p["equipped"]["main_hand"].get("handedness") == "two_handed":
-        # Move two-handed mainhand to inventory
         for i in range(len(p["inventory"])):
             if p["inventory"][i] is None:
                 p["inventory"][i] = p["equipped"]["main_hand"]
@@ -1046,7 +1033,6 @@ def accept_awakening():
     p["class_icon"] = awakening["icon"]
     p["class_tier"] = awakening["tier"]
     
-    # Apply bonus stats
     if "bonus_stats" in awakening:
         for k, v in awakening["bonus_stats"].items():
             if k in p["stats"]:
@@ -1058,7 +1044,6 @@ def accept_awakening():
                 p["max_mp"] += v
                 p["mp"] += v
                 
-    # Add new skills to grimoire
     for sk in awakening.get("skills", []):
         if not any(s["id"] == sk["id"] for s in p.get("grimoire", [])):
             p.setdefault("grimoire", []).append(sk)

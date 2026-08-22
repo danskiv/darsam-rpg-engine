@@ -1,0 +1,232 @@
+{
+  "status": "playing",
+  "floor": 1,
+  "step": 1,
+  "active_sound_theme": "dungeon",
+  "torch_turns": 12,
+  "rations": 3,
+  "story_history": [],
+  "player": {
+    "name": "Danas",
+    "class_id": "peasant",
+    "class_name": "Hardy Peasant",
+    "class_icon": "\ud83c\udf3e",
+    "class_tier": "common",
+    "level": 1,
+    "exp": 0,
+    "exp_next": 75,
+    "hp": 115,
+    "max_hp": 115,
+    "mp": 15,
+    "max_mp": 15,
+    "gold": 12,
+    "stats": {
+      "str": 14,
+      "dex": 10,
+      "con": 15,
+      "int": 8,
+      "wis": 12,
+      "cha": 8
+    },
+    "equipped": {
+      "head": {
+        "id": "h_straw",
+        "name": "Weathered Straw Hat",
+        "rarity": "common",
+        "type": "head",
+        "slot": "head",
+        "icon": "\ud83d\udc52",
+        "bonus": {
+          "wis": 1
+        },
+        "val": 2
+      },
+      "armor": {
+        "id": "a_linen",
+        "name": "Homespun Tunic",
+        "rarity": "common",
+        "type": "armor",
+        "slot": "armor",
+        "icon": "\ud83d\udc55",
+        "bonus": {
+          "hp": 5,
+          "def": 1
+        },
+        "val": 2
+      },
+      "feet": {
+        "id": "f_sandals",
+        "name": "Woven Straw Sandals",
+        "rarity": "common",
+        "type": "feet",
+        "slot": "feet",
+        "icon": "\ud83d\udc61",
+        "bonus": {
+          "dodge": 2
+        },
+        "val": 2
+      },
+      "accessory": null,
+      "main_hand": {
+        "id": "w_hoe",
+        "name": "Rusty Farming Hoe",
+        "rarity": "common",
+        "type": "weapon",
+        "slot": "main_hand",
+        "handedness": "versatile",
+        "icon": "\u26cf\ufe0f",
+        "bonus": {
+          "str": 1,
+          "atk": 4
+        },
+        "val": 3
+      },
+      "off_hand": null
+    },
+    "inventory": [
+      {
+        "id": "c_ration_1",
+        "name": "Dry Ration Bread",
+        "rarity": "common",
+        "type": "consumable",
+        "icon": "\ud83c\udf5e",
+        "effect": "heal_hp_25",
+        "desc": "Restores 25 HP",
+        "val": 2
+      },
+      {
+        "id": "c_ration_2",
+        "name": "Dry Ration Bread",
+        "rarity": "common",
+        "type": "consumable",
+        "icon": "\ud83c\udf5e",
+        "effect": "heal_hp_25",
+        "desc": "Restores 25 HP",
+        "val": 2
+      },
+      {
+        "id": "c_torch_1",
+        "name": "Pine Pitch Torch",
+        "rarity": "common",
+        "type": "consumable",
+        "icon": "\ud83d\udd6f\ufe0f",
+        "effect": "add_light_6",
+        "desc": "+6 Torch Light turns",
+        "val": 3
+      },
+      {
+        "id": "m_rope",
+        "name": "Hemp Rope (15m)",
+        "rarity": "common",
+        "type": "material",
+        "icon": "\ud83e\udea2",
+        "desc": "Utility rope for climbing",
+        "val": 2
+      },
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null
+    ],
+    "grimoire": [
+      {
+        "id": "sk_adrenaline",
+        "name": "Adrenaline Surge",
+        "cost_mp": 5,
+        "cd": 3,
+        "dmg_type": "heal",
+        "est_val": "+25 HP & +2 STR",
+        "desc": "Memulihkan 25 HP seketika & memberi bonus +2 STR selama 2 turn."
+      }
+    ],
+    "active_skills": [
+      {
+        "id": "sk_adrenaline",
+        "name": "Adrenaline Surge",
+        "cost_mp": 5,
+        "cd": 3,
+        "dmg_type": "heal",
+        "est_val": "+25 HP & +2 STR",
+        "desc": "Memulihkan 25 HP seketika & memberi bonus +2 STR selama 2 turn."
+      }
+    ],
+    "status_effects": []
+  },
+  "current_node": {
+    "type": "exploration",
+    "title": "Collapse into the Forgotten Crypt",
+    "location": "Subterranean Vault - Floor 1",
+    "chapter": "Chapter 1: The Descent"
+  },
+  "monster": null,
+  "pending_awakening": null,
+  "scene": {
+    "chapter": "Chapter 1: The Descent",
+    "title": "Collapse into the Forgotten Crypt",
+    "location": "Subterranean Vault - Floor 1",
+    "narrative": "Sang Hardy Peasant, Danas, hanyalah warga biasa yang hidup sederhana di desa. Namun takdir berkata lain: saat sedang mencari kayu di lereng bukit berkabut, tanah di bawah kaki amblas runtuh seketika! Paduka terperosok jatuh ke dalam rongga makam kuno bawah tanah. Lubang keluar di atas tertutup reruntuhan batu besar. Satu-satunya jalan bertahan hidup adalah menembus lorong batu berlumut yang dingin dan gelap di depan mata.",
+    "choices": [
+      {
+        "id": "A",
+        "text": "Inspect the stone wall & search for weak structural points (Perception / WIS Check - DC 10)",
+        "type": "roll",
+        "dc": 10,
+        "stat": "WIS"
+      },
+      {
+        "id": "B",
+        "text": "Use tools to clear heavy rubble and force a breach (Athletics / STR Check - DC 12)",
+        "type": "roll",
+        "dc": 12,
+        "stat": "STR"
+      },
+      {
+        "id": "C",
+        "text": "Light a pine pitch torch and stealthily navigate the corridor (Stealth / DEX Check - DC 9)",
+        "type": "roll",
+        "dc": 9,
+        "stat": "DEX"
+      },
+      {
+        "id": "D",
+        "text": "Take a short rest, catch breath, and inspect 40-slot backpack (Action)",
+        "type": "action"
+      }
+    ],
+    "log": [
+      "Commoner 'Danas' (Hardy Peasant) begins the underground survival journey!"
+    ]
+  }
+}
