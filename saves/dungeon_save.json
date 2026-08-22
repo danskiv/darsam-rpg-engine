@@ -1,106 +1,118 @@
 {
   "status": "playing",
-  "floor": 1,
-  "step": 6,
+  "floor": 3,
+  "step": 63,
   "active_sound_theme": "mystery",
-  "selected_model": "openrouter/stealth/ox-alpha",
-  "torch_turns": 7,
+  "selected_model": "ag/gemini-3.7-flash-low",
+  "torch_turns": 0,
   "rations": 3,
   "story_history": [],
   "player": {
     "name": "Danas",
     "class_id": "peasant",
-    "class_name": "Blood-Pact Zealot",
-    "class_icon": "\ud83e\ude78",
-    "class_tier": "special",
-    "level": 1,
-    "exp": 45,
-    "exp_next": 75,
-    "hp": 97,
-    "max_hp": 115,
-    "mp": 15,
-    "max_mp": 15,
-    "gold": 42,
+    "class_name": "Ashen Dread-Emperor",
+    "class_icon": "\ud83d\udc51",
+    "class_tier": "legendary",
+    "level": 6,
+    "exp": 701,
+    "exp_next": 1318,
+    "hp": 293,
+    "max_hp": 240,
+    "mp": 55,
+    "max_mp": 55,
+    "gold": 3126,
     "stats": {
-      "str": 17,
+      "str": 42,
       "dex": 10,
-      "con": 17,
+      "con": 40,
       "int": 8,
-      "wis": 12,
+      "wis": 26,
       "cha": 8
     },
     "equipped": {
       "head": {
-        "id": "h_straw",
-        "name": "Weathered Straw Hat",
-        "item_level": 1,
-        "rarity": "common",
+        "id": "item_28240",
+        "name": "Reinforced Leather Cap",
+        "item_level": 5,
+        "rarity": "rare",
         "type": "head",
         "slot": "head",
-        "icon": "\ud83d\udc52",
+        "icon": "\ud83e\udde2",
         "bonus": {
-          "wis": 1
+          "def": 12,
+          "wis": 7,
+          "cha": 7
         },
-        "val": 2
+        "val": 54
       },
       "armor": {
-        "id": "a_linen",
-        "name": "Homespun Tunic",
-        "item_level": 1,
-        "rarity": "common",
+        "id": "item_37613",
+        "name": "Riveted Chainmail Shirt",
+        "item_level": 2,
+        "rarity": "uncommon",
         "type": "armor",
         "slot": "armor",
-        "icon": "\ud83d\udc55",
+        "icon": "\ud83e\udd4b",
         "bonus": {
-          "hp": 5,
-          "def": 1
+          "def": 8,
+          "hp": 53,
+          "dex": 2
         },
-        "val": 2
+        "val": 15
       },
       "feet": {
-        "id": "f_sandals",
-        "name": "Woven Straw Sandals",
-        "item_level": 1,
-        "rarity": "common",
+        "id": "item_14637",
+        "name": "Silent Stalker Moccasins",
+        "item_level": 5,
+        "rarity": "epic",
         "type": "feet",
         "slot": "feet",
-        "icon": "\ud83d\udc61",
+        "icon": "\ud83d\udc5f",
         "bonus": {
-          "dodge": 2
+          "dodge": 12,
+          "dex": 7,
+          "con": 10,
+          "cha": 10,
+          "wis": 10
         },
-        "val": 2
+        "val": 75
       },
-      "accessory": null,
+      "accessory": {
+        "id": "item_80671",
+        "name": "Gilded Luck Coin",
+        "item_level": 6,
+        "rarity": "epic",
+        "type": "accessory",
+        "slot": "accessory",
+        "icon": "\ud83e\ude99",
+        "bonus": {
+          "cha": 10,
+          "dodge": 7,
+          "str": 12
+        },
+        "val": 90
+      },
       "main_hand": {
-        "id": "w_hoe",
-        "name": "Rusty Farming Hoe",
-        "item_level": 1,
-        "rarity": "common",
+        "id": "item_21304",
+        "name": "Zweihander Greatsword",
+        "item_level": 6,
+        "rarity": "rare",
         "type": "weapon",
         "slot": "main_hand",
-        "handedness": "versatile",
-        "icon": "\u26cf\ufe0f",
+        "icon": "\ud83d\udde1\ufe0f",
         "bonus": {
-          "str": 1,
-          "atk": 4
+          "atk": 37,
+          "str": 7,
+          "dodge": 5,
+          "dex": 8
         },
-        "val": 3
+        "val": 64,
+        "handedness": "two_handed"
       },
       "off_hand": null
     },
     "inventory": [
-      {
-        "id": "c_ration",
-        "name": "Dry Ration Bread",
-        "item_level": 1,
-        "rarity": "common",
-        "type": "consumable",
-        "icon": "\ud83c\udf5e",
-        "qty": 3,
-        "effect": "heal_hp_25",
-        "desc": "Restores 25 HP",
-        "val": 2
-      },
+      null,
       {
         "id": "c_torch",
         "name": "Pine Pitch Torch",
@@ -108,7 +120,7 @@
         "rarity": "common",
         "type": "consumable",
         "icon": "\ud83d\udd6f\ufe0f",
-        "qty": 3,
+        "qty": 5,
         "effect": "add_light_6",
         "desc": "+6 Torch Light turns",
         "val": 3
@@ -124,15 +136,130 @@
         "desc": "Utility rope for climbing",
         "val": 2
       },
-      null,
-      null,
-      null,
-      null,
-      null,
-      null,
-      null,
-      null,
-      null,
+      {
+        "id": "w_hoe",
+        "name": "Rusty Farming Hoe",
+        "item_level": 1,
+        "rarity": "common",
+        "type": "weapon",
+        "slot": "main_hand",
+        "handedness": "versatile",
+        "icon": "\u26cf\ufe0f",
+        "bonus": {
+          "str": 1,
+          "atk": 4
+        },
+        "val": 3
+      },
+      {
+        "id": "cons_76372",
+        "name": "Blessed Holy Water",
+        "item_level": 2,
+        "rarity": "common",
+        "type": "consumable",
+        "icon": "\ud83c\udffa",
+        "qty": 3,
+        "effect": "cure_curse_heal_30",
+        "desc": "Cleanses Curse & heals 30 HP",
+        "val": 6
+      },
+      {
+        "id": "cons_82149",
+        "name": "Sterile Cloth Bandage",
+        "item_level": 2,
+        "rarity": "common",
+        "type": "consumable",
+        "icon": "\ud83e\ude79",
+        "qty": 1,
+        "effect": "cure_bleed_heal_20",
+        "desc": "Stops Bleeding & heals 20 HP",
+        "val": 6
+      },
+      {
+        "id": "f_sandals",
+        "name": "Woven Straw Sandals",
+        "item_level": 1,
+        "rarity": "common",
+        "type": "feet",
+        "slot": "feet",
+        "icon": "\ud83d\udc61",
+        "bonus": {
+          "dodge": 2
+        },
+        "val": 2
+      },
+      {
+        "id": "a_linen",
+        "name": "Homespun Tunic",
+        "item_level": 1,
+        "rarity": "common",
+        "type": "armor",
+        "slot": "armor",
+        "icon": "\ud83d\udc55",
+        "bonus": {
+          "hp": 5,
+          "def": 1
+        },
+        "val": 2
+      },
+      {
+        "id": "item_64159",
+        "name": "Silent Stalker Moccasins",
+        "item_level": 2,
+        "rarity": "common",
+        "type": "feet",
+        "slot": "feet",
+        "icon": "\ud83d\udc5f",
+        "bonus": {
+          "dodge": 5,
+          "dex": 2
+        },
+        "val": 12
+      },
+      {
+        "id": "item_39166",
+        "name": "Runed Battle-Cleaver",
+        "item_level": 1,
+        "rarity": "common",
+        "type": "weapon",
+        "slot": "main_hand",
+        "icon": "\ud83e\ude93",
+        "bonus": {
+          "atk": 8,
+          "str": 1
+        },
+        "val": 6,
+        "handedness": "main_hand_only"
+      },
+      {
+        "id": "h_straw",
+        "name": "Weathered Straw Hat",
+        "item_level": 1,
+        "rarity": "common",
+        "type": "head",
+        "slot": "head",
+        "icon": "\ud83d\udc52",
+        "bonus": {
+          "wis": 1
+        },
+        "val": 2
+      },
+      {
+        "id": "item_83655",
+        "name": "Amulet of Vitality",
+        "item_level": 5,
+        "rarity": "epic",
+        "type": "accessory",
+        "slot": "accessory",
+        "icon": "\ud83d\udcff",
+        "bonus": {
+          "hp": 150,
+          "con": 7,
+          "dex": 10,
+          "wis": 10
+        },
+        "val": 75
+      },
       null,
       null,
       null,
@@ -179,18 +306,34 @@
         "dmg_type": "damage",
         "est_val": "45-60 Blood DMG",
         "desc": "Mengorbankan 10 HP untuk menebas monster dengan 45-60 damage brutal."
+      },
+      {
+        "id": "sk_solar_verdict",
+        "name": "Wrath of the Seven Suns",
+        "cost_mp": 28,
+        "dmg_type": "damage",
+        "est_val": "120-155 Holy DMG",
+        "desc": "Tujuh pilar cahaya surya yang membakar habis kejahatan makam dan memulihkan 50 HP karakter."
+      },
+      {
+        "id": "sk_apocalypse_cleave",
+        "name": "Sovereign Oblivion Strike",
+        "cost_mp": 26,
+        "dmg_type": "damage",
+        "est_val": "130-170 Brutal DMG",
+        "desc": "Tebasan pedang kehancuran mutlak yang mengabaikan 100% Defense musuh."
+      },
+      {
+        "id": "sk_reaper",
+        "name": "Reaper's Harvest Sweep",
+        "cost_mp": 10,
+        "cd": 2,
+        "dmg_type": "damage",
+        "est_val": "35-48 Area DMG",
+        "desc": "Ayunan sabit luas yang menebas musuh dengan kekuatan penuh (35-48 DMG)."
       }
     ],
     "active_skills": [
-      {
-        "id": "sk_adrenaline",
-        "name": "Adrenaline Surge",
-        "cost_mp": 5,
-        "cd": 3,
-        "dmg_type": "heal",
-        "est_val": "+25 HP & +2 STR",
-        "desc": "Memulihkan 25 HP seketika & memberi bonus +2 STR selama 2 turn."
-      },
       {
         "id": "sk_blood_strike",
         "name": "Sanguine Cleave",
@@ -198,58 +341,76 @@
         "dmg_type": "damage",
         "est_val": "45-60 Blood DMG",
         "desc": "Mengorbankan 10 HP untuk menebas monster dengan 45-60 damage brutal."
+      },
+      {
+        "id": "sk_solar_verdict",
+        "name": "Wrath of the Seven Suns",
+        "cost_mp": 28,
+        "dmg_type": "damage",
+        "est_val": "120-155 Holy DMG",
+        "desc": "Tujuh pilar cahaya surya yang membakar habis kejahatan makam dan memulihkan 50 HP karakter."
+      },
+      {
+        "id": "sk_apocalypse_cleave",
+        "name": "Sovereign Oblivion Strike",
+        "cost_mp": 26,
+        "dmg_type": "damage",
+        "est_val": "130-170 Brutal DMG",
+        "desc": "Tebasan pedang kehancuran mutlak yang mengabaikan 100% Defense musuh."
       }
     ],
-    "status_effects": []
+    "status_effects": [
+      "blind"
+    ]
   },
   "current_node": {
-    "type": "exploration",
+    "type": "campfire",
     "title": "Collapse into the Forgotten Crypt",
-    "location": "Lorong Kiri - Altar Karang Hitam",
-    "chapter": "Chapter 1: The Descent"
+    "location": "Ossuary of the Forsaken Patriarch",
+    "chapter": "Chapter 5: The Archon's Sanctum"
   },
   "monster": null,
   "merchant_stock": [],
   "merchant_discount": 0,
   "pending_awakening": null,
   "scene": {
-    "chapter": "Chapter 1: The Descent",
-    "title": "Anugerah Darah Kuno",
-    "location": "Lorong Kiri - Altar Karang Hitam",
-    "narrative": "Saat Danas menekan telapak tangannya ke atas segel, denyut darahnya selaras sempurna dengan sihir purba yang terkunci di dalam logam dingin itu. Suara dengung rendah bergetar di lantai batu basah ketika lilin merah menyala membakar diri hingga abu, memicu engsel peti terlempar terbuka dengan bunyi logam berderit nyaring. Di dalam bantalan beludru yang telah membusuk, terbaring sebuah belati ritual bergagang tulang serta kantong koin berlumur jelaga yang memancarkan aura magis pekat. Namun, aroma darah segar yang menguar di udara lembap ini mulai memanggil sesuatu yang berakar jauh di celah dinding batuan.",
+    "chapter": "Chapter 5: The Archon's Sanctum",
+    "title": "Bisikan dari Retakan Keringat dan Debu",
+    "location": "Ossuary of the Forsaken Patriarch",
+    "narrative": "Danas menyandarkan punggung kokohnya pada susunan tengkorak kuno yang terasa sedingin es, membiarkan detak jantungnya kembali berirama tenang di tengah kehampaan gelap gulita. Hawa lembap dan aroma busuk makam meresap ke dalam tarikan napasnya, namun ketajaman pendengaran Danas kini mampu menangkap resonansi aneh dari dalam retakan dinding batu di sampingnya. Sesuatu yang berakar dari zaman kegelapan purba seakan berdenyut di balik susunan belulang, menawarkan rahasia kelam atau ancaman terkubur. Sambil menggenggam erat gagang Zweihander Greatsword, Danas merasakan aliran energi dingin mengalir melalui telapak tangannya.",
     "choices": [
       {
         "id": "A",
-        "text": "Raih belati bertatahkan tulang dan periksa kekuatannya (WIS Check - DC 10)",
+        "text": "Meremukkan susunan tulang yang rapuh untuk membuka rongga tersembunyi (STR Check - DC 11)",
+        "type": "roll",
+        "stat": "STR",
+        "dc": 11
+      },
+      {
+        "id": "B",
+        "text": "Menyelidiki lekuk ukiran batu kuno dengan sentuhan jemari yang presisi (WIS Check - DC 10)",
         "type": "roll",
         "stat": "WIS",
         "dc": 10
       },
       {
-        "id": "B",
-        "text": "Geledah kompartemen rahasia di dasar peti dengan cepat (DEX Check - DC 11)",
-        "type": "roll",
-        "stat": "DEX",
-        "dc": 11
-      },
-      {
         "id": "C",
-        "text": "Teliti ukiran rune kuno di balik tutup peti untuk memahami kutukannya (INT Check - DC 9)",
+        "text": "Mendengarkan getaran udara dan frekuensi gaib di balik celah makam (WIS Check - DC 9)",
         "type": "roll",
-        "stat": "INT",
+        "stat": "WIS",
         "dc": 9
       },
       {
         "id": "D",
-        "text": "Kemas semua jarahan dan bersiap siaga menghadapi pergerakan di kegelapan (Action)",
+        "text": "Mengakhiri jeda dan bersiap melangkah maju ke lorong utama makam (Action)",
         "type": "action"
       }
     ],
     "log": [
-      "\ud83c\udfb2 [FAIL \u2022 D20: 4+0=4 vs DC 10] DEX Check gagal total \u2014 Danas terpeleset di lumut licin dan berguling jatuh ke galeri bawah tanah, menerima 6 Fall Damage. Gemuruh tubuhnya menghantam air menggema ke seluruh katakomba dan membangunkan kawanan Crypt Rat yang kelaparan. (-6 HP)",
-      "\ud83c\udfb2 [SUCCESS \u2022 D20: 12+3=15 vs DC 10] Sanguine Cleave SUCCESS! Ayunan sabit darah dari cangkul karat Danas menghancurkan tiga Restless Skeleton Grunt sekaligus dalam satu lengkungan mematikan, dengan harga 6 HP yang terkuras oleh Blood Pact. (+15 EXP) (-6 HP)",
-      "\ud83c\udfb2 [FAIL \u2022 D20: 3-1=2 vs DC 9] Danas gagal total membaca ukiran kuno itu (Critical Fail pada INT Check). Darah hangat di ujung jarinya menyentuh segel lilin merah dan memicu reaksi terkutuk \u2014 pikirannya ditikam bisikan asing, namun ia menyadari satu hal: peti ini dikunci oleh Blood Lock yang menuntut persembahan darah. (-3 HP)",
-      "\ud83c\udfb2 [SUCCESS \u2022 D20: 17+3=20 vs DC 9] CON Check berhasil mutlak dengan Critical Hit! Segel Blood Lock pecah tanpa menguras daya tahan tubuh Danas secara berlebihan, membuka rahasia tersembunyi di dalam peti kuno. (+15 EXP) (-3 HP)"
+      "\ud83c\udfb2 [SUCCESS \u2022 D20: 2+16=18 vs DC 10] Danas berhasil melakukan Looting mayat monster dengan hasil Success gemilang, menemukan pundi emas serta membuka akses langsung ke Ironbound Relic Chest. (+15 EXP)",
+      "\ud83c\udfb2 [Direct Action \u2022 Action] Danas mengambil Short Rest untuk memulihkan fokus mental, mengembalikan MP secara maksimal di tengah keheningan makam.",
+      "\ud83c\udfb2 [SUCCESS \u2022 D20: 7+16=23 vs DC 10] Danas berhasil membuka peti kuno dengan Success mutlak, mengamankan sejumlah Gold kuno dan melangkah lebih dalam melewati koridor tulang. (+15 EXP)",
+      "\ud83c\udfb2 [Direct Action \u2022 Action] Danas mengambil Short Rest di balik pilar tulang, memulihkan fokus indra meski status Blind masih mengaburkan penglihatan."
     ]
   }
 }

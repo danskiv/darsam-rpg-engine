@@ -681,6 +681,20 @@ class ConnectionManager:
 
 manager = ConnectionManager()
 
+def get_effective_max_vitals(player: Dict[str, Any]) -> tuple[int, int]:
+    base_hp = player.get("max_hp", 100)
+    base_mp = player.get("max_mp", 10)
+    extra_hp = 0
+    extra_mp = 0
+    
+    eq = player.get("equipped", {})
+    for slot, item in eq.items():
+        if item and "bonus" in item:
+            if "hp" in item["bonus"]: extra_hp += item["bonus"]["hp"]
+            if "mp" in item["bonus"]: extra_mp += item["bonus"]["mp"]
+            
+    return (base_hp + extra_hp, base_mp + extra_mp)
+
 def compute_total_stats(player: Dict[str, Any]) -> Dict[str, int]:
     base = dict(player["stats"])
     
@@ -1059,9 +1073,10 @@ async def process_live_turn(choice_id: str, choice_text: str = "", custom_text: 
             p["hp"] = max(0, p["hp"] - m_dmg)
 
     # Apply Vitals Changes from Story
+    eff_max_hp, eff_max_mp = get_effective_max_vitals(p)
     hp_diff = ai_resp.get("hp_change", 0)
-    p["hp"] = max(0, min(p["max_hp"], p["hp"] + hp_diff))
-    p["mp"] = max(0, min(p["max_mp"], p["mp"] + ai_resp.get("mp_change", 0)))
+    p["hp"] = max(0, min(eff_max_hp, p["hp"] + hp_diff))
+    p["mp"] = max(0, min(eff_max_mp, p["mp"] + ai_resp.get("mp_change", 0)))
     p["gold"] = max(0, p["gold"] + ai_resp.get("gold_change", 0))
 
     # 1. Merchant Encounter Stock Generation
@@ -1102,14 +1117,16 @@ async def process_live_turn(choice_id: str, choice_text: str = "", custom_text: 
     p["exp"] += exp_gained
     leveled_up = False
     new_skill_unlocked = None
+    eff_max_hp, eff_max_mp = get_effective_max_vitals(p)
     while p["exp"] >= p["exp_next"] and p["level"] < 20:
         p["level"] += 1
         p["exp"] -= p["exp_next"]
         p["exp_next"] = get_required_exp_for_level(p["level"])
         p["max_hp"] += 15
-        p["hp"] = p["max_hp"]
         p["max_mp"] += 8
-        p["mp"] = p["max_mp"]
+        eff_max_hp, eff_max_mp = get_effective_max_vitals(p)
+        p["hp"] = eff_max_hp
+        p["mp"] = eff_max_mp
         p["stats"]["str"] += 1
         p["stats"]["con"] += 1
         leveled_up = True
@@ -1209,29 +1226,30 @@ def use_consumable(item_index: int):
     if not item or item.get("type") != "consumable": return
 
     eff = item.get("effect", "")
+    eff_max_hp, eff_max_mp = get_effective_max_vitals(p)
     if eff.startswith("heal_hp_"):
         amount = int(eff.split("_")[-1])
-        p["hp"] = min(p["max_hp"], p["hp"] + amount)
+        p["hp"] = min(eff_max_hp, p["hp"] + amount)
     elif eff.startswith("heal_mp_"):
         amount = int(eff.split("_")[-1])
-        p["mp"] = min(p["max_mp"], p["mp"] + amount)
+        p["mp"] = min(eff_max_mp, p["mp"] + amount)
     elif eff.startswith("add_light_"):
         amount = int(eff.split("_")[-1])
         game_state["torch_turns"] += amount
         if "blind" in p["status_effects"]: p["status_effects"].remove("blind")
     elif eff == "full_restore":
-        p["hp"] = p["max_hp"]
-        p["mp"] = p["max_mp"]
+        p["hp"] = eff_max_hp
+        p["mp"] = eff_max_mp
         p["status_effects"] = []
     elif eff == "cure_bleed_heal_20":
         if "bleeding" in p["status_effects"]: p["status_effects"].remove("bleeding")
-        p["hp"] = min(p["max_hp"], p["hp"] + 20)
+        p["hp"] = min(eff_max_hp, p["hp"] + 20)
     elif eff == "cure_poison_heal_25":
         if "poisoned" in p["status_effects"]: p["status_effects"].remove("poisoned")
-        p["hp"] = min(p["max_hp"], p["hp"] + 25)
+        p["hp"] = min(eff_max_hp, p["hp"] + 25)
     elif eff == "cure_curse_heal_30":
         if "cursed" in p["status_effects"]: p["status_effects"].remove("cursed")
-        p["hp"] = min(p["max_hp"], p["hp"] + 30)
+        p["hp"] = min(eff_max_hp, p["hp"] + 30)
 
     qty = item.get("qty", 1)
     if qty > 1:
