@@ -477,6 +477,21 @@ def generate_monster(player_lv: int, is_boss: bool = False, is_elite: bool = Fal
 def get_required_exp_for_level(level: int) -> int:
     return int(75 * (level ** 1.6))
 
+# Chapter Transition Milestone Table
+CHAPTER_PROGRESSION = [
+    {"min_step": 1, "max_step": 5, "chapter": "Chapter 1: The Descent", "floor": 1, "theme": "Ruang Makam Runtuh & Lorong Lumut", "danger": "Common vermin & ancient traps"},
+    {"min_step": 6, "max_step": 12, "chapter": "Chapter 2: The Sarcophagus Halls", "floor": 1, "theme": "Kubah Sarkofagus & Altar Terkutuk", "danger": "Skeletal sentinels & dark cultists"},
+    {"min_step": 13, "max_step": 20, "chapter": "Chapter 3: The Abyssal Waterway", "floor": 2, "theme": "Kanal Bawah Tanah & Jembatan Rapuh", "danger": "Venomous brood & aquatic horrors"},
+    {"min_step": 21, "max_step": 30, "chapter": "Chapter 4: The Forgotten Necropolis", "floor": 2, "theme": "Kota Mati Purba & Toko Terlarang", "danger": "Elite shadowblades & dread revenants"},
+    {"min_step": 31, "max_step": 45, "chapter": "Chapter 5: The Archon's Sanctum", "floor": 3, "theme": "Pintu Gerbang Utama & Istana Dewa Kegelapan", "danger": "Lich Lord Malakor (Boss Encounter)"}
+]
+
+def get_current_chapter_info(step: int) -> Dict[str, Any]:
+    for ch in CHAPTER_PROGRESSION:
+        if ch["min_step"] <= step <= ch["max_step"]:
+            return ch
+    return CHAPTER_PROGRESSION[-1]
+
 INITIAL_CHAPTER_CHOICES = [
     {"id": "A", "text": "Inspect the stone wall & search for weak structural points (Perception / WIS Check - DC 10)", "type": "roll", "dc": 10, "stat": "WIS"},
     {"id": "B", "text": "Use tools to clear heavy rubble and force a breach (Athletics / STR Check - DC 12)", "type": "roll", "dc": 12, "stat": "STR"},
@@ -1085,13 +1100,23 @@ async def process_live_turn(choice_id: str, choice_text: str = "", custom_text: 
     if leveled_up: outcome += f" 🌟 LEVEL UP! {p['name']} naik ke Level {p['level']} (Max HP/MP meningkat & HP pulih penuh)!"
     if new_skill_unlocked: outcome += f" ⚡ NEW SKILL UNLOCKED (Lv.{p['level']}): {new_skill_unlocked['name']}!"
 
-    # Update Scene State
-    game_state["scene"]["chapter"] = ai_resp.get("chapter", scene.get("chapter"))
+    # Update Scene State & Chapter Progression
+    ch_info = get_current_chapter_info(game_state["step"])
+    game_state["floor"] = ch_info["floor"]
+    
+    # If AI returned a custom chapter, prefer progression if steps exceed
+    new_chapter_title = ch_info["chapter"]
+    if game_state["step"] < ch_info["min_step"] + 2 and ai_resp.get("chapter"):
+        new_chapter_title = ai_resp.get("chapter")
+
+    game_state["scene"]["chapter"] = new_chapter_title
     game_state["scene"]["title"] = ai_resp.get("title", "Dungeon Chamber")
-    game_state["scene"]["location"] = ai_resp.get("location", scene.get("location"))
+    game_state["scene"]["location"] = ai_resp.get("location", f"{ch_info['theme']} (Floor {ch_info['floor']})")
     game_state["scene"]["narrative"] = ai_resp.get("narrative", "Suasana gua semakin pekat...")
     game_state["scene"]["choices"] = ai_resp.get("choices", scene.get("choices"))
     game_state["current_node"]["type"] = ai_resp.get("node_type", "exploration")
+    game_state["current_node"]["chapter"] = new_chapter_title
+    game_state["current_node"]["location"] = game_state["scene"]["location"]
     game_state["scene"]["log"].append(outcome)
     if len(game_state["scene"]["log"]) > 4: game_state["scene"]["log"].pop(0)
 

@@ -66,7 +66,7 @@
         }
     </style>
 </head>
-<body class="select-none p-3 lg:p-6 max-w-7xl mx-auto pb-24 min-h-screen flex flex-col justify-between">
+<body class="select-none p-3 lg:p-6 max-w-7xl mx-auto pb-32 min-h-screen flex flex-col justify-between">
 
     <!-- ======================================================== -->
     <!-- 1. CHARACTER CREATION VIEW (8 DIVERSE ORIGINS)           -->
@@ -223,47 +223,52 @@
         
         <!-- Top Sticky Header -->
         <header id="c-header-card" class="bg-zinc-900/95 border-2 p-3 rounded-2xl shadow-xl space-y-2.5 transition-all">
+            <!-- Row 1: Profile Avatar & AI Engine Selector -->
             <div class="flex justify-between items-center">
-                <div class="flex items-center space-x-2.5">
-                    <div id="m-char-icon" class="w-9 h-9 rounded-xl bg-gradient-to-tr from-amber-600 to-yellow-400 flex items-center justify-center text-lg font-bold text-black shadow">
+                <div class="flex items-center space-x-2.5 min-w-0">
+                    <div id="m-char-icon" class="w-9 h-9 rounded-xl bg-gradient-to-tr from-amber-600 to-yellow-400 flex items-center justify-center text-lg font-bold text-black shadow flex-shrink-0">
                         🌾
                     </div>
-                    <div>
+                    <div class="min-w-0">
                         <div class="flex items-center space-x-1.5">
-                            <h1 id="m-char-name" class="text-xs lg:text-sm font-bold font-cinzel text-amber-400 truncate max-w-[120px]">Danas</h1>
-                            <span id="m-char-tier-badge" class="text-[8px] uppercase font-bold bg-zinc-800 px-1.5 py-0.2 rounded text-zinc-300 font-mono border border-zinc-700">COMMON</span>
+                            <h1 id="m-char-name" class="text-xs lg:text-sm font-bold font-cinzel text-amber-400 truncate max-w-[130px]">Danas</h1>
+                            <span id="m-char-tier-badge" class="text-[8px] uppercase font-bold bg-zinc-800 px-1.5 py-0.5 rounded text-zinc-300 font-mono border border-zinc-700">COMMON</span>
                         </div>
                         <p id="m-char-level" class="text-[9px] text-zinc-300 font-semibold truncate">Hardy Peasant • Level 1</p>
                     </div>
                 </div>
 
-                <!-- Vitals & Model Preview -->
-                <div class="flex items-center space-x-2 text-[10px] font-bold font-mono">
-                    <div class="bg-red-950/70 border border-red-800/70 px-2 py-1 rounded-lg text-red-300">
-                        ❤️ <span id="m-hp">115/115</span>
-                    </div>
-                    <div class="bg-cyan-950/70 border border-cyan-800/70 px-2 py-1 rounded-lg text-cyan-300">
-                        ✨ <span id="m-mp">15/15</span>
-                    </div>
-                    <div class="bg-amber-950/70 border border-amber-800/70 px-2 py-1 rounded-lg text-amber-300">
-                        🪙 <span id="m-gold">12</span> G
-                    </div>
-                    <!-- Header AI Model Selector Dropdown -->
-                    <div class="bg-zinc-950 border border-zinc-700 px-2 py-0.5 rounded-lg">
-                        <select id="select-ai-model-top" onchange="changeAiModel(this.value)" class="bg-transparent text-amber-300 font-bold text-[9px] focus:outline-none cursor-pointer">
-                            <option value="openrouter/stealth/ox-alpha">🧠 OX-Alpha</option>
-                            <option value="ag/gemini-3.7-flash-low">⚡ Gemini 3.7</option>
-                            <option value="ag/claude-sonnet-4-6">📜 Claude Sonnet</option>
-                            <option value="openrouter/deepseek/deepseek-v4-flash">⚔️ DeepSeek V4</option>
-                        </select>
-                    </div>
+                <!-- Header AI Model Selector Dropdown -->
+                <div class="bg-zinc-950 border border-zinc-700 px-2 py-1 rounded-xl shadow flex-shrink-0">
+                    <select id="select-ai-model-top" onchange="changeAiModel(this.value)" class="bg-transparent text-amber-300 font-bold text-[9px] focus:outline-none cursor-pointer">
+                        <option value="openrouter/stealth/ox-alpha">🧠 OX-Alpha</option>
+                        <option value="ag/gemini-3.7-flash-low">⚡ Gemini 3.7</option>
+                        <option value="ag/claude-sonnet-4-6">📜 Claude Sonnet</option>
+                        <option value="openrouter/deepseek/deepseek-v4-flash">⚔️ DeepSeek V4</option>
+                    </select>
                 </div>
             </div>
 
-            <!-- EXP Progress Bar in Controller Header -->
+            <!-- Row 2: Symmetric 3-Column Vitals Grid (HP, MP, Gold) -->
+            <div class="grid grid-cols-3 gap-2 text-center text-[10px] font-bold font-mono">
+                <div class="bg-red-950/70 border border-red-800/70 py-1.5 px-1 rounded-xl text-red-300 flex items-center justify-center space-x-1 shadow">
+                    <span>❤️</span>
+                    <span id="m-hp">115/115</span>
+                </div>
+                <div class="bg-cyan-950/70 border border-cyan-800/70 py-1.5 px-1 rounded-xl text-cyan-300 flex items-center justify-center space-x-1 shadow">
+                    <span>✨</span>
+                    <span id="m-mp">15/15</span>
+                </div>
+                <div class="bg-amber-950/70 border border-amber-800/70 py-1.5 px-1 rounded-xl text-amber-300 flex items-center justify-center space-x-1 shadow">
+                    <span>🪙</span>
+                    <span><span id="m-gold">12</span> G</span>
+                </div>
+            </div>
+
+            <!-- Row 3: EXP Progress Bar -->
             <div class="space-y-1 bg-zinc-950/80 p-2 rounded-xl border border-zinc-800/80">
                 <div class="flex justify-between items-center text-[9px] font-bold font-mono">
-                    <span class="text-amber-400 font-cinzel">⭐ EXPERIENCE (EXP):</span>
+                    <span class="text-amber-400 font-cinzel">⭐ EXPERIENCE:</span>
                     <span id="m-exp-text" class="text-zinc-300">0 / 75 EXP</span>
                 </div>
                 <div class="w-full h-2 bg-zinc-900 rounded-full overflow-hidden border border-zinc-800">
@@ -271,13 +276,13 @@
                 </div>
             </div>
 
-            <!-- TAB SELECTOR (STORY vs STATS & BACKPACK 40) -->
-            <div class="flex rounded-xl bg-zinc-950 p-1 border border-zinc-800 text-xs font-bold font-cinzel">
-                <button onclick="switchTab('story')" id="tab-btn-story" class="flex-1 py-1.5 rounded-lg bg-amber-500 text-black shadow font-bold transition-all">
+            <!-- Row 4: Symmetric Tab Selector -->
+            <div class="grid grid-cols-2 gap-1 rounded-xl bg-zinc-950 p-1 border border-zinc-800 text-xs font-bold font-cinzel text-center">
+                <button onclick="switchTab('story')" id="tab-btn-story" class="py-2 rounded-lg bg-amber-500 text-black shadow font-bold transition-all truncate px-1">
                     📖 STORY & ACTIONS
                 </button>
-                <button onclick="switchTab('stats')" id="tab-btn-stats" class="flex-1 py-1.5 rounded-lg text-zinc-400 hover:text-zinc-200 transition-all">
-                    🎒 STATS, SKILLS & BACKPACK (40)
+                <button onclick="switchTab('stats')" id="tab-btn-stats" class="py-2 rounded-lg text-zinc-400 hover:text-zinc-200 transition-all truncate px-1">
+                    🎒 STATS & BACKPACK (40)
                 </button>
             </div>
         </header>
