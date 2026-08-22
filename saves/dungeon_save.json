@@ -1,8 +1,8 @@
 {
   "status": "playing",
-  "floor": 3,
-  "step": 151,
-  "active_sound_theme": "mystery",
+  "floor": 5,
+  "step": 171,
+  "active_sound_theme": "danger",
   "selected_model": "ag/gemini-3.7-flash-low",
   "torch_turns": 0,
   "rations": 3,
@@ -13,18 +13,18 @@
     "class_name": "Ashen Dread-Emperor",
     "class_icon": "\ud83d\udc51",
     "class_tier": "legendary",
-    "level": 11,
-    "exp": 320,
-    "exp_next": 3477,
-    "hp": 552,
-    "max_hp": 315,
-    "mp": 475,
-    "max_mp": 95,
-    "gold": 4283,
+    "level": 12,
+    "exp": 1833,
+    "exp_next": 3997,
+    "hp": 700,
+    "max_hp": 330,
+    "mp": 306,
+    "max_mp": 103,
+    "gold": 7676,
     "stats": {
-      "str": 47,
+      "str": 48,
       "dex": 10,
-      "con": 45,
+      "con": 46,
       "int": 8,
       "wis": 26,
       "cha": 8
@@ -48,91 +48,111 @@
         "val": 194
       },
       "armor": {
-        "id": "item_58613",
-        "name": "Dread-Emperor's Oblivion Regalia",
-        "item_level": 10,
+        "id": "item_23101",
+        "name": "Dread-Forged Void Plate",
+        "item_level": 11,
         "rarity": "legendary",
         "type": "armor",
         "slot": "armor",
-        "icon": "\ud83d\udee1\ufe0f",
+        "icon": "\ud83e\uddba",
         "bonus": {
-          "def": 64,
-          "hp": 432,
-          "str": 28,
-          "wis": 28
+          "def": 54,
+          "hp": 370,
+          "dex": 31,
+          "str": 31,
+          "crit": 10
         },
-        "val": 216
+        "val": 237
       },
       "feet": {
-        "id": "item_14637",
-        "name": "Silent Stalker Moccasins",
-        "item_level": 5,
-        "rarity": "epic",
+        "id": "item_76762",
+        "name": "Molten Greaves of the Archon",
+        "item_level": 12,
+        "rarity": "legendary",
         "type": "feet",
         "slot": "feet",
-        "icon": "\ud83d\udc5f",
+        "icon": "\ud83d\udc62",
         "bonus": {
-          "dodge": 12,
-          "dex": 7,
-          "con": 10,
-          "cha": 10,
-          "wis": 10
+          "def": 55,
+          "dodge": 7,
+          "wis": 34,
+          "con": 34,
+          "dex": 34
         },
-        "val": 75
+        "val": 259
       },
       "accessory": {
-        "id": "item_26493",
-        "name": "Abyssal Soul Ring",
-        "item_level": 10,
-        "rarity": "epic",
+        "id": "item_96883",
+        "name": "Band of Omnipotent Cataclysm",
+        "item_level": 11,
+        "rarity": "legendary",
         "type": "accessory",
         "slot": "accessory",
-        "icon": "\ud83e\ude99",
+        "icon": "\ud83d\udc8d",
         "bonus": {
-          "cha": 15,
-          "int": 20,
-          "dodge": 7,
-          "con": 20
+          "str": 21,
+          "int": 31,
+          "cha": 31,
+          "wis": 31
         },
-        "val": 150
+        "val": 237
       },
       "main_hand": {
-        "id": "item_43095",
-        "name": "Runed Battle-Cleaver",
-        "item_level": 8,
-        "rarity": "epic",
+        "id": "item_35261",
+        "name": "Voidforged Dreadblade",
+        "item_level": 12,
+        "rarity": "legendary",
         "type": "weapon",
         "slot": "main_hand",
         "icon": "\ud83e\ude93",
         "bonus": {
-          "atk": 55,
-          "str": 12,
-          "dex": 16,
-          "int": 16
+          "atk": 108,
+          "str": 25,
+          "crit": 10,
+          "dex": 34,
+          "con": 34,
+          "int": 34
         },
-        "val": 120,
+        "val": 259,
         "handedness": "main_hand_only"
       },
       "off_hand": {
-        "id": "item_67262",
-        "name": "Spellcaster Grimoire",
-        "item_level": 7,
-        "rarity": "epic",
+        "id": "item_16149",
+        "name": "Aegis of the Void Sovereign",
+        "item_level": 12,
+        "rarity": "legendary",
         "type": "offhand",
         "slot": "off_hand",
-        "icon": "\ud83d\udcd6",
+        "icon": "\ud83d\udee1\ufe0f",
         "bonus": {
-          "mp": 142,
-          "int": 10,
-          "dex": 14,
-          "dodge": 7
+          "def": 62,
+          "con": 25,
+          "cha": 34,
+          "dodge": 10,
+          "dex": 34,
+          "crit": 10
         },
-        "val": 105,
+        "val": 259,
         "handedness": "off_hand_only"
       }
     },
     "inventory": [
-      null,
+      {
+        "id": "item_40349",
+        "name": "Heart of the Smoldering Archon",
+        "item_level": 10,
+        "rarity": "epic",
+        "type": "accessory",
+        "slot": "accessory",
+        "icon": "\ud83d\udcff",
+        "bonus": {
+          "hp": 250,
+          "con": 15,
+          "dodge": 7,
+          "str": 20
+        },
+        "val": 150
+      },
       {
         "id": "c_torch",
         "name": "Pine Pitch Torch",
@@ -140,7 +160,7 @@
         "rarity": "common",
         "type": "consumable",
         "icon": "\ud83d\udd6f\ufe0f",
-        "qty": 8,
+        "qty": 9,
         "effect": "add_light_6",
         "desc": "+6 Torch Light turns",
         "val": 3
@@ -188,7 +208,7 @@
         "rarity": "common",
         "type": "consumable",
         "icon": "\ud83e\ude79",
-        "qty": 1,
+        "qty": 2,
         "effect": "cure_bleed_heal_20",
         "desc": "Stops Bleeding & heals 20 HP",
         "val": 6
@@ -225,22 +245,35 @@
         "val": 118,
         "handedness": "off_hand_only"
       },
-      null,
       {
-        "id": "item_22056",
-        "name": "Abyssal Dreadplate Mantle",
-        "item_level": 9,
+        "id": "item_11381",
+        "name": "Obsidian Heart Amulet",
+        "item_level": 10,
         "rarity": "epic",
-        "type": "armor",
-        "slot": "armor",
-        "icon": "\ud83e\uddba",
+        "type": "accessory",
+        "slot": "accessory",
+        "icon": "\ud83d\udcff",
         "bonus": {
-          "def": 31,
-          "hp": 217,
-          "dex": 18,
-          "wis": 18
+          "hp": 250,
+          "con": 15,
+          "str": 20,
+          "cha": 20
         },
-        "val": 135
+        "val": 150
+      },
+      {
+        "id": "item_40197",
+        "name": "Sigil of Ash Ward",
+        "item_level": 12,
+        "rarity": "rare",
+        "type": "accessory",
+        "slot": "accessory",
+        "icon": "\ud83d\udc8d",
+        "bonus": {
+          "str": 12,
+          "dex": 17
+        },
+        "val": 129
       },
       {
         "id": "item_87343",
@@ -260,24 +293,84 @@
         "val": 150
       },
       {
-        "id": "item_80671",
-        "name": "Gilded Luck Coin",
-        "item_level": 6,
+        "id": "item_23541",
+        "name": "Obsidian Heart Core",
+        "item_level": 10,
+        "rarity": "epic",
+        "type": "accessory",
+        "slot": "accessory",
+        "icon": "\ud83d\udc8d",
+        "bonus": {
+          "str": 15,
+          "crit": 7
+        },
+        "val": 150
+      },
+      {
+        "id": "item_14637",
+        "name": "Silent Stalker Moccasins",
+        "item_level": 5,
+        "rarity": "epic",
+        "type": "feet",
+        "slot": "feet",
+        "icon": "\ud83d\udc5f",
+        "bonus": {
+          "dodge": 12,
+          "dex": 7,
+          "con": 10,
+          "cha": 10,
+          "wis": 10
+        },
+        "val": 75
+      },
+      {
+        "id": "item_26493",
+        "name": "Abyssal Soul Ring",
+        "item_level": 10,
         "rarity": "epic",
         "type": "accessory",
         "slot": "accessory",
         "icon": "\ud83e\ude99",
         "bonus": {
-          "cha": 10,
+          "cha": 15,
+          "int": 20,
           "dodge": 7,
-          "str": 12
+          "con": 20
         },
-        "val": 90
+        "val": 150
       },
-      null,
-      null,
-      null,
-      null,
+      {
+        "id": "item_79522",
+        "name": "Infernal Core Fragment",
+        "item_level": 10,
+        "rarity": "rare",
+        "type": "accessory",
+        "slot": "accessory",
+        "icon": "\ud83e\ude99",
+        "bonus": {
+          "cha": 10,
+          "str": 14,
+          "con": 14
+        },
+        "val": 108
+      },
+      {
+        "id": "item_76358",
+        "name": "Shadow Stiletto",
+        "item_level": 12,
+        "rarity": "rare",
+        "type": "weapon",
+        "slot": "main_hand",
+        "icon": "\ud83d\udde1\ufe0f",
+        "bonus": {
+          "atk": 50,
+          "dex": 12,
+          "int": 17,
+          "crit": 5
+        },
+        "val": 129,
+        "handedness": "versatile"
+      },
       {
         "id": "cons_86287",
         "name": "Healing Salve",
@@ -322,83 +415,79 @@
         "val": 108
       },
       {
-        "id": "item_60810",
-        "name": "Acolyte Prayer Beads",
-        "item_level": 10,
-        "rarity": "rare",
-        "type": "offhand",
-        "slot": "off_hand",
-        "icon": "\ud83d\udcff",
+        "id": "item_74770",
+        "name": "Core of the Scorched Archon",
+        "item_level": 12,
+        "rarity": "epic",
+        "type": "accessory",
+        "slot": "accessory",
+        "icon": "\ud83e\ude99",
         "bonus": {
-          "mp": 135,
-          "wis": 10,
-          "cha": 14
+          "cha": 17,
+          "dex": 24,
+          "int": 24,
+          "con": 24
         },
-        "val": 108,
-        "handedness": "off_hand_only"
+        "val": 180
       },
       {
-        "id": "item_78952",
-        "name": "Visored Iron Greathelm",
-        "item_level": 6,
-        "rarity": "rare",
-        "type": "head",
-        "slot": "head",
-        "icon": "\ud83e\ude96",
+        "id": "item_45169",
+        "name": "Essence of the Primordial Core",
+        "item_level": 11,
+        "rarity": "epic",
+        "type": "accessory",
+        "slot": "accessory",
+        "icon": "\ud83e\ude99",
         "bonus": {
-          "def": 18,
-          "int": 8,
-          "str": 8
+          "cha": 15,
+          "dex": 22,
+          "con": 22
         },
-        "val": 64
+        "val": 165
       },
       {
-        "id": "item_38118",
-        "name": "Vanguard Plated Hauberk",
-        "item_level": 7,
+        "id": "cons_84909",
+        "name": "Healing Salve",
+        "item_level": 11,
         "rarity": "rare",
-        "type": "armor",
-        "slot": "armor",
-        "icon": "\ud83d\udee1\ufe0f",
-        "bonus": {
-          "def": 25,
-          "hp": 172,
-          "crit": 5,
-          "int": 10
-        },
-        "val": 75
+        "type": "consumable",
+        "icon": "\ud83e\uddea",
+        "qty": 1,
+        "effect": "heal_hp_190",
+        "desc": "Restores 190 HP",
+        "val": 33
       },
       {
-        "id": "item_83655",
-        "name": "Amulet of Vitality",
-        "item_level": 5,
+        "id": "item_67760",
+        "name": "Heart of the Smoldering Archon",
+        "item_level": 12,
         "rarity": "epic",
         "type": "accessory",
         "slot": "accessory",
         "icon": "\ud83d\udcff",
         "bonus": {
-          "hp": 150,
-          "con": 7,
-          "dex": 10,
-          "wis": 10
+          "hp": 290,
+          "con": 17,
+          "str": 24,
+          "wis": 24
         },
-        "val": 75
+        "val": 180
       },
       {
-        "id": "item_41651",
-        "name": "Lore Quarterstaff",
+        "id": "item_79510",
+        "name": "Heart of the Sulphur Primordial",
         "item_level": 11,
-        "rarity": "rare",
-        "type": "weapon",
-        "slot": "main_hand",
-        "icon": "\ud83e\uddaf",
+        "rarity": "legendary",
+        "type": "accessory",
+        "slot": "accessory",
+        "icon": "\ud83d\udcff",
         "bonus": {
-          "atk": 46,
-          "int": 10,
-          "cha": 15
+          "hp": 388,
+          "con": 21,
+          "crit": 10,
+          "int": 31
         },
-        "val": 118,
-        "handedness": "versatile"
+        "val": 237
       },
       {
         "id": "item_99944",
@@ -415,39 +504,6 @@
           "con": 22
         },
         "val": 165
-      },
-      {
-        "id": "item_23101",
-        "name": "Dread-Forged Void Plate",
-        "item_level": 11,
-        "rarity": "legendary",
-        "type": "armor",
-        "slot": "armor",
-        "icon": "\ud83e\uddba",
-        "bonus": {
-          "def": 54,
-          "hp": 370,
-          "dex": 31,
-          "str": 31,
-          "crit": 10
-        },
-        "val": 237
-      },
-      {
-        "id": "item_77703",
-        "name": "Breastplate of the Fallen Seraph",
-        "item_level": 10,
-        "rarity": "rare",
-        "type": "armor",
-        "slot": "armor",
-        "icon": "\ud83e\udd4b",
-        "bonus": {
-          "def": 28,
-          "hp": 189,
-          "crit": 5,
-          "cha": 14
-        },
-        "val": 108
       },
       {
         "id": "item_20294",
@@ -467,8 +523,69 @@
         },
         "val": 237
       },
-      null,
-      null,
+      {
+        "id": "item_28985",
+        "name": "Heart of the Smoldering Colossus",
+        "item_level": 13,
+        "rarity": "legendary",
+        "type": "accessory",
+        "slot": "accessory",
+        "icon": "\ud83e\ude99",
+        "bonus": {
+          "cha": 25,
+          "wis": 37,
+          "dodge": 10,
+          "int": 37
+        },
+        "val": 280
+      },
+      {
+        "id": "item_58613",
+        "name": "Dread-Emperor's Oblivion Regalia",
+        "item_level": 10,
+        "rarity": "legendary",
+        "type": "armor",
+        "slot": "armor",
+        "icon": "\ud83d\udee1\ufe0f",
+        "bonus": {
+          "def": 64,
+          "hp": 432,
+          "str": 28,
+          "wis": 28
+        },
+        "val": 216
+      },
+      {
+        "id": "item_19193",
+        "name": "Reinforced Leather Cap",
+        "item_level": 13,
+        "rarity": "rare",
+        "type": "head",
+        "slot": "head",
+        "icon": "\ud83e\udde2",
+        "bonus": {
+          "def": 29,
+          "dex": 18,
+          "dodge": 5
+        },
+        "val": 140
+      },
+      {
+        "id": "item_50402",
+        "name": "Shard of the Void Core",
+        "item_level": 13,
+        "rarity": "epic",
+        "type": "accessory",
+        "slot": "accessory",
+        "icon": "\ud83d\udcff",
+        "bonus": {
+          "hp": 310,
+          "con": 17,
+          "int": 26,
+          "cha": 26
+        },
+        "val": 195
+      },
       null,
       null,
       null,
@@ -564,119 +681,53 @@
     ]
   },
   "current_node": {
-    "type": "merchant",
+    "type": "combat",
     "title": "Collapse into the Forgotten Crypt",
-    "location": "Sunken Vault - The Wandering Void Bazaar",
-    "chapter": "Chapter 5: The Archon's Sanctum"
+    "location": "Obsidian Sepulcher of the Forgotten Titan",
+    "chapter": "Chapter 22: The Crown of Eternity"
   },
   "monster": null,
-  "merchant_stock": [
-    {
-      "id": "item_79754",
-      "name": "Silent Stalker Moccasins",
-      "item_level": 12,
-      "rarity": "common",
-      "type": "feet",
-      "slot": "feet",
-      "icon": "\ud83d\udc5f",
-      "bonus": {
-        "dodge": 5,
-        "dex": 7
-      },
-      "val": 72
-    },
-    {
-      "id": "item_58502",
-      "name": "Zweihander Greatsword",
-      "item_level": 10,
-      "rarity": "common",
-      "type": "weapon",
-      "slot": "main_hand",
-      "icon": "\ud83d\udde1\ufe0f",
-      "bonus": {
-        "atk": 29,
-        "str": 6
-      },
-      "val": 60,
-      "handedness": "two_handed"
-    },
-    {
-      "id": "cons_63140",
-      "name": "Pine Pitch Torch",
-      "item_level": 11,
-      "rarity": "rare",
-      "type": "consumable",
-      "icon": "\ud83d\udd6f\ufe0f",
-      "qty": 2,
-      "effect": "add_light_6",
-      "desc": "+6 Torch Light turns",
-      "val": 33
-    },
-    {
-      "id": "cons_12929",
-      "name": "Healing Salve",
-      "item_level": 11,
-      "rarity": "rare",
-      "type": "consumable",
-      "icon": "\ud83e\uddea",
-      "qty": 1,
-      "effect": "heal_hp_190",
-      "desc": "Restores 190 HP",
-      "val": 33
-    },
-    {
-      "id": "cons_91830",
-      "name": "Universal Antidote Draught",
-      "item_level": 11,
-      "rarity": "rare",
-      "type": "consumable",
-      "icon": "\ud83e\uddea",
-      "qty": 2,
-      "effect": "cure_poison_heal_25",
-      "desc": "Cures Poison & heals 25 HP",
-      "val": 33
-    }
-  ],
+  "merchant_stock": [],
   "merchant_discount": 0,
   "pending_awakening": null,
   "scene": {
-    "chapter": "Chapter 5: The Archon's Sanctum",
-    "title": "Pedagang Jiwa dari Kehampaan",
-    "location": "Sunken Vault - The Wandering Void Bazaar",
-    "narrative": "Dari balik bayang-bayang pilar batu yang retak, muncul sesosok entitas berjubah kelabu dengan lentera berapi ungu pucat melayang di sampingnya. Pria bertopeng perak itu menggelar kain beludru hitam di atas tumpukan batu kapur basah, memamerkan satu set lengkap perlengkapan tempur legendaris yang memancarkan aura kegelapan purba. Bau dupa mur dan besi terbakar menguar pekat saat sang pedagang membisikkan harga penebusan artefak tersebut kepada Danas. Di tengah kegelapan yang membutakan, resonansi kekuatan artefak itu memanggil jiwa sang Ashen Dread-Emperor.",
+    "chapter": "Chapter 22: The Crown of Eternity",
+    "title": "Tumbangnya Sang Penjaga Bayangan",
+    "location": "Kuil Penciptaan Purba & Tahta Akhir Semesta (Floor 5)",
+    "narrative": "Meski penglihatan Danas masih terbungkus pekatnya status Blind, insting predator Ashen Dread-Emperor menuntun ayunan Voidforged Dreadblade tepat menghantam celah zirah pada lutut sang monster. Suara logam terkoyak dan derak obsidian pecah menggema memekakkan telinga saat sendi raksasa itu hancur berkeping-keping. Shadowblade Stalker melolong parau, terhempas berlutut di atas lantai batu dingin yang berlumuran cairan bayangan hitam kental. Udara bergetar penuh ancaman kematian ketika inti energi di dada monster itu berkedip liar, bersiap melepaskan ledakan keputusasaan sebelum ia binasa.",
     "choices": [
       {
         "id": "A",
-        "text": "Periksa keaslian sisa perlengkapan dan jimat kuno di etalase (WIS Check - DC 10)",
+        "text": "Hujamkan Voidforged Dreadblade ke inti dada monster yang terpapar (STR Check - DC 11)",
         "type": "roll",
-        "stat": "WIS",
-        "dc": 10
-      },
-      {
-        "id": "B",
-        "text": "Tawar potion pemulih kutukan kebutaan dari sang pedagang (CHA Check - DC 11)",
-        "type": "roll",
-        "stat": "CHA",
+        "stat": "STR",
         "dc": 11
       },
       {
-        "id": "C",
-        "text": "Gali informasi mengenai bahaya di balik Gerbang Malaikat Jatuh (INT Check - DC 9)",
+        "id": "B",
+        "text": "Gunakan perisai Aegis untuk meredam gelombang ledakan energi bayangan (CON Check - DC 10)",
         "type": "roll",
-        "stat": "INT",
-        "dc": 9
+        "stat": "CON",
+        "dc": 10
+      },
+      {
+        "id": "C",
+        "text": "Membaca arus ether untuk menetralisir ledakan sebelum memicu instabilitas (WIS Check - DC 11)",
+        "type": "roll",
+        "stat": "WIS",
+        "dc": 11
       },
       {
         "id": "D",
-        "text": "Kenakan perlengkapan baru dan bersiap melangkah ke lorong terdalam (Action)",
+        "text": "Lompat mundur dan siapkan posisi bertahan kokoh (Action)",
         "type": "action"
       }
     ],
     "log": [
-      "\ud83c\udfb2 [SUCCESS \u2022 D20: 2+18=20 vs DC 11] Danas mendaratkan Critical Hit mutlak yang membelah tempurung Venomous Broodmother berkeping-keping, mengakhiri ancaman monster tersebut seketika. (+675 EXP) \ud83d\udc8e LOOT DROP: [RARE] Lore Quarterstaff! \ud83c\udf1f LEVEL UP! Danas naik ke Level 11 (Max HP/MP meningkat & HP pulih penuh)!",
-      "\ud83c\udfb2 [SUCCESS \u2022 D20: 11+18=29 vs DC 11] Dengan STR Check yang melampaui batas, Danas menghancurkan segel rantai runik dan membuka paksa tutup sarkofagus purba tanpa hambatan. (+15 EXP) \ud83c\udf81 ITEM OBTAINED: [LEGENDARY] Dread-Forged Void Plate!",
-      "\ud83c\udfb2 [SUCCESS \u2022 D20: 2+8=10 vs DC 9] WIS Check berhasil melunturkan lapisan kutukan gaib pada sarkofagus tanpa memicu jebakan arcane. (+15 EXP) \ud83c\udf81 ITEM OBTAINED: [RARE] Breastplate of the Fallen Seraph!",
-      "\ud83c\udfb2 [SUCCESS \u2022 D20: 17+18=35 vs DC 10] Danas berhasil menemukan sosok misterius penjual artefak langka di balik celah reruntuhan dengan Success mutlak. (+15 EXP) \ud83c\udf81 ITEM OBTAINED: [LEGENDARY] Dread-Emperor's Oblivion Regalia!"
+      "\ud83c\udfb2 [SUCCESS \u2022 D20: 17+19=36 vs DC 11] Danas berhasil melakukan STR Check dengan Critical Success, meremukkan gembok kuno berlumur sulfur dan membuka paksa peti magma purba. (+15 EXP) \ud83c\udf81 ITEM OBTAINED: [LEGENDARY] Heart of the Sulphur Primordial!",
+      "\ud83c\udfb2 [SUCCESS \u2022 D20: 4+19=23 vs DC 11] Danas berhasil melakukan Critical Success pada STR Check, menghancurkan dinding batu padat dalam sekali hantaman dan mengamankan sebuah artefak legendaris. (+15 EXP) \ud83c\udf81 ITEM OBTAINED: [LEGENDARY] Heart of the Smoldering Colossus!",
+      "\ud83c\udfb2 [SUCCESS \u2022 D20: 8+19=27 vs DC 11] Danas melancarkan STR Check dengan hasil Critical Success, membelah serangan kapak lawan dan melumpuhkan keseimbangan Shadowblade Stalker. (+15 EXP)",
+      "\ud83c\udfb2 [SUCCESS \u2022 D20: 6+19=25 vs DC 11] Tebasan STR Check Danas berhasil dengan Critical Success, menghancurkan sendi tempurung Shadowblade Stalker dan memicu stagger berat. (+795 EXP) \ud83d\udc8e LOOT DROP: [RARE] Reinforced Leather Cap!"
     ]
   }
 }

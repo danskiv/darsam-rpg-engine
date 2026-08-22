@@ -485,20 +485,32 @@ def generate_monster(player_lv: int, is_boss: bool = False, is_elite: bool = Fal
 def get_required_exp_for_level(level: int) -> int:
     return int(75 * (level ** 1.6))
 
-# Chapter Transition Milestone Table
-CHAPTER_PROGRESSION = [
-    {"min_step": 1, "max_step": 5, "chapter": "Chapter 1: The Descent", "floor": 1, "theme": "Ruang Makam Runtuh & Lorong Lumut", "danger": "Common vermin & ancient traps"},
-    {"min_step": 6, "max_step": 12, "chapter": "Chapter 2: The Sarcophagus Halls", "floor": 1, "theme": "Kubah Sarkofagus & Altar Terkutuk", "danger": "Skeletal sentinels & dark cultists"},
-    {"min_step": 13, "max_step": 20, "chapter": "Chapter 3: The Abyssal Waterway", "floor": 2, "theme": "Kanal Bawah Tanah & Jembatan Rapuh", "danger": "Venomous brood & aquatic horrors"},
-    {"min_step": 21, "max_step": 30, "chapter": "Chapter 4: The Forgotten Necropolis", "floor": 2, "theme": "Kota Mati Purba & Toko Terlarang", "danger": "Elite shadowblades & dread revenants"},
-    {"min_step": 31, "max_step": 45, "chapter": "Chapter 5: The Archon's Sanctum", "floor": 3, "theme": "Pintu Gerbang Utama & Istana Dewa Kegelapan", "danger": "Lich Lord Malakor (Boss Encounter)"}
+# Infinite Milestone Chapter & Floor Progression (Tiers of Depth)
+CHAPTER_THEMES = [
+    {"floor": 1, "theme": "Ruang Makam Kuno & Lorong Lumut", "titles": ["The Descent", "The Sarcophagus Halls", "The Bone Crypts", "The Weeping Catacombs"]},
+    {"floor": 2, "theme": "Kanal Bawah Tanah & Gorong-gorong Gelap", "titles": ["The Abyssal Waterway", "The Submerged Ruins", "The Sunken Cistern", "The Venomous Depths"]},
+    {"floor": 3, "theme": "Kota Mati Purba & Kubah Pemuja Kegelapan", "titles": ["The Forgotten Necropolis", "The Obsidian Mausoleum", "The Archon's Sanctum", "The Blood-Forged Citadel"]},
+    {"floor": 4, "theme": "Jurang Kehampaan & Labirin Dimensi", "titles": ["The Void Chasm", "The Astral Rift", "The Hall of Shifting Realities", "The Singularity Gate"]},
+    {"floor": 5, "theme": "Kuil Penciptaan Purba & Tahta Akhir Semesta", "titles": ["The Primordial Sanctum", "The Crown of Eternity", "The Genesis Vault", "The Transcendent Apex"]}
 ]
 
 def get_current_chapter_info(step: int) -> Dict[str, Any]:
-    for ch in CHAPTER_PROGRESSION:
-        if ch["min_step"] <= step <= ch["max_step"]:
-            return ch
-    return CHAPTER_PROGRESSION[-1]
+    # Every 8 steps advances to the next chapter!
+    ch_num = max(1, ((step - 1) // 8) + 1)
+    floor_num = min(5, max(1, ((ch_num - 1) // 3) + 1))
+    
+    tier_idx = min(len(CHAPTER_THEMES) - 1, floor_num - 1)
+    tier_info = CHAPTER_THEMES[tier_idx]
+    
+    title_idx = (ch_num - 1) % len(tier_info["titles"])
+    ch_title = tier_info["titles"][title_idx]
+    
+    return {
+        "chapter": f"Chapter {ch_num}: {ch_title}",
+        "chapter_num": ch_num,
+        "floor": floor_num,
+        "theme": tier_info["theme"]
+    }
 
 # =========================================================================
 # ENCOUNTER GENERATOR (MERCHANT, CHEST, CROSSROADS, CAMPFIRE, SHRINE)
@@ -1182,10 +1194,7 @@ async def process_live_turn(choice_id: str, choice_text: str = "", custom_text: 
     # Update Scene State & Chapter Progression
     ch_info = get_current_chapter_info(game_state["step"])
     game_state["floor"] = ch_info["floor"]
-    
     new_chapter_title = ch_info["chapter"]
-    if game_state["step"] < ch_info["min_step"] + 2 and ai_resp.get("chapter"):
-        new_chapter_title = ai_resp.get("chapter")
 
     game_state["scene"]["chapter"] = new_chapter_title
     game_state["scene"]["title"] = ai_resp.get("title", "Dungeon Chamber")
