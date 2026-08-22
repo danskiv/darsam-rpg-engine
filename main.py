@@ -453,11 +453,19 @@ INITIAL_CHAPTER_CHOICES = [
     {"id": "D", "text": "Take a short rest, catch breath, and inspect 40-slot backpack (Action)", "type": "action"}
 ]
 
+AVAILABLE_MODELS = [
+    {"id": "openrouter/stealth/ox-alpha", "name": "OX-Alpha (Reasoning Master • Primary)", "provider": "Stealth"},
+    {"id": "ag/gemini-3.7-flash-low", "name": "Gemini 3.7 Flash Low (Fast • Fallback)", "provider": "Antigravity"},
+    {"id": "ag/claude-sonnet-4-6", "name": "Claude Sonnet 4.6 (Deep Lore)", "provider": "Antigravity"},
+    {"id": "openrouter/deepseek/deepseek-v4-flash", "name": "DeepSeek V4 Flash (Fast RPG)", "provider": "OpenRouter"}
+]
+
 DEFAULT_GAME_STATE = {
     "status": "character_creation",
     "floor": 1,
     "step": 1,
     "active_sound_theme": "creation",
+    "selected_model": "openrouter/stealth/ox-alpha",
     "torch_turns": 12,
     "rations": 3,
     "story_history": [],
@@ -728,10 +736,12 @@ CHRONICLE LOG:
 
 Generate the next chapter of this dark fantasy survival tale in pure JSON matching the schema!"""
 
-    models_to_try = [
-        "openrouter/stealth/ox-alpha", # PRIMARY
-        "ag/gemini-3.7-flash-low"       # FALLBACK
-    ]
+    chosen_primary = game_state.get("selected_model", "openrouter/stealth/ox-alpha")
+    models_to_try = [chosen_primary]
+    if "ag/gemini-3.7-flash-low" not in models_to_try:
+        models_to_try.append("ag/gemini-3.7-flash-low")
+    if "openrouter/stealth/ox-alpha" not in models_to_try:
+        models_to_try.append("openrouter/stealth/ox-alpha")
 
     for model_name in models_to_try:
         payload = {
@@ -1224,6 +1234,13 @@ async def ws_controller(websocket: WebSocket):
                 sk_id = data.get("skill_id")
                 unequip_active_skill(sk_id)
                 await manager.broadcast_all({"type": "state_update", "state": game_state, "outcome": "Jurus dilepas dari Slot Tempur!"})
+
+            elif action_type == "change_model":
+                new_model = data.get("model_id")
+                if any(m["id"] == new_model for m in AVAILABLE_MODELS):
+                    game_state["selected_model"] = new_model
+                    save_game()
+                    await manager.broadcast_all({"type": "state_update", "state": game_state, "outcome": f"Model AI berhasil diubah ke: {new_model}"})
 
             elif action_type == "reset_game":
                 game_state.clear()

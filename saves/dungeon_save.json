@@ -1,9 +1,9 @@
 {
   "status": "playing",
   "floor": 1,
-  "step": 4,
+  "step": 6,
   "active_sound_theme": "danger",
-  "torch_turns": 9,
+  "torch_turns": 7,
   "rations": 3,
   "story_history": [],
   "player": {
@@ -15,9 +15,9 @@
     "level": 1,
     "exp": 0,
     "exp_next": 75,
-    "hp": 109,
+    "hp": 101,
     "max_hp": 115,
-    "mp": 12,
+    "mp": 8,
     "max_mp": 15,
     "gold": 20,
     "stats": {
@@ -213,7 +213,7 @@
     "desc": "Sneaky Trap-Lover",
     "level": 1,
     "tier": "common",
-    "hp": 26,
+    "hp": 7,
     "max_hp": 26,
     "attack": 6,
     "exp_reward": 15,
@@ -223,42 +223,42 @@
   "pending_awakening": null,
   "scene": {
     "chapter": "Chapter 1: The Descent",
-    "title": "Panah Bayangan yang Pudar",
+    "title": "Balasan Bilah Berkarat",
     "location": "Moss-Covered Corridor",
-    "narrative": "Paduka menarik napas, merasakan dinginnya bayangan merayap di sepanjang lengan\u2014lalu melepaskannya. Panah kegelapan itu hanya sempat terbentuk setengah jalan sebelum luruh menjadi kabut hitam yang lenyap ditelan lumut basah; energi vital Paduka terkuras sia-sia (-3 MP). Kilau samar dari jurus yang gagal itu memantul di mata goblin\u2014dua bola kuning keruh yang melebar nafsu. Ia meraung nyaring, suara serak seperti daun kering diremas, lalu menyambar bilah karat dari pinggangnya dan menyeret kakinya yang bungkuk menerjang lorong, cakar-cakarnya mencakar batu kapur demi kecepatan. Bau busuk mayat memenuhi udara saat jarak di antara Paduka dan makhluk itu menyusut dengan mengerikan.",
+    "narrative": "Cangkul berkarat itu menghunjam ke bawah namun hanya mencakar udara\u2014goblin itu berguling liar dengan refleks seekor tikus got, dan bilah tumpul Paduka menghantam lantai batu kapur dengan dentuman suram disertai percikan bara redup. Dalam sekejap mata, makhluk kerdil itu meliuk maju dari arah blind spot, belati berkaratnya menyabet paha Paduka hingga merobek kain tunik dan darah hangat merembes turun ke sandal jerami. Nyeri menusuk bagai api dingin menjalar dari luka, membangunkan bisikan bayangan di urat nadi Paduka yang meraung menuntut pembalasan. Goblin itu mundur selangkah dengan napas tersengal-sengal, lubang luka tembus bayangan di rusuknya masih meneteskan darah hitam berbau busuk, namun kedua matanya kini menyala dengan kegilaan lapar yang nyaris manusiawi.",
     "choices": [
       {
         "id": "A",
-        "text": "Ayunkan Rusty Farming Hoe dengan seluruh tenaga ke arah tengkorak goblin yang mendekat (STR Check - DC 12)",
+        "text": "Angkat cangkul tinggi-tinggi dan hantamkan dengan seluruh berat badan ke tengkorak goblin (STR Check - DC 12)",
         "type": "roll",
         "stat": "STR",
         "dc": 12
       },
       {
         "id": "B",
-        "text": "Meluncur ke samping lewat celah antara pecahan batu dan menembakkan panah biasa dari posisi baru (DEX Check - DC 11)",
+        "text": "Meluncur ke samping menghindari sabetan berikutnya, lalu lepaskan panah bayangan dari jarak dekat (DEX Check - DC 10)",
         "type": "roll",
         "stat": "DEX",
-        "dc": 11
+        "dc": 10
       },
       {
         "id": "C",
-        "text": "Perhatikan pola gerak goblin dan cari titik lemah pada tubuh kurusnya sebelum bertindak (WIS Check - DC 13)",
+        "text": "Diam sejenak di tengah pertarungan, pusatkan willpower untuk menembakkan Shadow Arrow etereal presisi tinggi (WIS Check - DC 11)",
         "type": "roll",
         "stat": "WIS",
-        "dc": 13
+        "dc": 11
       },
       {
         "id": "D",
-        "text": "Tarik napas dan fokuskan sisa mana untuk mencoba Ghostflight Shot sekali lagi dengan lebih tenang (Action - butuh jarak)",
+        "text": "Mundur defensif di balik sarkofagus retak, gunakan jarak dan penutup untuk memulihkan napas serta menanti goblin melakukan kesalahan fatal (Action)",
         "type": "action"
       }
     ],
     "log": [
-      "Commoner 'Danas' (Hardy Peasant) begins the underground survival journey!",
-      "\ud83c\udfb2 [CRITICAL SUCCESS] WIS Check menghasilkan Critical Success! Paduka menemukan ceruk tersembunyi berisi kantong kulit lapuk dengan 8 Gold, serta mengenali pola retakan batu yang menandai jalur aman dan arus udara menuju kedalaman.",
       "\ud83c\udfb2 [CRITICAL FAIL] Critical Fail! Kepala Rusty Farming Hoe patah dengan suara nyaring dan lempeng batu runtuh menutup lorong samping. Dentingan logam menggema ke seluruh kripta\u2014sesuatu di kedalaman kini terbangun dan bergerak mendekat. (-4 HP)",
-      "\ud83c\udfb2 [FAIL] Ghostflight Shot mengalami Critical Fail\u2014energi bayangan Paduka menguap sebelum menyentuh sasaran (-3 MP), dan kilat samar itu justru menandai posisi Paduka. Goblin kubur itu meraung dan menerjang maju dengan bilah berkarat terangkat tinggi."
+      "\ud83c\udfb2 [FAIL] Ghostflight Shot mengalami Critical Fail\u2014energi bayangan Paduka menguap sebelum menyentuh sasaran (-3 MP), dan kilat samar itu justru menandai posisi Paduka. Goblin kubur itu meraung dan menerjang maju dengan bilah berkarat terangkat tinggi.",
+      "\ud83c\udfb2 [SUCCESS] Ghostflight Shot berhasil dieksekusi dengan Success gemilang; panah spektral menembus dada Tomb Scavenger Goblin dan membuatnya terpelanting bersimbah darah hitam (-4 MP).",
+      "\ud83c\udfb2 [FAIL] STR Check gagal; ayunan cangkul meleset dan menghantam batu kapur percuma. Tomb Scavenger Goblin melancarkan counterattack yang berhasil mengenai paha Paduka (-6 HP), namun makhluk itu tetap terluka parah dan terpojok. (-6 HP)"
     ]
   }
 }
