@@ -610,6 +610,35 @@
         let currentTab = "story";
         let currentGameState = null;
 
+        function populateModelSelects(selectedId) {
+            fetch('/api/models').then(r => r.json()).then(models => {
+                if (!models || !Array.isArray(models)) return;
+                const topSelect = document.getElementById('select-ai-model-top');
+                const bottomSelect = document.getElementById('select-ai-model');
+
+                const renderOptions = (selectEl, isTop) => {
+                    if (!selectEl) return;
+                    selectEl.innerHTML = '';
+                    models.forEach(m => {
+                        const opt = document.createElement('option');
+                        opt.value = m.id;
+                        let displayName = m.name;
+                        if (isTop) {
+                            if (displayName.length > 24) displayName = displayName.split('/').pop();
+                            opt.innerText = `🧠 ${displayName}`;
+                        } else {
+                            opt.innerText = m.name;
+                        }
+                        selectEl.appendChild(opt);
+                    });
+                    if (selectedId) selectEl.value = selectedId;
+                };
+
+                renderOptions(topSelect, true);
+                renderOptions(bottomSelect, false);
+            }).catch(e => console.log("Failed to load models:", e));
+        }
+
         function connect() {
             socket = new WebSocket(wsUrl);
             socket.onopen = () => {
@@ -617,6 +646,7 @@
                 fetch('/api/state').then(r => r.json()).then(data => {
                     if (data) {
                         currentGameState = data;
+                        populateModelSelects(data.selected_model);
                         if (!data.status || data.status === 'character_creation') {
                             document.getElementById('m-creation-view').classList.remove('hidden');
                             document.getElementById('m-creation-view').classList.add('flex');
@@ -644,12 +674,15 @@
         // Auto load initial state on page load
         document.addEventListener("DOMContentLoaded", () => {
             fetch('/api/state').then(r => r.json()).then(data => {
-                if (data && data.status === 'playing') {
-                    document.getElementById('m-creation-view').classList.add('hidden');
-                    document.getElementById('m-creation-view').classList.remove('flex');
-                    document.getElementById('m-gameplay-view').classList.remove('hidden');
-                    updateGameplayUI(data);
-                    updateStatsViewUI(data);
+                if (data) {
+                    populateModelSelects(data.selected_model);
+                    if (data.status === 'playing') {
+                        document.getElementById('m-creation-view').classList.add('hidden');
+                        document.getElementById('m-creation-view').classList.remove('flex');
+                        document.getElementById('m-gameplay-view').classList.remove('hidden');
+                        updateGameplayUI(data);
+                        updateStatsViewUI(data);
+                    }
                 }
             }).catch(e => console.log(e));
         });

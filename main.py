@@ -453,12 +453,48 @@ INITIAL_CHAPTER_CHOICES = [
     {"id": "D", "text": "Take a short rest, catch breath, and inspect 40-slot backpack (Action)", "type": "action"}
 ]
 
-AVAILABLE_MODELS = [
-    {"id": "openrouter/stealth/ox-alpha", "name": "OX-Alpha (Reasoning Master • Primary)", "provider": "Stealth"},
-    {"id": "ag/gemini-3.7-flash-low", "name": "Gemini 3.7 Flash Low (Fast • Fallback)", "provider": "Antigravity"},
-    {"id": "ag/claude-sonnet-4-6", "name": "Claude Sonnet 4.6 (Deep Lore)", "provider": "Antigravity"},
-    {"id": "openrouter/deepseek/deepseek-v4-flash", "name": "DeepSeek V4 Flash (Fast RPG)", "provider": "OpenRouter"}
-]
+def fetch_all_9router_models() -> List[Dict[str, str]]:
+    url = "http://127.0.0.1:20128/v1/models"
+    headers = {"Authorization": f"Bearer {NINE_ROUTER_KEY}"}
+    curated_priority = [
+        "openrouter/stealth/ox-alpha",
+        "ag/gemini-3.7-flash-low",
+        "ag/gemini-3.7-flash-medium",
+        "ag/gemini-3.7-flash-high",
+        "ag/claude-sonnet-4-6",
+        "ag/claude-opus-4-6-thinking",
+        "openrouter/deepseek/deepseek-v4-flash",
+        "openrouter/deepseek/deepseek-v4-pro",
+        "openrouter/deepseek/deepseek-chat-v3.1",
+        "openrouter/anthropic/claude-3-haiku",
+        "openrouter/openai/gpt-4o-mini",
+        "openrouter/openai/gpt-5-mini",
+        "cmc/Qwen/Qwen3.7-Flash",
+        "cmc/MiniMaxAI/MiniMax-M3"
+    ]
+    try:
+        req = urllib.request.Request(url, headers=headers)
+        with urllib.request.urlopen(req, timeout=4) as resp:
+            data = json.loads(resp.read().decode("utf-8"))
+            raw_ids = [m["id"] for m in data.get("data", []) if "id" in m]
+            
+            # Curated first, then all remaining sorted
+            result = []
+            seen = set()
+            for pid in curated_priority:
+                if pid in raw_ids:
+                    result.append({"id": pid, "name": pid})
+                    seen.add(pid)
+            
+            for rid in sorted(raw_ids):
+                if rid not in seen:
+                    result.append({"id": rid, "name": rid})
+            return result
+    except Exception as e:
+        print("Failed to fetch 9router models, using curated fallback:", e)
+        return [{"id": pid, "name": pid} for pid in curated_priority]
+
+AVAILABLE_MODELS = fetch_all_9router_models()
 
 DEFAULT_GAME_STATE = {
     "status": "character_creation",
@@ -1130,6 +1166,10 @@ async def get_state():
 @app.get("/api/classes")
 async def get_classes():
     return CLASSES_INFO
+
+@app.get("/api/models")
+async def get_models():
+    return AVAILABLE_MODELS
 
 @app.websocket("/ws/tv")
 async def ws_tv(websocket: WebSocket):
