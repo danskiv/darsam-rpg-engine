@@ -883,6 +883,7 @@
             // Calculate Effective Max HP & MP with Equipment Bonuses
             let extraHp = 0;
             let extraMp = 0;
+            const eq = p.equipped || {};
             for (const [slot, item] of Object.entries(eq)) {
                 if (item && item.bonus) {
                     if (item.bonus.hp) extraHp += item.bonus.hp;
