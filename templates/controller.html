@@ -76,7 +76,7 @@
             <input id="input-char-name" type="text" value="Danas" placeholder="Masukkan nama..." class="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-2.5 text-sm text-amber-300 font-bold focus:outline-none focus:border-amber-500">
         </div>
 
-        <!-- 8 Origins Selection List (Grid 1 col on Mobile, 4 cols on Desktop) -->
+        <!-- 8 Origins Selection List -->
         <div class="space-y-2 max-w-5xl mx-auto w-full">
             <p class="text-xs font-bold text-zinc-400 uppercase tracking-wider text-center">Pilih Latar Belakang (Origin):</p>
             
@@ -210,7 +210,7 @@
     </div>
 
     <!-- ======================================================== -->
-    <!-- 2. MAIN GAMEPLAY VIEW WITH EMBEDDED TABS (NO OVERFLOW)   -->
+    <!-- 2. MAIN GAMEPLAY VIEW WITH EMBEDDED TABS                 -->
     <!-- ======================================================== -->
     <div id="m-gameplay-view" class="flex flex-col space-y-3 w-full">
         
@@ -255,7 +255,7 @@
             </div>
         </header>
 
-        <!-- MONSTER COMBAT CARD (Appears in both tabs when in battle) -->
+        <!-- MONSTER COMBAT CARD -->
         <div id="m-monster-section" class="hidden bg-gradient-to-r from-red-950/90 to-zinc-900/90 border border-red-800/80 p-3 rounded-2xl shadow-xl space-y-1.5">
             <div class="flex justify-between items-center">
                 <div class="flex items-center space-x-2">
@@ -327,89 +327,124 @@
         </div>
 
         <!-- ============================================== -->
-        <!-- TAB 2: FULL STATS & 25-SLOT BACKPACK VIEW     -->
+        <!-- TAB 2: FULL STATS, COMBAT METRICS & 25-SLOT    -->
         <!-- ============================================== -->
         <div id="view-tab-stats" class="hidden flex-col space-y-3 w-full">
             
-            <!-- 1. 6 Core Ability Scores Grid -->
+            <!-- 1. COMBAT METRICS (ATK, DEF, CRIT, DODGE) -->
             <div class="bg-zinc-900/90 border border-zinc-800 p-3.5 rounded-2xl shadow-xl space-y-2">
-                <p class="text-[9px] font-bold text-amber-400 uppercase tracking-wider">6 CORE ABILITY SCORES (ATRIBUT KARAKTER):</p>
+                <p class="text-[9px] font-bold text-amber-400 uppercase tracking-wider">COMBAT STATS (DAPAT DARI STATUS & PERLENGKAPAN):</p>
+                <div class="grid grid-cols-4 gap-2 text-center">
+                    <div class="bg-zinc-950 p-2.5 rounded-xl border border-red-950">
+                        <p class="text-[8px] font-bold text-zinc-400 uppercase">ATTACK (ATK)</p>
+                        <p id="m-stat-atk" class="text-lg font-black font-mono text-red-400">12</p>
+                        <p class="text-[7px] text-zinc-300 font-mono">Total Serangan</p>
+                    </div>
+                    <div class="bg-zinc-950 p-2.5 rounded-xl border border-blue-950">
+                        <p class="text-[8px] font-bold text-zinc-400 uppercase">DEFENSE (DEF)</p>
+                        <p id="m-stat-def" class="text-lg font-black font-mono text-blue-400">5</p>
+                        <p class="text-[7px] text-zinc-300 font-mono">Peredam Luka</p>
+                    </div>
+                    <div class="bg-zinc-950 p-2.5 rounded-xl border border-amber-950">
+                        <p class="text-[8px] font-bold text-zinc-400 uppercase">CRIT CHANCE</p>
+                        <p id="m-stat-crit" class="text-lg font-black font-mono text-amber-400">5%</p>
+                        <p class="text-[7px] text-zinc-300 font-mono">D20 Crit 2x</p>
+                    </div>
+                    <div class="bg-zinc-950 p-2.5 rounded-xl border border-emerald-950">
+                        <p class="text-[8px] font-bold text-zinc-400 uppercase">DODGE RATE</p>
+                        <p id="m-stat-dodge" class="text-lg font-black font-mono text-emerald-400">3%</p>
+                        <p class="text-[7px] text-zinc-300 font-mono">Hindaran Fisik</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2. 6 CORE D&D ABILITY SCORES -->
+            <div class="bg-zinc-900/90 border border-zinc-800 p-3.5 rounded-2xl shadow-xl space-y-2">
+                <p class="text-[9px] font-bold text-amber-400 uppercase tracking-wider">6 CORE ABILITY SCORES (ATRIBUT DASAR):</p>
                 <div class="grid grid-cols-3 md:grid-cols-6 gap-2 text-center">
                     <div class="bg-zinc-950 p-2 rounded-xl border border-zinc-800">
                         <p class="text-[8px] font-bold text-zinc-400">STRENGTH</p>
                         <p id="m-stat-str" class="text-base font-black font-mono text-amber-400">14</p>
-                        <p class="text-[7px] text-zinc-400 font-mono">STR</p>
+                        <p class="text-[7px] text-zinc-300 font-mono">STR</p>
                     </div>
                     <div class="bg-zinc-950 p-2 rounded-xl border border-zinc-800">
                         <p class="text-[8px] font-bold text-zinc-400">DEXTERITY</p>
                         <p id="m-stat-dex" class="text-base font-black font-mono text-emerald-400">10</p>
-                        <p class="text-[7px] text-zinc-400 font-mono">DEX</p>
+                        <p class="text-[7px] text-zinc-300 font-mono">DEX</p>
                     </div>
                     <div class="bg-zinc-950 p-2 rounded-xl border border-zinc-800">
                         <p class="text-[8px] font-bold text-zinc-400">CONSTITUTION</p>
                         <p id="m-stat-con" class="text-base font-black font-mono text-rose-400">15</p>
-                        <p class="text-[7px] text-zinc-400 font-mono">CON</p>
+                        <p class="text-[7px] text-zinc-300 font-mono">CON</p>
                     </div>
                     <div class="bg-zinc-950 p-2 rounded-xl border border-zinc-800">
                         <p class="text-[8px] font-bold text-zinc-400">INTELLIGENCE</p>
                         <p id="m-stat-int" class="text-base font-black font-mono text-cyan-400">8</p>
-                        <p class="text-[7px] text-zinc-400 font-mono">INT</p>
+                        <p class="text-[7px] text-zinc-300 font-mono">INT</p>
                     </div>
                     <div class="bg-zinc-950 p-2 rounded-xl border border-zinc-800">
                         <p class="text-[8px] font-bold text-zinc-400">WISDOM</p>
                         <p id="m-stat-wis" class="text-base font-black font-mono text-purple-400">12</p>
-                        <p class="text-[7px] text-zinc-400 font-mono">WIS</p>
+                        <p class="text-[7px] text-zinc-300 font-mono">WIS</p>
                     </div>
                     <div class="bg-zinc-950 p-2 rounded-xl border border-zinc-800">
                         <p class="text-[8px] font-bold text-zinc-400">CHARISMA</p>
                         <p id="m-stat-cha" class="text-base font-black font-mono text-yellow-400">8</p>
-                        <p class="text-[7px] text-zinc-400 font-mono">CHA</p>
+                        <p class="text-[7px] text-zinc-300 font-mono">CHA</p>
                     </div>
                 </div>
             </div>
 
-            <!-- 2. Equipped Paper Doll Slots -->
+            <!-- 3. EQUIPPED PAPER DOLL SLOTS -->
             <div class="bg-zinc-900/90 border border-zinc-800 p-3.5 rounded-2xl shadow-xl space-y-2">
                 <p class="text-[9px] font-bold text-amber-400 uppercase tracking-wider">EQUIPPED GEAR (KLIK UNTUK MELEPAS):</p>
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-2 text-xs">
-                    <button onclick="unequipSlot('main_hand')" id="m-eq-main" class="flex items-center space-x-2 bg-zinc-950 p-2.5 rounded-xl border border-zinc-750 text-left truncate active:scale-[0.98]">
-                        <span class="text-base">⚔️</span>
-                        <div class="truncate">
-                            <p class="text-[7px] text-zinc-400 uppercase font-bold">MAIN HAND</p>
-                            <p id="m-eq-main-name" class="font-bold text-zinc-200 truncate text-xs">Empty</p>
+                    <!-- Main Hand -->
+                    <button onclick="unequipSlot('main_hand')" id="m-eq-main" class="flex flex-col p-2.5 rounded-xl bg-zinc-950 border border-zinc-800 text-left active:scale-[0.98] transition-all">
+                        <div class="flex items-center space-x-1.5 mb-1">
+                            <span class="text-base">⚔️</span>
+                            <p class="text-[8px] text-zinc-400 uppercase font-bold">MAIN HAND</p>
                         </div>
+                        <p id="m-eq-main-name" class="font-bold text-zinc-200 truncate text-xs">Empty</p>
+                        <p id="m-eq-main-stat" class="text-[9px] text-emerald-400 font-mono font-bold mt-0.5">-</p>
                     </button>
-                    <button onclick="unequipSlot('off_hand')" id="m-eq-off" class="flex items-center space-x-2 bg-zinc-950 p-2.5 rounded-xl border border-zinc-750 text-left truncate active:scale-[0.98]">
-                        <span class="text-base">🛡️</span>
-                        <div class="truncate">
-                            <p class="text-[7px] text-zinc-400 uppercase font-bold">OFF HAND</p>
-                            <p id="m-eq-off-name" class="font-bold text-zinc-200 truncate text-xs">Empty</p>
+                    <!-- Off Hand -->
+                    <button onclick="unequipSlot('off_hand')" id="m-eq-off" class="flex flex-col p-2.5 rounded-xl bg-zinc-950 border border-zinc-800 text-left active:scale-[0.98] transition-all">
+                        <div class="flex items-center space-x-1.5 mb-1">
+                            <span class="text-base">🛡️</span>
+                            <p class="text-[8px] text-zinc-400 uppercase font-bold">OFF HAND</p>
                         </div>
+                        <p id="m-eq-off-name" class="font-bold text-zinc-200 truncate text-xs">Empty</p>
+                        <p id="m-eq-off-stat" class="text-[9px] text-emerald-400 font-mono font-bold mt-0.5">-</p>
                     </button>
-                    <button onclick="unequipSlot('armor')" id="m-eq-armor" class="flex items-center space-x-2 bg-zinc-950 p-2.5 rounded-xl border border-zinc-750 text-left truncate active:scale-[0.98]">
-                        <span class="text-base">🥋</span>
-                        <div class="truncate">
-                            <p class="text-[7px] text-zinc-400 uppercase font-bold">ARMOR</p>
-                            <p id="m-eq-armor-name" class="font-bold text-zinc-200 truncate text-xs">Empty</p>
+                    <!-- Armor -->
+                    <button onclick="unequipSlot('armor')" id="m-eq-armor" class="flex flex-col p-2.5 rounded-xl bg-zinc-950 border border-zinc-800 text-left active:scale-[0.98] transition-all">
+                        <div class="flex items-center space-x-1.5 mb-1">
+                            <span class="text-base">🥋</span>
+                            <p class="text-[8px] text-zinc-400 uppercase font-bold">ARMOR</p>
                         </div>
+                        <p id="m-eq-armor-name" class="font-bold text-zinc-200 truncate text-xs">Empty</p>
+                        <p id="m-eq-armor-stat" class="text-[9px] text-emerald-400 font-mono font-bold mt-0.5">-</p>
                     </button>
-                    <button onclick="unequipSlot('accessory')" id="m-eq-acc" class="flex items-center space-x-2 bg-zinc-950 p-2.5 rounded-xl border border-zinc-750 text-left truncate active:scale-[0.98]">
-                        <span class="text-base">💍</span>
-                        <div class="truncate">
-                            <p class="text-[7px] text-zinc-400 uppercase font-bold">ACCESSORY</p>
-                            <p id="m-eq-acc-name" class="font-bold text-zinc-200 truncate text-xs">Empty</p>
+                    <!-- Accessory -->
+                    <button onclick="unequipSlot('accessory')" id="m-eq-acc" class="flex flex-col p-2.5 rounded-xl bg-zinc-950 border border-zinc-800 text-left active:scale-[0.98] transition-all">
+                        <div class="flex items-center space-x-1.5 mb-1">
+                            <span class="text-base">💍</span>
+                            <p class="text-[8px] text-zinc-400 uppercase font-bold">ACCESSORY</p>
                         </div>
+                        <p id="m-eq-acc-name" class="font-bold text-zinc-200 truncate text-xs">Empty</p>
+                        <p id="m-eq-acc-stat" class="text-[9px] text-emerald-400 font-mono font-bold mt-0.5">-</p>
                     </button>
                 </div>
             </div>
 
-            <!-- 3. 25-Slot Backpack Items List -->
+            <!-- 4. 25-SLOT BACKPACK ITEMS LIST WITH RARITY COLORS & STAT BADGES -->
             <div class="bg-zinc-900/90 border border-zinc-800 p-3.5 rounded-2xl shadow-xl space-y-2">
                 <div class="flex justify-between items-center text-[9px] uppercase font-black tracking-widest text-amber-400">
                     <span>BACKPACK ITEMS (25 SLOTS):</span>
                     <span id="m-inv-count" class="font-mono text-zinc-300">0 / 25</span>
                 </div>
-                <div id="m-inventory-items" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
+                <div id="m-inventory-items" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2.5">
                     <!-- Populated dynamically -->
                 </div>
             </div>
@@ -575,20 +610,50 @@
                 const badgeColor = isRoll ? 'bg-amber-500/20 border-amber-500/40 text-amber-300' : 'bg-blue-500/20 border-blue-500/40 text-blue-300';
                 
                 btn.innerHTML = `
-                    <span class="w-6 h-6 rounded-lg ${badgeColor} font-cinzel font-bold text-[10px] flex items-center justify-center border flex-shrink-0">${c.id}</span>
+                    <span class="w-7 h-7 rounded-lg ${badgeColor} font-cinzel font-bold text-xs flex items-center justify-center border flex-shrink-0">${c.id}</span>
                     <div class="flex-1 min-w-0">
-                        <p class="text-xs font-semibold text-zinc-100 leading-snug">${c.text}</p>
+                        <p class="text-xs lg:text-sm font-semibold text-zinc-100 leading-snug">${c.text}</p>
                     </div>
                 `;
                 container.appendChild(btn);
             });
         }
 
+        function formatBonusText(bonus) {
+            if (!bonus) return '';
+            const parts = [];
+            for (const [k, v] of Object.entries(bonus)) {
+                parts.push(`+${v} ${k.toUpperCase()}`);
+            }
+            return parts.join(', ');
+        }
+
         function updateStatsViewUI(state) {
             const p = state.player;
-
-            // 6 Stats Numbers
             const st = p.stats || {};
+            const eq = p.equipped || {};
+
+            // Calculate Combat Stats (Base + Equipment Bonuses)
+            let totalAtk = Math.floor((st.str || 10) / 2);
+            let totalDef = Math.floor((st.con || 10) / 3);
+            let totalCrit = 5;
+            let totalDodge = Math.floor((st.dex || 10) / 3);
+
+            for (const [slot, item] of Object.entries(eq)) {
+                if (item && item.bonus) {
+                    if (item.bonus.atk) totalAtk += item.bonus.atk;
+                    if (item.bonus.def) totalDef += item.bonus.def;
+                    if (item.bonus.crit) totalCrit += item.bonus.crit;
+                    if (item.bonus.dodge) totalDodge += item.bonus.dodge;
+                }
+            }
+
+            document.getElementById('m-stat-atk').innerText = totalAtk;
+            document.getElementById('m-stat-def').innerText = totalDef;
+            document.getElementById('m-stat-crit').innerText = `${totalCrit}%`;
+            document.getElementById('m-stat-dodge').innerText = `${totalDodge}%`;
+
+            // 6 Core Ability Scores
             document.getElementById('m-stat-str').innerText = st.str || 10;
             document.getElementById('m-stat-dex').innerText = st.dex || 10;
             document.getElementById('m-stat-con').innerText = st.con || 10;
@@ -596,14 +661,13 @@
             document.getElementById('m-stat-wis').innerText = st.wis || 10;
             document.getElementById('m-stat-cha').innerText = st.cha || 10;
 
-            // Paper Doll Names
-            const eq = p.equipped || {};
-            document.getElementById('m-eq-main-name').innerText = eq.main_hand ? eq.main_hand.name : "Empty";
-            document.getElementById('m-eq-off-name').innerText = eq.off_hand ? eq.off_hand.name : "Empty";
-            document.getElementById('m-eq-armor-name').innerText = eq.armor ? eq.armor.name : "Empty";
-            document.getElementById('m-eq-acc-name').innerText = eq.accessory ? eq.accessory.name : "Empty";
+            // Paper Doll Names & Stat Badges
+            updatePaperDollSlot('m-eq-main', 'm-eq-main-name', 'm-eq-main-stat', eq.main_hand);
+            updatePaperDollSlot('m-eq-off', 'm-eq-off-name', 'm-eq-off-stat', eq.off_hand);
+            updatePaperDollSlot('m-eq-armor', 'm-eq-armor-name', 'm-eq-armor-stat', eq.armor);
+            updatePaperDollSlot('m-eq-acc', 'm-eq-acc-name', 'm-eq-acc-stat', eq.accessory);
 
-            // Render 25 Backpack Items
+            // Render 25 Backpack Items with Detailed Stat Badges & Rarity
             const invContainer = document.getElementById('m-inventory-items');
             invContainer.innerHTML = '';
             let usedCount = 0;
@@ -614,21 +678,30 @@
                     usedCount++;
                     const row = document.createElement('div');
                     const rarityColor = `rarity-${item.rarity || 'common'}`;
-                    row.className = `flex items-center justify-between p-2.5 rounded-xl bg-zinc-950 border ${rarityColor} text-xs shadow-sm`;
+                    row.className = `flex items-center justify-between p-3 rounded-2xl bg-zinc-950 border ${rarityColor} text-xs shadow-md`;
                     
                     let actionBtn = '';
                     if (item.type === 'consumable') {
-                        actionBtn = `<button onclick="useItem(${idx})" class="bg-emerald-700 hover:bg-emerald-600 active:bg-emerald-800 text-white text-[10px] font-bold px-2.5 py-1 rounded-lg">USE</button>`;
+                        actionBtn = `<button onclick="useItem(${idx})" class="bg-emerald-700 hover:bg-emerald-600 active:bg-emerald-800 text-white text-[10px] font-bold px-3 py-1.5 rounded-xl shadow">USE</button>`;
                     } else if (['weapon', 'offhand', 'armor', 'accessory'].includes(item.type)) {
-                        actionBtn = `<button onclick="equipItem(${idx})" class="bg-amber-600 hover:bg-amber-500 active:bg-amber-700 text-black text-[10px] font-bold px-2.5 py-1 rounded-lg font-cinzel">EQUIP</button>`;
+                        actionBtn = `<button onclick="equipItem(${idx})" class="bg-amber-600 hover:bg-amber-500 active:bg-amber-700 text-black text-[10px] font-bold px-3 py-1.5 rounded-xl font-cinzel shadow">EQUIP</button>`;
                     }
 
+                    const bonusText = formatBonusText(item.bonus);
+                    const bonusBadge = bonusText ? `<span class="bg-emerald-950/80 border border-emerald-700 text-emerald-300 text-[8px] font-mono font-bold px-1.5 py-0.2 rounded">${bonusText}</span>` : '';
+
                     row.innerHTML = `
-                        <div class="flex items-center space-x-2 min-w-0 flex-1">
-                            <span class="text-base">${item.icon || '📦'}</span>
+                        <div class="flex items-center space-x-2.5 min-w-0 flex-1">
+                            <span class="text-2xl">${item.icon || '📦'}</span>
                             <div class="min-w-0 flex-1">
-                                <p class="font-bold truncate text-zinc-100">${item.name}</p>
-                                <p class="text-[9px] text-zinc-400 truncate">${item.desc || item.type}</p>
+                                <div class="flex items-center space-x-1.5">
+                                    <p class="font-bold truncate text-zinc-100 text-xs">${item.name}</p>
+                                    <span class="text-[8px] uppercase font-mono font-bold text-zinc-400">(${item.rarity || 'common'})</span>
+                                </div>
+                                <div class="flex items-center space-x-1.5 mt-0.5">
+                                    ${bonusBadge}
+                                    <p class="text-[9px] text-zinc-400 truncate">${item.desc || item.type}</p>
+                                </div>
                             </div>
                         </div>
                         <div class="ml-2 flex-shrink-0">
@@ -640,10 +713,28 @@
             });
 
             if (usedCount === 0) {
-                invContainer.innerHTML = '<p class="text-xs text-zinc-500 text-center py-4 col-span-full">Tas ransel masih kosong.</p>';
+                invContainer.innerHTML = '<p class="text-xs text-zinc-500 text-center py-6 col-span-full">Tas ransel masih kosong.</p>';
             }
 
             document.getElementById('m-inv-count').innerText = `${usedCount} / 25`;
+        }
+
+        function updatePaperDollSlot(btnId, nameId, statId, item) {
+            const btn = document.getElementById(btnId);
+            const nameEl = document.getElementById(nameId);
+            const statEl = document.getElementById(statId);
+            
+            if (item) {
+                nameEl.innerText = item.name;
+                statEl.innerText = formatBonusText(item.bonus) || item.type;
+                statEl.className = "text-[9px] text-emerald-400 font-mono font-bold mt-0.5 truncate";
+                btn.className = `flex flex-col p-2.5 rounded-xl bg-zinc-900 border rarity-${item.rarity || 'common'} text-left active:scale-[0.98] transition-all`;
+            } else {
+                nameEl.innerText = "Empty (Kosong)";
+                statEl.innerText = "Tidak ada bonus";
+                statEl.className = "text-[9px] text-zinc-500 font-mono mt-0.5";
+                btn.className = "flex flex-col p-2.5 rounded-xl bg-zinc-950 border border-zinc-800 text-left active:scale-[0.98] transition-all opacity-60";
+            }
         }
 
         function showOutcome(text) {

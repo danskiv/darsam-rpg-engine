@@ -1,7 +1,7 @@
 {
   "status": "playing",
   "floor": 1,
-  "step": 14,
+  "step": 18,
   "active_sound_theme": "danger",
   "torch_turns": 0,
   "rations": 3,
@@ -12,13 +12,13 @@
     "class_name": "Smith Apprentice",
     "class_icon": "\ud83d\udd28",
     "level": 1,
-    "exp": 15,
+    "exp": 30,
     "exp_next": 75,
-    "hp": 44,
+    "hp": 68,
     "max_hp": 125,
-    "mp": 10,
+    "mp": 8,
     "max_mp": 10,
-    "gold": 87,
+    "gold": 90,
     "stats": {
       "str": 16,
       "dex": 9,
@@ -29,17 +29,17 @@
     },
     "equipped": {
       "main_hand": {
-        "id": "w_smith_hammer",
-        "name": "Heavy Smith Hammer",
-        "rarity": "uncommon",
+        "name": "Hunter's Composite Bow",
         "type": "weapon",
         "slot": "main_hand",
-        "icon": "\ud83d\udd28",
+        "icon": "\ud83c\udff9",
         "bonus": {
-          "str": 2,
+          "dex": 3,
           "atk": 6
         },
-        "val": 8
+        "val": 14,
+        "id": "item_11642",
+        "rarity": "uncommon"
       },
       "off_hand": null,
       "armor": {
@@ -98,14 +98,17 @@
         "val": 3
       },
       {
-        "name": "Greater Healing Draught",
-        "type": "consumable",
-        "icon": "\ud83e\uddea",
-        "effect": "heal_hp_45",
-        "desc": "Restores 45 HP",
-        "val": 10,
-        "id": "item_91334",
-        "rarity": "uncommon"
+        "id": "w_smith_hammer",
+        "name": "Heavy Smith Hammer",
+        "rarity": "uncommon",
+        "type": "weapon",
+        "slot": "main_hand",
+        "icon": "\ud83d\udd28",
+        "bonus": {
+          "str": 2,
+          "atk": 6
+        },
+        "val": 8
       },
       null,
       null,
@@ -151,42 +154,42 @@
   "merchant_stock": [],
   "scene": {
     "chapter": "Chapter 1: The Descent",
-    "title": "Execution in the Dark",
+    "title": "Echoes in the Dark",
     "location": "Subterranean Vault - Ruined Crypt Way",
-    "narrative": "Dengan cengkeraman sekuat catok besi tempa, kedua tangan Paduka mencengkeram tenggorokan makhluk kerdil itu dan menekan seluruh bobot tubuh ke bawah hingga terdengar bunyi patahan tulang leher yang tumpul dan final. Raungan melengking itu seketika terputus menjadi desis udara terakhir yang berbau busuk, meninggalkan keheningan dingin yang hanya dipecahkan oleh deru napas Paduka sendiri. Meski darah kotor sang goblin membasahi tangan Paduka, status Blind masih membelenggu penglihatan dalam kegelapan mutlak liang kubur ini. Di kejauhan lorong batu yang lembap, gemersik gesekan tulang dan tetesan air mengingatkan bahwa bahaya bawah tanah belum sepenuhnya tuntas.",
+    "narrative": "Di balik tirai kegelapan yang menutupi penglihatan, pendengaran Paduka menangkap gesekan tulang rahang dan desis lendir dari tenggorokan sang monster liar. Tepat saat cakar tajamnya menyerempet Thick Leather Apron, Paduka mengunci titik lemah di sisi leher binatang buas itu berkat getaran udara yang terbelah. Aroma busuk bangkai dan tanah lembap kian menyengat saat sang tikus raksasa bersiap menerjang ke arah hampa. Kegelapan mutlak ini kini bukan lagi kurungan, melainkan panggung bagi serangan balasan Paduka.",
     "choices": [
       {
         "id": "A",
-        "text": "Raba jasad goblin dan lantai sekitar untuk mencari sumber cahaya atau perkakas (WIS Check - DC 11)",
+        "text": "Ayunkan Heavy Smith Hammer secara telak menghancurkan tengkorak monster (STR Check - DC 12)",
         "type": "roll",
-        "stat": "WIS",
-        "dc": 11
+        "stat": "STR",
+        "dc": 12
       },
       {
         "id": "B",
-        "text": "Andalkan indra peraba dan melangkah perlahan menyusuri dinding batu basah (DEX Check - DC 12)",
+        "text": "Menghindar menyamping lalu hantam sendi kaki belakangnya (DEX Check - DC 12)",
         "type": "roll",
         "stat": "DEX",
         "dc": 12
       },
       {
         "id": "C",
-        "text": "Analisis gema tetesan air dan aliran udara untuk memetakan tata letak ruangan (INT Check - DC 11)",
+        "text": "Keluarkan raungan tempaan besi untuk mengintimidasi dan memecah fokus lawan (CHA Check - DC 11)",
         "type": "roll",
-        "stat": "INT",
+        "stat": "CHA",
         "dc": 11
       },
       {
         "id": "D",
-        "text": "Duduk bersandar sejenak di dekat dinding untuk menstabilkan napas dan denyut nadi (Short Rest)",
+        "text": "Kencangkan kuda-kuda dan pasang posisi bertahan kokoh (Brace Guard)",
         "type": "action"
       }
     ],
     "log": [
-      "\ud83c\udfb2 [Direct Action] Paduka mengambil Defensive Stance ala pandai besi, berhasil memblokir terkaman monster dan memicu Guard Counter yang meremukkan cakar lawannya.",
-      "\ud83c\udfb2 [CRITICAL FAIL] Serangan palu Paduka mengalami Critical Fail akibat pijakan licin, membuat ayunan meleset telak dan membuka celah fatal bagi Tomb Scavenger Goblin untuk mencabik rusuk Paduka. (-18 HP)",
-      "\ud83c\udfb2 [Direct Action] Paduka berhasil menjatuhkan bobot tubuh ke arah monster dengan brutal, mengunci Tomb Scavenger Goblin dalam kondisi Pinned meski cengkeraman cakar kasarnya sempat menggores lengan Paduka. (-6 HP)",
-      "\ud83c\udfb2 [Direct Action] Tindakan tanpa kompromi Paduka berhasil menghasilkan Grapple Execution yang meremukkan leher Tomb Scavenger Goblin hingga tewas seketika, namun cakarannya yang liar sempat menggores lengan Paduka. (-4 HP)"
+      "\ud83c\udfb2 [FAIL] WIS Check gagal. Rabaan Paduka dalam kegelapan justru menyentuh patahan beling beracun di sabuk mayat goblin, memicu luka dan menarik perhatian entitas di dekatnya. (-8 HP)",
+      "\ud83c\udfb2 [FAIL] Upaya WIS Check Paduka berujung Fail; distorsi gema ruang bawah tanah mengaburkan pendengaran, memicu Surprise Attack dari kegelapan yang menembus pertahanan Thick Leather Apron. (-14 HP)",
+      "\ud83c\udfb2 [Direct Action] Paduka mengaktifkan Adrenaline Surge, menekan rasa sakit dari luka robek sembari mengambil Defensive Stance yang kokoh. Efek Blind perlahan mulai memudar menjadi siluet buram di tengah pekatnya kegelapan.",
+      "\ud83c\udfb2 [SUCCESS] Keberhasilan WIS Check memungkinkan Paduka membaca deru napas busuk lawan dalam kebutaan, membuka celah fatal pada pertahanannya. (+15 EXP, +3 Gold) \ud83d\udc8e LOOT DROP: [UNCOMMON] Hunter's Composite Bow!"
     ]
   }
 }
