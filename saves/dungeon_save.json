@@ -1,9 +1,9 @@
 {
   "status": "playing",
   "floor": 1,
-  "step": 2,
+  "step": 8,
   "active_sound_theme": "danger",
-  "torch_turns": 11,
+  "torch_turns": 5,
   "rations": 3,
   "story_history": [],
   "player": {
@@ -12,13 +12,13 @@
     "class_name": "Smith Apprentice",
     "class_icon": "\ud83d\udd28",
     "level": 1,
-    "exp": 0,
+    "exp": 15,
     "exp_next": 75,
-    "hp": 125,
+    "hp": 93,
     "max_hp": 125,
     "mp": 10,
     "max_mp": 10,
-    "gold": 27,
+    "gold": 75,
     "stats": {
       "str": 16,
       "dex": 9,
@@ -97,7 +97,16 @@
         "desc": "+5 Torch Light turns",
         "val": 3
       },
-      null,
+      {
+        "name": "Greater Healing Draught",
+        "type": "consumable",
+        "icon": "\ud83e\uddea",
+        "effect": "heal_hp_45",
+        "desc": "Restores 45 HP",
+        "val": 10,
+        "id": "item_91334",
+        "rarity": "uncommon"
+      },
       null,
       null,
       null,
@@ -137,56 +146,60 @@
     "chapter": "Chapter 1: The Descent"
   },
   "monster": {
-    "name": "Corrosive Slime Mass (Lv.1)",
-    "title": "Corrosive Slime Mass",
-    "icon": "\ud83e\udda0",
-    "desc": "Acidic Jelly Organism",
+    "name": "Tomb Scavenger Goblin (Lv.1)",
+    "title": "Tomb Scavenger Goblin",
+    "icon": "\ud83d\udc7a",
+    "desc": "Sneaky Trap-Lover",
     "level": 1,
     "tier": "common",
     "hp": 26,
     "max_hp": 26,
     "attack": 6,
     "exp_reward": 15,
-    "gold_reward": 10,
+    "gold_reward": 6,
     "status": "active"
   },
   "merchant_stock": [],
   "scene": {
     "chapter": "Chapter 1: The Descent",
-    "title": "Unearthing the Restless Crypt",
-    "location": "Subterranean Vault - Antechamber of Bones",
-    "narrative": "Debu batu kapur yang pekat perlahan memudar di udara lembap yang berbau anyir dan belerang dingin. Di balik reruntuhan yang hancur berkeping-keping, terbentang sebuah koridor batu berlapis lumut purba, dihiasi tengkorak-tengkorak retak yang tertanam di dinding. Namun, dentuman dahsyat palu Paduka rupanya membangunkan seonggok kerangka prajurit kuno berkarat yang bangkit dengan mata menyala merah saga, merayap keluar dari celah sarkofagus dengan pedang tumpul terhunus.",
+    "title": "Crushing Foundations",
+    "location": "Subterranean Vault - Collapsed Archway",
+    "narrative": "Dentuman Heavy Smith Hammer milik Paduka menghantam titik retak pilar penyangga dengan kekuatan penuh, memicu getaran hebat yang meruntuhkan langit-langit kapur dalam kepulan debu pekat. Bebatuan masif menghujam ke bawah, melumat salah satu kerangka hidup menjadi serpihan debu tak berbentuk sebelum sempat melangkah maju. Namun, dari balik kepulan kabut kalsium yang menyesakkan, sesosok Skeletal Vanguard berzirah karat menerobos puing sambil mengacungkan pedang patah yang berlumuran racun hitam. Hawa dingin kematian merayap tajam di kulit Paduka saat rahang mayat hidup itu berderak lapar dalam jarak serang yang mematikan.",
     "choices": [
       {
         "id": "A",
-        "text": "Ayunkan Heavy Smith Hammer langsung ke persendian tengkorak lawan (STR Check - DC 12)",
+        "text": "Ayunkan Heavy Smith Hammer secara horizontal untuk meremukkan tulang rusuknya (STR Check - DC 12)",
         "type": "roll",
         "stat": "STR",
         "dc": 12
       },
       {
         "id": "B",
-        "text": "Lompat mundur menghindari sabetan pedang lalu incar titik lemahnya (DEX Check - DC 13)",
+        "text": "Menunduk dan menyapu kaki tumpuan kerangka menggunakan pecahan pilar (DEX Check - DC 11)",
         "type": "roll",
         "stat": "DEX",
-        "dc": 13
-      },
-      {
-        "id": "C",
-        "text": "Analisis konstruksi tulang rapuh monster untuk mencari celah paling fatal (WIS Check - DC 11)",
-        "type": "roll",
-        "stat": "WIS",
         "dc": 11
       },
       {
+        "id": "C",
+        "text": "Analisis celah pada zirah karatan untuk menemukan titik simpul sihir penggeraknya (INT Check - DC 10)",
+        "type": "roll",
+        "stat": "INT",
+        "dc": 10
+      },
+      {
         "id": "D",
-        "text": "Pasang kuda-kuda bertahan kokoh di balik Thick Leather Apron (Shield Wall Action)",
-        "type": "action"
+        "text": "Pasang posisi bertahan penuh dengan Thick Leather Apron untuk menyerap benturan (CON Check - DC 11)",
+        "type": "roll",
+        "stat": "CON",
+        "dc": 11
       }
     ],
     "log": [
-      "Commoner 'Danas' (Smith Apprentice) begins the underground survival journey!",
-      "\ud83c\udfb2 [CRITICAL SUCCESS] Critical Success! Ayunan bertenaga palu tempa Paduka menghancurkan bongkahan batu besar berkeping-keping seketika, membuka celah lorong sekaligus menyingkap kantung koin kuno tanpa menguras stamina."
+      "\ud83c\udfb2 [CRITICAL FAIL] Serangan sapuan palu Paduka mengalami Critical Fail, terpeleset genangan lendir korosif dan membuat Paduka terjerembap telak. Corrosive Slime Mass mengeksploitasi celah ini dengan semburan asam pekat yang menimbulkan 18 Damage dan merusak pertahanan. (-18 HP)",
+      "\ud83c\udfb2 [SUCCESS] Dengan STR Check yang mencapai Success, Paduka berhasil melepaskan hantaman telak dari lantai bawah dan menghancurkan inti Corrosive Slime Mass menjadi serpihan tak bernyawa. (+15 EXP, +10 Gold) \ud83d\udc8e LOOT DROP: [UNCOMMON] Greater Healing Draught!",
+      "\ud83c\udfb2 [SUCCESS] Dengan ketelitian insting penempa, Paduka berhasil mengekstraksi relik tanpa terkena sisa Acid Slime. (WIS Check - Success: Memperoleh 24 Gold dan Relic Fragment).",
+      "\ud83c\udfb2 [SUCCESS] Pukulan telak Paduka mengeksekusi STR Check dengan gemilang; reruntuhan pilar batu seketika meremukkan salah satu kerangka dan mengisolasi ruang tempur."
     ]
   }
 }

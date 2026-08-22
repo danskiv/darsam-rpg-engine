@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="id" class="h-full">
+<html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
@@ -19,7 +19,7 @@
             background-color: #08090d;
             color: #f1f5f9;
             touch-action: manipulation;
-            width: 100vw;
+            width: 100%;
             min-height: 100vh;
             overflow-x: hidden;
         }
@@ -42,18 +42,10 @@
         .rarity-epic { border-color: #a855f7; color: #c084fc; }
         .rarity-legendary { border-color: #eab308; color: #facc15; }
 
-        @keyframes slideUp {
-            from { transform: translateY(100%); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
-        .animate-slide-up {
-            animation: slideUp 0.22s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-        }
-
         /* Custom Scrollbars */
         ::-webkit-scrollbar {
-            width: 6px;
-            height: 6px;
+            width: 5px;
+            height: 5px;
         }
         ::-webkit-scrollbar-track {
             background: #090a0f;
@@ -67,12 +59,12 @@
         }
     </style>
 </head>
-<body class="flex flex-col justify-between select-none p-3 lg:p-6 max-w-7xl mx-auto">
+<body class="select-none p-3 lg:p-6 max-w-7xl mx-auto pb-8">
 
     <!-- ======================================================== -->
-    <!-- 1. CHARACTER CREATION VIEW (RESPONSIVE MOBILE & DESKTOP) -->
+    <!-- 1. CHARACTER CREATION VIEW (8 DIVERSE ORIGINS)           -->
     <!-- ======================================================== -->
-    <div id="m-creation-view" class="hidden flex-1 flex flex-col justify-between space-y-4 py-2 w-full">
+    <div id="m-creation-view" class="hidden flex-col space-y-4 py-2 w-full">
         <div class="text-center space-y-1">
             <h2 class="text-2xl lg:text-3xl font-bold font-cinzel text-amber-400">Pilih Asal-Usul Karakter</h2>
             <p class="text-xs lg:text-sm text-zinc-400">8 Latar Belakang Warga Biasa (Zero to Hero Progression)</p>
@@ -84,8 +76,8 @@
             <input id="input-char-name" type="text" value="Danas" placeholder="Masukkan nama..." class="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-2.5 text-sm text-amber-300 font-bold focus:outline-none focus:border-amber-500">
         </div>
 
-        <!-- 8 Origins Selection List -->
-        <div class="space-y-2 flex-1 overflow-y-auto max-h-[60vh] pr-1">
+        <!-- 8 Origins Selection List (Grid 1 col on Mobile, 4 cols on Desktop) -->
+        <div class="space-y-2 max-w-5xl mx-auto w-full">
             <p class="text-xs font-bold text-zinc-400 uppercase tracking-wider text-center">Pilih Latar Belakang (Origin):</p>
             
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3">
@@ -113,7 +105,7 @@
                             <p class="text-[10px] text-zinc-400">Magang Pandai Besi</p>
                         </div>
                     </div>
-                    <p class="text-xs text-zinc-300 leading-snug">HP: 125 • STR 16, CON 14 • Paham titik lemah logam & batu.</p>
+                    <p class="text-xs text-zinc-300 leading-snug">HP: 125 • STR 16, CON 14 • Paham struktur logam & batu.</p>
                     <div class="bg-zinc-950/80 p-1.5 rounded-lg text-[10px] text-cyan-400 font-mono font-bold">
                         Skill: Anvil Crush (Stun)
                     </div>
@@ -160,7 +152,7 @@
                     </div>
                     <p class="text-xs text-zinc-300 leading-snug">HP: 120 • STR 15, CON 14 • Ahli pertahanan perisai.</p>
                     <div class="bg-zinc-950/80 p-1.5 rounded-lg text-[10px] text-blue-400 font-mono font-bold">
-                        Skill: Shield Wall (DEF +6)
+                        Skill: Shield Wall
                     </div>
                 </div>
 
@@ -175,7 +167,7 @@
                     </div>
                     <p class="text-xs text-zinc-300 leading-snug">HP: 90 • DEX 16, CHA 12 • Serangan bayangan & lockpick.</p>
                     <div class="bg-zinc-950/80 p-1.5 rounded-lg text-[10px] text-purple-400 font-mono font-bold">
-                        Skill: Shadow Ambush (2.5x Crit)
+                        Skill: Shadow Ambush
                     </div>
                 </div>
 
@@ -218,51 +210,59 @@
     </div>
 
     <!-- ======================================================== -->
-    <!-- 2. MAIN GAMEPLAY VIEW (DESKTOP 2-PANE & MOBILE STACK)    -->
+    <!-- 2. MAIN GAMEPLAY VIEW WITH EMBEDDED TABS (NO OVERFLOW)   -->
     <!-- ======================================================== -->
-    <div id="m-gameplay-view" class="flex-1 flex flex-col justify-between space-y-3 w-full">
+    <div id="m-gameplay-view" class="flex flex-col space-y-3 w-full">
         
-        <!-- Top Unified Header -->
-        <header class="flex justify-between items-center bg-zinc-900/95 border border-zinc-800 p-3 rounded-2xl shadow-xl">
-            <div class="flex items-center space-x-3">
-                <div id="m-char-icon" class="w-10 h-10 rounded-xl bg-gradient-to-tr from-amber-600 to-yellow-400 flex items-center justify-center text-xl font-bold text-black shadow">
-                    🌾
-                </div>
-                <div>
-                    <div class="flex items-center space-x-2">
-                        <h1 id="m-char-name" class="text-sm lg:text-base font-bold font-cinzel text-amber-400 truncate max-w-[140px]">Danas</h1>
-                        <span id="m-char-level" class="text-[9px] uppercase font-bold bg-zinc-800 px-2 py-0.5 rounded-md text-zinc-300 font-mono">Lv.1 Peasant</span>
+        <!-- Top Sticky Header -->
+        <header class="bg-zinc-900/95 border border-zinc-800 p-3 rounded-2xl shadow-xl space-y-2.5">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center space-x-2.5">
+                    <div id="m-char-icon" class="w-9 h-9 rounded-xl bg-gradient-to-tr from-amber-600 to-yellow-400 flex items-center justify-center text-lg font-bold text-black shadow">
+                        🌾
                     </div>
-                    <p id="m-location" class="text-[10px] font-semibold text-zinc-400 truncate">📍 Subterranean Ruins</p>
+                    <div>
+                        <div class="flex items-center space-x-1.5">
+                            <h1 id="m-char-name" class="text-xs lg:text-sm font-bold font-cinzel text-amber-400 truncate max-w-[120px]">Danas</h1>
+                            <span id="m-char-level" class="text-[8px] uppercase font-bold bg-zinc-800 px-1.5 py-0.5 rounded text-zinc-300 font-mono">Lv.1 Peasant</span>
+                        </div>
+                        <p id="m-location" class="text-[9px] font-semibold text-zinc-400 truncate">📍 Subterranean Ruins</p>
+                    </div>
+                </div>
+
+                <!-- Vitals Preview -->
+                <div class="flex items-center space-x-1.5 text-[10px] font-bold font-mono">
+                    <div class="bg-red-950/70 border border-red-800/70 px-2 py-1 rounded-lg text-red-300">
+                        ❤️ <span id="m-hp">115/115</span>
+                    </div>
+                    <div class="bg-cyan-950/70 border border-cyan-800/70 px-2 py-1 rounded-lg text-cyan-300">
+                        ✨ <span id="m-mp">15/15</span>
+                    </div>
+                    <div class="bg-amber-950/70 border border-amber-800/70 px-2 py-1 rounded-lg text-amber-300">
+                        🪙 <span id="m-gold">12</span> G
+                    </div>
                 </div>
             </div>
 
-            <!-- Vitals Bar & Open Stats & Backpack Button -->
-            <div class="flex items-center space-x-2 lg:space-x-4 text-xs font-bold font-mono">
-                <div class="bg-red-950/70 border border-red-800/70 px-2.5 py-1.5 rounded-xl text-red-300 flex items-center space-x-1">
-                    <span>❤️</span><span id="m-hp">115/115</span>
-                </div>
-                <div class="bg-cyan-950/70 border border-cyan-800/70 px-2.5 py-1.5 rounded-xl text-cyan-300 flex items-center space-x-1">
-                    <span>✨</span><span id="m-mp">15/15</span>
-                </div>
-                <div class="bg-amber-950/70 border border-amber-800/70 px-2.5 py-1.5 rounded-xl text-amber-300 flex items-center space-x-1">
-                    <span>🪙</span><span id="m-gold">12</span> G
-                </div>
-                <!-- Open Stats & Backpack Toggle Button -->
-                <button onclick="toggleStatsModal()" class="bg-amber-500 hover:bg-amber-400 active:bg-amber-600 text-black px-3.5 py-1.5 rounded-xl text-[10px] lg:text-xs font-bold uppercase tracking-wider transition-all flex items-center space-x-1.5 shadow-lg shadow-amber-500/20 font-cinzel">
-                    <span>📊</span><span>STATUS & TAS (25)</span>
+            <!-- TAB SELECTOR (CERITA vs STATS & TAS 25) -->
+            <div class="flex rounded-xl bg-zinc-950 p-1 border border-zinc-800 text-xs font-bold font-cinzel">
+                <button onclick="switchTab('story')" id="tab-btn-story" class="flex-1 py-1.5 rounded-lg bg-amber-500 text-black shadow font-bold transition-all">
+                    📖 CERITA & TINDAKAN
+                </button>
+                <button onclick="switchTab('stats')" id="tab-btn-stats" class="flex-1 py-1.5 rounded-lg text-zinc-400 hover:text-zinc-200 transition-all">
+                    🎒 STATS & TAS (25)
                 </button>
             </div>
         </header>
 
-        <!-- MONSTER CARD ON CONTROLLER (When in Combat) -->
-        <div id="m-monster-section" class="hidden bg-gradient-to-r from-red-950/90 to-zinc-900/90 border border-red-800/80 p-3 rounded-2xl shadow-xl space-y-1.5 animate-slide-up">
+        <!-- MONSTER COMBAT CARD (Appears in both tabs when in battle) -->
+        <div id="m-monster-section" class="hidden bg-gradient-to-r from-red-950/90 to-zinc-900/90 border border-red-800/80 p-3 rounded-2xl shadow-xl space-y-1.5">
             <div class="flex justify-between items-center">
                 <div class="flex items-center space-x-2">
                     <span id="c-monster-icon" class="text-2xl">💀</span>
                     <div>
                         <div class="flex items-center space-x-2">
-                            <h3 id="c-monster-name" class="text-xs lg:text-sm font-bold font-cinzel text-red-400">Restless Skeleton (Lv.1)</h3>
+                            <h3 id="c-monster-name" class="text-xs font-bold font-cinzel text-red-400">Restless Skeleton (Lv.1)</h3>
                             <span id="c-monster-tier" class="bg-red-950 border border-red-700 text-red-300 text-[8px] font-bold px-1.5 py-0.2 rounded font-mono uppercase">COMMON</span>
                         </div>
                         <p id="c-monster-desc" class="text-[9px] text-zinc-400">Undead Minion</p>
@@ -279,44 +279,46 @@
             </div>
         </div>
 
-        <!-- Dynamic Main Content (Desktop: 2-Columns Side-by-Side | Mobile: Stacked) -->
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 flex-1 items-stretch my-1">
+        <!-- ============================================== -->
+        <!-- TAB 1: STORY & ACTION VIEW                     -->
+        <!-- ============================================== -->
+        <div id="view-tab-story" class="flex flex-col lg:grid lg:grid-cols-12 gap-3 w-full">
             
             <!-- Left Pane: Full Story & Outcome (Col 7 on Desktop) -->
-            <div class="lg:col-span-7 flex flex-col justify-between bg-zinc-900/90 border border-zinc-800 p-4 lg:p-5 rounded-3xl shadow-xl space-y-3">
-                <div class="space-y-1">
-                    <span id="m-chapter" class="bg-amber-950/90 border border-amber-700 text-amber-300 px-2.5 py-0.5 rounded-lg text-[10px] font-mono font-bold inline-block">Chapter 1</span>
-                    <h2 id="m-title" class="text-base lg:text-xl font-bold font-cinzel text-zinc-100 line-clamp-1">Collapse into Crypt</h2>
+            <div class="lg:col-span-7 flex flex-col justify-between bg-zinc-900/90 border border-zinc-800 p-4 rounded-2xl shadow-xl space-y-3">
+                <div class="space-y-0.5">
+                    <span id="m-chapter" class="bg-amber-950/90 border border-amber-700 text-amber-300 px-2 py-0.5 rounded-lg text-[9px] font-mono font-bold inline-block">Chapter 1</span>
+                    <h2 id="m-title" class="text-sm lg:text-lg font-bold font-cinzel text-zinc-100 line-clamp-1">Collapse into Crypt</h2>
                 </div>
 
-                <!-- Narrative Text Box (Comfortable Desktop Reading Line-Height) -->
-                <div class="flex-1 bg-zinc-950 p-4 rounded-2xl border border-zinc-800/80 overflow-y-auto max-h-[35vh] lg:max-h-[46vh]">
-                    <p id="m-narrative" class="text-sm lg:text-base leading-relaxed text-zinc-200 font-medium">
+                <!-- Narrative Text Box -->
+                <div class="bg-zinc-950 p-3.5 rounded-xl border border-zinc-800/80">
+                    <p id="m-narrative" class="text-xs lg:text-sm leading-relaxed text-zinc-200 font-medium">
                         Paduka hanyalah seorang warga biasa yang mencari kayu bakar di lereng bukit...
                     </p>
                 </div>
 
                 <!-- Outcome Banner -->
-                <div id="m-outcome-banner" class="hidden p-3 rounded-2xl bg-amber-950/80 border border-amber-500/70 text-amber-200 font-bold text-xs lg:text-sm leading-snug shadow-md">
+                <div id="m-outcome-banner" class="hidden p-2.5 rounded-xl bg-amber-950/80 border border-amber-500/70 text-amber-200 font-bold text-xs leading-snug shadow-md">
                     <!-- Populated dynamically -->
                 </div>
             </div>
 
             <!-- Right Pane: Choices Actions & Custom Input (Col 5 on Desktop) -->
-            <div class="lg:col-span-5 flex flex-col justify-between bg-zinc-900/90 border border-zinc-800 p-4 lg:p-5 rounded-3xl shadow-xl space-y-3">
-                <p class="text-xs font-black tracking-widest uppercase text-amber-400">PILIH TINDAKAN PADUKA:</p>
+            <div class="lg:col-span-5 flex flex-col justify-between bg-zinc-900/90 border border-zinc-800 p-4 rounded-2xl shadow-xl space-y-3">
+                <p class="text-[10px] font-black tracking-widest uppercase text-amber-400">PILIH TINDAKAN PADUKA:</p>
                 
                 <!-- Choices List Buttons -->
-                <div id="m-choices-list" class="space-y-2 flex-1 flex flex-col justify-center">
+                <div id="m-choices-list" class="space-y-2">
                     <!-- Populated dynamically -->
                 </div>
 
                 <!-- Custom Freeform Action Input -->
                 <div class="pt-2 border-t border-zinc-800/80">
-                    <p class="text-[10px] text-zinc-400 mb-1 font-semibold">Atau ketik aksi bebas:</p>
-                    <div class="flex space-x-2">
-                        <input id="m-custom-input" type="text" placeholder="Ketik tindakan kustom apa pun..." class="flex-1 bg-zinc-950 border border-zinc-800 rounded-xl px-3.5 py-2.5 text-xs text-zinc-100 placeholder-zinc-500 focus:outline-none focus:border-amber-500">
-                        <button onclick="sendCustomAction()" class="bg-amber-600 hover:bg-amber-500 active:bg-amber-700 text-black font-bold text-xs px-4 py-2.5 rounded-xl font-cinzel shadow transition-all">
+                    <p class="text-[9px] text-zinc-400 mb-1 font-semibold">Atau ketik aksi bebas:</p>
+                    <div class="flex space-x-1.5">
+                        <input id="m-custom-input" type="text" placeholder="Ketik tindakan apa pun..." class="flex-1 bg-zinc-950 border border-zinc-800 rounded-xl px-3 py-2 text-xs text-zinc-100 placeholder-zinc-500 focus:outline-none focus:border-amber-500">
+                        <button onclick="sendCustomAction()" class="bg-amber-600 hover:bg-amber-500 active:bg-amber-700 text-black font-bold text-xs px-3.5 py-2 rounded-xl font-cinzel shadow">
                             KIRIM
                         </button>
                     </div>
@@ -324,127 +326,106 @@
             </div>
         </div>
 
-        <!-- Bottom Controls Footer -->
-        <footer class="flex justify-between items-center text-[10px] text-zinc-400 pt-1 border-t border-zinc-900 px-1">
-            <button onclick="resetGameToCreation()" class="text-amber-400 hover:underline">🎭 Reset / Ganti Origin Karakter</button>
-            <span class="text-emerald-400 font-semibold">● Standalone Controller (TV Optional)</span>
-        </footer>
-    </div>
-
-    <!-- ======================================================== -->
-    <!-- 3. COLLAPSIBLE FULL STATS & 25-SLOT INVENTORY MODAL      -->
-    <!-- ======================================================== -->
-    <div id="m-stats-modal" class="hidden fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-3 lg:p-6">
-        <div class="bg-zinc-900 border border-zinc-700 rounded-3xl p-4 lg:p-6 shadow-2xl space-y-4 max-w-4xl w-full max-h-[90vh] overflow-y-auto animate-slide-up">
+        <!-- ============================================== -->
+        <!-- TAB 2: FULL STATS & 25-SLOT BACKPACK VIEW     -->
+        <!-- ============================================== -->
+        <div id="view-tab-stats" class="hidden flex-col space-y-3 w-full">
             
-            <!-- Modal Header -->
-            <div class="flex justify-between items-center border-b border-zinc-800 pb-3">
-                <div class="flex items-center space-x-3">
-                    <span class="text-2xl">📊</span>
-                    <div>
-                        <h3 class="text-base font-black font-cinzel text-amber-400" id="modal-char-name">Danas (Level 1)</h3>
-                        <p class="text-[10px] text-zinc-400 uppercase font-bold" id="modal-char-class">Hardy Peasant</p>
-                    </div>
-                </div>
-                <button onclick="toggleStatsModal()" class="w-8 h-8 rounded-full bg-zinc-800 hover:bg-zinc-700 text-zinc-300 font-bold flex items-center justify-center text-sm transition-all">
-                    ✕
-                </button>
-            </div>
-
             <!-- 1. 6 Core Ability Scores Grid -->
-            <div class="space-y-1.5 bg-zinc-950 p-3.5 rounded-2xl border border-zinc-800">
+            <div class="bg-zinc-900/90 border border-zinc-800 p-3.5 rounded-2xl shadow-xl space-y-2">
                 <p class="text-[9px] font-bold text-amber-400 uppercase tracking-wider">6 CORE ABILITY SCORES (ATRIBUT KARAKTER):</p>
                 <div class="grid grid-cols-3 md:grid-cols-6 gap-2 text-center">
-                    <div class="bg-zinc-900 p-2 rounded-xl border border-zinc-750">
+                    <div class="bg-zinc-950 p-2 rounded-xl border border-zinc-800">
                         <p class="text-[8px] font-bold text-zinc-400">STRENGTH</p>
-                        <p id="m-stat-str" class="text-lg font-black font-mono text-amber-400">14</p>
+                        <p id="m-stat-str" class="text-base font-black font-mono text-amber-400">14</p>
                         <p class="text-[7px] text-zinc-400 font-mono">STR</p>
                     </div>
-                    <div class="bg-zinc-900 p-2 rounded-xl border border-zinc-750">
+                    <div class="bg-zinc-950 p-2 rounded-xl border border-zinc-800">
                         <p class="text-[8px] font-bold text-zinc-400">DEXTERITY</p>
-                        <p id="m-stat-dex" class="text-lg font-black font-mono text-emerald-400">10</p>
+                        <p id="m-stat-dex" class="text-base font-black font-mono text-emerald-400">10</p>
                         <p class="text-[7px] text-zinc-400 font-mono">DEX</p>
                     </div>
-                    <div class="bg-zinc-900 p-2 rounded-xl border border-zinc-750">
+                    <div class="bg-zinc-950 p-2 rounded-xl border border-zinc-800">
                         <p class="text-[8px] font-bold text-zinc-400">CONSTITUTION</p>
-                        <p id="m-stat-con" class="text-lg font-black font-mono text-rose-400">15</p>
+                        <p id="m-stat-con" class="text-base font-black font-mono text-rose-400">15</p>
                         <p class="text-[7px] text-zinc-400 font-mono">CON</p>
                     </div>
-                    <div class="bg-zinc-900 p-2 rounded-xl border border-zinc-750">
+                    <div class="bg-zinc-950 p-2 rounded-xl border border-zinc-800">
                         <p class="text-[8px] font-bold text-zinc-400">INTELLIGENCE</p>
-                        <p id="m-stat-int" class="text-lg font-black font-mono text-cyan-400">8</p>
+                        <p id="m-stat-int" class="text-base font-black font-mono text-cyan-400">8</p>
                         <p class="text-[7px] text-zinc-400 font-mono">INT</p>
                     </div>
-                    <div class="bg-zinc-900 p-2 rounded-xl border border-zinc-750">
+                    <div class="bg-zinc-950 p-2 rounded-xl border border-zinc-800">
                         <p class="text-[8px] font-bold text-zinc-400">WISDOM</p>
-                        <p id="m-stat-wis" class="text-lg font-black font-mono text-purple-400">12</p>
+                        <p id="m-stat-wis" class="text-base font-black font-mono text-purple-400">12</p>
                         <p class="text-[7px] text-zinc-400 font-mono">WIS</p>
                     </div>
-                    <div class="bg-zinc-900 p-2 rounded-xl border border-zinc-750">
+                    <div class="bg-zinc-950 p-2 rounded-xl border border-zinc-800">
                         <p class="text-[8px] font-bold text-zinc-400">CHARISMA</p>
-                        <p id="m-stat-cha" class="text-lg font-black font-mono text-yellow-400">8</p>
+                        <p id="m-stat-cha" class="text-base font-black font-mono text-yellow-400">8</p>
                         <p class="text-[7px] text-zinc-400 font-mono">CHA</p>
                     </div>
                 </div>
             </div>
 
             <!-- 2. Equipped Paper Doll Slots -->
-            <div class="space-y-1.5 bg-zinc-950 p-3.5 rounded-2xl border border-zinc-800">
+            <div class="bg-zinc-900/90 border border-zinc-800 p-3.5 rounded-2xl shadow-xl space-y-2">
                 <p class="text-[9px] font-bold text-amber-400 uppercase tracking-wider">EQUIPPED GEAR (KLIK UNTUK MELEPAS):</p>
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-2 text-xs">
-                    <button onclick="unequipSlot('main_hand')" id="m-eq-main" class="flex items-center space-x-2 bg-zinc-900 p-2.5 rounded-xl border border-zinc-700 text-left truncate hover:border-amber-400 active:scale-[0.98] transition-all">
-                        <span class="text-lg">⚔️</span>
+                    <button onclick="unequipSlot('main_hand')" id="m-eq-main" class="flex items-center space-x-2 bg-zinc-950 p-2.5 rounded-xl border border-zinc-750 text-left truncate active:scale-[0.98]">
+                        <span class="text-base">⚔️</span>
                         <div class="truncate">
-                            <p class="text-[8px] text-zinc-400 uppercase font-bold">MAIN HAND</p>
+                            <p class="text-[7px] text-zinc-400 uppercase font-bold">MAIN HAND</p>
                             <p id="m-eq-main-name" class="font-bold text-zinc-200 truncate text-xs">Empty</p>
                         </div>
                     </button>
-                    <button onclick="unequipSlot('off_hand')" id="m-eq-off" class="flex items-center space-x-2 bg-zinc-900 p-2.5 rounded-xl border border-zinc-700 text-left truncate hover:border-amber-400 active:scale-[0.98] transition-all">
-                        <span class="text-lg">🛡️</span>
+                    <button onclick="unequipSlot('off_hand')" id="m-eq-off" class="flex items-center space-x-2 bg-zinc-950 p-2.5 rounded-xl border border-zinc-750 text-left truncate active:scale-[0.98]">
+                        <span class="text-base">🛡️</span>
                         <div class="truncate">
-                            <p class="text-[8px] text-zinc-400 uppercase font-bold">OFF HAND</p>
+                            <p class="text-[7px] text-zinc-400 uppercase font-bold">OFF HAND</p>
                             <p id="m-eq-off-name" class="font-bold text-zinc-200 truncate text-xs">Empty</p>
                         </div>
                     </button>
-                    <button onclick="unequipSlot('armor')" id="m-eq-armor" class="flex items-center space-x-2 bg-zinc-900 p-2.5 rounded-xl border border-zinc-700 text-left truncate hover:border-amber-400 active:scale-[0.98] transition-all">
-                        <span class="text-lg">🥋</span>
+                    <button onclick="unequipSlot('armor')" id="m-eq-armor" class="flex items-center space-x-2 bg-zinc-950 p-2.5 rounded-xl border border-zinc-750 text-left truncate active:scale-[0.98]">
+                        <span class="text-base">🥋</span>
                         <div class="truncate">
-                            <p class="text-[8px] text-zinc-400 uppercase font-bold">ARMOR</p>
+                            <p class="text-[7px] text-zinc-400 uppercase font-bold">ARMOR</p>
                             <p id="m-eq-armor-name" class="font-bold text-zinc-200 truncate text-xs">Empty</p>
                         </div>
                     </button>
-                    <button onclick="unequipSlot('accessory')" id="m-eq-acc" class="flex items-center space-x-2 bg-zinc-900 p-2.5 rounded-xl border border-zinc-700 text-left truncate hover:border-amber-400 active:scale-[0.98] transition-all">
-                        <span class="text-lg">💍</span>
+                    <button onclick="unequipSlot('accessory')" id="m-eq-acc" class="flex items-center space-x-2 bg-zinc-950 p-2.5 rounded-xl border border-zinc-750 text-left truncate active:scale-[0.98]">
+                        <span class="text-base">💍</span>
                         <div class="truncate">
-                            <p class="text-[8px] text-zinc-400 uppercase font-bold">ACCESSORY</p>
+                            <p class="text-[7px] text-zinc-400 uppercase font-bold">ACCESSORY</p>
                             <p id="m-eq-acc-name" class="font-bold text-zinc-200 truncate text-xs">Empty</p>
                         </div>
                     </button>
                 </div>
             </div>
 
-            <!-- 3. 25-Slot Backpack List -->
-            <div class="space-y-1.5">
-                <div class="flex justify-between items-center text-[10px] uppercase font-black tracking-widest text-amber-400">
+            <!-- 3. 25-Slot Backpack Items List -->
+            <div class="bg-zinc-900/90 border border-zinc-800 p-3.5 rounded-2xl shadow-xl space-y-2">
+                <div class="flex justify-between items-center text-[9px] uppercase font-black tracking-widest text-amber-400">
                     <span>BACKPACK ITEMS (25 SLOTS):</span>
-                    <span id="m-inv-count" class="font-mono">0 / 25</span>
+                    <span id="m-inv-count" class="font-mono text-zinc-300">0 / 25</span>
                 </div>
-                <div id="m-inventory-items" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 max-h-[35vh] overflow-y-auto pr-1">
+                <div id="m-inventory-items" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
                     <!-- Populated dynamically -->
                 </div>
             </div>
-
-            <!-- Close Drawer Button -->
-            <button onclick="toggleStatsModal()" class="w-full bg-zinc-800 hover:bg-zinc-700 text-zinc-200 font-bold text-xs py-2.5 rounded-xl border border-zinc-700 font-cinzel transition-all">
-                TUTUP LEMBAR STATUS (KEMBALI KE GAME)
-            </button>
         </div>
+
+        <!-- Footer Reset Action -->
+        <footer class="flex justify-between items-center text-[9px] text-zinc-400 pt-2 border-t border-zinc-900 px-1">
+            <button onclick="resetGameToCreation()" class="text-amber-400 hover:underline">🎭 Reset / Ganti Karakter Baru</button>
+            <span class="text-emerald-400 font-semibold">● Live Sync</span>
+        </footer>
     </div>
 
     <!-- Rolling Dice Modal Overlay -->
     <div id="m-dice-overlay" class="hidden fixed inset-0 bg-black/85 backdrop-blur-sm z-50 flex flex-col items-center justify-center p-6 text-center space-y-3">
         <p class="text-xs uppercase tracking-widest text-amber-400 font-bold">ROLLING D20 CHECK...</p>
-        <div id="m-dice-box" class="w-20 h-20 rounded-2xl bg-gradient-to-br from-amber-500 to-yellow-400 flex items-center justify-center text-4xl font-cinzel font-black text-black shadow-2xl animate-bounce">
+        <div id="m-dice-box" class="w-16 h-16 rounded-2xl bg-gradient-to-br from-amber-500 to-yellow-400 flex items-center justify-center text-3xl font-cinzel font-black text-black shadow-2xl animate-bounce">
             🎲
         </div>
         <p id="m-dice-text" class="text-xs font-semibold text-zinc-200">Menunggu lemparan dadu D20...</p>
@@ -454,7 +435,7 @@
         const wsUrl = `ws://${window.location.host}/ws/controller`;
         let socket;
         let selectedClassId = "peasant";
-        let isStatsOpen = false;
+        let currentTab = "story";
         let currentGameState = null;
 
         function connect() {
@@ -470,14 +451,23 @@
             };
         }
 
-        function toggleStatsModal() {
-            isStatsOpen = !isStatsOpen;
-            const modal = document.getElementById('m-stats-modal');
-            if (isStatsOpen) {
-                modal.classList.remove('hidden');
-                if (navigator.vibrate) navigator.vibrate(20);
+        function switchTab(tab) {
+            currentTab = tab;
+            const viewStory = document.getElementById('view-tab-story');
+            const viewStats = document.getElementById('view-tab-stats');
+            const btnStory = document.getElementById('tab-btn-story');
+            const btnStats = document.getElementById('tab-btn-stats');
+
+            if (tab === 'story') {
+                viewStory.classList.remove('hidden');
+                viewStats.classList.add('hidden');
+                btnStory.className = "flex-1 py-1.5 rounded-lg bg-amber-500 text-black shadow font-bold transition-all";
+                btnStats.className = "flex-1 py-1.5 rounded-lg text-zinc-400 hover:text-zinc-200 transition-all";
             } else {
-                modal.classList.add('hidden');
+                viewStory.classList.add('hidden');
+                viewStats.classList.remove('hidden');
+                btnStory.className = "flex-1 py-1.5 rounded-lg text-zinc-400 hover:text-zinc-200 transition-all";
+                btnStats.className = "flex-1 py-1.5 rounded-lg bg-amber-500 text-black shadow font-bold transition-all";
             }
         }
 
@@ -523,14 +513,14 @@
                 const st = data.state;
                 if (st.status === "character_creation") {
                     document.getElementById('m-creation-view').classList.remove('hidden');
+                    document.getElementById('m-creation-view').classList.add('flex');
                     document.getElementById('m-gameplay-view').classList.add('hidden');
-                    document.getElementById('m-stats-modal').classList.add('hidden');
-                    isStatsOpen = false;
                 } else {
                     document.getElementById('m-creation-view').classList.add('hidden');
+                    document.getElementById('m-creation-view').classList.remove('flex');
                     document.getElementById('m-gameplay-view').classList.remove('hidden');
                     updateGameplayUI(st);
-                    updateStatsModalUI(st);
+                    updateStatsViewUI(st);
                     if (data.outcome) showOutcome(data.outcome);
                 }
             } else if (data.type === "dice_rolling") {
@@ -585,19 +575,17 @@
                 const badgeColor = isRoll ? 'bg-amber-500/20 border-amber-500/40 text-amber-300' : 'bg-blue-500/20 border-blue-500/40 text-blue-300';
                 
                 btn.innerHTML = `
-                    <span class="w-7 h-7 rounded-lg ${badgeColor} font-cinzel font-bold text-xs flex items-center justify-center border flex-shrink-0">${c.id}</span>
+                    <span class="w-6 h-6 rounded-lg ${badgeColor} font-cinzel font-bold text-[10px] flex items-center justify-center border flex-shrink-0">${c.id}</span>
                     <div class="flex-1 min-w-0">
-                        <p class="text-xs lg:text-sm font-semibold text-zinc-100 leading-snug">${c.text}</p>
+                        <p class="text-xs font-semibold text-zinc-100 leading-snug">${c.text}</p>
                     </div>
                 `;
                 container.appendChild(btn);
             });
         }
 
-        function updateStatsModalUI(state) {
+        function updateStatsViewUI(state) {
             const p = state.player;
-            document.getElementById('modal-char-name').innerText = `${p.name} (Level ${p.level || 1})`;
-            document.getElementById('modal-char-class').innerText = `${p.class_name}`;
 
             // 6 Stats Numbers
             const st = p.stats || {};
@@ -637,7 +625,7 @@
 
                     row.innerHTML = `
                         <div class="flex items-center space-x-2 min-w-0 flex-1">
-                            <span class="text-lg">${item.icon || '📦'}</span>
+                            <span class="text-base">${item.icon || '📦'}</span>
                             <div class="min-w-0 flex-1">
                                 <p class="font-bold truncate text-zinc-100">${item.name}</p>
                                 <p class="text-[9px] text-zinc-400 truncate">${item.desc || item.type}</p>
@@ -689,7 +677,7 @@
             document.getElementById('m-dice-text').innerText = text;
             const box = document.getElementById('m-dice-box');
             box.innerText = "🎲";
-            box.className = "w-20 h-20 rounded-2xl bg-gradient-to-br from-amber-500 to-yellow-400 flex items-center justify-center text-4xl font-cinzel font-black text-black shadow-2xl animate-bounce";
+            box.className = "w-16 h-16 rounded-2xl bg-gradient-to-br from-amber-500 to-yellow-400 flex items-center justify-center text-3xl font-cinzel font-black text-black shadow-2xl animate-bounce";
         }
 
         function showDiceResult(val) {
@@ -697,16 +685,16 @@
             box.classList.remove('animate-bounce');
             box.innerText = val;
             if (val >= 19) {
-                box.className = "w-20 h-20 rounded-2xl bg-gradient-to-br from-emerald-500 to-green-600 flex items-center justify-center text-4xl font-cinzel font-black text-white shadow-2xl scale-105";
+                box.className = "w-16 h-16 rounded-2xl bg-gradient-to-br from-emerald-500 to-green-600 flex items-center justify-center text-3xl font-cinzel font-black text-white shadow-2xl scale-105";
                 document.getElementById('m-dice-text').innerText = `🔥 CRITICAL SUCCESS! (${val})`;
             } else if (val === 1) {
-                box.className = "w-20 h-20 rounded-2xl bg-gradient-to-br from-red-600 to-rose-900 flex items-center justify-center text-4xl font-cinzel font-black text-white shadow-2xl scale-105";
+                box.className = "w-16 h-16 rounded-2xl bg-gradient-to-br from-red-600 to-rose-900 flex items-center justify-center text-3xl font-cinzel font-black text-white shadow-2xl scale-105";
                 document.getElementById('m-dice-text').innerText = "💀 CRITICAL FAIL! (1)";
             } else if (val >= 10) {
-                box.className = "w-20 h-20 rounded-2xl bg-gradient-to-br from-blue-600 to-cyan-500 flex items-center justify-center text-4xl font-cinzel font-black text-white shadow-2xl scale-105";
+                box.className = "w-16 h-16 rounded-2xl bg-gradient-to-br from-blue-600 to-cyan-500 flex items-center justify-center text-3xl font-cinzel font-black text-white shadow-2xl scale-105";
                 document.getElementById('m-dice-text').innerText = `⚔️ SUCCESS (${val})`;
             } else {
-                box.className = "w-20 h-20 rounded-2xl bg-gradient-to-br from-zinc-700 to-zinc-900 flex items-center justify-center text-4xl font-cinzel font-black text-red-400 border border-red-500/40";
+                box.className = "w-16 h-16 rounded-2xl bg-gradient-to-br from-zinc-700 to-zinc-900 flex items-center justify-center text-3xl font-cinzel font-black text-red-400 border border-red-500/40";
                 document.getElementById('m-dice-text').innerText = `⚠️ FAIL (${val})`;
             }
         }
