@@ -1,22 +1,28 @@
-# Darsam RPG Engine - Game Systems & Mathematical Mechanics (v2.3.3)
+# Darsam RPG Engine - Game Systems & Mathematical Mechanics (v2.4.0)
 
-## 1. Chapter Progression & Dungeon Floors
-Sebelumnya, pergantian bab (*Chapter*) bergantung murni pada respons model AI yang kerap mempertahankan teks `"Chapter 1: The Descent"` meskipun pemain telah melangkah belasan kali.
-Di v2.3.3, sistem bab diatur secara terstruktur dan deterministik berdasarkan jumlah langkah (*Milestone Steps*):
-
-| Bab & Lantai | Rentang Langkah (*Steps*) | Nama Bab & Tema Lingkungan | Musuh & Ancaman Utama |
-|---|---|---|---|
-| **Chapter 1 (Floor 1)** | Langkah `1 – 5` | **The Descent:** Reruntuhan Rongga Makam Runtuh & Lorong Lumut | Hewan buas & serangga gua biasa |
-| **Chapter 2 (Floor 1)** | Langkah `6 – 12` | **The Sarcophagus Halls:** Aula Makam Kuno & Altar Terkutuk | Prajurit kerangka & penyihir sesat |
-| **Chapter 3 (Floor 2)** | Langkah `13 – 20`| **The Abyssal Waterway:** Kanal Bawah Tanah & Jembatan Rapuh | Lendir asam, monster air & racun |
-| **Chapter 4 (Floor 2)** | Langkah `21 – 30`| **The Forgotten Necropolis:** Kota Mati Purba & Toko Terlarang | Pembunuh bayangan & ksatria terkutuk |
-| **Chapter 5 (Floor 3)** | Langkah `31+` | **The Archon's Sanctum:** Istana Dewa Kehampaan | Pertarungan Puncak Boss: Lich Lord Malakor |
+## 1. Weighted Encounter Generation Engine
+Setiap kali pemain menyelesaikan sebuah babak/ruangan, sistem backend secara probabilistik menentukan jenis pertemuan berikutnya (*Next Room Encounter*):
+- 🗡️ **Combat Encounter (35%):** Pertarungan melawan Minion, Elite Monster, atau Dungeon Boss.
+- 🔀 **Branching Crossroads (20%):** Pilihan rute strategis (Jalur Aman, Jalur Toko/Peti, atau Sarang Monster Berbahaya).
+- 🎁 **Treasure Chest & Puzzles (15%):** Peti Kayu, Peti Terkunci (Lockpick/STR Check), atau Monster Mimic.
+- 🦹‍♂️ **Merchant & NPC Encampment (12%):** Toko bawah tanah dengan fitur tawar-menawar (Haggling via CHA Check) dan Jual Sampah 1-Klik (*Sell All Junk*).
+- 🏕️ **Campfire Rest Site (10%):** Istirahat untuk memulihkan HP/MP, meracik makanan (*Buff ATK*), dan menata jurus.
+- 🔮 **Shrine of Fate (8%):** Altar dewa untuk pengorbanan emas/darah atau memicu *Secret Job Awakening*.
 
 ---
 
-## 2. Mobile Responsive Layout Architecture
-- **Baris 1:** Profil Karakter di Kiri + Dropdown Model AI di Kanan (tidak lagi bertubrukan).
-- **Baris 2:** Grid 3 Kolom Simetris Berdimensi Seragam (`❤️ HP`, `✨ MP`, `🪙 Gold`).
-- **Baris 3:** Bilah Kemajuan EXP (`⭐ EXPERIENCE`).
-- **Baris 4:** Tab Navigasi Seimbang 50:50 (`📖 STORY & ACTIONS` vs `🎒 STATS & BACKPACK`).
-- **Bantalan Bawah Aman (`pb-32`):** Memastikan pilihan aksi di bagian paling bawah tidak pernah terpotong di tepi layar ponsel.
+## 2. Living Crypt Merchant Economy
+1. **Dynamic Stock:** Toko membawa 4–6 barang acak dengan level item menyesuaikan level pemain ($iLvl = \text{Player Level} \pm 1$).
+2. **Haggling Mechanics (CHA Check vs DC 11):**
+   - **Success (D20 + CHA Mod >= 11):** Diskon 20% untuk semua barang di toko.
+   - **Critical Success (Natural 20):** Diskon 40% + 1 Ramuan Gratis.
+   - **Fail (Total < 11):** Harga barang naik 15%.
+   - **Critical Fail (Natural 1):** Toko ditutup paksa seketika.
+3. **One-Click Sell All Junk:** Menjual seluruh item berkasta `common` putih/abu-abu dari tas secara instan.
+
+---
+
+## 3. Treasure Chest & Mimic Trap Ratios
+- 📦 **Wooden Chest (50%):** Ransum, Obor, 10–25 Gold.
+- 🔒 **Locked Iron Chest (35%):** Butuh Lockpick/STR Check ➔ Perlengkapan *Rare/Epic*.
+- 👹 **Chest Mimic (15%):** Peti penyamar bertaring yang memicu pertarungan dadakan jika gagal dideteksi via *Perception / WIS Check*.
