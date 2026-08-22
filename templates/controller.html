@@ -1025,11 +1025,30 @@
             const st = p.stats || {};
             const eq = p.equipped || {};
 
-            // Calculate Combat Stats & Dual Wielding
-            let totalAtk = Math.floor((st.str || 10) / 2);
-            let totalDef = Math.floor((st.con || 10) / 3);
+            // Calculate Total Attributes (Base + Gear Bonuses)
+            let totalStr = st.str || 10;
+            let totalDex = st.dex || 10;
+            let totalCon = st.con || 10;
+            let totalInt = st.int || 10;
+            let totalWis = st.wis || 10;
+            let totalCha = st.cha || 10;
+
+            for (const [slot, item] of Object.entries(eq)) {
+                if (item && item.bonus) {
+                    if (item.bonus.str) totalStr += item.bonus.str;
+                    if (item.bonus.dex) totalDex += item.bonus.dex;
+                    if (item.bonus.con) totalCon += item.bonus.con;
+                    if (item.bonus.int) totalInt += item.bonus.int;
+                    if (item.bonus.wis) totalWis += item.bonus.wis;
+                    if (item.bonus.cha) totalCha += item.bonus.cha;
+                }
+            }
+
+            // Calculate Combat Stats (Using Total Attributes + Direct Gear Bonuses)
+            let totalAtk = Math.floor(totalStr / 2);
+            let totalDef = Math.floor(totalCon / 3);
             let totalCrit = 5;
-            let totalDodge = Math.floor((st.dex || 10) / 3);
+            let totalDodge = Math.floor(totalDex / 3);
 
             const m_hand = eq.main_hand;
             const o_hand = eq.off_hand;
@@ -1057,13 +1076,13 @@
             document.getElementById('m-stat-crit').innerText = `${totalCrit}%`;
             document.getElementById('m-stat-dodge').innerText = `${totalDodge}%`;
 
-            // 6 Core Ability Scores
-            document.getElementById('m-stat-str').innerText = st.str || 10;
-            document.getElementById('m-stat-dex').innerText = st.dex || 10;
-            document.getElementById('m-stat-con').innerText = st.con || 10;
-            document.getElementById('m-stat-int').innerText = st.int || 10;
-            document.getElementById('m-stat-wis').innerText = st.wis || 10;
-            document.getElementById('m-stat-cha').innerText = st.cha || 10;
+            // 6 Core Ability Scores (Displaying Total Stats with Gear Bonuses!)
+            document.getElementById('m-stat-str').innerText = totalStr;
+            document.getElementById('m-stat-dex').innerText = totalDex;
+            document.getElementById('m-stat-con').innerText = totalCon;
+            document.getElementById('m-stat-int').innerText = totalInt;
+            document.getElementById('m-stat-wis').innerText = totalWis;
+            document.getElementById('m-stat-cha').innerText = totalCha;
 
             // RENDER 6 EQUIPPED GEAR SLOTS
             updatePaperDollSlot('m-eq-head', 'm-eq-head-name', 'm-eq-head-stat', eq.head);

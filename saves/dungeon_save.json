@@ -1,7 +1,7 @@
 {
   "status": "playing",
   "floor": 1,
-  "step": 19,
+  "step": 23,
   "active_sound_theme": "danger",
   "selected_model": "ag/gemini-3.7-flash-low",
   "torch_turns": 0,
@@ -14,13 +14,13 @@
     "class_icon": "\ud83e\ude78",
     "class_tier": "special",
     "level": 3,
-    "exp": 13,
+    "exp": 133,
     "exp_next": 434,
     "hp": 117,
     "max_hp": 145,
     "mp": 31,
     "max_mp": 31,
-    "gold": 100,
+    "gold": 133,
     "stats": {
       "str": 19,
       "dex": 10,
@@ -31,17 +31,18 @@
     },
     "equipped": {
       "head": {
-        "id": "h_straw",
-        "name": "Weathered Straw Hat",
+        "id": "item_86002",
+        "name": "Reinforced Leather Cap",
         "item_level": 1,
-        "rarity": "common",
+        "rarity": "uncommon",
         "type": "head",
         "slot": "head",
-        "icon": "\ud83d\udc52",
+        "icon": "\ud83e\udde2",
         "bonus": {
-          "wis": 1
+          "def": 2,
+          "dodge": 3
         },
-        "val": 2
+        "val": 6
       },
       "armor": {
         "id": "a_linen",
@@ -87,18 +88,19 @@
         "val": 3
       },
       "off_hand": {
-        "id": "item_51077",
-        "name": "Tower Bastion Shield",
-        "item_level": 1,
-        "rarity": "common",
+        "id": "item_18067",
+        "name": "Acolyte Prayer Beads",
+        "item_level": 3,
+        "rarity": "uncommon",
         "type": "offhand",
         "slot": "off_hand",
-        "icon": "\ud83d\udee1\ufe0f",
+        "icon": "\ud83d\udcff",
         "bonus": {
-          "def": 6,
-          "con": 1
+          "mp": 42,
+          "wis": 2,
+          "dex": 3
         },
-        "val": 5,
+        "val": 19,
         "handedness": "off_hand_only"
       }
     },
@@ -153,21 +155,45 @@
         "val": 19
       },
       {
-        "id": "item_86002",
-        "name": "Reinforced Leather Cap",
+        "id": "h_straw",
+        "name": "Weathered Straw Hat",
         "item_level": 1,
-        "rarity": "uncommon",
+        "rarity": "common",
         "type": "head",
         "slot": "head",
-        "icon": "\ud83e\udde2",
+        "icon": "\ud83d\udc52",
         "bonus": {
-          "def": 2,
-          "dodge": 3
+          "wis": 1
         },
-        "val": 6
+        "val": 2
       },
-      null,
-      null,
+      {
+        "id": "item_51077",
+        "name": "Tower Bastion Shield",
+        "item_level": 1,
+        "rarity": "common",
+        "type": "offhand",
+        "slot": "off_hand",
+        "icon": "\ud83d\udee1\ufe0f",
+        "bonus": {
+          "def": 6,
+          "con": 1
+        },
+        "val": 5,
+        "handedness": "off_hand_only"
+      },
+      {
+        "id": "cons_97281",
+        "name": "Universal Antidote Draught",
+        "item_level": 3,
+        "rarity": "common",
+        "type": "consumable",
+        "icon": "\ud83e\uddea",
+        "qty": 1,
+        "effect": "cure_poison_heal_25",
+        "desc": "Cures Poison & heals 25 HP",
+        "val": 9
+      },
       null,
       null,
       null,
@@ -250,61 +276,46 @@
     "location": "Subterranean Vault - Floor 1",
     "chapter": "Chapter 1: The Descent"
   },
-  "monster": {
-    "name": "Ravenous Cave Rat (Lv.1)",
-    "title": "Ravenous Cave Rat",
-    "icon": "\ud83d\udc00",
-    "desc": "Frenzied Rodent",
-    "level": 1,
-    "tier": "common",
-    "hp": 5,
-    "max_hp": 30,
-    "attack": 6,
-    "exp_reward": 25,
-    "gold_reward": 9,
-    "status": "active"
-  },
+  "monster": null,
   "pending_awakening": null,
   "scene": {
     "chapter": "Chapter 1: The Descent",
-    "title": "Stumble in the Dark",
-    "location": "Damp Ossuary",
-    "narrative": "Benturan keras Tower Bastion Shield menghantam dinding batu berlumut alih-alih mengenai target, mengirimkan getaran hebat yang melumpuhkan cengkeraman Danas dalam kebutaan. Ravenous Cave Rat memanfaatkan hilangnya momentum Danas dengan melompat buas ke atas dada, menancapkan cakar dan taring beracunnya ke pundak Danas hingga darah hangat membasahi lantai dingin. Bau anyir darah segar membakar udara pengap ossuary, memicu dengusan liar monster pengerat yang semakin bernafsu mengoyak mangsanya. Danas merasakan bobot tubuh makhluk menjijikkan itu menekan rongga dadanya, sementara cangkul di tangan kanannya tergelincir beberapa jengkal di atas tumpukan tulang.",
+    "title": "Silencing the Prey",
+    "location": "Damp Ossuary - Narrow Crevice",
+    "narrative": "Langkah kaki Danas yang terbungkus Silent Stalker Moccasins nyaris tak menimbulkan suara saat memotong jalan kabur sang goblin di mulut terowongan sempit. Makhluk kerdil itu terperanjat, matanya membelalak ketakutan saat melihat sosok Danas yang menjulang kokoh menghalangi celah keluar. Dari kedalaman lorong di belakang goblin, sayup-sayup terdengar derap langkah kaki lain yang mulai terpancing oleh jeritan awalnya. Sisa-sisa efek Blind kini telah sirna sepenuhnya, menyisakan hawa dingin katakombe dan aroma anyir darah segar yang memacu detak jantung Danas.",
     "choices": [
       {
         "id": "A",
-        "text": "Cengkeram leher tikus dengan tangan kosong lalu banting ke lantai batu (STR Check - DC 11)",
+        "text": "Ayunkan Rusty Farming Hoe untuk mengeksekusi goblin seketika sebelum bantuan tiba (STR Check - DC 10)",
         "type": "roll",
         "stat": "STR",
-        "dc": 11
-      },
-      {
-        "id": "B",
-        "text": "Gulingkan tubuh ke samping untuk melepaskan tindihan monster (DEX Check - DC 12)",
-        "type": "roll",
-        "stat": "DEX",
-        "dc": 12
-      },
-      {
-        "id": "C",
-        "text": "Fokuskan pendengaran untuk merasakan titik kelemahan di tenggorokannya (WIS Check - DC 10)",
-        "type": "roll",
-        "stat": "WIS",
         "dc": 10
       },
       {
-        "id": "D",
-        "text": "Kukuhkan pertahanan dan serap luka dengan daya tahan tubuh murni (CON Check - DC 9)",
+        "id": "B",
+        "text": "Bungkam mulutnya dan seret tubuhnya ke balik bayang-bayang pilar (DEX Check - DC 11)",
         "type": "roll",
-        "stat": "CON",
+        "stat": "DEX",
+        "dc": 11
+      },
+      {
+        "id": "C",
+        "text": "Salurkan energi kutukan melalui Acolyte Prayer Beads untuk mengintimidasi dan mengorek informasi (WIS Check - DC 9)",
+        "type": "roll",
+        "stat": "WIS",
         "dc": 9
+      },
+      {
+        "id": "D",
+        "text": "Tendang tumpukan tengkorak ke dalam celah terowongan untuk membarikade bala bantuan (Action)",
+        "type": "action"
       }
     ],
     "log": [
-      "\ud83c\udfb2 [CRITICAL SUCCESS \u2022 D20: 20+0=20 vs DC 10] DEX Check Critical Success! Danas meluncur ke balik bayangan sarkofagus tanpa suara, sepenuhnya menghapus status Blind dan melancarkan Flanking Position yang sempurna. (+25 EXP)",
-      "\ud83c\udfb2 [SUCCESS \u2022 D20: 8+4=12 vs DC 9] Danas berhasil mengeksekusi serangan dadakan dengan STR Check (Success), menancapkan mata cangkul tepat ke leher goblin dan membunuhnya seketika, namun cipratan darah memicu kedatangan Ravenous Cave Rat. (+15 EXP) \ud83c\udf1f LEVEL UP! Danas naik ke Level 3 (Max HP/MP meningkat & HP pulih penuh)!",
-      "\ud83c\udfb2 [FAIL \u2022 D20: 8+0=8 vs DC 11] DEX Check gagal karena pandangan Danas terhalang status Blind. Ravenous Cave Rat menerjang cepat dan mencakar betis Danas, memberikan 8 Physical Damage. (-8 HP)",
-      "\ud83c\udfb2 [CRITICAL FAIL \u2022 D20: 1+4=5 vs DC 10] Danas mengalami Critical Fail pada STR Check; ayunan perisai yang meleset liar justru membuat Danas kehilangan keseimbangan dan terhempas ke lantai berbatu, menerima Piercing Damage telak dari gigitan Ravenous Cave Rat. (-16 HP)"
+      "\ud83c\udfb2 [SUCCESS \u2022 D20: 10+4=14 vs DC 9] Danas berhasil menahan taring monster dengan CON Check sukses, mengabaikan rasa sakit saat racun tertahan oleh daya tahan tubuh liatnya. (+40 EXP) \ud83d\udc8e LOOT DROP: [UNCOMMON] Acolyte Prayer Beads!",
+      "\ud83c\udfb2 [Direct Action \u2022 Action] Danas melancarkan dorongan fisik penuh tenaga menggunakan berat badannya untuk menghempaskan lawan, berhasil menciptakan ruang aman dari cengkeraman taring buas.",
+      "\ud83c\udfb2 [SUCCESS \u2022 D20: 19+4=23 vs DC 11] STR Check berhasil dengan gemilang (Natural 20 / Total 23); hantaman Rusty Farming Hoe milik Danas menghasilkan Critical Hit telak yang meremukkan tulang rusuk musuh. (+15 EXP)",
+      "\ud83c\udfb2 [SUCCESS \u2022 D20: 14+0=14 vs DC 11] DEX Check berhasil (Roll: 14 vs DC 11). Danas meluncur gesit di atas serpihan tulang, memotong jalur kabur lawan sebelum lolongannya mengundang petaka. (+65 EXP) \ud83d\udc8e LOOT DROP: [COMMON] Universal Antidote Draught!"
     ]
   }
 }

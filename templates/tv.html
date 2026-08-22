@@ -775,14 +775,33 @@
             document.getElementById('torch-text').innerText = state.torch_turns || 0;
             document.getElementById('ration-text').innerText = state.rations || 0;
 
-            // 6 Ability Scores
+            // 6 Ability Scores (Total with Gear Bonuses)
             const stats = p.stats || {};
-            document.getElementById('stat-str').innerText = stats.str || 10;
-            document.getElementById('stat-dex').innerText = stats.dex || 10;
-            document.getElementById('stat-con').innerText = stats.con || 10;
-            document.getElementById('stat-int').innerText = stats.int || 10;
-            document.getElementById('stat-wis').innerText = stats.wis || 10;
-            document.getElementById('stat-cha').innerText = stats.cha || 10;
+            const eqTv = p.equipped || {};
+            let tvStr = stats.str || 10;
+            let tvDex = stats.dex || 10;
+            let tvCon = stats.con || 10;
+            let tvInt = stats.int || 10;
+            let tvWis = stats.wis || 10;
+            let tvCha = stats.cha || 10;
+
+            for (const [slot, item] of Object.entries(eqTv)) {
+                if (item && item.bonus) {
+                    if (item.bonus.str) tvStr += item.bonus.str;
+                    if (item.bonus.dex) tvDex += item.bonus.dex;
+                    if (item.bonus.con) tvCon += item.bonus.con;
+                    if (item.bonus.int) tvInt += item.bonus.int;
+                    if (item.bonus.wis) tvWis += item.bonus.wis;
+                    if (item.bonus.cha) tvCha += item.bonus.cha;
+                }
+            }
+
+            document.getElementById('stat-str').innerText = tvStr;
+            document.getElementById('stat-dex').innerText = tvDex;
+            document.getElementById('stat-con').innerText = tvCon;
+            document.getElementById('stat-int').innerText = tvInt;
+            document.getElementById('stat-wis').innerText = tvWis;
+            document.getElementById('stat-cha').innerText = tvCha;
 
             // 6 Equipped Paper Doll
             const eq = p.equipped || {};
