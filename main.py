@@ -241,23 +241,35 @@ CLASSES_INFO = {
 }
 
 # =========================================================================
-# SECRET AWAKENING JOBS (SPECIAL, EPIC, LEGENDARY, MYTHIC)
+# SECRET AWAKENING JOBS ROSTER (CROSS-CLASS EXPANSION: COMMON ➔ MYTHIC)
 # =========================================================================
 SECRET_CLASSES_DB = {
+    "common": [
+        {"id": "sec_crypt_scavenger", "title": "Crypt Scavenger", "tier": "common", "icon": "⛏️", "bonus_stats": {"dex": 1, "con": 1}, "desc": "Pencari rongsokan makam kuno. Langkah liat dan awas terhadap sisa jarahan.", "skills": [{"id": "sk_scavenge_strike", "name": "Prying Pickaxe Strike", "cost_mp": 4, "dmg_type": "damage", "est_val": "18-24 Pick DMG", "desc": "Hantaman beliung runcing yang mencungkil kelemahan pelindung musuh."}]},
+        {"id": "sec_wandering_mercenary", "title": "Wandering Sellsword", "tier": "common", "icon": "🗡️", "bonus_stats": {"str": 2, "atk": 2}, "desc": "Prajurit bayaran pengelana. Berpengalaman dalam duel senjata tajam jarak dekat.", "skills": [{"id": "sk_cleave_strike", "name": "Mercenary Brutal Slash", "cost_mp": 5, "dmg_type": "damage", "est_val": "22-28 Slash DMG", "desc": "Tebasan pedang beruntun yang mengoyak luka fisik musuh."}]},
+        {"id": "sec_hermit_apothecary", "title": "Hermit Apothecary", "tier": "common", "icon": "🌿", "bonus_stats": {"wis": 2, "mp": 10}, "desc": "Tabib pertapa lereng makam. Ahli meramu daun obat dan mensterilkan bisa racun.", "skills": [{"id": "sk_herbal_steam", "name": "Soothing Herbal Poultice", "cost_mp": 6, "dmg_type": "heal", "est_val": "+28 HP & Cleanse", "desc": "Baluran ramuan daun herbal yang memulihkan 28 HP dan membersihkan status Bleed."}]}
+    ],
     "special": [
-        {"id": "sec_blood_zealot", "title": "Blood-Pact Zealot", "tier": "special", "icon": "🩸", "bonus_stats": {"str": 3, "con": 2}, "desc": "Ksatria kultus darah. Mengorbankan darah sendiri demi serangan fisik berlipat ganda.", "skills": [{"id": "sk_blood_strike", "name": "Sanguine Cleave", "cost_mp": 5, "dmg_type": "damage", "est_val": "45-60 Blood DMG", "desc": "Mengorbankan 10 HP untuk menebas monster dengan 45-60 damage brutal."}]},
-        {"id": "sec_shadow_ranger", "title": "Shadowveil Ranger", "tier": "special", "icon": "🏹", "bonus_stats": {"dex": 4, "wis": 2}, "desc": "Pemanah malam berkabut. Tembakan panahnya tidak terdengar dan selalu menusuk titik lemah.", "skills": [{"id": "sk_ghost_arrow", "name": "Ghostflight Shot", "cost_mp": 8, "dmg_type": "damage", "est_val": "40-52 Pierce DMG", "desc": "Anak panah hantu yang menembus perisai dan armor musuh secara mutlak."}]}
+        {"id": "sec_blood_zealot", "title": "Blood-Pact Zealot", "tier": "special", "icon": "🩸", "bonus_stats": {"str": 4, "con": 3}, "desc": "Ksatria kultus darah. Mengorbankan darah sendiri demi serangan fisik berlipat ganda.", "skills": [{"id": "sk_blood_strike", "name": "Sanguine Cleave", "cost_mp": 5, "dmg_type": "damage", "est_val": "45-60 Blood DMG", "desc": "Mengorbankan 10 HP untuk menebas monster dengan 45-60 damage brutal."}]},
+        {"id": "sec_shadow_ranger", "title": "Shadowveil Ranger", "tier": "special", "icon": "🏹", "bonus_stats": {"dex": 5, "wis": 2}, "desc": "Pemanah malam berkabut. Tembakan panahnya tidak terdengar dan selalu menusuk titik lemah.", "skills": [{"id": "sk_ghost_arrow", "name": "Ghostflight Shot", "cost_mp": 8, "dmg_type": "damage", "est_val": "40-52 Pierce DMG", "desc": "Anak panah hantu yang menembus perisai dan armor musuh secara mutlak."}]},
+        {"id": "sec_iron_juggernaut", "title": "Iron Juggernaut Vanguard", "tier": "special", "icon": "🛡️", "bonus_stats": {"str": 4, "con": 4, "def": 4}, "desc": "Ksatria benteng berlapis baja tebal. Tubuhnya laksana tembok karang yang menolak runtuh.", "skills": [{"id": "sk_unbreakable_slam", "name": "Titanium Shield Bash", "cost_mp": 8, "dmg_type": "damage", "est_val": "35-48 Stun DMG", "desc": "Hantaman perisai titanium yang menghancurkan keseimbangan musuh dan memberi efek Stun 1 turn."}]},
+        {"id": "sec_pyro_cultist", "title": "Infernal Pyromancer", "tier": "special", "icon": "🔥", "bonus_stats": {"int": 5, "mp": 20}, "desc": "Pemuja api neraka bawah tanah. Menyulap udara dingin makam menjadi lautan abu membara.", "skills": [{"id": "sk_pyro_blast", "name": "Hellfire Scorch Flare", "cost_mp": 10, "dmg_type": "damage", "est_val": "42-56 Fire Burn", "desc": "Semburan api membara yang membakar musuh dan melelehkan armornya."}]}
     ],
     "epic": [
-        {"id": "sec_chronomancer", "title": "Rift Chronomancer", "tier": "epic", "icon": "⏳", "bonus_stats": {"int": 5, "wis": 3}, "desc": "Penyihir pemutar sangkala waktu. Mampu membatalkan kegagalan dan mempercepat perputaran mantra.", "skills": [{"id": "sk_time_dilation", "name": "Chrono-Stasis Surge", "cost_mp": 15, "dmg_type": "damage", "est_val": "60-80 Time DMG", "desc": "Menghentikan waktu selama 1 turn dan menghancurkan musuh dalam gelombang temporal."}]},
-        {"id": "sec_nightblade", "title": "Nightblade Death-Shadow", "tier": "epic", "icon": "🗡️", "bonus_stats": {"dex": 6, "cha": 2}, "desc": "Pencabut nyawa legendaris dari ordo kegelapan tak bernama.", "skills": [{"id": "sk_fatal_strike", "name": "Eclipse Decapitation", "cost_mp": 18, "dmg_type": "damage", "est_val": "75-100 Fatal DMG", "desc": "Tebasan bayangan gerhana yang memberikan garansi Critical Hit dan luka pendarahan masif."}]}
+        {"id": "sec_chronomancer", "title": "Rift Chronomancer", "tier": "epic", "icon": "⏳", "bonus_stats": {"int": 7, "wis": 4, "mp": 30}, "desc": "Penyihir pemutar sangkala waktu. Mampu membatalkan kegagalan dan mempercepat perputaran mantra.", "skills": [{"id": "sk_time_dilation", "name": "Chrono-Stasis Surge", "cost_mp": 15, "dmg_type": "damage", "est_val": "60-80 Time DMG", "desc": "Menghentikan waktu selama 1 turn dan menghancurkan musuh dalam gelombang temporal."}]},
+        {"id": "sec_nightblade", "title": "Nightblade Death-Shadow", "tier": "epic", "icon": "🗡️", "bonus_stats": {"dex": 8, "cha": 3, "crit": 10}, "desc": "Pencabut nyawa legendaris dari ordo kegelapan tak bernama.", "skills": [{"id": "sk_fatal_strike", "name": "Eclipse Decapitation", "cost_mp": 18, "dmg_type": "damage", "est_val": "75-100 Fatal DMG", "desc": "Tebasan bayangan gerhana yang memberikan garansi Critical Hit dan luka pendarahan masif."}]},
+        {"id": "sec_storm_valkyrie", "title": "Tempest Storm-Weaver", "tier": "epic", "icon": "⚡", "bonus_stats": {"dex": 6, "int": 6, "atk": 8}, "desc": "Pengendali badai petir purba. Menyambar dari balik awan kelam dengan kecepatan kilat.", "skills": [{"id": "sk_lightning_spear", "name": "Gungnir Stormlance", "cost_mp": 16, "dmg_type": "damage", "est_val": "70-92 Shock DMG", "desc": "Lembing petir halilintar yang menembus jantung monster dan meremukkan pertahanan."}]},
+        {"id": "sec_necro_alchemist", "title": "Soul-Transmutation Plague-Lord", "tier": "epic", "icon": "🧪", "bonus_stats": {"int": 8, "con": 4, "wis": 3}, "desc": "Alkemis penyeberang maut yang menggabungkan racun biang mayat dengan filosofi transmutasi.", "skills": [{"id": "sk_plague_nova", "name": "Abyssal Vitriol Plague", "cost_mp": 16, "dmg_type": "damage", "est_val": "65-88 Acid DoT", "desc": "Ledakan kabut asam beracun yang menggerogoti daging dan tulang monster setiap turn."}]}
     ],
     "legendary": [
-        {"id": "sec_dragon_sovereign", "title": "Dragon-Heart Sovereign", "tier": "legendary", "icon": "🐉", "bonus_stats": {"str": 8, "con": 6, "cha": 4}, "desc": "Pewaris takhta naga purba. Tubuh kebal api dan setiap hantaman menggetarkan pilar dungeon.", "skills": [{"id": "sk_dragon_breath", "name": "Primeval Dragon Breath", "cost_mp": 25, "dmg_type": "damage", "est_val": "110-145 Fire DMG", "desc": "Semburan api naga primordial yang menghanguskan seluruh monster di ruangan."}]},
-        {"id": "sec_void_archon", "title": "Void Archon of Eclipse", "tier": "legendary", "icon": "🌌", "bonus_stats": {"int": 8, "wis": 6, "mp": 50}, "desc": "Penguasa dimensi kehampaan tak berujung yang mampu menelan materi menjadi energi murni.", "skills": [{"id": "sk_event_horizon", "name": "Black Hole Event Horizon", "cost_mp": 30, "dmg_type": "damage", "est_val": "125-160 Void DMG", "desc": "Menciptakan singularitas lubang hitam yang meremukkan monster hingga lebur."}]}
+        {"id": "sec_dragon_sovereign", "title": "Dragon-Heart Sovereign", "tier": "legendary", "icon": "🐉", "bonus_stats": {"str": 12, "con": 10, "cha": 6, "hp": 40}, "desc": "Pewaris takhta naga purba. Tubuh kebal api dan setiap hantaman menggetarkan pilar dungeon.", "skills": [{"id": "sk_dragon_breath", "name": "Primeval Dragon Breath", "cost_mp": 25, "dmg_type": "damage", "est_val": "110-145 Fire DMG", "desc": "Semburan api naga primordial yang menghanguskan seluruh monster di ruangan."}]},
+        {"id": "sec_void_archon", "title": "Void Archon of Eclipse", "tier": "legendary", "icon": "🌌", "bonus_stats": {"int": 14, "wis": 10, "mp": 60}, "desc": "Penguasa dimensi kehampaan tak berujung yang mampu menelan materi menjadi energi murni.", "skills": [{"id": "sk_event_horizon", "name": "Black Hole Event Horizon", "cost_mp": 30, "dmg_type": "damage", "est_val": "125-160 Void DMG", "desc": "Menciptakan singularitas lubang hitam yang meremukkan monster hingga lebur."}]},
+        {"id": "sec_celestial_seraph", "title": "Solar Archangel of Dawn", "tier": "legendary", "icon": "☀️", "bonus_stats": {"wis": 14, "con": 8, "str": 6, "hp": 50}, "desc": "Utusan surya abadi dari kubah nirwana tertinggi. Membawa mukjizat pemurnian murni.", "skills": [{"id": "sk_solar_verdict", "name": "Wrath of the Seven Suns", "cost_mp": 28, "dmg_type": "damage", "est_val": "120-155 Holy DMG", "desc": "Tujuh pilar cahaya surya yang membakar habis kejahatan makam dan memulihkan 50 HP karakter."}]},
+        {"id": "sec_dread_warlord", "title": "Ashen Dread-Emperor", "tier": "legendary", "icon": "👑", "bonus_stats": {"str": 14, "con": 10, "atk": 16, "crit": 12}, "desc": "Kaisar perang dari abu peradaban lampau. Membawa pedang pemenggal jutaan jiwa.", "skills": [{"id": "sk_apocalypse_cleave", "name": "Sovereign Oblivion Strike", "cost_mp": 26, "dmg_type": "damage", "est_val": "130-170 Brutal DMG", "desc": "Tebasan pedang kehancuran mutlak yang mengabaikan 100% Defense musuh."}]}
     ],
     "mythic": [
-        {"id": "sec_omniscient_keeper", "title": "Omniscient Sovereign of Creation", "tier": "mythic", "icon": "👑", "bonus_stats": {"str": 10, "dex": 10, "con": 10, "int": 10, "wis": 10, "cha": 10, "hp": 100, "mp": 100}, "desc": "Entitas Transenden yang memegang hakikat penciptaan. Seluruh realitas dan takdir tunduk di hadapannya.", "skills": [{"id": "sk_genesis_verdict", "name": "Genesis Divine Judgment", "cost_mp": 40, "dmg_type": "damage", "est_val": "200-280 True DMG", "desc": "Sabda pemusnah semesta yang menghabisi musuh apa pun dalam 1 serangan mutlak."}]}
+        {"id": "sec_omniscient_keeper", "title": "Omniscient Sovereign of Creation", "tier": "mythic", "icon": "🌌", "bonus_stats": {"str": 15, "dex": 15, "con": 15, "int": 15, "wis": 15, "cha": 15, "hp": 120, "mp": 120}, "desc": "Entitas Transenden yang memegang hakikat penciptaan. Seluruh realitas dan takdir tunduk di hadapannya.", "skills": [{"id": "sk_genesis_verdict", "name": "Genesis Divine Judgment", "cost_mp": 40, "dmg_type": "damage", "est_val": "200-280 True DMG", "desc": "Sabda pemusnah semesta yang menghabisi musuh apa pun dalam 1 serangan mutlak."}]},
+        {"id": "sec_chaos_ouroboros", "title": "Primordial Void Ouroboros", "tier": "mythic", "icon": "♾️", "bonus_stats": {"str": 18, "con": 18, "dex": 18, "atk": 25, "hp": 150, "mp": 80}, "desc": "Ular naga kekacauan abadi yang menelan ujung awal dan akhir semesta.", "skills": [{"id": "sk_world_eater", "name": "Ouroboros Eternity Devour", "cost_mp": 45, "dmg_type": "damage", "est_val": "220-300 Chaos DMG", "desc": "Menelan dimensi ruangan: Menghasilkan 220-300 Chaos Damage dan memulihkan 100% HP & MP karakter."}]}
     ]
 }
 
@@ -1068,18 +1080,20 @@ async def process_live_turn(choice_id: str, choice_text: str = "", custom_text: 
             is_elite = m_info.get("tier") == "elite"
             game_state["monster"] = generate_monster(p["level"], is_boss=is_boss, is_elite=is_elite)
 
-    # 3. Dynamic Secret Job Awakening Trigger
+    # 3. Dynamic Secret Job Awakening Trigger (Common, Special, Epic, Legendary, Mythic)
     if not game_state.get("monster") and not game_state.get("pending_awakening"):
         rng_job = random.randint(1, 1000)
         awakening_offer = None
-        if rng_job <= 1: # 0.1% Mythic
+        if rng_job <= 2: # 0.2% Mythic
             awakening_offer = random.choice(SECRET_CLASSES_DB["mythic"])
-        elif rng_job <= 15: # 1.5% Legendary
+        elif rng_job <= 18: # 1.6% Legendary
             awakening_offer = random.choice(SECRET_CLASSES_DB["legendary"])
-        elif rng_job <= 75: # 6% Epic
+        elif rng_job <= 80: # 6.2% Epic
             awakening_offer = random.choice(SECRET_CLASSES_DB["epic"])
-        elif rng_job <= 250: # 17.5% Special
+        elif rng_job <= 250: # 17% Special
             awakening_offer = random.choice(SECRET_CLASSES_DB["special"])
+        elif rng_job <= 450: # 20% Cross-Class Common Encounter
+            awakening_offer = random.choice(SECRET_CLASSES_DB["common"])
             
         if awakening_offer and awakening_offer["title"] != p["class_name"]:
             game_state["pending_awakening"] = awakening_offer

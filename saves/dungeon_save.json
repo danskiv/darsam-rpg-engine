@@ -1,10 +1,10 @@
 {
   "status": "playing",
   "floor": 1,
-  "step": 4,
-  "active_sound_theme": "dungeon",
+  "step": 6,
+  "active_sound_theme": "mystery",
   "selected_model": "openrouter/stealth/ox-alpha",
-  "torch_turns": 9,
+  "torch_turns": 7,
   "rations": 3,
   "story_history": [],
   "player": {
@@ -14,13 +14,13 @@
     "class_icon": "\ud83e\ude78",
     "class_tier": "special",
     "level": 1,
-    "exp": 30,
+    "exp": 45,
     "exp_next": 75,
-    "hp": 103,
+    "hp": 97,
     "max_hp": 115,
     "mp": 15,
     "max_mp": 15,
-    "gold": 18,
+    "gold": 42,
     "stats": {
       "str": 17,
       "dex": 10,
@@ -203,9 +203,9 @@
     "status_effects": []
   },
   "current_node": {
-    "type": "chest",
+    "type": "exploration",
     "title": "Collapse into the Forgotten Crypt",
-    "location": "Lorong Kiri - Lubuk Tulang Tergenang",
+    "location": "Lorong Kiri - Altar Karang Hitam",
     "chapter": "Chapter 1: The Descent"
   },
   "monster": null,
@@ -214,42 +214,42 @@
   "pending_awakening": null,
   "scene": {
     "chapter": "Chapter 1: The Descent",
-    "title": "Semburan Darah di Genangan Tulang",
-    "location": "Lorong Kiri - Lubuk Tulang Tergenang",
-    "narrative": "Danas merobek luka terbuka di telapak tangannya sendiri dan membiarkan darah hangat merambati gagang cangkul karat itu. Sebuah bisikan kuno keluar dari bibirnya tanpa ia sadari, dan bilah logam buruk itu menyala merah seperti bara yang tengah bernapas. Ia memutar tubuh dalam satu ayunan melengkung \u2014 Sanguine Cleave meledak menjadi sabit cahaya kemerahan yang membelah kegelapan, memecahkan tengkorak, mencabik tulang rusuk, dan menebar serpihan tulang ke seluruh genangan. Delapan mata merah padam serentak, dan keheningan yang nyaris sakit turun menutupi galeri itu, hanya dipecahkan oleh suara air menetes dari langit-langit batu. Di antara reruntuhan tulang yang berasap tipis, pandangan Danas tertangkap pada sebuah peti besi tua berkaki pendek yang setengah tenggelam dalam lumpur, segel lilin merahnya masih utuh meski sudah berusia puluhan tahun.",
+    "title": "Anugerah Darah Kuno",
+    "location": "Lorong Kiri - Altar Karang Hitam",
+    "narrative": "Saat Danas menekan telapak tangannya ke atas segel, denyut darahnya selaras sempurna dengan sihir purba yang terkunci di dalam logam dingin itu. Suara dengung rendah bergetar di lantai batu basah ketika lilin merah menyala membakar diri hingga abu, memicu engsel peti terlempar terbuka dengan bunyi logam berderit nyaring. Di dalam bantalan beludru yang telah membusuk, terbaring sebuah belati ritual bergagang tulang serta kantong koin berlumur jelaga yang memancarkan aura magis pekat. Namun, aroma darah segar yang menguar di udara lembap ini mulai memanggil sesuatu yang berakar jauh di celah dinding batuan.",
     "choices": [
       {
         "id": "A",
-        "text": "Hantam langsung gembok korodenya dengan cangkul hingga terbuka paksa (STR Check - DC 10)",
+        "text": "Raih belati bertatahkan tulang dan periksa kekuatannya (WIS Check - DC 10)",
         "type": "roll",
-        "stat": "STR",
+        "stat": "WIS",
         "dc": 10
       },
       {
         "id": "B",
-        "text": "Periksa celah peti dan segel lilin untuk jebakan atau racun sebelum membukanya (DEX Check - DC 11)",
+        "text": "Geledah kompartemen rahasia di dasar peti dengan cepat (DEX Check - DC 11)",
         "type": "roll",
         "stat": "DEX",
         "dc": 11
       },
       {
         "id": "C",
-        "text": "Teliti ukiran kuno di permukaan peti untuk memahami asal-usulnya (INT Check - DC 9)",
+        "text": "Teliti ukiran rune kuno di balik tutup peti untuk memahami kutukannya (INT Check - DC 9)",
         "type": "roll",
         "stat": "INT",
         "dc": 9
       },
       {
         "id": "D",
-        "text": "Ambil napas panjang dan tekan luka di telapak tangan untuk menstabilkan diri sebelum menyentuh apa pun (Action)",
+        "text": "Kemas semua jarahan dan bersiap siaga menghadapi pergerakan di kegelapan (Action)",
         "type": "action"
       }
     ],
     "log": [
-      "Commoner 'Danas' (Hardy Peasant) begins the underground survival journey!",
-      "\ud83c\udfb2 [SUCCESS \u2022 D20: 18+2=20 vs DC 12] Critical Success! Danas menggeser lempeng batu raksasa hingga terbuka celah udara, namun terowongan ke atas ternyata tertimbun tanah pejal setebal bermeter. Saat menggali reruntuhan, mata cangkulnya mengenai sebuah pouch kulit lapuk berisi 6 gold kuno. (+15 EXP)",
       "\ud83c\udfb2 [FAIL \u2022 D20: 4+0=4 vs DC 10] DEX Check gagal total \u2014 Danas terpeleset di lumut licin dan berguling jatuh ke galeri bawah tanah, menerima 6 Fall Damage. Gemuruh tubuhnya menghantam air menggema ke seluruh katakomba dan membangunkan kawanan Crypt Rat yang kelaparan. (-6 HP)",
-      "\ud83c\udfb2 [SUCCESS \u2022 D20: 12+3=15 vs DC 10] Sanguine Cleave SUCCESS! Ayunan sabit darah dari cangkul karat Danas menghancurkan tiga Restless Skeleton Grunt sekaligus dalam satu lengkungan mematikan, dengan harga 6 HP yang terkuras oleh Blood Pact. (+15 EXP) (-6 HP)"
+      "\ud83c\udfb2 [SUCCESS \u2022 D20: 12+3=15 vs DC 10] Sanguine Cleave SUCCESS! Ayunan sabit darah dari cangkul karat Danas menghancurkan tiga Restless Skeleton Grunt sekaligus dalam satu lengkungan mematikan, dengan harga 6 HP yang terkuras oleh Blood Pact. (+15 EXP) (-6 HP)",
+      "\ud83c\udfb2 [FAIL \u2022 D20: 3-1=2 vs DC 9] Danas gagal total membaca ukiran kuno itu (Critical Fail pada INT Check). Darah hangat di ujung jarinya menyentuh segel lilin merah dan memicu reaksi terkutuk \u2014 pikirannya ditikam bisikan asing, namun ia menyadari satu hal: peti ini dikunci oleh Blood Lock yang menuntut persembahan darah. (-3 HP)",
+      "\ud83c\udfb2 [SUCCESS \u2022 D20: 17+3=20 vs DC 9] CON Check berhasil mutlak dengan Critical Hit! Segel Blood Lock pecah tanpa menguras daya tahan tubuh Danas secara berlebihan, membuka rahasia tersembunyi di dalam peti kuno. (+15 EXP) (-3 HP)"
     ]
   }
 }
