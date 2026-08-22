@@ -32,9 +32,9 @@ def get_9router_key() -> str:
 
 NINE_ROUTER_KEY = get_9router_key()
 
-# ==========================================
-# 8 DIVERSE STARTING ORIGINS (ZERO TO HERO)
-# ==========================================
+# =========================================================================
+# 8 DIVERSE STARTING ORIGINS WITH LEVEL-UP MILESTONES (LV 1, LV 5, LV 10)
+# =========================================================================
 CLASSES_INFO = {
     "peasant": {
         "title": "Hardy Peasant",
@@ -53,9 +53,13 @@ CLASSES_INFO = {
             {"id": "c_torch_1", "name": "Pine Pitch Torch", "rarity": "common", "type": "consumable", "icon": "🕯️", "effect": "add_light_5", "desc": "+5 Torch Light turns", "val": 3},
             {"id": "m_rope", "name": "Hemp Rope (15m)", "rarity": "common", "type": "material", "icon": "🪢", "desc": "Utility rope for climbing", "val": 2}
         ],
-        "skills": [
+        "initial_skills": [
             {"id": "sk_adrenaline", "name": "Adrenaline Surge", "cost_mp": 5, "cd": 3, "dmg_type": "heal", "est_val": "+25 HP & +2 STR", "desc": "Memulihkan 25 HP seketika & memberi bonus +2 STR selama 2 turn."}
-        ]
+        ],
+        "level_unlocks": {
+            5: {"id": "sk_reaper", "name": "Reaper's Harvest Sweep", "cost_mp": 10, "cd": 2, "dmg_type": "damage", "est_val": "35-48 Area DMG", "desc": "Ayunan sabit luas yang menebas musuh dengan kekuatan penuh (35-48 DMG)."},
+            10: {"id": "sk_titan_soil", "name": "Titan of the Soil", "cost_mp": 15, "cd": 4, "dmg_type": "buff", "est_val": "+50 Max HP & Invuln", "desc": "Menyerap energi bumi: kebal damage 1 turn dan menambah +50 Max HP."}
+        }
     },
     "blacksmith": {
         "title": "Smith Apprentice",
@@ -74,9 +78,13 @@ CLASSES_INFO = {
             {"id": "c_ration_1", "name": "Smoked Meat Jerky", "rarity": "common", "type": "consumable", "icon": "🥩", "effect": "heal_hp_25", "desc": "Restores 25 HP", "val": 3},
             {"id": "c_torch_1", "name": "Pine Pitch Torch", "rarity": "common", "type": "consumable", "icon": "🕯️", "effect": "add_light_5", "desc": "+5 Torch Light turns", "val": 3}
         ],
-        "skills": [
+        "initial_skills": [
             {"id": "sk_anvil", "name": "Anvil Crush", "cost_mp": 5, "cd": 3, "dmg_type": "damage", "est_val": "22-30 Blunt DMG", "desc": "Menghantam monster dengan palu berat (22-30 DMG) dan melumpuhkan (Stun) 1 turn."}
-        ]
+        ],
+        "level_unlocks": {
+            5: {"id": "sk_furnace", "name": "Furnace Overheat Blast", "cost_mp": 12, "cd": 3, "dmg_type": "damage", "est_val": "40-55 Fire DMG", "desc": "Menyalakan amarah bara tempa, membakar musuh dengan semburan api (40-55 DMG)."},
+            10: {"id": "sk_colossus_forge", "name": "Colossus Forge Hammer", "cost_mp": 20, "cd": 4, "dmg_type": "damage", "est_val": "75-95 Sunder DMG", "desc": "Hantaman raksasa yang menghancurkan zirah monster dan menghasilkan damage luar biasa."}
+        }
     },
     "scholar": {
         "title": "Village Scholar",
@@ -95,9 +103,13 @@ CLASSES_INFO = {
             {"id": "c_torch_1", "name": "Pine Pitch Torch", "rarity": "common", "type": "consumable", "icon": "🕯️", "effect": "add_light_5", "desc": "+5 Torch Light turns", "val": 3},
             {"id": "m_chalk", "name": "Alchemical Rune Chalk", "rarity": "common", "type": "material", "icon": "🖍️", "desc": "Inscribe protective glyphs", "val": 3}
         ],
-        "skills": [
+        "initial_skills": [
             {"id": "sk_arcane_spark", "name": "Arcane Spark", "cost_mp": 10, "cd": 1, "dmg_type": "damage", "est_val": "25-36 Magic DMG", "desc": "Menembakkan petir sihir murni (25-36 DMG) yang menembus armor monster."}
-        ]
+        ],
+        "level_unlocks": {
+            5: {"id": "sk_chain_lightning", "name": "Thunderstorm Chain", "cost_mp": 20, "cd": 2, "dmg_type": "damage", "est_val": "45-60 Lightning DMG", "desc": "Mantra badai petir berantai yang melompat menyengat musuh bertubi-tubi."},
+            10: {"id": "sk_astral_rift", "name": "Astral Void Singularity", "cost_mp": 35, "cd": 4, "dmg_type": "damage", "est_val": "85-110 Void DMG", "desc": "Membuka robekan dimensi kehampaan yang menelan monster dalam kehancuran total."}
+        }
     },
     "trapper": {
         "title": "Forest Trapper",
@@ -116,9 +128,13 @@ CLASSES_INFO = {
             {"id": "c_ration_1", "name": "Dried Game Rations", "rarity": "common", "type": "consumable", "icon": "🥩", "effect": "heal_hp_20", "desc": "Restores 20 HP", "val": 2},
             {"id": "m_dagger", "name": "Flint Skinning Knife", "rarity": "common", "type": "weapon", "icon": "🔪", "bonus": {"dex": 1, "atk": 3}, "val": 3}
         ],
-        "skills": [
+        "initial_skills": [
             {"id": "sk_caltrop", "name": "Caltrop Scatter", "cost_mp": 8, "cd": 2, "dmg_type": "damage", "est_val": "18-24 Bleed DMG", "desc": "Menebar duri beracun (18-24 DMG) yang melukai dan memperlambat musuh."}
-        ]
+        ],
+        "level_unlocks": {
+            5: {"id": "sk_headshot", "name": "Precision Heartseeker Shot", "cost_mp": 15, "cd": 2, "dmg_type": "damage", "est_val": "45-60 Piercing DMG", "desc": "Tembakan panah mematikan tepat ke titik vital monster."},
+            10: {"id": "sk_phantom_volley", "name": "Phantom Arrowstorm", "cost_mp": 25, "cd": 3, "dmg_type": "damage", "est_val": "80-105 Barrage DMG", "desc": "Hujan ratusan anak panah berbayang yang menyapu bersih seluruh monster."}
+        }
     },
     "guard": {
         "title": "Disgraced Watchman",
@@ -136,9 +152,13 @@ CLASSES_INFO = {
             {"id": "c_torch_1", "name": "Pine Pitch Torch", "rarity": "common", "type": "consumable", "icon": "🕯️", "effect": "add_light_5", "desc": "+5 Torch Light turns", "val": 3},
             {"id": "c_ration_1", "name": "Hardtack Biscuit", "rarity": "common", "type": "consumable", "icon": "🍘", "effect": "heal_hp_20", "desc": "Restores 20 HP", "val": 2}
         ],
-        "skills": [
+        "initial_skills": [
             {"id": "sk_shield_wall", "name": "Shield Wall Bastion", "cost_mp": 6, "cd": 3, "dmg_type": "buff", "est_val": "+6 DEF & Reflect", "desc": "Meningkatkan DEF sebesar +6 dan memantulkan 50% serangan melee musuh."}
-        ]
+        ],
+        "level_unlocks": {
+            5: {"id": "sk_guard_slam", "name": "Bulwark Heavy Shield Slam", "cost_mp": 12, "cd": 2, "dmg_type": "damage", "est_val": "35-45 Stun DMG", "desc": "Benturan perisai baja berat yang meremukkan musuh dan memberi efek Stun."},
+            10: {"id": "sk_unyielding_king", "name": "Unyielding Legion Sovereign", "cost_mp": 20, "cd": 4, "dmg_type": "buff", "est_val": "100% Counter & +12 DEF", "desc": "Ksatria tak terkalahkan: Menangkis seluruh serangan dan membalas dengan Critical Hit."}
+        }
     },
     "grave_robber": {
         "title": "Tomb Grave-Robber",
@@ -156,9 +176,13 @@ CLASSES_INFO = {
             {"id": "c_torch_1", "name": "Pine Pitch Torch", "rarity": "common", "type": "consumable", "icon": "🕯️", "effect": "add_light_5", "desc": "+5 Torch Light turns", "val": 3},
             {"id": "m_crowbar", "name": "Iron Prying Crowbar", "rarity": "common", "type": "material", "icon": "🦯", "desc": "Pries open sarcophagi & stuck grates", "val": 4}
         ],
-        "skills": [
+        "initial_skills": [
             {"id": "sk_backstab", "name": "Shadow Ambush", "cost_mp": 10, "cd": 2, "dmg_type": "damage", "est_val": "28-42 Crit DMG", "desc": "Menyerang dari balik bayangan (28-42 DMG) dengan garansi Critical Hit."}
-        ]
+        ],
+        "level_unlocks": {
+            5: {"id": "sk_shadow_step", "name": "Shadowstep Assassinate", "cost_mp": 18, "cd": 2, "dmg_type": "damage", "est_val": "50-70 Stealth DMG", "desc": "Teleportasi sekejap ke belakang monster dan menebas lehernya secara senyap."},
+            10: {"id": "sk_dance_of_death", "name": "Seven Phantoms Death Dance", "cost_mp": 30, "cd": 4, "dmg_type": "damage", "est_val": "90-120 Burst DMG", "desc": "Tarian 7 tusukan belati bayangan kilat yang merobek target seketika."}
+        }
     },
     "monk": {
         "title": "Exiled Temple Acolyte",
@@ -176,9 +200,13 @@ CLASSES_INFO = {
             {"id": "c_torch_1", "name": "Pine Pitch Torch", "rarity": "common", "type": "consumable", "icon": "🕯️", "effect": "add_light_5", "desc": "+5 Torch Light turns", "val": 3},
             {"id": "c_ration_1", "name": "Dried Figs & Nuts", "rarity": "common", "type": "consumable", "icon": "🥜", "effect": "heal_hp_20", "desc": "Restores 20 HP & 10 MP", "val": 3}
         ],
-        "skills": [
+        "initial_skills": [
             {"id": "sk_mend", "name": "Sacred Prayer of Radiance", "cost_mp": 12, "cd": 2, "dmg_type": "heal", "est_val": "+35 HP & Blind", "desc": "Memulihkan 35 HP dan membutakan musuh mayat hidup selama 1 turn."}
-        ]
+        ],
+        "level_unlocks": {
+            5: {"id": "sk_smite", "name": "Divine Wrath Palm Smite", "cost_mp": 18, "cd": 2, "dmg_type": "damage", "est_val": "45-65 Holy DMG", "desc": "Pukulan telapak tangan bertenaga surya suci yang membakar monster kegelapan."},
+            10: {"id": "sk_nirvana", "name": "Celestial Avatar of Nirvana", "cost_mp": 35, "cd": 4, "dmg_type": "buff", "est_val": "Full Heal & +80 Holy Strike", "desc": "Wujud dewa matahari: Memulihkan 100% HP dan menghantam musuh dengan sinar samudra suci."}
+        }
     },
     "alchemist": {
         "title": "Alchemist Apprentice",
@@ -196,9 +224,13 @@ CLASSES_INFO = {
             {"id": "c_antidote", "name": "Universal Antidote Draught", "rarity": "uncommon", "type": "consumable", "icon": "🧪", "effect": "cure_poison_heal_20", "desc": "Cures Poison & restores 20 HP", "val": 5},
             {"id": "c_torch_1", "name": "Pine Pitch Torch", "rarity": "common", "type": "consumable", "icon": "🕯️", "effect": "add_light_5", "desc": "+5 Torch Light turns", "val": 3}
         ],
-        "skills": [
+        "initial_skills": [
             {"id": "sk_acid_throw", "name": "Corrosive Acid Bomb", "cost_mp": 10, "cd": 2, "dmg_type": "damage", "est_val": "24-32 Acid DMG", "desc": "Melelehkan zirah monster (-4 DEF) dan memberi 24-32 luka asam."}
-        ]
+        ],
+        "level_unlocks": {
+            5: {"id": "sk_magma_flask", "name": "Volcanic Hellfire Flask", "cost_mp": 18, "cd": 2, "dmg_type": "damage", "est_val": "50-65 Fire Burn", "desc": "Ledakan magma dahsyat yang membakar musuh terus-menerus."},
+            10: {"id": "sk_philosopher_nova", "name": "Philosopher's Transmutation Nova", "cost_mp": 35, "cd": 4, "dmg_type": "damage", "est_val": "95-130 Pure DMG", "desc": "Transmutasi atomik murni yang merombak struktur fisik musuh menjadi debu emas."}
+        }
     }
 }
 
@@ -323,9 +355,6 @@ def generate_monster(player_lv: int, is_boss: bool = False, is_elite: bool = Fal
         "status": "active"
     }
 
-# ==========================================
-# EXP PROGRESSION & LEVEL FORMULA (1 - 20)
-# ==========================================
 def get_required_exp_for_level(level: int) -> int:
     return int(75 * (level ** 1.6))
 
@@ -358,7 +387,8 @@ DEFAULT_GAME_STATE = {
             "accessory": None
         },
         "inventory": [], # 25 slot max array
-        "skills": [],
+        "grimoire": [], # All learned skills
+        "active_skills": [], # Max 3 equipped skills
         "status_effects": [] # "bleeding", "poisoned", "blind", "cursed"
     },
     "current_node": {
@@ -477,6 +507,8 @@ def init_new_character(name: str, class_id: str):
     while len(inv_25) < 25:
         inv_25.append(None)
 
+    init_skills = list(c.get("initial_skills", []))
+
     game_state["player"] = {
         "name": name if name.strip() else "Danas",
         "class_id": class_id,
@@ -500,7 +532,8 @@ def init_new_character(name: str, class_id: str):
         },
         "equipped": json.loads(json.dumps(c.get("equipped", {}))),
         "inventory": inv_25,
-        "skills": list(c.get("skills", [])),
+        "grimoire": list(init_skills), # All learned skills
+        "active_skills": list(init_skills[:3]), # Max 3 active loadout
         "status_effects": []
     }
     game_state["current_node"] = {
@@ -753,9 +786,10 @@ async def process_live_turn(choice_id: str, choice_text: str = "", custom_text: 
         is_elite = m_info.get("tier") == "elite"
         game_state["monster"] = generate_monster(p["level"], is_boss=is_boss, is_elite=is_elite)
 
-    # Level Up Progression
+    # Level Up Progression & Skill Unlock Milestone Every 5 Levels (Lv 5, 10, 15, 20)
     p["exp"] += exp_gained
     leveled_up = False
+    new_skill_unlocked = None
     while p["exp"] >= p["exp_next"] and p["level"] < 20:
         p["level"] += 1
         p["exp"] -= p["exp_next"]
@@ -764,10 +798,22 @@ async def process_live_turn(choice_id: str, choice_text: str = "", custom_text: 
         p["hp"] = p["max_hp"]
         p["max_mp"] += 8
         p["mp"] = p["max_mp"]
-        # Stat increase
         p["stats"]["str"] += 1
         p["stats"]["con"] += 1
         leveled_up = True
+
+        # Check for skill unlock every 5 levels (e.g. Lv 5, 10)
+        c_info = CLASSES_INFO.get(p.get("class_id"), {})
+        level_unlocks = c_info.get("level_unlocks", {})
+        if p["level"] in level_unlocks:
+            unlocked = level_unlocks[p["level"]]
+            # Add to grimoire if not already learned
+            if not any(sk["id"] == unlocked["id"] for sk in p.get("grimoire", [])):
+                p.setdefault("grimoire", []).append(unlocked)
+                new_skill_unlocked = unlocked
+                # Auto-equip if less than 3 active skills
+                if len(p.get("active_skills", [])) < 3:
+                    p.setdefault("active_skills", []).append(unlocked)
 
     # Audio Theme
     game_state["active_sound_theme"] = ai_resp.get("audio_theme", "dungeon")
@@ -778,6 +824,7 @@ async def process_live_turn(choice_id: str, choice_text: str = "", custom_text: 
     if loot_dropped: outcome += f" 💎 LOOT DROP: [{loot_dropped['rarity'].upper()}] {loot_dropped['name']}!"
     if hp_diff < 0: outcome += f" (-{-hp_diff} HP)"
     if leveled_up: outcome += f" 🌟 LEVEL UP! Paduka naik ke Level {p['level']} (Max HP/MP meningkat & HP pulih penuh)!"
+    if new_skill_unlocked: outcome += f" ⚡ JURUS BARU TERBUKA (Lv.{p['level']}): {new_skill_unlocked['name']}!"
 
     # Update Scene State
     game_state["scene"]["chapter"] = ai_resp.get("chapter", scene.get("chapter"))
@@ -857,6 +904,36 @@ def use_consumable(item_index: int):
     
     # Remove consumed item
     p["inventory"][item_index] = None
+    save_game()
+
+# ==========================================
+# SKILL MANAGEMENT (3-SLOT DECK & GRIMOIRE)
+# ==========================================
+def equip_active_skill(skill_id: str):
+    global game_state
+    p = game_state["player"]
+    grimoire = p.get("grimoire", [])
+    active_skills = p.setdefault("active_skills", [])
+    
+    # Find skill in grimoire
+    skill_obj = next((s for s in grimoire if s["id"] == skill_id), None)
+    if not skill_obj: return
+    
+    # If already equipped, do nothing
+    if any(s["id"] == skill_id for s in active_skills): return
+    
+    # Max 3 active skills
+    if len(active_skills) >= 3:
+        active_skills.pop(0) # Replace oldest
+    
+    active_skills.append(skill_obj)
+    save_game()
+
+def unequip_active_skill(skill_id: str):
+    global game_state
+    p = game_state["player"]
+    active_skills = p.get("active_skills", [])
+    p["active_skills"] = [s for s in active_skills if s["id"] != skill_id]
     save_game()
 
 # ==========================================
@@ -963,6 +1040,16 @@ async def ws_controller(websocket: WebSocket):
                 item_idx = data.get("index")
                 use_consumable(item_idx)
                 await manager.broadcast_all({"type": "state_update", "state": game_state, "outcome": "Item konsumsi berhasil digunakan!"})
+
+            elif action_type == "equip_skill":
+                sk_id = data.get("skill_id")
+                equip_active_skill(sk_id)
+                await manager.broadcast_all({"type": "state_update", "state": game_state, "outcome": "Jurus berhasil dipasang ke Slot Tempur!"})
+
+            elif action_type == "unequip_skill":
+                sk_id = data.get("skill_id")
+                unequip_active_skill(sk_id)
+                await manager.broadcast_all({"type": "state_update", "state": game_state, "outcome": "Jurus dilepas dari Slot Tempur!"})
 
             elif action_type == "reset_game":
                 game_state.clear()
