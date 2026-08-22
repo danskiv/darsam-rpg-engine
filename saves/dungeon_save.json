@@ -1,7 +1,7 @@
 {
   "status": "playing",
   "floor": 3,
-  "step": 138,
+  "step": 151,
   "active_sound_theme": "mystery",
   "selected_model": "ag/gemini-3.7-flash-low",
   "torch_turns": 0,
@@ -13,55 +13,55 @@
     "class_name": "Ashen Dread-Emperor",
     "class_icon": "\ud83d\udc51",
     "class_tier": "legendary",
-    "level": 10,
-    "exp": 1805,
-    "exp_next": 2985,
-    "hp": 454,
-    "max_hp": 300,
-    "mp": 416,
-    "max_mp": 87,
-    "gold": 6593,
+    "level": 11,
+    "exp": 320,
+    "exp_next": 3477,
+    "hp": 552,
+    "max_hp": 315,
+    "mp": 475,
+    "max_mp": 95,
+    "gold": 4083,
     "stats": {
-      "str": 46,
+      "str": 47,
       "dex": 10,
-      "con": 44,
+      "con": 45,
       "int": 8,
       "wis": 26,
       "cha": 8
     },
     "equipped": {
       "head": {
-        "id": "item_87343",
-        "name": "Runed Scholar Cowl",
-        "item_level": 10,
-        "rarity": "epic",
+        "id": "item_73784",
+        "name": "Crown of the Abyssal Sovereign",
+        "item_level": 9,
+        "rarity": "legendary",
         "type": "head",
         "slot": "head",
         "icon": "\ud83e\uddd9",
         "bonus": {
-          "mp": 187,
-          "int": 15,
-          "con": 20,
-          "crit": 7,
-          "wis": 20
+          "mp": 248,
+          "int": 18,
+          "cha": 25,
+          "crit": 10,
+          "dex": 25
         },
-        "val": 150
+        "val": 194
       },
       "armor": {
-        "id": "item_54885",
-        "name": "Riveted Chainmail Shirt",
+        "id": "item_58613",
+        "name": "Dread-Emperor's Oblivion Regalia",
         "item_level": 10,
-        "rarity": "rare",
+        "rarity": "legendary",
         "type": "armor",
         "slot": "armor",
-        "icon": "\ud83e\udd4b",
+        "icon": "\ud83d\udee1\ufe0f",
         "bonus": {
-          "def": 28,
-          "hp": 189,
-          "str": 14,
-          "cha": 14
+          "def": 64,
+          "hp": 432,
+          "str": 28,
+          "wis": 28
         },
-        "val": 108
+        "val": 216
       },
       "feet": {
         "id": "item_14637",
@@ -81,19 +81,20 @@
         "val": 75
       },
       "accessory": {
-        "id": "item_80671",
-        "name": "Gilded Luck Coin",
-        "item_level": 6,
+        "id": "item_26493",
+        "name": "Abyssal Soul Ring",
+        "item_level": 10,
         "rarity": "epic",
         "type": "accessory",
         "slot": "accessory",
         "icon": "\ud83e\ude99",
         "bonus": {
-          "cha": 10,
+          "cha": 15,
+          "int": 20,
           "dodge": 7,
-          "str": 12
+          "con": 20
         },
-        "val": 90
+        "val": 150
       },
       "main_hand": {
         "id": "item_43095",
@@ -206,26 +207,101 @@
         "desc": "Stops Bleeding & heals 20 HP",
         "val": 6
       },
-      null,
-      null,
-      null,
-      null,
-      null,
       {
-        "id": "item_83655",
-        "name": "Amulet of Vitality",
-        "item_level": 5,
+        "id": "item_14672",
+        "name": "Abyssal Warden Carapace",
+        "item_level": 10,
+        "rarity": "epic",
+        "type": "armor",
+        "slot": "armor",
+        "icon": "\ud83e\uddba",
+        "bonus": {
+          "def": 35,
+          "hp": 237,
+          "int": 20,
+          "dex": 20
+        },
+        "val": 150
+      },
+      {
+        "id": "item_96110",
+        "name": "Tower Bastion Shield",
+        "item_level": 11,
+        "rarity": "rare",
+        "type": "offhand",
+        "slot": "off_hand",
+        "icon": "\ud83d\udee1\ufe0f",
+        "bonus": {
+          "def": 32,
+          "con": 10,
+          "cha": 15
+        },
+        "val": 118,
+        "handedness": "off_hand_only"
+      },
+      {
+        "id": "item_54885",
+        "name": "Riveted Chainmail Shirt",
+        "item_level": 10,
+        "rarity": "rare",
+        "type": "armor",
+        "slot": "armor",
+        "icon": "\ud83e\udd4b",
+        "bonus": {
+          "def": 28,
+          "hp": 189,
+          "str": 14,
+          "cha": 14
+        },
+        "val": 108
+      },
+      {
+        "id": "item_22056",
+        "name": "Abyssal Dreadplate Mantle",
+        "item_level": 9,
+        "rarity": "epic",
+        "type": "armor",
+        "slot": "armor",
+        "icon": "\ud83e\uddba",
+        "bonus": {
+          "def": 31,
+          "hp": 217,
+          "dex": 18,
+          "wis": 18
+        },
+        "val": 135
+      },
+      {
+        "id": "item_87343",
+        "name": "Runed Scholar Cowl",
+        "item_level": 10,
+        "rarity": "epic",
+        "type": "head",
+        "slot": "head",
+        "icon": "\ud83e\uddd9",
+        "bonus": {
+          "mp": 187,
+          "int": 15,
+          "con": 20,
+          "crit": 7,
+          "wis": 20
+        },
+        "val": 150
+      },
+      {
+        "id": "item_80671",
+        "name": "Gilded Luck Coin",
+        "item_level": 6,
         "rarity": "epic",
         "type": "accessory",
         "slot": "accessory",
-        "icon": "\ud83d\udcff",
+        "icon": "\ud83e\ude99",
         "bonus": {
-          "hp": 150,
-          "con": 7,
-          "dex": 10,
-          "wis": 10
+          "cha": 10,
+          "dodge": 7,
+          "str": 12
         },
-        "val": 75
+        "val": 90
       },
       {
         "id": "item_37613",
@@ -381,12 +457,105 @@
         },
         "val": 75
       },
-      null,
-      null,
-      null,
-      null,
-      null,
-      null,
+      {
+        "id": "item_83655",
+        "name": "Amulet of Vitality",
+        "item_level": 5,
+        "rarity": "epic",
+        "type": "accessory",
+        "slot": "accessory",
+        "icon": "\ud83d\udcff",
+        "bonus": {
+          "hp": 150,
+          "con": 7,
+          "dex": 10,
+          "wis": 10
+        },
+        "val": 75
+      },
+      {
+        "id": "item_41651",
+        "name": "Lore Quarterstaff",
+        "item_level": 11,
+        "rarity": "rare",
+        "type": "weapon",
+        "slot": "main_hand",
+        "icon": "\ud83e\uddaf",
+        "bonus": {
+          "atk": 46,
+          "int": 10,
+          "cha": 15
+        },
+        "val": 118,
+        "handedness": "versatile"
+      },
+      {
+        "id": "item_99944",
+        "name": "Abyssal Venom Greaves",
+        "item_level": 11,
+        "rarity": "epic",
+        "type": "feet",
+        "slot": "feet",
+        "icon": "\ud83d\udc5f",
+        "bonus": {
+          "dodge": 12,
+          "dex": 15,
+          "crit": 7,
+          "con": 22
+        },
+        "val": 165
+      },
+      {
+        "id": "item_23101",
+        "name": "Dread-Forged Void Plate",
+        "item_level": 11,
+        "rarity": "legendary",
+        "type": "armor",
+        "slot": "armor",
+        "icon": "\ud83e\uddba",
+        "bonus": {
+          "def": 54,
+          "hp": 370,
+          "dex": 31,
+          "str": 31,
+          "crit": 10
+        },
+        "val": 237
+      },
+      {
+        "id": "item_77703",
+        "name": "Breastplate of the Fallen Seraph",
+        "item_level": 10,
+        "rarity": "rare",
+        "type": "armor",
+        "slot": "armor",
+        "icon": "\ud83e\udd4b",
+        "bonus": {
+          "def": 28,
+          "hp": 189,
+          "crit": 5,
+          "cha": 14
+        },
+        "val": 108
+      },
+      {
+        "id": "item_20294",
+        "name": "Ashen Dread-Emperor Regalia",
+        "item_level": 11,
+        "rarity": "legendary",
+        "type": "armor",
+        "slot": "armor",
+        "icon": "\ud83e\uddba",
+        "bonus": {
+          "def": 54,
+          "hp": 370,
+          "wis": 31,
+          "dodge": 10,
+          "cha": 31,
+          "str": 31
+        },
+        "val": 237
+      },
       null,
       null,
       null,
@@ -484,53 +653,119 @@
     ]
   },
   "current_node": {
-    "type": "crossroads",
+    "type": "merchant",
     "title": "Collapse into the Forgotten Crypt",
-    "location": "The Ethereal Black Market - Inner Antechamber",
+    "location": "Sunken Vault - The Wandering Void Bazaar",
     "chapter": "Chapter 5: The Archon's Sanctum"
   },
   "monster": null,
-  "merchant_stock": [],
+  "merchant_stock": [
+    {
+      "id": "item_79754",
+      "name": "Silent Stalker Moccasins",
+      "item_level": 12,
+      "rarity": "common",
+      "type": "feet",
+      "slot": "feet",
+      "icon": "\ud83d\udc5f",
+      "bonus": {
+        "dodge": 5,
+        "dex": 7
+      },
+      "val": 72
+    },
+    {
+      "id": "item_58502",
+      "name": "Zweihander Greatsword",
+      "item_level": 10,
+      "rarity": "common",
+      "type": "weapon",
+      "slot": "main_hand",
+      "icon": "\ud83d\udde1\ufe0f",
+      "bonus": {
+        "atk": 29,
+        "str": 6
+      },
+      "val": 60,
+      "handedness": "two_handed"
+    },
+    {
+      "id": "cons_63140",
+      "name": "Pine Pitch Torch",
+      "item_level": 11,
+      "rarity": "rare",
+      "type": "consumable",
+      "icon": "\ud83d\udd6f\ufe0f",
+      "qty": 2,
+      "effect": "add_light_6",
+      "desc": "+6 Torch Light turns",
+      "val": 33
+    },
+    {
+      "id": "cons_12929",
+      "name": "Healing Salve",
+      "item_level": 11,
+      "rarity": "rare",
+      "type": "consumable",
+      "icon": "\ud83e\uddea",
+      "qty": 1,
+      "effect": "heal_hp_190",
+      "desc": "Restores 190 HP",
+      "val": 33
+    },
+    {
+      "id": "cons_91830",
+      "name": "Universal Antidote Draught",
+      "item_level": 11,
+      "rarity": "rare",
+      "type": "consumable",
+      "icon": "\ud83e\uddea",
+      "qty": 2,
+      "effect": "cure_poison_heal_25",
+      "desc": "Cures Poison & heals 25 HP",
+      "val": 33
+    }
+  ],
   "merchant_discount": 0,
   "pending_awakening": null,
   "scene": {
     "chapter": "Chapter 5: The Archon's Sanctum",
-    "title": "Pedang Sang Penguasa Kehampaan",
-    "location": "The Ethereal Black Market - Inner Antechamber",
-    "narrative": "Bilah hitam pekat itu bergetar liar saat Danas menggenggam gagangnya, memancarkan denyut ashen flame yang meresap ke dalam daging dan tulangnya. Pedagang berjubah bintang mengangguk pelan sebelum sosoknya memudar menjadi serpihan abu perak, meninggalkan aroma belerang dan besi dingin. Ruang marmer kini mulai berderak runtuh, membuka dua lorong gelap: satu mengarah ke altar pemujaan yang memancarkan aura nekrotik pekat, dan yang lain menuju tangga batu curam tempat desau angin purba berbisik. Danas harus segera menentukan langkah sebelum dimensi saku ini runtuh sepenuhnya ke dalam void.",
+    "title": "Pedagang Jiwa dari Kehampaan",
+    "location": "Sunken Vault - The Wandering Void Bazaar",
+    "narrative": "Dari balik bayang-bayang pilar batu yang retak, muncul sesosok entitas berjubah kelabu dengan lentera berapi ungu pucat melayang di sampingnya. Pria bertopeng perak itu menggelar kain beludru hitam di atas tumpukan batu kapur basah, memamerkan satu set lengkap perlengkapan tempur legendaris yang memancarkan aura kegelapan purba. Bau dupa mur dan besi terbakar menguar pekat saat sang pedagang membisikkan harga penebusan artefak tersebut kepada Danas. Di tengah kegelapan yang membutakan, resonansi kekuatan artefak itu memanggil jiwa sang Ashen Dread-Emperor.",
     "choices": [
       {
         "id": "A",
-        "text": "Menerobos reruntuhan menuju Altar Nekrotik dengan ayunan pedang baru (STR Check - DC 11)",
+        "text": "Periksa keaslian sisa perlengkapan dan jimat kuno di etalase (WIS Check - DC 10)",
         "type": "roll",
-        "stat": "STR",
-        "dc": 11
-      },
-      {
-        "id": "B",
-        "text": "Melompati puing marmer yang runtuh menuju Tangga Purba (DEX Check - DC 10)",
-        "type": "roll",
-        "stat": "DEX",
+        "stat": "WIS",
         "dc": 10
       },
       {
-        "id": "C",
-        "text": "Merasakan aliran esensi void untuk mendeteksi jalur paling stabil (WIS Check - DC 9)",
+        "id": "B",
+        "text": "Tawar potion pemulih kutukan kebutaan dari sang pedagang (CHA Check - DC 11)",
         "type": "roll",
-        "stat": "WIS",
+        "stat": "CHA",
+        "dc": 11
+      },
+      {
+        "id": "C",
+        "text": "Gali informasi mengenai bahaya di balik Gerbang Malaikat Jatuh (INT Check - DC 9)",
+        "type": "roll",
+        "stat": "INT",
         "dc": 9
       },
       {
         "id": "D",
-        "text": "Menyalurkan Ashen Dread Aura untuk menstabilkan dimensi sementara (Action)",
+        "text": "Kenakan perlengkapan baru dan bersiap melangkah ke lorong terdalam (Action)",
         "type": "action"
       }
     ],
     "log": [
-      "\ud83c\udfb2 [SUCCESS \u2022 D20: 4+18=22 vs DC 10] Dengan Critical Success pada pengamatan tajam, Danas mendeteksi kompartemen rahasia bertatahkan rune kuno yang menyembunyikan artefak legendaris di balik jubah sang pedagang. (+15 EXP)",
-      "\ud83c\udfb2 [Direct Action \u2022 Action] Danas membeli Eye of the Void seharga 5000 Gold. Status Blind berhasil dipulihkan sepenuhnya berkat kekuatan Void Sight.",
-      "\ud83c\udfb2 [SUCCESS \u2022 D20: 11+18=29 vs DC 10] Dengan Success spektakuler pada penglihatan mistisnya, Danas berhasil menembus ilusi dinding dan menemukan kamar rahasia seorang Nether-Merchant legendaris. (+15 EXP)",
-      "\ud83c\udfb2 [Direct Action \u2022 Action] Danas menukarkan 4000 Gold untuk Dread Sovereign Greatsword, merasakan getaran Two-Handed weapon legendaris yang membakar telapak tangannya dengan kekuatan kehampaan murni."
+      "\ud83c\udfb2 [SUCCESS \u2022 D20: 2+18=20 vs DC 11] Danas mendaratkan Critical Hit mutlak yang membelah tempurung Venomous Broodmother berkeping-keping, mengakhiri ancaman monster tersebut seketika. (+675 EXP) \ud83d\udc8e LOOT DROP: [RARE] Lore Quarterstaff! \ud83c\udf1f LEVEL UP! Danas naik ke Level 11 (Max HP/MP meningkat & HP pulih penuh)!",
+      "\ud83c\udfb2 [SUCCESS \u2022 D20: 11+18=29 vs DC 11] Dengan STR Check yang melampaui batas, Danas menghancurkan segel rantai runik dan membuka paksa tutup sarkofagus purba tanpa hambatan. (+15 EXP) \ud83c\udf81 ITEM OBTAINED: [LEGENDARY] Dread-Forged Void Plate!",
+      "\ud83c\udfb2 [SUCCESS \u2022 D20: 2+8=10 vs DC 9] WIS Check berhasil melunturkan lapisan kutukan gaib pada sarkofagus tanpa memicu jebakan arcane. (+15 EXP) \ud83c\udf81 ITEM OBTAINED: [RARE] Breastplate of the Fallen Seraph!",
+      "\ud83c\udfb2 [SUCCESS \u2022 D20: 17+18=35 vs DC 10] Danas berhasil menemukan sosok misterius penjual artefak langka di balik celah reruntuhan dengan Success mutlak. (+15 EXP) \ud83c\udf81 ITEM OBTAINED: [LEGENDARY] Dread-Emperor's Oblivion Regalia!"
     ]
   }
 }

@@ -329,7 +329,7 @@
             </div>
         </div>
 
-        <!-- DYNAMIC MERCHANT SHOP MODAL / SECTION -->
+        <!-- DYNAMIC MERCHANT SHOP MODAL / SECTION (BUY & SELECTIVE SELL) -->
         <div id="m-merchant-section" class="hidden bg-gradient-to-r from-amber-950/90 via-zinc-950/95 to-zinc-900/90 border-2 border-amber-500/80 p-4 rounded-3xl shadow-2xl space-y-3">
             <div class="flex justify-between items-center border-b border-amber-900/60 pb-2">
                 <div class="flex items-center space-x-2.5">
@@ -344,9 +344,19 @@
                         💬 HAGGLE (CHA)
                     </button>
                     <button onclick="sellAllJunk()" class="bg-zinc-800 hover:bg-zinc-700 border border-zinc-600 text-zinc-200 text-[9px] font-bold px-2.5 py-1 rounded-xl active:scale-95 transition-all">
-                        🧹 SELL ALL JUNK
+                        🧹 SELL JUNK
                     </button>
                 </div>
+            </div>
+
+            <!-- Shop Mode Switcher: BUY vs SELL -->
+            <div class="grid grid-cols-2 gap-1.5 rounded-xl bg-zinc-950 p-1 border border-zinc-800 text-[10px] font-bold font-cinzel text-center">
+                <button onclick="switchMerchantMode('buy')" id="merchant-tab-buy" class="py-1.5 rounded-lg bg-amber-500 text-black shadow font-bold transition-all">
+                    🛒 BUY ITEMS
+                </button>
+                <button onclick="switchMerchantMode('sell')" id="merchant-tab-sell" class="py-1.5 rounded-lg text-zinc-400 hover:text-zinc-200 transition-all">
+                    💰 SELL FROM BACKPACK
+                </button>
             </div>
 
             <!-- Discount Notice if active -->
@@ -354,11 +364,22 @@
                 🎉 DISKON AKTIF: <span id="m-discount-text">20% OFF</span>
             </div>
 
-            <!-- Merchant Stock Grid -->
-            <div class="space-y-1.5">
+            <!-- Mode 1: Merchant Stock Grid (BUY) -->
+            <div id="merchant-view-buy" class="space-y-1.5">
                 <p class="text-[9px] font-bold uppercase tracking-wider text-amber-400">MERCHANT WARES FOR SALE:</p>
                 <div id="m-merchant-wares-list" class="grid grid-cols-1 md:grid-cols-2 gap-2">
                     <!-- Merchant items rendered dynamically -->
+                </div>
+            </div>
+
+            <!-- Mode 2: Player Inventory Grid (SELECTIVE SELL) -->
+            <div id="merchant-view-sell" class="hidden space-y-1.5">
+                <div class="flex justify-between items-center">
+                    <p class="text-[9px] font-bold uppercase tracking-wider text-amber-400">PILIH ITEM DARI TAS UNTUK DIJUAL:</p>
+                    <span class="text-[8px] text-zinc-400 italic">Klik tombol SELL pada item</span>
+                </div>
+                <div id="m-merchant-sell-list" class="grid grid-cols-1 md:grid-cols-2 gap-2 max-h-60 overflow-y-auto">
+                    <!-- Player inventory items for sale rendered dynamically -->
                 </div>
             </div>
         </div>
@@ -917,6 +938,79 @@
             return { cleanText: clean, badgeHtml: badgeHtml };
         }
 
+        let merchantCurrentMode = 'buy';
+        function switchMerchantMode(mode) {
+            merchantCurrentMode = mode;
+            const viewBuy = document.getElementById('merchant-view-buy');
+            const viewSell = document.getElementById('merchant-view-sell');
+            const tabBuy = document.getElementById('merchant-tab-buy');
+            const tabSell = document.getElementById('merchant-tab-sell');
+
+            if (mode === 'buy') {
+                if (viewBuy) viewBuy.classList.remove('hidden');
+                if (viewSell) viewSell.classList.add('hidden');
+                if (tabBuy) tabBuy.className = "py-1.5 rounded-lg bg-amber-500 text-black shadow font-bold transition-all";
+                if (tabSell) tabSell.className = "py-1.5 rounded-lg text-zinc-400 hover:text-zinc-200 transition-all";
+            } else {
+                if (viewBuy) viewBuy.classList.add('hidden');
+                if (viewSell) viewSell.classList.remove('hidden');
+                if (tabBuy) tabBuy.className = "py-1.5 rounded-lg text-zinc-400 hover:text-zinc-200 transition-all";
+                if (tabSell) tabSell.className = "py-1.5 rounded-lg bg-amber-500 text-black shadow font-bold transition-all";
+            }
+        }
+
+        function renderMerchantSellList(inventory) {
+            const container = document.getElementById('m-merchant-sell-list');
+            if (!container) return;
+            container.innerHTML = '';
+
+            let hasItems = false;
+            (inventory || []).forEach((item, idx) => {
+                if (item) {
+                    hasItems = true;
+                    const row = document.createElement('div');
+                    const rarityColor = `rarity-${item.rarity || 'common'}`;
+                    row.className = `flex items-center justify-between p-2.5 rounded-2xl bg-zinc-950/90 border ${rarityColor} text-xs shadow`;
+                    
+                    const sellVal = Math.max(1, Math.floor((item.val || 2) / 2)) * (item.qty || 1);
+                    const qtyBadge = (item.qty && item.qty > 1) ? `<span class="bg-cyan-950 border border-cyan-700 text-cyan-300 text-[8px] font-mono font-bold px-1.5 py-0.2 rounded">x${item.qty}</span>` : '';
+                    const lvBadge = `<span class="bg-amber-950/80 border border-amber-700 text-amber-300 text-[8px] font-mono font-bold px-1.5 py-0.2 rounded">Lv.${item.item_level || 1}</span>`;
+
+                    row.innerHTML = `
+                        <div class="flex items-center space-x-2 min-w-0 flex-1">
+                            <span class="text-xl">${item.icon || '📦'}</span>
+                            <div class="min-w-0 flex-1">
+                                <div class="flex items-center space-x-1 flex-wrap">
+                                    <p class="font-bold truncate text-zinc-100 text-[11px]">${item.name}</p>
+                                    ${qtyBadge}
+                                    ${lvBadge}
+                                </div>
+                                <p class="text-[8px] text-zinc-400 truncate">${item.desc || item.type}</p>
+                            </div>
+                        </div>
+                        <div class="ml-2 shrink-0">
+                            <button onclick="sellMerchantItem(${idx})" class="bg-emerald-700 hover:bg-emerald-600 active:bg-emerald-800 text-white font-bold text-[9px] px-2.5 py-1 rounded-xl shadow transition-all font-cinzel">
+                                JUAL +${sellVal} G
+                            </button>
+                        </div>
+                    `;
+                    container.appendChild(row);
+                }
+            });
+
+            if (!hasItems) {
+                container.innerHTML = '<p class="text-xs text-zinc-500 text-center py-4 col-span-full font-mono">Tas ransel kosong. Tidak ada item yang bisa dijual.</p>';
+            }
+        }
+
+        function sellMerchantItem(idx) {
+            if (navigator.vibrate) navigator.vibrate(25);
+            socket.send(JSON.stringify({
+                type: "sell_merchant_item",
+                index: idx
+            }));
+        }
+
         function renderMerchantShop(stock, discount, playerGold) {
             const container = document.getElementById('m-merchant-wares-list');
             if (!container) return;
@@ -1094,6 +1188,7 @@
                 if (nodeType === 'merchant' && state.merchant_stock && state.merchant_stock.length > 0) {
                     merchantSec.classList.remove('hidden');
                     renderMerchantShop(state.merchant_stock, state.merchant_discount || 0, p.gold || 0);
+                    renderMerchantSellList(p.inventory || []);
                 } else {
                     merchantSec.classList.add('hidden');
                 }
