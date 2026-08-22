@@ -1,31 +1,31 @@
 {
   "status": "playing",
   "floor": 1,
-  "step": 6,
-  "active_sound_theme": "danger",
-  "torch_turns": 7,
+  "step": 2,
+  "active_sound_theme": "mystery",
+  "torch_turns": 11,
   "rations": 3,
   "story_history": [],
   "player": {
     "name": "Danas",
     "class_id": "peasant",
-    "class_name": "Hardy Peasant",
-    "class_icon": "\ud83c\udf3e",
-    "class_tier": "common",
+    "class_name": "Shadowveil Ranger",
+    "class_icon": "\ud83c\udff9",
+    "class_tier": "special",
     "level": 1,
-    "exp": 15,
+    "exp": 0,
     "exp_next": 75,
-    "hp": 94,
+    "hp": 115,
     "max_hp": 115,
     "mp": 15,
     "max_mp": 15,
     "gold": 20,
     "stats": {
       "str": 14,
-      "dex": 10,
+      "dex": 14,
       "con": 15,
       "int": 8,
-      "wis": 12,
+      "wis": 14,
       "cha": 8
     },
     "equipped": {
@@ -123,19 +123,7 @@
         "desc": "Utility rope for climbing",
         "val": 2
       },
-      {
-        "name": "Copper Lucky Ring",
-        "type": "accessory",
-        "slot": "accessory",
-        "icon": "\ud83d\udc8d",
-        "bonus": {
-          "cha": 1,
-          "gold_drop": 5
-        },
-        "val": 8,
-        "id": "item_76478",
-        "rarity": "uncommon"
-      },
+      null,
       null,
       null,
       null,
@@ -181,6 +169,14 @@
         "dmg_type": "heal",
         "est_val": "+25 HP & +2 STR",
         "desc": "Memulihkan 25 HP seketika & memberi bonus +2 STR selama 2 turn."
+      },
+      {
+        "id": "sk_ghost_arrow",
+        "name": "Ghostflight Shot",
+        "cost_mp": 8,
+        "dmg_type": "damage",
+        "est_val": "40-52 Pierce DMG",
+        "desc": "Anak panah hantu yang menembus perisai dan armor musuh secara mutlak."
       }
     ],
     "active_skills": [
@@ -192,12 +188,20 @@
         "dmg_type": "heal",
         "est_val": "+25 HP & +2 STR",
         "desc": "Memulihkan 25 HP seketika & memberi bonus +2 STR selama 2 turn."
+      },
+      {
+        "id": "sk_ghost_arrow",
+        "name": "Ghostflight Shot",
+        "cost_mp": 8,
+        "dmg_type": "damage",
+        "est_val": "40-52 Pierce DMG",
+        "desc": "Anak panah hantu yang menembus perisai dan armor musuh secara mutlak."
       }
     ],
     "status_effects": []
   },
   "current_node": {
-    "type": "combat",
+    "type": "exploration",
     "title": "Collapse into the Forgotten Crypt",
     "location": "Subterranean Vault - Floor 1",
     "chapter": "Chapter 1: The Descent"
@@ -206,42 +210,40 @@
   "pending_awakening": null,
   "scene": {
     "chapter": "Chapter 1: The Descent",
-    "title": "Karat Menemui Daging",
-    "location": "Subterranean Vault - Floor 1",
-    "narrative": "Mata Danas menangkap polanya\u2014bahu kiri Goblin selalu berkedut sebelum meliuk, sebuah kebiasaan buruk yang lahir dari kelaparan bertahun-tahun di kegelapan. Saat makhluk itu melesat dengan rahang menganga, Danas berbalik setengah langkah, membiarkan gigi kuning itu menggigit udara kosong, lalu mendorong ujung hoe yang berkarat mendalam ke lambung sampingnya. Bilah tumpul itu merobek kulit kotor kehijauan, dan darah hitam pekat menyembur ke atas batu kapur putih seperti tinta yang ditumpahkan. Goblin itu meraung\u2014suara melengking yang menggema di antara peti mati batu\u2014sambil mencengkeram gagang kayu dengan cakarnya yang gemetar. Darah mengalir deras di antara jarinya; ia masih berdiri, tetapi kakinya mulai goyah, dan tatapan kuningnya kini bercampur antara amarah dan ketakutan seekor binatang yang menyadari ajalnya telah datang.",
+    "title": "Rahasia di Balik Batu Basah",
+    "location": "Subterranean Vault - Floor 1 - Moss-Covered Corridor",
+    "narrative": "Mata Paduka yang terbiasa membaca tanah sawah kini menangkap apa yang tak akan terlihat orang awam: retakan halus berpola spiral pada batu kapur yang lembap itu. Di balik lapisan lumut tebal, sebuah ceruk tersembunyi tersingkap, menyimpan kantong kulit yang telah lapuk oleh waktu\u2014di dalamnya delapan keping Gold kuno masih berkilau redup. Hembusan udara dingin mengalir perlahan dari celah sempit di sisi timur, membawa aroma tanah liat dan bau busuk samar dari kegelapan jauh di ujung lorong. Tetesan air bergaung seperti detak jantung lambat, sementara bayangan berkedip pelan seolah makam purba ini sedang bernapas. Namun telinga Paduka juga menangkap dentingan logam tipis dari kejauhan\u2014sesuatu bergerak di kedalaman.",
     "choices": [
       {
         "id": "A",
-        "text": "Hentakkan hoe ke bawah dengan seluruh tenaga untuk menghabisinya sebelum ia melawan (STR Check - DC 11)",
+        "text": "Bongkar lempeng batu retak yang menutup lorong samping menggunakan Rusty Farming Hoe (STR Check - DC 12)",
         "type": "roll",
         "stat": "STR",
-        "dc": 11
-      },
-      {
-        "id": "B",
-        "text": "Tarik mundur cepat dan biarkan ia tumbang karena kehilangan darah, jaga jarak di antara peti mati (DEX Check - DC 10)",
-        "type": "roll",
-        "stat": "DEX",
-        "dc": 10
-      },
-      {
-        "id": "C",
-        "text": "Perhatikan gerakannya yang melemah dan cari titik vital kedua\u2014leher atau tenggorokan (INT Check - DC 12)",
-        "type": "roll",
-        "stat": "INT",
         "dc": 12
       },
       {
+        "id": "B",
+        "text": "Merangkap melewati celah sempit tempat hembusan udara dingin mengalir keluar (DEX Check - DC 11)",
+        "type": "roll",
+        "stat": "DEX",
+        "dc": 11
+      },
+      {
+        "id": "C",
+        "text": "Menelaah ukiran kuno di dinding untuk memetakan denah kript dan menghindari jebakan (INT Check - DC 10)",
+        "type": "roll",
+        "stat": "INT",
+        "dc": 10
+      },
+      {
         "id": "D",
-        "text": "Tekan serangan dengan menendang tubuhnya yang terluka ke arah dinding batu agar tertahan sesaat (Action)",
+        "text": "Berteduh di sisi ceruk yang aman, makan roti gandum, dan melakukan Short Rest untuk memulihkan tenaga (Action)",
         "type": "action"
       }
     ],
     "log": [
-      "\ud83c\udfb2 [Direct Action] Short Rest berhasil memulihkan 12 HP dan pikiran Danas kembali tenang. Pemeriksaan Backpack menegaskan persediaan masih utuh, namun cakaran Tomb Scavenger Goblin kini terdengar hanya sepuluh langkah dari kegelapan lorong utara.",
-      "\ud83c\udfb2 [FAIL] WIS Check gagal total (roll 3): suara napas serak itu hanyalah umpan, dan Tomb Scavenger Goblin meluncur dari sudut yang tak terduga, mencakar lengan Danas (-8 HP). Pertarungan hidup-mati kini tak terhindarkan. (-8 HP)",
-      "\ud83c\udfb2 [FAIL] STR Check gagal (9 vs DC 12): jari Danas nyaris meraih gagang Rusty Farming Hoe, namun keringat dan darah membuat cengkeramannya licin\u2014ayunan itu menghantam dinding kapur dengan dentuman kosong. Tomb Scavenger Goblin membalas dengan counterattack ganas, menggigit lengan bawah Danas hingga darah semakin deras mengalir (-9 HP). (-9 HP)",
-      "\ud83c\udfb2 [SUCCESS] WIS Check SUCCESS! Danas membaca ritme terkaman Goblin dan menusukkan ujung Rusty Farming Hoe tepat ke sisi tubuhnya\u2014Goblin menerima Critical Hit dan kini terkena status Bleeding. (+15 EXP, +8 Gold) \ud83d\udc8e LOOT DROP: [UNCOMMON] Copper Lucky Ring!"
+      "Commoner 'Danas' (Hardy Peasant) begins the underground survival journey!",
+      "\ud83c\udfb2 [CRITICAL SUCCESS] WIS Check menghasilkan Critical Success! Paduka menemukan ceruk tersembunyi berisi kantong kulit lapuk dengan 8 Gold, serta mengenali pola retakan batu yang menandai jalur aman dan arus udara menuju kedalaman."
     ]
   }
 }

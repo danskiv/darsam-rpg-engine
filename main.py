@@ -869,10 +869,8 @@ async def process_live_turn(choice_id: str, choice_text: str = "", custom_text: 
             
             active_m["hp"] = max(0, active_m["hp"] - base_dmg)
             
-            narrative_lower = (ai_resp.get("outcome_summary", "") + " " + ai_resp.get("narrative", "")).lower()
-            declared_dead = any(w in narrative_lower for w in ["mati", "tumbang", "tewas", "slain", "defeated", "hancur", "terbelah", "roboh", "terbunuh"])
-            
-            if active_m["hp"] == 0 or declared_dead:
+            # Check if monster died ONLY if HP reaches 0
+            if active_m["hp"] <= 0:
                 active_m["hp"] = 0
                 active_m["status"] = "defeated"
                 monster_slain = True
@@ -896,12 +894,13 @@ async def process_live_turn(choice_id: str, choice_text: str = "", custom_text: 
     p["mp"] = max(0, min(p["max_mp"], p["mp"] + ai_resp.get("mp_change", 0)))
     p["gold"] = max(0, p["gold"] + ai_resp.get("gold_change", 0))
 
-    # Spawn new monster if requested by AI
-    if not game_state.get("monster") and not monster_slain and ai_resp.get("monster_encounter"):
+    # Spawn new monster ONLY if requested by AI and not in combat
+    if not game_state.get("monster") and not monster_slain and ai_resp.get("monster_encounter") and isinstance(ai_resp.get("monster_encounter"), dict):
         m_info = ai_resp["monster_encounter"]
-        is_boss = m_info.get("tier") == "boss"
-        is_elite = m_info.get("tier") == "elite"
-        game_state["monster"] = generate_monster(p["level"], is_boss=is_boss, is_elite=is_elite)
+        if m_info.get("name"):
+            is_boss = m_info.get("tier") == "boss"
+            is_elite = m_info.get("tier") == "elite"
+            game_state["monster"] = generate_monster(p["level"], is_boss=is_boss, is_elite=is_elite)
 
     # Dynamic Secret Job Awakening Trigger (RNG chance on exploration)
     if not game_state.get("monster") and not game_state.get("pending_awakening"):
