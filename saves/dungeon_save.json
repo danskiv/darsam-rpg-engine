@@ -1,9 +1,9 @@
 {
   "status": "playing",
   "floor": 1,
-  "step": 8,
+  "step": 14,
   "active_sound_theme": "danger",
-  "torch_turns": 5,
+  "torch_turns": 0,
   "rations": 3,
   "story_history": [],
   "player": {
@@ -14,11 +14,11 @@
     "level": 1,
     "exp": 15,
     "exp_next": 75,
-    "hp": 93,
+    "hp": 44,
     "max_hp": 125,
     "mp": 10,
     "max_mp": 10,
-    "gold": 75,
+    "gold": 87,
     "stats": {
       "str": 16,
       "dex": 9,
@@ -137,7 +137,9 @@
         "desc": "Deals massive STR-based blunt damage and stuns the monster for 1 turn."
       }
     ],
-    "status_effects": []
+    "status_effects": [
+      "blind"
+    ]
   },
   "current_node": {
     "type": "combat",
@@ -145,61 +147,46 @@
     "location": "Subterranean Vault - Floor 1",
     "chapter": "Chapter 1: The Descent"
   },
-  "monster": {
-    "name": "Tomb Scavenger Goblin (Lv.1)",
-    "title": "Tomb Scavenger Goblin",
-    "icon": "\ud83d\udc7a",
-    "desc": "Sneaky Trap-Lover",
-    "level": 1,
-    "tier": "common",
-    "hp": 26,
-    "max_hp": 26,
-    "attack": 6,
-    "exp_reward": 15,
-    "gold_reward": 6,
-    "status": "active"
-  },
+  "monster": null,
   "merchant_stock": [],
   "scene": {
     "chapter": "Chapter 1: The Descent",
-    "title": "Crushing Foundations",
-    "location": "Subterranean Vault - Collapsed Archway",
-    "narrative": "Dentuman Heavy Smith Hammer milik Paduka menghantam titik retak pilar penyangga dengan kekuatan penuh, memicu getaran hebat yang meruntuhkan langit-langit kapur dalam kepulan debu pekat. Bebatuan masif menghujam ke bawah, melumat salah satu kerangka hidup menjadi serpihan debu tak berbentuk sebelum sempat melangkah maju. Namun, dari balik kepulan kabut kalsium yang menyesakkan, sesosok Skeletal Vanguard berzirah karat menerobos puing sambil mengacungkan pedang patah yang berlumuran racun hitam. Hawa dingin kematian merayap tajam di kulit Paduka saat rahang mayat hidup itu berderak lapar dalam jarak serang yang mematikan.",
+    "title": "Execution in the Dark",
+    "location": "Subterranean Vault - Ruined Crypt Way",
+    "narrative": "Dengan cengkeraman sekuat catok besi tempa, kedua tangan Paduka mencengkeram tenggorokan makhluk kerdil itu dan menekan seluruh bobot tubuh ke bawah hingga terdengar bunyi patahan tulang leher yang tumpul dan final. Raungan melengking itu seketika terputus menjadi desis udara terakhir yang berbau busuk, meninggalkan keheningan dingin yang hanya dipecahkan oleh deru napas Paduka sendiri. Meski darah kotor sang goblin membasahi tangan Paduka, status Blind masih membelenggu penglihatan dalam kegelapan mutlak liang kubur ini. Di kejauhan lorong batu yang lembap, gemersik gesekan tulang dan tetesan air mengingatkan bahwa bahaya bawah tanah belum sepenuhnya tuntas.",
     "choices": [
       {
         "id": "A",
-        "text": "Ayunkan Heavy Smith Hammer secara horizontal untuk meremukkan tulang rusuknya (STR Check - DC 12)",
+        "text": "Raba jasad goblin dan lantai sekitar untuk mencari sumber cahaya atau perkakas (WIS Check - DC 11)",
         "type": "roll",
-        "stat": "STR",
-        "dc": 12
+        "stat": "WIS",
+        "dc": 11
       },
       {
         "id": "B",
-        "text": "Menunduk dan menyapu kaki tumpuan kerangka menggunakan pecahan pilar (DEX Check - DC 11)",
+        "text": "Andalkan indra peraba dan melangkah perlahan menyusuri dinding batu basah (DEX Check - DC 12)",
         "type": "roll",
         "stat": "DEX",
-        "dc": 11
+        "dc": 12
       },
       {
         "id": "C",
-        "text": "Analisis celah pada zirah karatan untuk menemukan titik simpul sihir penggeraknya (INT Check - DC 10)",
+        "text": "Analisis gema tetesan air dan aliran udara untuk memetakan tata letak ruangan (INT Check - DC 11)",
         "type": "roll",
         "stat": "INT",
-        "dc": 10
+        "dc": 11
       },
       {
         "id": "D",
-        "text": "Pasang posisi bertahan penuh dengan Thick Leather Apron untuk menyerap benturan (CON Check - DC 11)",
-        "type": "roll",
-        "stat": "CON",
-        "dc": 11
+        "text": "Duduk bersandar sejenak di dekat dinding untuk menstabilkan napas dan denyut nadi (Short Rest)",
+        "type": "action"
       }
     ],
     "log": [
-      "\ud83c\udfb2 [CRITICAL FAIL] Serangan sapuan palu Paduka mengalami Critical Fail, terpeleset genangan lendir korosif dan membuat Paduka terjerembap telak. Corrosive Slime Mass mengeksploitasi celah ini dengan semburan asam pekat yang menimbulkan 18 Damage dan merusak pertahanan. (-18 HP)",
-      "\ud83c\udfb2 [SUCCESS] Dengan STR Check yang mencapai Success, Paduka berhasil melepaskan hantaman telak dari lantai bawah dan menghancurkan inti Corrosive Slime Mass menjadi serpihan tak bernyawa. (+15 EXP, +10 Gold) \ud83d\udc8e LOOT DROP: [UNCOMMON] Greater Healing Draught!",
-      "\ud83c\udfb2 [SUCCESS] Dengan ketelitian insting penempa, Paduka berhasil mengekstraksi relik tanpa terkena sisa Acid Slime. (WIS Check - Success: Memperoleh 24 Gold dan Relic Fragment).",
-      "\ud83c\udfb2 [SUCCESS] Pukulan telak Paduka mengeksekusi STR Check dengan gemilang; reruntuhan pilar batu seketika meremukkan salah satu kerangka dan mengisolasi ruang tempur."
+      "\ud83c\udfb2 [Direct Action] Paduka mengambil Defensive Stance ala pandai besi, berhasil memblokir terkaman monster dan memicu Guard Counter yang meremukkan cakar lawannya.",
+      "\ud83c\udfb2 [CRITICAL FAIL] Serangan palu Paduka mengalami Critical Fail akibat pijakan licin, membuat ayunan meleset telak dan membuka celah fatal bagi Tomb Scavenger Goblin untuk mencabik rusuk Paduka. (-18 HP)",
+      "\ud83c\udfb2 [Direct Action] Paduka berhasil menjatuhkan bobot tubuh ke arah monster dengan brutal, mengunci Tomb Scavenger Goblin dalam kondisi Pinned meski cengkeraman cakar kasarnya sempat menggores lengan Paduka. (-6 HP)",
+      "\ud83c\udfb2 [Direct Action] Tindakan tanpa kompromi Paduka berhasil menghasilkan Grapple Execution yang meremukkan leher Tomb Scavenger Goblin hingga tewas seketika, namun cakarannya yang liar sempat menggores lengan Paduka. (-4 HP)"
     ]
   }
 }

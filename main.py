@@ -688,30 +688,40 @@ async def process_live_turn(choice_id: str, choice_text: str = "", custom_text: 
     # Combat Resolution if Monster is active
     loot_dropped = None
     exp_gained = 0
+    monster_slain = False
+    
     if active_m and active_m.get("status") == "active":
+        total_stats = compute_total_stats(p)
         if roll_status in ["CRITICAL SUCCESS", "SUCCESS"]:
             # Player hits monster
-            total_stats = compute_total_stats(p)
-            base_dmg = total_stats.get("atk", 4) + random.randint(4, 10)
-            if roll_status == "CRITICAL SUCCESS": base_dmg = int(base_dmg * 2.0)
+            base_dmg = total_stats.get("atk", 4) + random.randint(6, 14)
+            if roll_status == "CRITICAL SUCCESS":
+                base_dmg = int(base_dmg * 2.0)
             
             active_m["hp"] = max(0, active_m["hp"] - base_dmg)
-            if active_m["hp"] == 0:
+            
+            # Check if monster died from damage OR if AI narrative declared it defeated/killed
+            narrative_lower = (ai_resp.get("outcome_summary", "") + " " + ai_resp.get("narrative", "")).lower()
+            declared_dead_by_ai = any(w in narrative_lower for w in ["mati", "tumbang", "tewas", "slain", "defeated", "hancur", "terbelah", "roboh", "terbunuh"])
+            
+            if active_m["hp"] == 0 or declared_dead_by_ai:
+                active_m["hp"] = 0
                 active_m["status"] = "defeated"
+                monster_slain = True
                 exp_gained = active_m["exp_reward"]
                 p["gold"] += active_m["gold_reward"]
                 loot_dropped = roll_loot(active_m["tier"], active_m["level"])
-                # Add loot to inventory
-                added_to_inv = False
+                
+                # Add loot to first free inventory slot
                 for i in range(len(p["inventory"])):
                     if p["inventory"][i] is None:
                         p["inventory"][i] = loot_dropped
-                        added_to_inv = True
                         break
+                
                 game_state["monster"] = None
         else:
-            # Monster attacks player
-            m_dmg = max(1, active_m["attack"] - compute_total_stats(p).get("def", 0))
+            # Player failed check: Monster attacks player
+            m_dmg = max(2, active_m["attack"] - total_stats.get("def", 0))
             p["hp"] = max(0, p["hp"] - m_dmg)
 
     # Apply Vitals Changes from Story
@@ -720,8 +730,8 @@ async def process_live_turn(choice_id: str, choice_text: str = "", custom_text: 
     p["mp"] = max(0, min(p["max_mp"], p["mp"] + ai_resp.get("mp_change", 0)))
     p["gold"] = max(0, p["gold"] + ai_resp.get("gold_change", 0))
 
-    # Spawn new monster if requested by AI and not in combat
-    if not game_state.get("monster") and ai_resp.get("monster_encounter"):
+    # Spawn new monster if requested by AI and not currently in active combat
+    if not game_state.get("monster") and not monster_slain and ai_resp.get("monster_encounter"):
         m_info = ai_resp["monster_encounter"]
         is_boss = m_info.get("tier") == "boss"
         is_elite = m_info.get("tier") == "elite"
