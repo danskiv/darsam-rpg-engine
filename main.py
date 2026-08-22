@@ -675,7 +675,7 @@ RULES OF THE SYSTEM:
 4. Fail-Forward: Failure creates complications, monster aggression, or resource loss while driving the story forward.
 5. Provide 4 distinct tactical choices (A, B, C, D) with varied mechanics (Physical, Stealth, Mental/Arcane, Item/Rest).
 6. Audio Theme Selector: Choose 'dungeon', 'danger', 'mystery', or 'suspense'.
-7. Output MUST BE PURE VALID JSON only.
+7. Output MUST BE PURE VALID JSON only. Do not include markdown codeblocks or conversational filler.
 
 JSON SCHEMA:
 {
@@ -689,7 +689,7 @@ JSON SCHEMA:
   "hp_change": 0,
   "mp_change": 0,
   "gold_change": 0,
-  "monster_encounter": { // null if no monster
+  "monster_encounter": {
     "name": "Monster Name",
     "tier": "common" | "elite" | "boss",
     "level": 1
@@ -726,76 +726,98 @@ ACTION TAKEN BY PLAYER:
 CHRONICLE LOG:
 {chr(10).join(history[-3:]) if history else "- Just collapsed into the subterranean crypt."}
 
-Generate the next chapter of this dark fantasy survival tale!"""
+Generate the next chapter of this dark fantasy survival tale in pure JSON matching the schema!"""
 
-    payload = {
-        "model": "ag/gemini-3.7-flash-low",
-        "messages": [
-            {"role": "system", "content": system_prompt},
-            {"role": "user", "content": user_prompt}
-        ],
-        "temperature": 0.78,
-        "max_tokens": 1200
-    }
+    models_to_try = [
+        "openrouter/stealth/ox-alpha", # PRIMARY
+        "ag/gemini-3.7-flash-low"       # FALLBACK
+    ]
 
-    try:
-        def _call_api():
-            req = urllib.request.Request(
-                url,
-                data=json.dumps(payload).encode("utf-8"),
-                headers=headers
-            )
-            with urllib.request.urlopen(req, timeout=12) as resp:
-                raw = resp.read().decode("utf-8")
-                full_content = ""
-                for line in raw.split("\n"):
-                    line = line.strip()
-                    if line.startswith("data: ") and line != "data: [DONE]":
+    for model_name in models_to_try:
+        payload = {
+            "model": model_name,
+            "messages": [
+                {"role": "system", "content": system_prompt},
+                {"role": "user", "content": user_prompt}
+            ],
+            "temperature": 0.7,
+            "max_tokens": 2000
+        }
+
+        try:
+            def _call_api():
+                req = urllib.request.Request(
+                    url,
+                    data=json.dumps(payload).encode("utf-8"),
+                    headers=headers
+                )
+                with urllib.request.urlopen(req, timeout=14) as resp:
+                    raw = resp.read().decode("utf-8").strip()
+                    # Strip any leading whitespace or newlines before JSON block
+                    idx = raw.find("{")
+                    last_idx = raw.rfind("}")
+                    if idx != -1 and last_idx != -1:
+                        raw_json_candidate = raw[idx:last_idx+1]
                         try:
-                            chunk = json.loads(line[6:])
-                            delta = chunk["choices"][0].get("delta", {}).get("content", "")
-                            full_content += delta
+                            obj = json.loads(raw_json_candidate)
+                            content = obj.get("choices", [{}])[0].get("message", {}).get("content")
+                            if content: return content
                         except Exception:
                             pass
-                if not full_content:
-                    try:
-                        obj = json.loads(raw)
-                        full_content = obj["choices"][0]["message"]["content"]
-                    except Exception:
-                        pass
-                return full_content
+                    
+                    # Try SSE stream chunk fallback
+                    full_content = ""
+                    for line in raw.split("\n"):
+                        line = line.strip()
+                        if line.startswith("data: ") and line != "data: [DONE]":
+                            try:
+                                chunk = json.loads(line[6:])
+                                delta = chunk["choices"][0].get("delta", {}).get("content", "")
+                                full_content += delta
+                            except Exception:
+                                pass
+                    return full_content
 
-        loop = asyncio.get_event_loop()
-        content = await loop.run_in_executor(None, _call_api)
-        clean_json = content.strip()
-        if clean_json.startswith("```json"): clean_json = clean_json[7:]
-        if clean_json.startswith("```"): clean_json = clean_json[3:]
-        if clean_json.endswith("```"): clean_json = clean_json[:-3]
-        clean_json = clean_json.strip()
-        return json.loads(clean_json)
+            loop = asyncio.get_event_loop()
+            content = await loop.run_in_executor(None, _call_api)
+            if not content:
+                print(f"Model {model_name} returned empty content, trying fallback...")
+                continue
 
-    except Exception as e:
-        print("LLM Fallback triggered:", e)
-        is_success = roll_result >= 10 if roll_result > 0 else True
-        dmg = random.randint(8, 16) if not is_success else 0
-        return {
-            "chapter": current_scene.get("chapter", "Chapter 1: The Dark Corridor"),
-            "location": "Subterranean Vault - Floor 1",
-            "title": "Echoing Stone Chambers",
-            "node_type": "exploration",
-            "outcome_summary": f"D20 Roll ({roll_result}): {'Aksi Paduka berhasil mengatasi rintangan!' if is_success else 'Paduka tergores pecahan batu tajam dan menerima damage!'}",
-            "narrative": "Tetesan air dingin menggema di lorong batu obsidian. Bau lumut purba menyelimuti udara. Di hadapan Paduka, sebuah pintu batu berukir lambang kerajaan kuno memancarkan pendar cahaya keemasan redup.",
-            "audio_theme": "dungeon",
-            "hp_change": -dmg,
-            "mp_change": 0,
-            "gold_change": 0,
-            "choices": [
-                {"id": "A", "text": "Force open the reinforced stone gate (STR Check - DC 11)", "type": "roll", "stat": "STR", "dc": 11},
-                {"id": "B", "text": "Examine the glowing lock mechanism (INT / Arcana Check - DC 10)", "type": "roll", "stat": "INT", "dc": 10},
-                {"id": "C", "text": "Search for a concealed bypass passage (Perception / WIS Check - DC 9)", "type": "roll", "stat": "WIS", "dc": 9},
-                {"id": "D", "text": "Consume dry rations & rest to restore Health (Action)", "type": "action"}
-            ]
-        }
+            clean_json = content.strip()
+            if clean_json.startswith("```json"): clean_json = clean_json[7:]
+            if clean_json.startswith("```"): clean_json = clean_json[3:]
+            if clean_json.endswith("```"): clean_json = clean_json[:-3]
+            clean_json = clean_json.strip()
+            
+            parsed = json.loads(clean_json)
+            print(f"Successfully generated story using: {model_name}")
+            return parsed
+
+        except Exception as e:
+            print(f"Model {model_name} failed: {e}. Trying next model...")
+
+    # Fallback if both LLMs fail
+    is_success = roll_result >= 10 if roll_result > 0 else True
+    dmg = random.randint(8, 16) if not is_success else 0
+    return {
+        "chapter": current_scene.get("chapter", "Chapter 1: The Dark Corridor"),
+        "location": "Subterranean Vault - Floor 1",
+        "title": "Echoing Stone Chambers",
+        "node_type": "exploration",
+        "outcome_summary": f"D20 Roll ({roll_result}): {'Aksi Paduka berhasil mengatasi rintangan!' if is_success else 'Paduka tergores pecahan batu tajam dan menerima damage!'}",
+        "narrative": "Tetesan air dingin menggema di lorong batu obsidian. Bau lumut purba menyelimuti udara. Di hadapan Paduka, sebuah pintu batu berukir lambang kerajaan kuno memancarkan pendar cahaya keemasan redup.",
+        "audio_theme": "dungeon",
+        "hp_change": -dmg,
+        "mp_change": 0,
+        "gold_change": 0,
+        "choices": [
+            {"id": "A", "text": "Force open the reinforced stone gate (STR Check - DC 11)", "type": "roll", "stat": "STR", "dc": 11},
+            {"id": "B", "text": "Examine the glowing lock mechanism (INT / Arcana Check - DC 10)", "type": "roll", "stat": "INT", "dc": 10},
+            {"id": "C", "text": "Search for a concealed bypass passage (Perception / WIS Check - DC 9)", "type": "roll", "stat": "WIS", "dc": 9},
+            {"id": "D", "text": "Consume dry rations & rest to restore Health (Action)", "type": "action"}
+        ]
+    }
 
 async def process_live_turn(choice_id: str, choice_text: str = "", custom_text: str = "", roll_val: int = 0) -> Dict[str, Any]:
     global game_state
