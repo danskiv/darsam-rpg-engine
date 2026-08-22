@@ -573,7 +573,25 @@
 
         function connect() {
             socket = new WebSocket(wsUrl);
-            socket.onopen = () => console.log("Controller WebSocket Connected!");
+            socket.onopen = () => {
+                console.log("Controller WebSocket Connected!");
+                fetch('/api/state').then(r => r.json()).then(data => {
+                    if (data) {
+                        currentGameState = data;
+                        if (!data.status || data.status === 'character_creation') {
+                            document.getElementById('m-creation-view').classList.remove('hidden');
+                            document.getElementById('m-creation-view').classList.add('flex');
+                            document.getElementById('m-gameplay-view').classList.add('hidden');
+                        } else {
+                            document.getElementById('m-creation-view').classList.add('hidden');
+                            document.getElementById('m-creation-view').classList.remove('flex');
+                            document.getElementById('m-gameplay-view').classList.remove('hidden');
+                            updateGameplayUI(data);
+                            updateStatsViewUI(data);
+                        }
+                    }
+                }).catch(e => console.log(e));
+            };
             socket.onmessage = (event) => {
                 const data = JSON.parse(event.data);
                 handleMessage(data);
@@ -583,6 +601,19 @@
                 setTimeout(connect, 2000);
             };
         }
+
+        // Auto load initial state on page load
+        document.addEventListener("DOMContentLoaded", () => {
+            fetch('/api/state').then(r => r.json()).then(data => {
+                if (data && data.status === 'playing') {
+                    document.getElementById('m-creation-view').classList.add('hidden');
+                    document.getElementById('m-creation-view').classList.remove('flex');
+                    document.getElementById('m-gameplay-view').classList.remove('hidden');
+                    updateGameplayUI(data);
+                    updateStatsViewUI(data);
+                }
+            }).catch(e => console.log(e));
+        });
 
         function switchTab(tab) {
             currentTab = tab;
@@ -689,40 +720,52 @@
         }
 
         function updateGameplayUI(state) {
-            const p = state.player;
-            const s = state.scene;
+            console.log("updateGameplayUI called with state:", state);
+            const p = state.player || {};
+            const s = state.scene || {};
 
-            document.getElementById('m-char-name').innerText = p.name;
-            document.getElementById('m-char-icon').innerText = p.class_icon || '🌾';
-            document.getElementById('m-char-level').innerText = `${p.class_name} • Lv.${p.level || 1}`;
+            const elName = document.getElementById('m-char-name');
+            if (elName) elName.innerText = p.name || 'Danas';
+            const elIcon = document.getElementById('m-char-icon');
+            if (elIcon) elIcon.innerText = p.class_icon || '🌾';
+            const elLevel = document.getElementById('m-char-level');
+            if (elLevel) elLevel.innerText = `${p.class_name || 'Peasant'} • Lv.${p.level || 1}`;
 
-            // Class Tier Badge in Controller Header
             const tier = p.class_tier || "common";
             const badge = document.getElementById('m-char-tier-badge');
-            badge.innerText = tier.toUpperCase();
+            if (badge) badge.innerText = tier.toUpperCase();
             
             const headerCard = document.getElementById('c-header-card');
-            headerCard.className = `bg-zinc-900/95 border-2 p-3 rounded-2xl shadow-xl space-y-2.5 transition-all tier-${tier}`;
+            if (headerCard) headerCard.className = `bg-zinc-900/95 border-2 p-3 rounded-2xl shadow-xl space-y-2.5 transition-all tier-${tier}`;
 
-            document.getElementById('m-hp').innerText = `${p.hp}/${p.max_hp}`;
-            document.getElementById('m-mp').innerText = `${p.mp}/${p.max_mp}`;
-            document.getElementById('m-gold').innerText = p.gold;
+            const elHp = document.getElementById('m-hp');
+            if (elHp) elHp.innerText = `${p.hp || 100}/${p.max_hp || 100}`;
+            const elMp = document.getElementById('m-mp');
+            if (elMp) elMp.innerText = `${p.mp || 10}/${p.max_mp || 10}`;
+            const elGold = document.getElementById('m-gold');
+            if (elGold) elGold.innerText = p.gold || 0;
 
-            document.getElementById('m-chapter').innerText = s.chapter || 'Chapter 1';
-            document.getElementById('m-location').innerText = `📍 ${s.location}`;
-            document.getElementById('m-title').innerText = s.title;
-            document.getElementById('m-narrative').innerText = s.narrative;
+            const elChap = document.getElementById('m-chapter');
+            if (elChap) elChap.innerText = s.chapter || 'Chapter 1';
+            const elLoc = document.getElementById('m-location');
+            if (elLoc) elLoc.innerText = `📍 ${s.location || 'Subterranean Ruins'}`;
+            const elTitle = document.getElementById('m-title');
+            if (elTitle) elTitle.innerText = s.title || 'Dungeon Chamber';
+            const elNarr = document.getElementById('m-narrative');
+            if (elNarr) elNarr.innerText = s.narrative || '';
 
             // Secret Job Awakening Offer Banner
             const awkBanner = document.getElementById('m-awakening-banner');
-            if (state.pending_awakening) {
-                const awk = state.pending_awakening;
-                awkBanner.classList.remove('hidden');
-                document.getElementById('awk-tier-badge').innerText = (awk.tier || "SPECIAL").toUpperCase();
-                document.getElementById('awk-title').innerText = `${awk.icon} ${awk.title}`;
-                document.getElementById('awk-desc').innerText = awk.desc || "Takdir mistis memanggilmu...";
-            } else {
-                awkBanner.classList.add('hidden');
+            if (awkBanner) {
+                if (state.pending_awakening) {
+                    const awk = state.pending_awakening;
+                    awkBanner.classList.remove('hidden');
+                    document.getElementById('awk-tier-badge').innerText = (awk.tier || "SPECIAL").toUpperCase();
+                    document.getElementById('awk-title').innerText = `${awk.icon} ${awk.title}`;
+                    document.getElementById('awk-desc').innerText = awk.desc || "Takdir mistis memanggilmu...";
+                } else {
+                    awkBanner.classList.add('hidden');
+                }
             }
 
             // Monster Card in Controller & Combat Skill Bar
@@ -731,46 +774,49 @@
             const skillBar = document.getElementById('m-combat-skill-bar');
             
             if (m && m.status === "active") {
-                mSection.classList.remove('hidden');
+                if (mSection) mSection.classList.remove('hidden');
                 document.getElementById('c-monster-name').innerText = m.name;
                 document.getElementById('c-monster-icon').innerText = m.icon;
                 document.getElementById('c-monster-desc').innerText = m.desc;
-                document.getElementById('c-monster-tier').innerText = m.tier.toUpperCase();
+                document.getElementById('c-monster-tier').innerText = (m.tier || 'common').toUpperCase();
                 document.getElementById('c-monster-hp-text').innerText = `${m.hp}/${m.max_hp}`;
                 document.getElementById('c-monster-hp-bar').style.width = `${Math.min(100, Math.max(0, (m.hp / m.max_hp) * 100))}%`;
                 document.getElementById('c-monster-atk').innerText = m.attack;
 
-                // Render Active Skills directly in Story Tab during battle
-                skillBar.classList.remove('hidden');
+                if (skillBar) skillBar.classList.remove('hidden');
                 renderCombatSkills(p);
             } else {
-                mSection.classList.add('hidden');
-                skillBar.classList.add('hidden');
+                if (mSection) mSection.classList.add('hidden');
+                if (skillBar) skillBar.classList.add('hidden');
             }
 
+            // RENDER CHOICES
             const container = document.getElementById('m-choices-list');
-            container.innerHTML = '';
+            if (container) {
+                container.innerHTML = '';
+                const choices = (s && s.choices && Array.isArray(s.choices) && s.choices.length > 0) ? s.choices : [
+                    {"id": "A", "text": "Inspect the stone wall & search for weak structural points (Perception / WIS Check - DC 10)", "type": "roll", "dc": 10, "stat": "WIS"},
+                    {"id": "B", "text": "Use tools to clear heavy rubble and force a breach (Athletics / STR Check - DC 12)", "type": "roll", "dc": 12, "stat": "STR"},
+                    {"id": "C", "text": "Light a pine pitch torch and stealthily navigate the corridor (Stealth / DEX Check - DC 9)", "type": "roll", "dc": 9, "stat": "DEX"},
+                    {"id": "D", "text": "Take a short rest, catch breath, and inspect 40-slot backpack (Action)", "type": "action"}
+                ];
 
-            const choices = (s && s.choices) ? s.choices : [];
-            choices.forEach(c => {
-                const btn = document.createElement('button');
-                btn.className = "choice-btn w-full text-left p-3.5 rounded-2xl bg-zinc-950 border border-zinc-800 hover:border-amber-500/80 flex items-center space-x-3.5 transition-all active:scale-[0.98] shadow-md group";
-                btn.onclick = () => selectChoice(c);
-                
-                const isRoll = c.type === 'roll';
-                const badgeColor = isRoll ? 'bg-amber-500/20 border-amber-500/50 text-amber-300 group-hover:bg-amber-500 group-hover:text-black' : 'bg-blue-500/20 border-blue-500/50 text-blue-300 group-hover:bg-blue-500 group-hover:text-black';
-                
-                btn.innerHTML = `
-                    <span class="w-8 h-8 rounded-xl ${badgeColor} font-cinzel font-black text-xs flex items-center justify-center border flex-shrink-0 transition-all">${c.id}</span>
-                    <div class="flex-1 min-w-0">
-                        <p class="text-xs lg:text-sm font-semibold text-zinc-100 leading-snug group-hover:text-amber-200 transition-all">${c.text}</p>
-                    </div>
-                `;
-                container.appendChild(btn);
-            });
-
-            if (choices.length === 0) {
-                container.innerHTML = '<p class="text-xs text-zinc-500 text-center py-4 bg-zinc-950 rounded-xl border border-zinc-800">Tidak ada pilihan aksi khusus. Silakan ketik tindakan bebas di bawah.</p>';
+                choices.forEach(c => {
+                    const btn = document.createElement('button');
+                    btn.className = "choice-btn w-full text-left p-3.5 rounded-2xl bg-zinc-950 border border-zinc-800 hover:border-amber-500/80 flex items-center space-x-3.5 transition-all active:scale-[0.98] shadow-md group cursor-pointer";
+                    btn.onclick = () => selectChoice(c);
+                    
+                    const isRoll = c.type === 'roll';
+                    const badgeColor = isRoll ? 'bg-amber-500/20 border-amber-500/50 text-amber-300 group-hover:bg-amber-500 group-hover:text-black' : 'bg-blue-500/20 border-blue-500/50 text-blue-300 group-hover:bg-blue-500 group-hover:text-black';
+                    
+                    btn.innerHTML = `
+                        <span class="w-8 h-8 rounded-xl ${badgeColor} font-cinzel font-black text-xs flex items-center justify-center border flex-shrink-0 transition-all">${c.id}</span>
+                        <div class="flex-1 min-w-0">
+                            <p class="text-xs lg:text-sm font-semibold text-zinc-100 leading-snug group-hover:text-amber-200 transition-all">${c.text}</p>
+                        </div>
+                    `;
+                    container.appendChild(btn);
+                });
             }
         }
 

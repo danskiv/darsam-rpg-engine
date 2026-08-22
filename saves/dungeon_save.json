@@ -1,9 +1,9 @@
 {
   "status": "playing",
   "floor": 1,
-  "step": 2,
-  "active_sound_theme": "danger",
-  "torch_turns": 11,
+  "step": 1,
+  "active_sound_theme": "dungeon",
+  "torch_turns": 12,
   "rations": 3,
   "story_history": [],
   "player": {
@@ -185,64 +185,48 @@
     "status_effects": []
   },
   "current_node": {
-    "type": "combat",
+    "type": "exploration",
     "title": "Collapse into the Forgotten Crypt",
     "location": "Subterranean Vault - Floor 1",
     "chapter": "Chapter 1: The Descent"
   },
-  "monster": {
-    "name": "Restless Skeleton Grunt (Lv.1)",
-    "title": "Restless Skeleton Grunt",
-    "icon": "\ud83d\udc80",
-    "desc": "Decayed Bone Warrior",
-    "level": 1,
-    "tier": "common",
-    "hp": 26,
-    "max_hp": 26,
-    "attack": 6,
-    "exp_reward": 15,
-    "gold_reward": 10,
-    "status": "active"
-  },
+  "monster": null,
   "pending_awakening": null,
   "scene": {
     "chapter": "Chapter 1: The Descent",
-    "title": "Stirring in the Shadows",
-    "location": "Subterranean Vault - Floor 1: Forgotten Crypt",
-    "narrative": "Alih-alih menemukan celah keluar, ketukan cangkul Paduka justru meruntuhkan tumpukan tulang belulang tua yang menimbulkan dentang berisik tak berkesudahan. Dari celah sarkofagus yang membeku di ujung lorong, sepasang mata merah menyala menatap lapar\u2014seekor Crypt Rat berukuran sebesar anjing pemburu merayap keluar dengan taring berlumur racun busuk. Suara decitan tajamnya menggema di dinding basah, menandakan dimulainya pertarungan pertama demi kelangsungan hidup di liang kubur ini.",
+    "title": "Collapse into the Forgotten Crypt",
+    "location": "Subterranean Vault - Floor 1",
+    "narrative": "Sang Hardy Peasant, Danas, hanyalah warga biasa yang hidup sederhana di desa. Namun takdir berkata lain: saat sedang mencari kayu di lereng bukit berkabut, tanah di bawah kaki amblas runtuh seketika! Paduka terperosok jatuh ke dalam rongga makam kuno bawah tanah. Lubang keluar di atas tertutup reruntuhan batu besar. Satu-satunya jalan bertahan hidup adalah menembus lorong batu berlumut yang dingin dan gelap di depan mata.",
     "choices": [
       {
         "id": "A",
-        "text": "Ayunkan cangkul sekuat tenaga menghantam kepala monster (STR Check - DC 11)",
+        "text": "Inspect the stone wall & search for weak structural points (Perception / WIS Check - DC 10)",
         "type": "roll",
-        "stat": "STR",
-        "dc": 11
+        "dc": 10,
+        "stat": "WIS"
       },
       {
         "id": "B",
-        "text": "Menghindar ke samping lalu menusuk titik lemahnya (DEX Check - DC 11)",
+        "text": "Use tools to clear heavy rubble and force a breach (Athletics / STR Check - DC 12)",
         "type": "roll",
-        "stat": "DEX",
-        "dc": 11
+        "dc": 12,
+        "stat": "STR"
       },
       {
         "id": "C",
-        "text": "Analisis pola gerak dan ancaman serangan racunnya (WIS Check - DC 10)",
+        "text": "Light a pine pitch torch and stealthily navigate the corridor (Stealth / DEX Check - DC 9)",
         "type": "roll",
-        "stat": "WIS",
-        "dc": 10
+        "dc": 9,
+        "stat": "DEX"
       },
       {
         "id": "D",
-        "text": "Pasang kuda-kuda bertahan kokoh di balik gagang cangkul (CON Check - DC 12)",
-        "type": "roll",
-        "stat": "CON",
-        "dc": 12
+        "text": "Take a short rest, catch breath, and inspect 40-slot backpack (Action)",
+        "type": "action"
       }
     ],
     "log": [
-      "Commoner 'Danas' (Hardy Peasant) begins the underground survival journey!",
-      "\ud83c\udfb2 [FAIL] Paduka mengalami Fail pada WIS Check saat meraba dinding batu lapuk, menyebabkan serpihan kapur runtuh dan memicu gema keras di lorong sunyi."
+      "Commoner 'Danas' (Hardy Peasant) begins the underground survival journey!"
     ]
   }
 }
