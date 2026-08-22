@@ -643,12 +643,36 @@ manager = ConnectionManager()
 
 def compute_total_stats(player: Dict[str, Any]) -> Dict[str, int]:
     base = dict(player["stats"])
+    
+    # Calculate Total Attributes (Base + Gear Bonuses)
+    eq = player.get("equipped", {})
+    for slot, item in eq.items():
+        if item and "bonus" in item:
+            for k, v in item["bonus"].items():
+                if k in base:
+                    base[k] = base[k] + v
+
     base["atk"] = base["str"] // 2
     base["def"] = base["con"] // 3
     base["crit"] = 5
     base["dodge"] = base["dex"] // 3
     
-    eq = player.get("equipped", {})
+    # Gear HP and MP bonuses
+    extra_hp = 0
+    extra_mp = 0
+    for slot, item in eq.items():
+        if item and "bonus" in item:
+            if "hp" in item["bonus"]: extra_hp += item["bonus"]["hp"]
+            if "mp" in item["bonus"]: extra_mp += item["bonus"]["mp"]
+            if "atk" in item["bonus"]: base["atk"] += item["bonus"]["atk"]
+            if "def" in item["bonus"]: base["def"] += item["bonus"]["def"]
+            if "crit" in item["bonus"]: base["crit"] += item["bonus"]["crit"]
+            if "dodge" in item["bonus"]: base["dodge"] += item["bonus"]["dodge"]
+
+    base["effective_max_hp"] = player["max_hp"] + extra_hp
+    base["effective_max_mp"] = player["max_mp"] + extra_mp
+
+    # Dual Wielding
     m_hand = eq.get("main_hand")
     o_hand = eq.get("off_hand")
     if m_hand and o_hand and m_hand.get("handedness") == "versatile" and o_hand.get("handedness") == "versatile":
@@ -658,10 +682,6 @@ def compute_total_stats(player: Dict[str, Any]) -> Dict[str, int]:
     else:
         base["dual_wield"] = False
 
-    for slot, item in eq.items():
-        if item and "bonus" in item:
-            for k, v in item["bonus"].items():
-                base[k] = base.get(k, 0) + v
     return base
 
 def add_item_to_inventory(inventory: List[Optional[Dict[str, Any]]], new_item: Dict[str, Any]) -> bool:

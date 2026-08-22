@@ -759,11 +759,24 @@
             const header = document.getElementById('tv-header');
             header.className = `flex justify-between items-center bg-zinc-900/95 border-2 p-2.5 rounded-2xl shadow-xl flex-shrink-0 transition-all tier-${tier}`;
 
-            document.getElementById('hp-text').innerText = `${p.hp}/${p.max_hp}`;
-            document.getElementById('hp-bar').style.width = `${Math.min(100, Math.max(0, (p.hp / p.max_hp) * 100))}%`;
+            // Calculate Effective Max HP & MP with Equipment Bonuses
+            let extraHp = 0;
+            let extraMp = 0;
+            const eqTv = p.equipped || {};
+            for (const [slot, item] of Object.entries(eqTv)) {
+                if (item && item.bonus) {
+                    if (item.bonus.hp) extraHp += item.bonus.hp;
+                    if (item.bonus.mp) extraMp += item.bonus.mp;
+                }
+            }
+            const tvEffectiveMaxHp = (p.max_hp || 100) + extraHp;
+            const tvEffectiveMaxMp = (p.max_mp || 10) + extraMp;
+
+            document.getElementById('hp-text').innerText = `${p.hp}/${tvEffectiveMaxHp}`;
+            document.getElementById('hp-bar').style.width = `${Math.min(100, Math.max(0, (p.hp / tvEffectiveMaxHp) * 100))}%`;
             
-            document.getElementById('mp-text').innerText = `${p.mp}/${p.max_mp}`;
-            document.getElementById('mp-bar').style.width = `${Math.min(100, Math.max(0, (p.mp / p.max_mp) * 100))}%`;
+            document.getElementById('mp-text').innerText = `${p.mp}/${tvEffectiveMaxMp}`;
+            document.getElementById('mp-bar').style.width = `${Math.min(100, Math.max(0, (p.mp / tvEffectiveMaxMp) * 100))}%`;
             
             // EXP Progress
             const expNext = p.exp_next || 75;

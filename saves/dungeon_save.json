@@ -1,9 +1,9 @@
 {
   "status": "playing",
   "floor": 1,
-  "step": 23,
-  "active_sound_theme": "danger",
-  "selected_model": "ag/gemini-3.7-flash-low",
+  "step": 81,
+  "active_sound_theme": "dungeon",
+  "selected_model": "openrouter/stealth/ox-alpha",
   "torch_turns": 0,
   "rations": 3,
   "story_history": [],
@@ -13,21 +13,21 @@
     "class_name": "Blood-Pact Zealot",
     "class_icon": "\ud83e\ude78",
     "class_tier": "special",
-    "level": 3,
-    "exp": 133,
-    "exp_next": 434,
-    "hp": 117,
-    "max_hp": 145,
-    "mp": 31,
-    "max_mp": 31,
-    "gold": 133,
+    "level": 5,
+    "exp": 525,
+    "exp_next": 984,
+    "hp": 159,
+    "max_hp": 175,
+    "mp": 9,
+    "max_mp": 47,
+    "gold": 502,
     "stats": {
-      "str": 19,
-      "dex": 10,
-      "con": 19,
-      "int": 8,
-      "wis": 12,
-      "cha": 8
+      "str": 24,
+      "dex": 16,
+      "con": 23,
+      "int": 13,
+      "wis": 15,
+      "cha": 10
     },
     "equipped": {
       "head": {
@@ -45,31 +45,32 @@
         "val": 6
       },
       "armor": {
-        "id": "a_linen",
-        "name": "Homespun Tunic",
-        "item_level": 1,
+        "id": "item_81345",
+        "name": "Padded Leather Cuirass",
+        "item_level": 3,
         "rarity": "common",
         "type": "armor",
         "slot": "armor",
-        "icon": "\ud83d\udc55",
+        "icon": "\ud83e\uddba",
         "bonus": {
-          "hp": 5,
-          "def": 1
+          "def": 5,
+          "hp": 39
         },
-        "val": 2
+        "val": 15
       },
       "feet": {
-        "id": "f_sandals",
-        "name": "Woven Straw Sandals",
-        "item_level": 1,
-        "rarity": "common",
+        "id": "item_81421",
+        "name": "Sturdy Work Boots",
+        "item_level": 4,
+        "rarity": "uncommon",
         "type": "feet",
         "slot": "feet",
-        "icon": "\ud83d\udc61",
+        "icon": "\ud83d\udc62",
         "bonus": {
+          "def": 7,
           "dodge": 2
         },
-        "val": 2
+        "val": 26
       },
       "accessory": null,
       "main_hand": {
@@ -88,19 +89,18 @@
         "val": 3
       },
       "off_hand": {
-        "id": "item_18067",
+        "id": "item_22608",
         "name": "Acolyte Prayer Beads",
-        "item_level": 3,
-        "rarity": "uncommon",
+        "item_level": 4,
+        "rarity": "rare",
         "type": "offhand",
         "slot": "off_hand",
         "icon": "\ud83d\udcff",
         "bonus": {
-          "mp": 42,
-          "wis": 2,
-          "dex": 3
+          "mp": 70,
+          "wis": 5
         },
-        "val": 19,
+        "val": 36,
         "handedness": "off_hand_only"
       }
     },
@@ -112,7 +112,7 @@
         "rarity": "common",
         "type": "consumable",
         "icon": "\ud83c\udf5e",
-        "qty": 3,
+        "qty": 2,
         "effect": "heal_hp_25",
         "desc": "Restores 25 HP",
         "val": 2
@@ -141,18 +141,17 @@
         "val": 2
       },
       {
-        "id": "item_65322",
-        "name": "Silent Stalker Moccasins",
-        "item_level": 3,
-        "rarity": "uncommon",
+        "id": "f_sandals",
+        "name": "Woven Straw Sandals",
+        "item_level": 1,
+        "rarity": "common",
         "type": "feet",
         "slot": "feet",
-        "icon": "\ud83d\udc5f",
+        "icon": "\ud83d\udc61",
         "bonus": {
-          "dodge": 6,
-          "dex": 2
+          "dodge": 2
         },
-        "val": 19
+        "val": 2
       },
       {
         "id": "h_straw",
@@ -195,17 +194,143 @@
         "val": 9
       },
       null,
+      {
+        "id": "cons_82839",
+        "name": "Blessed Holy Water",
+        "item_level": 3,
+        "rarity": "common",
+        "type": "consumable",
+        "icon": "\ud83c\udffa",
+        "qty": 1,
+        "effect": "cure_curse_heal_30",
+        "desc": "Cleanses Curse & heals 30 HP",
+        "val": 9
+      },
+      {
+        "id": "cons_76316",
+        "name": "Sterile Cloth Bandage",
+        "item_level": 3,
+        "rarity": "common",
+        "type": "consumable",
+        "icon": "\ud83e\ude79",
+        "qty": 2,
+        "effect": "cure_bleed_heal_20",
+        "desc": "Stops Bleeding & heals 20 HP",
+        "val": 9
+      },
+      {
+        "id": "item_36712",
+        "name": "Sturdy Work Boots",
+        "item_level": 4,
+        "rarity": "common",
+        "type": "feet",
+        "slot": "feet",
+        "icon": "\ud83d\udc62",
+        "bonus": {
+          "def": 5,
+          "dodge": 2
+        },
+        "val": 20
+      },
+      {
+        "id": "item_65322",
+        "name": "Silent Stalker Moccasins",
+        "item_level": 3,
+        "rarity": "uncommon",
+        "type": "feet",
+        "slot": "feet",
+        "icon": "\ud83d\udc5f",
+        "bonus": {
+          "dodge": 6,
+          "dex": 2
+        },
+        "val": 19
+      },
+      {
+        "id": "item_18067",
+        "name": "Acolyte Prayer Beads",
+        "item_level": 3,
+        "rarity": "uncommon",
+        "type": "offhand",
+        "slot": "off_hand",
+        "icon": "\ud83d\udcff",
+        "bonus": {
+          "mp": 42,
+          "wis": 2,
+          "dex": 3
+        },
+        "val": 19,
+        "handedness": "off_hand_only"
+      },
+      {
+        "id": "cons_13004",
+        "name": "Aether Mana Flask",
+        "item_level": 4,
+        "rarity": "common",
+        "type": "consumable",
+        "icon": "\u2728",
+        "qty": 1,
+        "effect": "heal_mp_80",
+        "desc": "Restores 80 MP",
+        "val": 12
+      },
+      {
+        "id": "a_linen",
+        "name": "Homespun Tunic",
+        "item_level": 1,
+        "rarity": "common",
+        "type": "armor",
+        "slot": "armor",
+        "icon": "\ud83d\udc55",
+        "bonus": {
+          "hp": 5,
+          "def": 1
+        },
+        "val": 2
+      },
+      {
+        "id": "cons_14416",
+        "name": "Aether Mana Flask",
+        "item_level": 5,
+        "rarity": "uncommon",
+        "type": "consumable",
+        "icon": "\u2728",
+        "qty": 1,
+        "effect": "heal_mp_95",
+        "desc": "Restores 95 MP",
+        "val": 15
+      },
       null,
-      null,
-      null,
-      null,
-      null,
-      null,
-      null,
-      null,
-      null,
-      null,
-      null,
+      {
+        "id": "item_26794",
+        "name": "Hunting Warbow",
+        "item_level": 5,
+        "rarity": "uncommon",
+        "type": "weapon",
+        "slot": "main_hand",
+        "icon": "\ud83c\udff9",
+        "bonus": {
+          "atk": 22,
+          "dex": 3
+        },
+        "val": 32,
+        "handedness": "two_handed"
+      },
+      {
+        "id": "item_99018",
+        "name": "Zweihander Greatsword",
+        "item_level": 5,
+        "rarity": "common",
+        "type": "weapon",
+        "slot": "main_hand",
+        "icon": "\ud83d\udde1\ufe0f",
+        "bonus": {
+          "atk": 19,
+          "str": 3
+        },
+        "val": 25,
+        "handedness": "two_handed"
+      },
       null,
       null,
       null,
@@ -245,17 +370,41 @@
         "dmg_type": "damage",
         "est_val": "45-60 Blood DMG",
         "desc": "Mengorbankan 10 HP untuk menebas monster dengan 45-60 damage brutal."
+      },
+      {
+        "id": "sk_time_dilation",
+        "name": "Chrono-Stasis Surge",
+        "cost_mp": 15,
+        "dmg_type": "damage",
+        "est_val": "60-80 Time DMG",
+        "desc": "Menghentikan waktu selama 1 turn dan menghancurkan musuh dalam gelombang temporal."
+      },
+      {
+        "id": "sk_fatal_strike",
+        "name": "Eclipse Decapitation",
+        "cost_mp": 18,
+        "dmg_type": "damage",
+        "est_val": "75-100 Fatal DMG",
+        "desc": "Tebasan bayangan gerhana yang memberikan garansi Critical Hit dan luka pendarahan masif."
+      },
+      {
+        "id": "sk_reaper",
+        "name": "Reaper's Harvest Sweep",
+        "cost_mp": 10,
+        "cd": 2,
+        "dmg_type": "damage",
+        "est_val": "35-48 Area DMG",
+        "desc": "Ayunan sabit luas yang menebas musuh dengan kekuatan penuh (35-48 DMG)."
       }
     ],
     "active_skills": [
       {
-        "id": "sk_adrenaline",
-        "name": "Adrenaline Surge",
-        "cost_mp": 5,
-        "cd": 3,
-        "dmg_type": "heal",
-        "est_val": "+25 HP & +2 STR",
-        "desc": "Memulihkan 25 HP seketika & memberi bonus +2 STR selama 2 turn."
+        "id": "sk_time_dilation",
+        "name": "Chrono-Stasis Surge",
+        "cost_mp": 15,
+        "dmg_type": "damage",
+        "est_val": "60-80 Time DMG",
+        "desc": "Menghentikan waktu selama 1 turn dan menghancurkan musuh dalam gelombang temporal."
       },
       {
         "id": "sk_blood_strike",
@@ -264,6 +413,14 @@
         "dmg_type": "damage",
         "est_val": "45-60 Blood DMG",
         "desc": "Mengorbankan 10 HP untuk menebas monster dengan 45-60 damage brutal."
+      },
+      {
+        "id": "sk_fatal_strike",
+        "name": "Eclipse Decapitation",
+        "cost_mp": 18,
+        "dmg_type": "damage",
+        "est_val": "75-100 Fatal DMG",
+        "desc": "Tebasan bayangan gerhana yang memberikan garansi Critical Hit dan luka pendarahan masif."
       }
     ],
     "status_effects": [
@@ -271,7 +428,7 @@
     ]
   },
   "current_node": {
-    "type": "combat",
+    "type": "exploration",
     "title": "Collapse into the Forgotten Crypt",
     "location": "Subterranean Vault - Floor 1",
     "chapter": "Chapter 1: The Descent"
@@ -280,42 +437,42 @@
   "pending_awakening": null,
   "scene": {
     "chapter": "Chapter 1: The Descent",
-    "title": "Silencing the Prey",
-    "location": "Damp Ossuary - Narrow Crevice",
-    "narrative": "Langkah kaki Danas yang terbungkus Silent Stalker Moccasins nyaris tak menimbulkan suara saat memotong jalan kabur sang goblin di mulut terowongan sempit. Makhluk kerdil itu terperanjat, matanya membelalak ketakutan saat melihat sosok Danas yang menjulang kokoh menghalangi celah keluar. Dari kedalaman lorong di belakang goblin, sayup-sayup terdengar derap langkah kaki lain yang mulai terpancing oleh jeritan awalnya. Sisa-sisa efek Blind kini telah sirna sepenuhnya, menyisakan hawa dingin katakombe dan aroma anyir darah segar yang memacu detak jantung Danas.",
+    "title": "Pecahnya Hening yang Mematikan",
+    "location": "Sunken Sepulcher - Koridor Tulang Belulang",
+    "narrative": "Dengan tenaga penuh berlandaskan naluri murni di tengah kegelapan kebutaannya, Danas menghantamkan senjatanya tepat ke batok kepala Ravenous Cave Rat yang tak berkutik. Suara retakan tulang beradu dengan daging busuk bergema parau saat makhluk itu terpelanting kaku ke dinding batu kapur yang lembap, menumpahkan cairan hitam pekat ke lantai makam. Denyut waktu kembali berdetak normal, menyisakan keheningan mencekam yang hanya diselingi tetesan air dari celah langit-langit rendah. Dari kejauhan lorong yang dipenuhi tumpukan kerangka rapuh, Danas menangkap hembusan angin dingin berbau belerang serta derak aneh mekanisme kuno yang baru saja terpicu.",
     "choices": [
       {
         "id": "A",
-        "text": "Ayunkan Rusty Farming Hoe untuk mengeksekusi goblin seketika sebelum bantuan tiba (STR Check - DC 10)",
+        "text": "Raba dinding batu dan bersihkan sisa reruntuhan untuk mencari celah aman (STR Check - DC 11)",
         "type": "roll",
         "stat": "STR",
-        "dc": 10
-      },
-      {
-        "id": "B",
-        "text": "Bungkam mulutnya dan seret tubuhnya ke balik bayang-bayang pilar (DEX Check - DC 11)",
-        "type": "roll",
-        "stat": "DEX",
         "dc": 11
       },
       {
+        "id": "B",
+        "text": "Melangkah perlahan dalam gelap melintasi lorong bertulang tanpa memicu jebakan (DEX Check - DC 10)",
+        "type": "roll",
+        "stat": "DEX",
+        "dc": 10
+      },
+      {
         "id": "C",
-        "text": "Salurkan energi kutukan melalui Acolyte Prayer Beads untuk mengintimidasi dan mengorek informasi (WIS Check - DC 9)",
+        "text": "Dengarkan gaung angin dan analisis struktur mekanisme kuno yang berdengung (WIS Check - DC 10)",
         "type": "roll",
         "stat": "WIS",
-        "dc": 9
+        "dc": 10
       },
       {
         "id": "D",
-        "text": "Tendang tumpukan tengkorak ke dalam celah terowongan untuk membarikade bala bantuan (Action)",
+        "text": "Duduk bersandar di dinding makam sejenak untuk menenangkan indra yang terganggu (Short Rest)",
         "type": "action"
       }
     ],
     "log": [
-      "\ud83c\udfb2 [SUCCESS \u2022 D20: 10+4=14 vs DC 9] Danas berhasil menahan taring monster dengan CON Check sukses, mengabaikan rasa sakit saat racun tertahan oleh daya tahan tubuh liatnya. (+40 EXP) \ud83d\udc8e LOOT DROP: [UNCOMMON] Acolyte Prayer Beads!",
-      "\ud83c\udfb2 [Direct Action \u2022 Action] Danas melancarkan dorongan fisik penuh tenaga menggunakan berat badannya untuk menghempaskan lawan, berhasil menciptakan ruang aman dari cengkeraman taring buas.",
-      "\ud83c\udfb2 [SUCCESS \u2022 D20: 19+4=23 vs DC 11] STR Check berhasil dengan gemilang (Natural 20 / Total 23); hantaman Rusty Farming Hoe milik Danas menghasilkan Critical Hit telak yang meremukkan tulang rusuk musuh. (+15 EXP)",
-      "\ud83c\udfb2 [SUCCESS \u2022 D20: 14+0=14 vs DC 11] DEX Check berhasil (Roll: 14 vs DC 11). Danas meluncur gesit di atas serpihan tulang, memotong jalur kabur lawan sebelum lolongannya mengundang petaka. (+65 EXP) \ud83d\udc8e LOOT DROP: [COMMON] Universal Antidote Draught!"
+      "\ud83c\udfb2 [SUCCESS \u2022 D20: 17+7=24 vs DC 10] Chrono-Stasis Surge berhasil membekukan ruang-waktu sesaat, menghancurkan Restless Skeleton Grunt menjadi hujan serpihan tulang (Critical Success). Namun jurus tersebut menguras 9 MP, dan Crypt Stalker kini menjadi ancaman aktif di dalam kegelapan. (+115 EXP) \ud83d\udc8e LOOT DROP: [COMMON] Zweihander Greatsword!",
+      "\ud83c\udfb2 [FAIL \u2022 D20: 3+2=5 vs DC 9] WIS Check FAIL (roll 5 vs DC 9): Danas tenggelam terlalu dalam ke dalam denyut Blood-Pact dan kehilangan fokus pada dunia nyata. Crypt Stalker memanfaatkan celah itu\u2014cakarnya mengoyak bahu Danas sebelum ia sempat mundur. (-9 HP)",
+      "\ud83c\udfb2 [SUCCESS \u2022 D20: 8+7=15 vs DC 10] Chrono-Stasis Surge berhasil diaktifkan dengan Success; waktu di sekitar Ravenous Cave Rat membeku sesaat sementara daya magis Danas terkuras. (+15 EXP)",
+      "\ud83c\udfb2 [SUCCESS \u2022 D20: 19+7=26 vs DC 10] STR Check berhasil gemilang; hantaman telak Danas menghancurkan tengkorak monster seketika dan mengakhiri ancaman selagi efek stasis memudar. (+115 EXP) \ud83d\udc8e LOOT DROP: [UNCOMMON] Sterile Cloth Bandage!"
     ]
   }
 }

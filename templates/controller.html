@@ -880,10 +880,22 @@
                 selModel.value = state.selected_model;
             }
 
+            // Calculate Effective Max HP & MP with Equipment Bonuses
+            let extraHp = 0;
+            let extraMp = 0;
+            for (const [slot, item] of Object.entries(eq)) {
+                if (item && item.bonus) {
+                    if (item.bonus.hp) extraHp += item.bonus.hp;
+                    if (item.bonus.mp) extraMp += item.bonus.mp;
+                }
+            }
+            const effectiveMaxHp = (p.max_hp || 100) + extraHp;
+            const effectiveMaxMp = (p.max_mp || 10) + extraMp;
+
             const elHp = document.getElementById('m-hp');
-            if (elHp) elHp.innerText = `${p.hp || 100}/${p.max_hp || 100}`;
+            if (elHp) elHp.innerText = `${p.hp || 100}/${effectiveMaxHp}`;
             const elMp = document.getElementById('m-mp');
-            if (elMp) elMp.innerText = `${p.mp || 10}/${p.max_mp || 10}`;
+            if (elMp) elMp.innerText = `${p.mp || 10}/${effectiveMaxMp}`;
             const elGold = document.getElementById('m-gold');
             if (elGold) elGold.innerText = p.gold || 0;
 
@@ -1175,50 +1187,90 @@
             invContainer.innerHTML = '';
             let usedCount = 0;
 
-            const inv = p.inventory || [];
-            inv.forEach((item, idx) => {
+            // Sort Inventory: Equipment First (Ranked by Level DESC then Rarity DESC), then Consumables (by Qty / Level)
+            const rarityOrder = {'legendary': 5, 'epic': 4, 'rare': 3, 'uncommon': 2, 'common': 1};
+            const typeOrder = {'weapon': 1, 'offhand': 2, 'armor': 3, 'head': 4, 'feet': 5, 'accessory': 6, 'consumable': 7, 'material': 8};
+
+            // Collect active items and sort them
+            const sortedItems = [];
+            (p.inventory || []).forEach((item, originalIndex) => {
                 if (item) {
-                    usedCount++;
-                    const row = document.createElement('div');
-                    const rarityColor = `rarity-${item.rarity || 'common'}`;
-                    row.className = `flex items-center justify-between p-3 rounded-2xl bg-zinc-950 border ${rarityColor} text-xs shadow-md`;
-                    
-                    let actionBtn = '';
-                    if (item.type === 'consumable') {
-                        actionBtn = `<button onclick="useItem(${idx})" class="bg-emerald-700 hover:bg-emerald-600 active:bg-emerald-800 text-white text-[10px] font-bold px-3 py-1.5 rounded-xl shadow">USE</button>`;
-                    } else if (['weapon', 'offhand', 'armor', 'head', 'feet', 'accessory'].includes(item.type)) {
-                        actionBtn = `<button onclick="equipItem(${idx})" class="bg-amber-600 hover:bg-amber-500 active:bg-amber-700 text-black text-[10px] font-bold px-3 py-1.5 rounded-xl font-cinzel shadow">EQUIP</button>`;
-                    }
+                    sortedItems.push({ item: item, originalIndex: originalIndex });
+                }
+            });
 
-                    const bonusText = formatBonusText(item.bonus);
-                    const bonusBadge = bonusText ? `<span class="bg-emerald-950/80 border border-emerald-700 text-emerald-300 text-[8px] font-mono font-bold px-1.5 py-0.2 rounded">${bonusText}</span>` : '';
-                    const handBadge = item.handedness ? `<span class="bg-zinc-900 border border-zinc-700 text-zinc-300 text-[7px] font-mono px-1 py-0.2 rounded uppercase">${item.handedness.replace('_', ' ')}</span>` : '';
-                    const lvBadge = `<span class="bg-amber-950/80 border border-amber-700 text-amber-300 text-[8px] font-mono font-bold px-1.5 py-0.2 rounded">Lv.${item.item_level || 1}</span>`;
-                    const qtyBadge = (item.qty && item.qty > 1) ? `<span class="bg-cyan-950 border border-cyan-700 text-cyan-300 text-[8px] font-mono font-black px-1.5 py-0.2 rounded">x${item.qty}</span>` : '';
+            sortedItems.sort((a, b) => {
+                const itemA = a.item;
+                const itemB = b.item;
+                const typeWeightA = typeOrder[itemA.type] || 99;
+                const typeWeightB = typeOrder[itemB.type] || 99;
 
-                    row.innerHTML = `
-                        <div class="flex items-center space-x-2.5 min-w-0 flex-1">
-                            <span class="text-2xl">${item.icon || '📦'}</span>
-                            <div class="min-w-0 flex-1">
-                                <div class="flex items-center space-x-1.5 flex-wrap">
-                                    <p class="font-bold truncate text-zinc-100 text-xs">${item.name}</p>
-                                    ${qtyBadge}
-                                    ${lvBadge}
-                                    <span class="text-[8px] uppercase font-mono font-bold text-zinc-400">(${item.rarity || 'common'})</span>
-                                </div>
-                                <div class="flex items-center space-x-1.5 mt-0.5 flex-wrap gap-1">
-                                    ${bonusBadge}
-                                    ${handBadge}
-                                    <p class="text-[9px] text-zinc-400 truncate">${item.desc || item.type}</p>
-                                </div>
+                // 1. Group by Equipment vs Consumables
+                if (typeWeightA !== typeWeightB) {
+                    return typeWeightA - typeWeightB;
+                }
+
+                // 2. If both are equipment: Sort by Item Level (Highest first)
+                const lvA = itemA.item_level || 1;
+                const lvB = itemB.item_level || 1;
+                if (lvA !== lvB) {
+                    return lvB - lvA;
+                }
+
+                // 3. Then sort by Rarity (Highest first)
+                const rA = rarityOrder[itemA.rarity] || 1;
+                const rB = rarityOrder[itemB.rarity] || 1;
+                if (rA !== rB) {
+                    return rB - rA;
+                }
+
+                // 4. Alphabetical fallback
+                return itemA.name.localeCompare(itemB.name);
+            });
+
+            sortedItems.forEach(entry => {
+                const item = entry.item;
+                const idx = entry.originalIndex;
+                usedCount++;
+                const row = document.createElement('div');
+                const rarityColor = `rarity-${item.rarity || 'common'}`;
+                row.className = `flex items-center justify-between p-3.5 rounded-2xl bg-zinc-950 border ${rarityColor} text-xs shadow-md`;
+                
+                let actionBtn = '';
+                if (item.type === 'consumable') {
+                    actionBtn = `<button onclick="useItem(${idx})" class="bg-emerald-700 hover:bg-emerald-600 active:bg-emerald-800 text-white text-[10px] font-bold px-3.5 py-1.5 rounded-xl shadow">USE</button>`;
+                } else if (['weapon', 'offhand', 'armor', 'head', 'feet', 'accessory'].includes(item.type)) {
+                    actionBtn = `<button onclick="equipItem(${idx})" class="bg-amber-600 hover:bg-amber-500 active:bg-amber-700 text-black text-[10px] font-bold px-3.5 py-1.5 rounded-xl font-cinzel shadow">EQUIP</button>`;
+                }
+
+                const bonusText = formatBonusText(item.bonus);
+                const bonusBadge = bonusText ? `<span class="bg-emerald-950/80 border border-emerald-700 text-emerald-300 text-[8px] font-mono font-bold px-1.5 py-0.2 rounded">${bonusText}</span>` : '';
+                const handBadge = item.handedness ? `<span class="bg-zinc-900 border border-zinc-700 text-zinc-300 text-[7px] font-mono px-1 py-0.2 rounded uppercase">${item.handedness.replace('_', ' ')}</span>` : '';
+                const lvBadge = `<span class="bg-amber-950/80 border border-amber-700 text-amber-300 text-[8px] font-mono font-bold px-1.5 py-0.2 rounded">Lv.${item.item_level || 1}</span>`;
+                const qtyBadge = (item.qty && item.qty > 1) ? `<span class="bg-cyan-950 border border-cyan-700 text-cyan-300 text-[8px] font-mono font-black px-1.5 py-0.2 rounded">x${item.qty}</span>` : '';
+
+                row.innerHTML = `
+                    <div class="flex items-center space-x-2.5 min-w-0 flex-1">
+                        <span class="text-2xl">${item.icon || '📦'}</span>
+                        <div class="min-w-0 flex-1">
+                            <div class="flex items-center space-x-1.5 flex-wrap">
+                                <p class="font-bold truncate text-zinc-100 text-xs">${item.name}</p>
+                                ${qtyBadge}
+                                ${lvBadge}
+                                <span class="text-[8px] uppercase font-mono font-bold text-zinc-400">(${item.rarity || 'common'})</span>
+                            </div>
+                            <div class="flex items-center space-x-1.5 mt-0.5 flex-wrap gap-1">
+                                ${bonusBadge}
+                                ${handBadge}
+                                <p class="text-[9px] text-zinc-400 truncate">${item.desc || item.type}</p>
                             </div>
                         </div>
-                        <div class="ml-2 flex-shrink-0">
-                            ${actionBtn}
-                        </div>
-                    `;
-                    invContainer.appendChild(row);
-                }
+                    </div>
+                    <div class="ml-2 flex-shrink-0">
+                        ${actionBtn}
+                    </div>
+                `;
+                invContainer.appendChild(row);
             });
 
             if (usedCount === 0) {
