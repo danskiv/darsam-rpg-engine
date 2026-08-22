@@ -1,30 +1,30 @@
 {
   "status": "playing",
   "floor": 1,
-  "step": 7,
+  "step": 14,
   "active_sound_theme": "danger",
-  "selected_model": "openrouter/stealth/ox-alpha",
-  "torch_turns": 6,
+  "selected_model": "ag/gemini-3.7-flash-low",
+  "torch_turns": 0,
   "rations": 3,
   "story_history": [],
   "player": {
     "name": "Danas",
     "class_id": "peasant",
-    "class_name": "Shadowveil Ranger",
-    "class_icon": "\ud83c\udff9",
+    "class_name": "Blood-Pact Zealot",
+    "class_icon": "\ud83e\ude78",
     "class_tier": "special",
     "level": 1,
-    "exp": 15,
+    "exp": 30,
     "exp_next": 75,
-    "hp": 101,
+    "hp": 51,
     "max_hp": 115,
-    "mp": 5,
+    "mp": 3,
     "max_mp": 15,
-    "gold": 27,
+    "gold": 34,
     "stats": {
-      "str": 14,
+      "str": 17,
       "dex": 14,
-      "con": 15,
+      "con": 17,
       "int": 8,
       "wis": 14,
       "cha": 8
@@ -82,7 +82,20 @@
         },
         "val": 3
       },
-      "off_hand": null
+      "off_hand": {
+        "name": "Reinforced Oak Buckler",
+        "type": "offhand",
+        "slot": "off_hand",
+        "handedness": "off_hand_only",
+        "icon": "\ud83d\udee1\ufe0f",
+        "bonus": {
+          "def": 2,
+          "con": 1
+        },
+        "val": 5,
+        "id": "item_28106",
+        "rarity": "uncommon"
+      }
     },
     "inventory": [
       {
@@ -189,6 +202,14 @@
         "dmg_type": "damage",
         "est_val": "40-52 Pierce DMG",
         "desc": "Anak panah hantu yang menembus perisai dan armor musuh secara mutlak."
+      },
+      {
+        "id": "sk_blood_strike",
+        "name": "Sanguine Cleave",
+        "cost_mp": 5,
+        "dmg_type": "damage",
+        "est_val": "45-60 Blood DMG",
+        "desc": "Mengorbankan 10 HP untuk menebas monster dengan 45-60 damage brutal."
       }
     ],
     "active_skills": [
@@ -208,28 +229,7 @@
         "dmg_type": "damage",
         "est_val": "40-52 Pierce DMG",
         "desc": "Anak panah hantu yang menembus perisai dan armor musuh secara mutlak."
-      }
-    ],
-    "status_effects": []
-  },
-  "current_node": {
-    "type": "combat",
-    "title": "Collapse into the Forgotten Crypt",
-    "location": "Subterranean Vault - Floor 1",
-    "chapter": "Chapter 1: The Descent"
-  },
-  "monster": null,
-  "pending_awakening": {
-    "id": "sec_blood_zealot",
-    "title": "Blood-Pact Zealot",
-    "tier": "special",
-    "icon": "\ud83e\ude78",
-    "bonus_stats": {
-      "str": 3,
-      "con": 2
-    },
-    "desc": "Ksatria kultus darah. Mengorbankan darah sendiri demi serangan fisik berlipat ganda.",
-    "skills": [
+      },
       {
         "id": "sk_blood_strike",
         "name": "Sanguine Cleave",
@@ -238,46 +238,57 @@
         "est_val": "45-60 Blood DMG",
         "desc": "Mengorbankan 10 HP untuk menebas monster dengan 45-60 damage brutal."
       }
+    ],
+    "status_effects": [
+      "blind"
     ]
   },
+  "current_node": {
+    "type": "combat",
+    "title": "Collapse into the Forgotten Crypt",
+    "location": "Subterranean Vault - Floor 1",
+    "chapter": "Chapter 1: The Descent"
+  },
+  "monster": null,
+  "pending_awakening": null,
   "scene": {
     "chapter": "Chapter 1: The Descent",
-    "title": "Bidikan Tembus Bayang",
+    "title": "Bisikan dari Balik Gulita",
     "location": "Moss-Covered Corridor",
-    "narrative": "Paduka menarik napas dingin yang mengendap di lorong lumut, membiarkan rasa sakit di paha melebur menjadi fokus murni saat seberkas panah bayangan etereal mewujud di sela jemari. Begitu goblin itu melompat dengan seringai busuknya, anak panah bayangan melesat tanpa suara\u2014menembus tepat di tenggorokan makhluk kerdil itu hingga jeritan kasarnya tercekik menjadi desis darah hitam. Tubuh monster itu terhempas ke lantai batu kapur, kejang sesaat sebelum akhirnya diam membeku dalam pelukan dingin bayang-bayang makam. Bau anyir dan hawa kematian kini memenuhi lorong sempit, menyisakan keheningan mencekam yang hanya dipecahkan oleh tetesan darah serta desau angin dari lorong yang lebih dalam.",
+    "narrative": "Paduka menarik napas dalam, membiarkan kegelapan mutlak menelan kepanikan dan menajamkan pendengaran batin yang terlatih. Tetesan air dari langit-langit batu kapur memantulkan ritme derap langkah kaki cakar sang Tomb Scavenger Goblin yang bersiap menerkam dari sudut kiri depan. Bau tengik daging busuk kini berpadu dengan desis logam berkarat yang diseret di lantai basah, menandai celah fatal dalam serangannya. Dalam heningnya konsentrasi Paduka, getaran udara dingin menjadi penuntun arah yang jauh lebih jujur daripada sepasang mata yang telah dibutakan.",
     "choices": [
       {
         "id": "A",
-        "text": "Geledah bangkai goblin dan cungkil belati berkaratnya (DEX Check - DC 10)",
+        "text": "Mengayunkan Rusty Farming Hoe sekuat tenaga ke arah sumber suara desis (STR Check - DC 12)",
         "type": "roll",
-        "stat": "DEX",
-        "dc": 10
+        "stat": "STR",
+        "dc": 12
       },
       {
         "id": "B",
-        "text": "Tutup luka goresan paha dengan sobekan kain dan tanaman lumut obat (WIS Check - DC 11)",
+        "text": "Melakukan roll menyamping untuk menghindari terpaan cakar dan menusuk balik (DEX Check - DC 11)",
         "type": "roll",
-        "stat": "WIS",
+        "stat": "DEX",
         "dc": 11
       },
       {
         "id": "C",
-        "text": "Periksa dinding lorong untuk mencari jejak jebakan atau sarang kawanan lainnya (INT Check - DC 12)",
+        "text": "Membaca pola langkah monster untuk menjebaknya ke dinding batu kapur yang rapuh (INT Check - DC 11)",
         "type": "roll",
         "stat": "INT",
-        "dc": 12
+        "dc": 11
       },
       {
         "id": "D",
-        "text": "Lakukan Short Rest singkat di balik pilar runtuh untuk menstabilkan napas (Action)",
+        "text": "Mengambil posisi bertahan kokoh dan menyalurkan Blood-Pact Focus (Action)",
         "type": "action"
       }
     ],
     "log": [
-      "\ud83c\udfb2 [FAIL] Ghostflight Shot mengalami Critical Fail\u2014energi bayangan Paduka menguap sebelum menyentuh sasaran (-3 MP), dan kilat samar itu justru menandai posisi Paduka. Goblin kubur itu meraung dan menerjang maju dengan bilah berkarat terangkat tinggi.",
-      "\ud83c\udfb2 [SUCCESS] Ghostflight Shot berhasil dieksekusi dengan Success gemilang; panah spektral menembus dada Tomb Scavenger Goblin dan membuatnya terpelanting bersimbah darah hitam (-4 MP).",
-      "\ud83c\udfb2 [FAIL] STR Check gagal; ayunan cangkul meleset dan menghantam batu kapur percuma. Tomb Scavenger Goblin melancarkan counterattack yang berhasil mengenai paha Paduka (-6 HP), namun makhluk itu tetap terluka parah dan terpojok. (-6 HP)",
-      "\ud83c\udfb2 [SUCCESS] WIS Check berhasil! Shadow Arrow etereal meluncur sempurna menembus tenggorokan lawan dan mencetak Critical Damage. (+15 EXP, +3 Gold) \ud83d\udc8e LOOT DROP: [COMMON] Reinforced Leather Cap!"
+      "\ud83c\udfb2 [SUCCESS] Dengan WIS Check yang berhasil, Paduka membaca ayunan cakar lawan secara presisi dan melancarkan Counter Attack telak menggunakan gagang Rusty Farming Hoe, membuat goblin terhuyung dalam status Staggered.",
+      "\ud83c\udfb2 [FAIL] Serangan Paduka mengalami Fail; ujung Rusty Farming Hoe meleset dan menghantam lantai batu, memicu serangan balasan panik dari lawan yang mengakibatkan 8 Physical Damage. (-8 HP)",
+      "\ud83c\udfb2 [FAIL] DEX Check gagal akibat status Blind, membuat Paduka tersandung lantai batu licin dan terkena Physical Damage dari serangan balasan monster. (-8 HP)",
+      "\ud83c\udfb2 [SUCCESS] Keberhasilan WIS Check memungkinkan Paduka mengabaikan penalti Blindness sesaat, memetakan posisi monster secara akurat melalui gema tetesan air dan desah napas busuk lawan. (+15 EXP, +7 Gold) \ud83d\udc8e LOOT DROP: [UNCOMMON] Reinforced Oak Buckler!"
     ]
   }
 }

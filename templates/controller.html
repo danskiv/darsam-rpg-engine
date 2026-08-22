@@ -260,6 +260,17 @@
                 </div>
             </div>
 
+            <!-- EXP Progress Bar in Controller Header -->
+            <div class="space-y-1 bg-zinc-950/80 p-2 rounded-xl border border-zinc-800/80">
+                <div class="flex justify-between items-center text-[9px] font-bold font-mono">
+                    <span class="text-amber-400 font-cinzel">⭐ PENGALAMAN (EXP):</span>
+                    <span id="m-exp-text" class="text-zinc-300">0 / 75 EXP</span>
+                </div>
+                <div class="w-full h-2 bg-zinc-900 rounded-full overflow-hidden border border-zinc-800">
+                    <div id="m-exp-bar" class="h-full bg-gradient-to-r from-amber-600 to-yellow-400 rounded-full transition-all duration-500" style="width: 0%;"></div>
+                </div>
+            </div>
+
             <!-- TAB SELECTOR (CERITA vs STATS & TAS 40) -->
             <div class="flex rounded-xl bg-zinc-950 p-1 border border-zinc-800 text-xs font-bold font-cinzel">
                 <button onclick="switchTab('story')" id="tab-btn-story" class="flex-1 py-1.5 rounded-lg bg-amber-500 text-black shadow font-bold transition-all">
@@ -406,6 +417,12 @@
                         <p id="m-stat-dodge" class="text-lg font-black font-mono text-emerald-400">3%</p>
                         <p class="text-[7px] text-zinc-300 font-mono">Hindaran Fisik</p>
                     </div>
+                </div>
+
+                <!-- Level & EXP Detail Box in Tab 2 -->
+                <div class="bg-zinc-950 p-2.5 rounded-xl border border-amber-900/60 flex justify-between items-center text-xs font-mono">
+                    <span class="text-amber-400 font-bold font-cinzel">TINGKAT LEVEL:</span>
+                    <span id="tab2-exp-detail" class="text-zinc-200 font-bold">Level 1 • 0 / 75 EXP</span>
                 </div>
             </div>
 
@@ -841,6 +858,17 @@
             if (elMp) elMp.innerText = `${p.mp || 10}/${p.max_mp || 10}`;
             const elGold = document.getElementById('m-gold');
             if (elGold) elGold.innerText = p.gold || 0;
+
+            // Update EXP in Controller
+            const expNext = p.exp_next || 75;
+            const expCur = p.exp || 0;
+            const elExpText = document.getElementById('m-exp-text');
+            if (elExpText) elExpText.innerText = `${expCur} / ${expNext} EXP (${Math.round((expCur / expNext) * 100)}%)`;
+            const elExpBar = document.getElementById('m-exp-bar');
+            if (elExpBar) elExpBar.style.width = `${Math.min(100, Math.max(0, (expCur / expNext) * 100))}%`;
+
+            const tab2Exp = document.getElementById('tab2-exp-detail');
+            if (tab2Exp) tab2Exp.innerText = `Level ${p.level || 1} • ${expCur} / ${expNext} EXP (${Math.round((expCur / expNext) * 100)}%)`;
 
             const elChap = document.getElementById('m-chapter');
             if (elChap) elChap.innerText = s.chapter || 'Chapter 1';
