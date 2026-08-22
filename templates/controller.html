@@ -21,6 +21,7 @@
             touch-action: manipulation;
             width: 100%;
             min-height: 100vh;
+            overflow-y: auto;
             overflow-x: hidden;
         }
 
@@ -65,7 +66,7 @@
         }
     </style>
 </head>
-<body class="select-none p-3 lg:p-6 max-w-7xl mx-auto pb-12 min-h-screen flex flex-col justify-between">
+<body class="select-none p-3 lg:p-6 max-w-7xl mx-auto pb-24 min-h-screen flex flex-col justify-between">
 
     <!-- ======================================================== -->
     <!-- 1. CHARACTER CREATION VIEW (8 DIVERSE ORIGINS)           -->
@@ -555,6 +556,15 @@
         </footer>
     </div>
 
+    <!-- AI Processing / Loading Banner Overlay -->
+    <div id="m-ai-loading" class="hidden fixed bottom-6 left-1/2 -translate-x-1/2 bg-zinc-950/95 border-2 border-amber-500/90 text-amber-300 px-5 py-3 rounded-2xl shadow-2xl z-50 flex items-center space-x-3 backdrop-blur-md animate-pulse">
+        <div class="w-5 h-5 border-2 border-amber-400 border-t-transparent rounded-full animate-spin"></div>
+        <div>
+            <p class="font-cinzel font-bold text-xs text-amber-300">Dungeon Master Sedang Merajut Takdir...</p>
+            <p class="text-[9px] text-zinc-400 font-mono">Memproses narasi dengan AI Engine (OX-Alpha)</p>
+        </div>
+    </div>
+
     <!-- Rolling Dice Modal Overlay -->
     <div id="m-dice-overlay" class="hidden fixed inset-0 bg-black/85 backdrop-blur-sm z-50 flex flex-col items-center justify-center p-6 text-center space-y-3">
         <p class="text-xs uppercase tracking-widest text-amber-400 font-bold">ROLLING D20 CHECK...</p>
@@ -698,6 +708,7 @@
         function handleMessage(data) {
             if (data.type === "init" || data.type === "state_update") {
                 hideDice();
+                hideAiLoading();
                 currentGameState = data.state;
                 const st = data.state;
                 if (!st || st.status === "character_creation") {
@@ -716,7 +727,21 @@
                 showDice(data.choice_text);
             } else if (data.type === "dice_result") {
                 showDiceResult(data.value);
+                setTimeout(() => {
+                    hideDice();
+                    showAiLoading();
+                }, 1200);
             }
+        }
+
+        function showAiLoading() {
+            const el = document.getElementById('m-ai-loading');
+            if (el) el.classList.remove('hidden');
+        }
+
+        function hideAiLoading() {
+            const el = document.getElementById('m-ai-loading');
+            if (el) el.classList.add('hidden');
         }
 
         function updateGameplayUI(state) {
@@ -1076,6 +1101,7 @@
 
         function selectChoice(choice) {
             if (navigator.vibrate) navigator.vibrate(30);
+            showAiLoading();
             socket.send(JSON.stringify({
                 type: "select_choice",
                 choice: choice
@@ -1087,6 +1113,7 @@
             const text = input.value.trim();
             if (!text) return;
             if (navigator.vibrate) navigator.vibrate(50);
+            showAiLoading();
             socket.send(JSON.stringify({
                 type: "custom_action",
                 text: text

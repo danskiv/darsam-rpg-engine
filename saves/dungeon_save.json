@@ -1,0 +1,247 @@
+{
+  "status": "playing",
+  "floor": 1,
+  "step": 3,
+  "active_sound_theme": "danger",
+  "torch_turns": 10,
+  "rations": 3,
+  "story_history": [],
+  "player": {
+    "name": "Danas",
+    "class_id": "peasant",
+    "class_name": "Hardy Peasant",
+    "class_icon": "\ud83c\udf3e",
+    "class_tier": "common",
+    "level": 1,
+    "exp": 0,
+    "exp_next": 75,
+    "hp": 115,
+    "max_hp": 115,
+    "mp": 15,
+    "max_mp": 15,
+    "gold": 12,
+    "stats": {
+      "str": 14,
+      "dex": 10,
+      "con": 15,
+      "int": 8,
+      "wis": 12,
+      "cha": 8
+    },
+    "equipped": {
+      "head": {
+        "id": "h_straw",
+        "name": "Weathered Straw Hat",
+        "rarity": "common",
+        "type": "head",
+        "slot": "head",
+        "icon": "\ud83d\udc52",
+        "bonus": {
+          "wis": 1
+        },
+        "val": 2
+      },
+      "armor": {
+        "id": "a_linen",
+        "name": "Homespun Tunic",
+        "rarity": "common",
+        "type": "armor",
+        "slot": "armor",
+        "icon": "\ud83d\udc55",
+        "bonus": {
+          "hp": 5,
+          "def": 1
+        },
+        "val": 2
+      },
+      "feet": {
+        "id": "f_sandals",
+        "name": "Woven Straw Sandals",
+        "rarity": "common",
+        "type": "feet",
+        "slot": "feet",
+        "icon": "\ud83d\udc61",
+        "bonus": {
+          "dodge": 2
+        },
+        "val": 2
+      },
+      "accessory": null,
+      "main_hand": {
+        "id": "w_hoe",
+        "name": "Rusty Farming Hoe",
+        "rarity": "common",
+        "type": "weapon",
+        "slot": "main_hand",
+        "handedness": "versatile",
+        "icon": "\u26cf\ufe0f",
+        "bonus": {
+          "str": 1,
+          "atk": 4
+        },
+        "val": 3
+      },
+      "off_hand": null
+    },
+    "inventory": [
+      {
+        "id": "c_ration_1",
+        "name": "Dry Ration Bread",
+        "rarity": "common",
+        "type": "consumable",
+        "icon": "\ud83c\udf5e",
+        "effect": "heal_hp_25",
+        "desc": "Restores 25 HP",
+        "val": 2
+      },
+      {
+        "id": "c_ration_2",
+        "name": "Dry Ration Bread",
+        "rarity": "common",
+        "type": "consumable",
+        "icon": "\ud83c\udf5e",
+        "effect": "heal_hp_25",
+        "desc": "Restores 25 HP",
+        "val": 2
+      },
+      {
+        "id": "c_torch_1",
+        "name": "Pine Pitch Torch",
+        "rarity": "common",
+        "type": "consumable",
+        "icon": "\ud83d\udd6f\ufe0f",
+        "effect": "add_light_6",
+        "desc": "+6 Torch Light turns",
+        "val": 3
+      },
+      {
+        "id": "m_rope",
+        "name": "Hemp Rope (15m)",
+        "rarity": "common",
+        "type": "material",
+        "icon": "\ud83e\udea2",
+        "desc": "Utility rope for climbing",
+        "val": 2
+      },
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null
+    ],
+    "grimoire": [
+      {
+        "id": "sk_adrenaline",
+        "name": "Adrenaline Surge",
+        "cost_mp": 5,
+        "cd": 3,
+        "dmg_type": "heal",
+        "est_val": "+25 HP & +2 STR",
+        "desc": "Memulihkan 25 HP seketika & memberi bonus +2 STR selama 2 turn."
+      }
+    ],
+    "active_skills": [
+      {
+        "id": "sk_adrenaline",
+        "name": "Adrenaline Surge",
+        "cost_mp": 5,
+        "cd": 3,
+        "dmg_type": "heal",
+        "est_val": "+25 HP & +2 STR",
+        "desc": "Memulihkan 25 HP seketika & memberi bonus +2 STR selama 2 turn."
+      }
+    ],
+    "status_effects": []
+  },
+  "current_node": {
+    "type": "exploration",
+    "title": "Collapse into the Forgotten Crypt",
+    "location": "Subterranean Vault - Floor 1",
+    "chapter": "Chapter 1: The Descent"
+  },
+  "monster": {
+    "name": "Tomb Scavenger Goblin (Lv.1)",
+    "title": "Tomb Scavenger Goblin",
+    "icon": "\ud83d\udc7a",
+    "desc": "Sneaky Trap-Lover",
+    "level": 1,
+    "tier": "common",
+    "hp": 26,
+    "max_hp": 26,
+    "attack": 6,
+    "exp_reward": 15,
+    "gold_reward": 8,
+    "status": "active"
+  },
+  "pending_awakening": null,
+  "scene": {
+    "chapter": "Chapter 1: The Descent",
+    "title": "Napas Pendek di Negeri Tulang",
+    "location": "Subterranean Vault - Floor 1",
+    "narrative": "Dalam hening yang dipenuhi tetesan air, Danas memejamkan mata dan mengatur napasnya\u2014dadanya yang sesak perlahan melunak, dan 12 HP terpulihkan seiring denyut darah yang kembali mengalir hangat ke ujung jari. Tangan-tangan kasarnya meraba isi Backpack 40-slot satu per satu: dua keping Hardtack yang keras seperti batu bata, Waterskin yang berdesis lembut saat disentuh, Flint & Steel yang dingin, serta Gulung Hempen Rope yang seratnya kasar namun terpercaya. Baru ketika jari Danas menyentuh gagang Rusty Farming Hoe, cakaran itu terdengar lagi\u2014kini lebih jelas, lebih dekat, disertai suara napas serak yang berganti dengan decitan kuku menggores batu kapur. Dari celah gelap lorong utara, sepasang titik kuning keruh berkedip rendah di dekat tanah, tak berkedip, menatap lurus ke arah petani yang duduk di antara tumpukan tulang yang telah lama dilupakan.",
+    "choices": [
+      {
+        "id": "A",
+        "text": "Bangkit dan mengayunkan Rusty Farming Hoe dengan seluruh tenaga petani saat makhluk itu melompat keluar dari kegelapan (STR Check - DC 12)",
+        "type": "roll",
+        "stat": "STR",
+        "dc": 12
+      },
+      {
+        "id": "B",
+        "text": "Menyelinap mundur ke balik tumpukan tulang dan sarkofagus retak, menghilang dari pandangan sepasang mata kuning itu (DEX Check - DC 11)",
+        "type": "roll",
+        "stat": "DEX",
+        "dc": 11
+      },
+      {
+        "id": "C",
+        "text": "Membeku dan membaca pola gerak makhluk itu\u2014mencoba memprediksi jalur serangannya dari arah cakaran dan gema napasnya (WIS Check - DC 10)",
+        "type": "roll",
+        "stat": "WIS",
+        "dc": 10
+      },
+      {
+        "id": "D",
+        "text": "Memasang jebakan darurat: mengikat Hempen Rope melintang lorong rendah dan meletakkan sekeping Hardtack sebagai umpan di tengahnya (Action)",
+        "type": "action"
+      }
+    ],
+    "log": [
+      "Commoner 'Danas' (Hardy Peasant) begins the underground survival journey!",
+      "\ud83c\udfb2 [Direct Action] Paduka menyelesaikan Short Rest dengan sukses; napas tertata kembali dan isi Backpack terkonfirmasi: 2 Hardtack, Waterskin, Flint & Steel, serta Hempen Rope (15 ft). Namun keheningan itu pecah oleh suara cakaran kecil yang bergema dari kedalaman lorong.",
+      "\ud83c\udfb2 [Direct Action] Short Rest berhasil memulihkan 12 HP dan pikiran Danas kembali tenang. Pemeriksaan Backpack menegaskan persediaan masih utuh, namun cakaran Tomb Scavenger Goblin kini terdengar hanya sepuluh langkah dari kegelapan lorong utara."
+    ]
+  }
+}
