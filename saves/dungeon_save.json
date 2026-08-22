@@ -1,9 +1,9 @@
 {
   "status": "playing",
   "floor": 1,
-  "step": 3,
+  "step": 6,
   "active_sound_theme": "danger",
-  "torch_turns": 10,
+  "torch_turns": 7,
   "rations": 3,
   "story_history": [],
   "player": {
@@ -13,13 +13,13 @@
     "class_icon": "\ud83c\udf3e",
     "class_tier": "common",
     "level": 1,
-    "exp": 0,
+    "exp": 15,
     "exp_next": 75,
-    "hp": 115,
+    "hp": 94,
     "max_hp": 115,
     "mp": 15,
     "max_mp": 15,
-    "gold": 12,
+    "gold": 20,
     "stats": {
       "str": 14,
       "dex": 10,
@@ -123,7 +123,19 @@
         "desc": "Utility rope for climbing",
         "val": 2
       },
-      null,
+      {
+        "name": "Copper Lucky Ring",
+        "type": "accessory",
+        "slot": "accessory",
+        "icon": "\ud83d\udc8d",
+        "bonus": {
+          "cha": 1,
+          "gold_drop": 5
+        },
+        "val": 8,
+        "id": "item_76478",
+        "rarity": "uncommon"
+      },
       null,
       null,
       null,
@@ -185,63 +197,51 @@
     "status_effects": []
   },
   "current_node": {
-    "type": "exploration",
+    "type": "combat",
     "title": "Collapse into the Forgotten Crypt",
     "location": "Subterranean Vault - Floor 1",
     "chapter": "Chapter 1: The Descent"
   },
-  "monster": {
-    "name": "Tomb Scavenger Goblin (Lv.1)",
-    "title": "Tomb Scavenger Goblin",
-    "icon": "\ud83d\udc7a",
-    "desc": "Sneaky Trap-Lover",
-    "level": 1,
-    "tier": "common",
-    "hp": 26,
-    "max_hp": 26,
-    "attack": 6,
-    "exp_reward": 15,
-    "gold_reward": 8,
-    "status": "active"
-  },
+  "monster": null,
   "pending_awakening": null,
   "scene": {
     "chapter": "Chapter 1: The Descent",
-    "title": "Napas Pendek di Negeri Tulang",
+    "title": "Karat Menemui Daging",
     "location": "Subterranean Vault - Floor 1",
-    "narrative": "Dalam hening yang dipenuhi tetesan air, Danas memejamkan mata dan mengatur napasnya\u2014dadanya yang sesak perlahan melunak, dan 12 HP terpulihkan seiring denyut darah yang kembali mengalir hangat ke ujung jari. Tangan-tangan kasarnya meraba isi Backpack 40-slot satu per satu: dua keping Hardtack yang keras seperti batu bata, Waterskin yang berdesis lembut saat disentuh, Flint & Steel yang dingin, serta Gulung Hempen Rope yang seratnya kasar namun terpercaya. Baru ketika jari Danas menyentuh gagang Rusty Farming Hoe, cakaran itu terdengar lagi\u2014kini lebih jelas, lebih dekat, disertai suara napas serak yang berganti dengan decitan kuku menggores batu kapur. Dari celah gelap lorong utara, sepasang titik kuning keruh berkedip rendah di dekat tanah, tak berkedip, menatap lurus ke arah petani yang duduk di antara tumpukan tulang yang telah lama dilupakan.",
+    "narrative": "Mata Danas menangkap polanya\u2014bahu kiri Goblin selalu berkedut sebelum meliuk, sebuah kebiasaan buruk yang lahir dari kelaparan bertahun-tahun di kegelapan. Saat makhluk itu melesat dengan rahang menganga, Danas berbalik setengah langkah, membiarkan gigi kuning itu menggigit udara kosong, lalu mendorong ujung hoe yang berkarat mendalam ke lambung sampingnya. Bilah tumpul itu merobek kulit kotor kehijauan, dan darah hitam pekat menyembur ke atas batu kapur putih seperti tinta yang ditumpahkan. Goblin itu meraung\u2014suara melengking yang menggema di antara peti mati batu\u2014sambil mencengkeram gagang kayu dengan cakarnya yang gemetar. Darah mengalir deras di antara jarinya; ia masih berdiri, tetapi kakinya mulai goyah, dan tatapan kuningnya kini bercampur antara amarah dan ketakutan seekor binatang yang menyadari ajalnya telah datang.",
     "choices": [
       {
         "id": "A",
-        "text": "Bangkit dan mengayunkan Rusty Farming Hoe dengan seluruh tenaga petani saat makhluk itu melompat keluar dari kegelapan (STR Check - DC 12)",
+        "text": "Hentakkan hoe ke bawah dengan seluruh tenaga untuk menghabisinya sebelum ia melawan (STR Check - DC 11)",
         "type": "roll",
         "stat": "STR",
-        "dc": 12
-      },
-      {
-        "id": "B",
-        "text": "Menyelinap mundur ke balik tumpukan tulang dan sarkofagus retak, menghilang dari pandangan sepasang mata kuning itu (DEX Check - DC 11)",
-        "type": "roll",
-        "stat": "DEX",
         "dc": 11
       },
       {
-        "id": "C",
-        "text": "Membeku dan membaca pola gerak makhluk itu\u2014mencoba memprediksi jalur serangannya dari arah cakaran dan gema napasnya (WIS Check - DC 10)",
+        "id": "B",
+        "text": "Tarik mundur cepat dan biarkan ia tumbang karena kehilangan darah, jaga jarak di antara peti mati (DEX Check - DC 10)",
         "type": "roll",
-        "stat": "WIS",
+        "stat": "DEX",
         "dc": 10
       },
       {
+        "id": "C",
+        "text": "Perhatikan gerakannya yang melemah dan cari titik vital kedua\u2014leher atau tenggorokan (INT Check - DC 12)",
+        "type": "roll",
+        "stat": "INT",
+        "dc": 12
+      },
+      {
         "id": "D",
-        "text": "Memasang jebakan darurat: mengikat Hempen Rope melintang lorong rendah dan meletakkan sekeping Hardtack sebagai umpan di tengahnya (Action)",
+        "text": "Tekan serangan dengan menendang tubuhnya yang terluka ke arah dinding batu agar tertahan sesaat (Action)",
         "type": "action"
       }
     ],
     "log": [
-      "Commoner 'Danas' (Hardy Peasant) begins the underground survival journey!",
-      "\ud83c\udfb2 [Direct Action] Paduka menyelesaikan Short Rest dengan sukses; napas tertata kembali dan isi Backpack terkonfirmasi: 2 Hardtack, Waterskin, Flint & Steel, serta Hempen Rope (15 ft). Namun keheningan itu pecah oleh suara cakaran kecil yang bergema dari kedalaman lorong.",
-      "\ud83c\udfb2 [Direct Action] Short Rest berhasil memulihkan 12 HP dan pikiran Danas kembali tenang. Pemeriksaan Backpack menegaskan persediaan masih utuh, namun cakaran Tomb Scavenger Goblin kini terdengar hanya sepuluh langkah dari kegelapan lorong utara."
+      "\ud83c\udfb2 [Direct Action] Short Rest berhasil memulihkan 12 HP dan pikiran Danas kembali tenang. Pemeriksaan Backpack menegaskan persediaan masih utuh, namun cakaran Tomb Scavenger Goblin kini terdengar hanya sepuluh langkah dari kegelapan lorong utara.",
+      "\ud83c\udfb2 [FAIL] WIS Check gagal total (roll 3): suara napas serak itu hanyalah umpan, dan Tomb Scavenger Goblin meluncur dari sudut yang tak terduga, mencakar lengan Danas (-8 HP). Pertarungan hidup-mati kini tak terhindarkan. (-8 HP)",
+      "\ud83c\udfb2 [FAIL] STR Check gagal (9 vs DC 12): jari Danas nyaris meraih gagang Rusty Farming Hoe, namun keringat dan darah membuat cengkeramannya licin\u2014ayunan itu menghantam dinding kapur dengan dentuman kosong. Tomb Scavenger Goblin membalas dengan counterattack ganas, menggigit lengan bawah Danas hingga darah semakin deras mengalir (-9 HP). (-9 HP)",
+      "\ud83c\udfb2 [SUCCESS] WIS Check SUCCESS! Danas membaca ritme terkaman Goblin dan menusukkan ujung Rusty Farming Hoe tepat ke sisi tubuhnya\u2014Goblin menerima Critical Hit dan kini terkena status Bleeding. (+15 EXP, +8 Gold) \ud83d\udc8e LOOT DROP: [UNCOMMON] Copper Lucky Ring!"
     ]
   }
 }
