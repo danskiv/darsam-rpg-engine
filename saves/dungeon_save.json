@@ -1,10 +1,10 @@
 {
   "status": "playing",
   "floor": 1,
-  "step": 1,
-  "active_sound_theme": "dungeon",
+  "step": 2,
+  "active_sound_theme": "danger",
   "selected_model": "openrouter/stealth/ox-alpha",
-  "torch_turns": 12,
+  "torch_turns": 11,
   "rations": 3,
   "story_history": [],
   "player": {
@@ -187,48 +187,64 @@
     "status_effects": []
   },
   "current_node": {
-    "type": "exploration",
+    "type": "combat",
     "title": "Collapse into the Forgotten Crypt",
-    "location": "Subterranean Vault - Floor 1",
+    "location": "Crypt Antechamber - Floor 1",
     "chapter": "Chapter 1: The Descent"
   },
-  "monster": null,
+  "monster": {
+    "name": "Corrosive Slime Mass (Lv.1)",
+    "title": "Corrosive Slime Mass",
+    "icon": "\ud83e\udda0",
+    "desc": "Acidic Jelly Organism",
+    "level": 1,
+    "tier": "common",
+    "hp": 30,
+    "max_hp": 30,
+    "attack": 6,
+    "exp_reward": 25,
+    "gold_reward": 7,
+    "status": "active"
+  },
+  "merchant_stock": [],
+  "merchant_discount": 0,
   "pending_awakening": null,
   "scene": {
     "chapter": "Chapter 1: The Descent",
-    "title": "Collapse into the Forgotten Crypt",
-    "location": "Subterranean Vault - Floor 1",
-    "narrative": "Sang Hardy Peasant, Danas, hanyalah warga biasa yang hidup sederhana di desa. Namun takdir berkata lain: saat sedang mencari kayu di lereng bukit berkabut, tanah di bawah kaki amblas runtuh seketika! Danas terperosok jatuh ke dalam rongga makam kuno bawah tanah. Lubang keluar di atas tertutup reruntuhan batu besar. Satu-satunya jalan bertahan hidup adalah menembus lorong batu berlumut yang dingin dan gelap di depan mata.",
+    "title": "False Echoes in the Crypt",
+    "location": "Crypt Antechamber - Floor 1",
+    "narrative": "Alih-alih menemukan tempat barter yang hangat, Danas justru tersandung pecahan tembikar tua yang bergema nyaring di sepanjang koridor lembap. Dari balik celah dinding makam yang retak, debu kuno berhamburan saat sesosok mayat berbalut kain kafan lusuh bangkit perlahan. Bau busuk tanah basah dan desis kering kematian seketika menyergap indra penciuman Danas. Cengkeraman cangkul tuanya mengerat ketika mata merah menyala menatap lurus ke arahnya.",
     "choices": [
       {
         "id": "A",
-        "text": "Inspect the stone wall & search for weak structural points (Perception / WIS Check - DC 10)",
+        "text": "Ayunkan Rusty Farming Hoe sekuat tenaga ke arah kepala monster (STR Check - DC 11)",
         "type": "roll",
-        "dc": 10,
-        "stat": "WIS"
+        "stat": "STR",
+        "dc": 11
       },
       {
         "id": "B",
-        "text": "Use tools to clear heavy rubble and force a breach (Athletics / STR Check - DC 12)",
+        "text": "Menghindar ke samping dan cari celah sempit di antara reruntuhan (DEX Check - DC 10)",
         "type": "roll",
-        "dc": 12,
-        "stat": "STR"
+        "stat": "DEX",
+        "dc": 10
       },
       {
         "id": "C",
-        "text": "Light a pine pitch torch and stealthily navigate the corridor (Stealth / DEX Check - DC 9)",
+        "text": "Amati pola gerak lambat kerangka untuk mencari titik rapuh (WIS Check - DC 9)",
         "type": "roll",
-        "dc": 9,
-        "stat": "DEX"
+        "stat": "WIS",
+        "dc": 9
       },
       {
         "id": "D",
-        "text": "Take a short rest, catch breath, and inspect 40-slot backpack (Action)",
+        "text": "Pasang kuda-kuda bertahan menggunakan gagang cangkul (Action)",
         "type": "action"
       }
     ],
     "log": [
-      "Commoner 'Danas' (Hardy Peasant) begins the underground survival journey!"
+      "Commoner 'Danas' (Hardy Peasant) begins the underground survival journey!",
+      "\ud83c\udfb2 [FAIL \u2022 D20: 3+2=5 vs DC 10] Danas gagal menemukan pedagang keliling dan langkah cerobohnya memicu kegaduhan (Fail on WIS Check). Suara gemeretak tulang bangkit dari tumpukan puing di sudut lorong."
     ]
   }
 }

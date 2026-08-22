@@ -10,7 +10,7 @@ from fastapi.responses import HTMLResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 
-app = FastAPI(title="Darsam RPG Dungeon Engine - Grandmaster v2.2.0")
+app = FastAPI(title="Darsam RPG Dungeon Engine - Encounter Expansion v2.4.0")
 
 os.makedirs("/home/ubuntu/Github/darsam-rpg-engine/static", exist_ok=True)
 os.makedirs("/home/ubuntu/Github/darsam-rpg-engine/templates", exist_ok=True)
@@ -34,7 +34,7 @@ def get_9router_key() -> str:
 NINE_ROUTER_KEY = get_9router_key()
 
 # =========================================================================
-# 8 DIVERSE STARTING ORIGINS WITH STACKABLE CONSUMABLES & EQUIPMENT LEVELS
+# 8 DIVERSE STARTING ORIGINS (ZERO TO HERO)
 # =========================================================================
 CLASSES_INFO = {
     "peasant": {
@@ -262,7 +262,7 @@ SECRET_CLASSES_DB = {
 }
 
 # =========================================================================
-# DYNAMIC RARITY & ITEM LEVEL SCALING GENERATOR (NO MORE IDENTICAL STATS)
+# DYNAMIC RARITY & ITEM LEVEL SCALING GENERATOR
 # =========================================================================
 RARITY_CONFIG = {
     "common": {"mult": 1.0, "extra_stats": 0, "color": "zinc-400"},
@@ -323,7 +323,6 @@ def generate_dynamic_equipment(player_lv: int, category: str = "", forced_rarity
     tpl = random.choice(ITEM_BASE_TEMPLATES[category])
     i_lv = max(1, player_lv + random.randint(-1, 1))
     
-    # Determine Rarity if not forced
     if not forced_rarity:
         roll = random.randint(1, 100)
         if roll <= 50: rarity = "common"
@@ -346,13 +345,12 @@ def generate_dynamic_equipment(player_lv: int, category: str = "", forced_rarity
         "slot": tpl["slot"],
         "icon": tpl["icon"],
         "bonus": {},
-        "val": int((10 * i_lv * mult) // 2)
+        "val": max(5, int((12 * i_lv * mult) // 2))
     }
     
     if "handedness" in tpl:
         item["handedness"] = tpl["handedness"]
 
-    # Calculate Core Stats scaled with Level & Rarity
     if "base_atk" in tpl:
         item["bonus"]["atk"] = int((tpl["base_atk"] + (i_lv * 2)) * mult)
     if "base_def" in tpl:
@@ -366,7 +364,6 @@ def generate_dynamic_equipment(player_lv: int, category: str = "", forced_rarity
     if "base_stat" in tpl:
         item["bonus"][tpl["base_stat"]] = max(1, int((1 + (i_lv // 2)) * mult))
 
-    # Add extra random secondary stat based on rarity
     extra_count = cfg["extra_stats"]
     possible_secondaries = ["str", "dex", "con", "int", "wis", "cha", "crit", "dodge"]
     for _ in range(extra_count):
@@ -405,7 +402,6 @@ def generate_dynamic_consumable(player_lv: int) -> Dict[str, Any]:
     }
 
 def roll_dynamic_loot(player_lv: int, monster_tier: str = "common") -> Dict[str, Any]:
-    # 70% Gear, 30% Consumable
     if random.randint(1, 100) <= 30:
         return generate_dynamic_consumable(player_lv)
     
@@ -491,6 +487,21 @@ def get_current_chapter_info(step: int) -> Dict[str, Any]:
         if ch["min_step"] <= step <= ch["max_step"]:
             return ch
     return CHAPTER_PROGRESSION[-1]
+
+# =========================================================================
+# ENCOUNTER GENERATOR (MERCHANT, CHEST, CROSSROADS, CAMPFIRE, SHRINE)
+# =========================================================================
+def generate_merchant_stock(player_lv: int) -> List[Dict[str, Any]]:
+    stock = []
+    # 2-3 Equipments
+    for _ in range(random.randint(2, 3)):
+        stock.append(generate_dynamic_equipment(player_lv))
+    # 2-3 Consumables
+    for _ in range(random.randint(2, 3)):
+        c = generate_dynamic_consumable(player_lv)
+        c["qty"] = random.randint(1, 3)
+        stock.append(c)
+    return stock
 
 INITIAL_CHAPTER_CHOICES = [
     {"id": "A", "text": "Inspect the stone wall & search for weak structural points (Perception / WIS Check - DC 10)", "type": "roll", "dc": 10, "stat": "WIS"},
@@ -582,9 +593,11 @@ DEFAULT_GAME_STATE = {
         "type": "entrance",
         "title": "Collapse into the Forgotten Crypt",
         "location": "Subterranean Vault - Floor 1",
-        "chapter": "Chapter 1: The Dark Descent"
+        "chapter": "Chapter 1: The Descent"
     },
     "monster": None,
+    "merchant_stock": [],
+    "merchant_discount": 0,
     "pending_awakening": None,
     "scene": {
         "narrative": "Paduka hanyalah seorang warga biasa yang mencari kayu di lereng bukit. Tanah mendadak amblas runtuh! Paduka jatuh terperosok ke dalam rongga makam kuno bawah tanah. Lubang keluar di atas tertutup bebatuan tebal. Di hadapan Paduka, lorong batu berlumut gelap memancarkan hembusan angin dingin purba.",
@@ -659,7 +672,6 @@ manager = ConnectionManager()
 def compute_total_stats(player: Dict[str, Any]) -> Dict[str, int]:
     base = dict(player["stats"])
     
-    # Calculate Total Attributes (Base + Gear Bonuses)
     eq = player.get("equipped", {})
     for slot, item in eq.items():
         if item and "bonus" in item:
@@ -672,7 +684,6 @@ def compute_total_stats(player: Dict[str, Any]) -> Dict[str, int]:
     base["crit"] = 5
     base["dodge"] = base["dex"] // 3
     
-    # Gear HP and MP bonuses
     extra_hp = 0
     extra_mp = 0
     for slot, item in eq.items():
@@ -687,7 +698,6 @@ def compute_total_stats(player: Dict[str, Any]) -> Dict[str, int]:
     base["effective_max_hp"] = player["max_hp"] + extra_hp
     base["effective_max_mp"] = player["max_mp"] + extra_mp
 
-    # Dual Wielding
     m_hand = eq.get("main_hand")
     o_hand = eq.get("off_hand")
     if m_hand and o_hand and m_hand.get("handedness") == "versatile" and o_hand.get("handedness") == "versatile":
@@ -700,14 +710,12 @@ def compute_total_stats(player: Dict[str, Any]) -> Dict[str, int]:
     return base
 
 def add_item_to_inventory(inventory: List[Optional[Dict[str, Any]]], new_item: Dict[str, Any]) -> bool:
-    # 1. Check if stackable consumable
     if new_item.get("type") == "consumable":
         for item in inventory:
             if item and item.get("type") == "consumable" and item.get("name") == new_item.get("name") and item.get("effect") == new_item.get("effect"):
                 item["qty"] = item.get("qty", 1) + new_item.get("qty", 1)
                 return True
                 
-    # 2. Otherwise find first empty slot
     for i in range(len(inventory)):
         if inventory[i] is None:
             if "qty" not in new_item and new_item.get("type") == "consumable":
@@ -727,9 +735,10 @@ def init_new_character(name: str, class_id: str):
     game_state["active_sound_theme"] = "dungeon"
     game_state["story_history"] = []
     game_state["monster"] = None
+    game_state["merchant_stock"] = []
+    game_state["merchant_discount"] = 0
     game_state["pending_awakening"] = None
     
-    # 40 Slots array
     inv_40 = []
     for item in c.get("starting_inventory", []):
         item_copy = dict(item)
@@ -800,9 +809,9 @@ async def generate_infinite_story(player: Dict[str, Any], current_scene: Dict[st
 RULES OF THE SYSTEM:
 1. Narrative prose and dialogue MUST be in elegant, sensory-rich Indonesian. IMPORTANT: NEVER use royal honorifics like 'Yang Mulia', 'Paduka', or 'Tuan' in the game. ALWAYS address the protagonist directly by their character name (e.g. 'Danas', 'Danas melangkah...', 'Danas merasakan...').
 2. ALL TECHNICAL, RPG, COMBAT, SPELL, ITEM, AND STAT TERMS MUST BE IN CLEAN STANDARD ENGLISH (e.g. 'STR Check', 'DEX Check', 'INT Check', 'WIS Check', 'CON Check', 'CHA Check', 'DC 12', 'Critical Hit', 'Critical Fail', 'Success', 'Fail', 'Short Rest', 'Poisoned', 'Bleeding', 'Dual Wielding', 'Two-Handed').
-3. Show, Don't Tell: Sensory details of decay, cold limestone, and flickering shadows.
-4. Fail-Forward: Failure creates complications, monster aggression, or resource loss while driving the story forward.
-5. Provide 4 distinct tactical choices (A, B, C, D) with varied mechanics (Physical, Stealth, Mental/Arcane, Item/Rest). Keep DCs balanced (between 8 and 12 for normal actions).
+3. Show, Don't Tell: Sensory details of decay, cold limestone, flickering torches, and whispers in the dark.
+4. Dynamic Encounter Context: Support varied node types ('combat', 'merchant', 'crossroads', 'chest', 'campfire', 'shrine', 'exploration').
+5. Provide 4 distinct tactical choices (A, B, C, D) matching the current node type. Keep DCs balanced (between 8 and 12 for normal actions).
 6. Audio Theme Selector: Choose 'dungeon', 'danger', 'mystery', or 'suspense'.
 7. Output MUST BE PURE VALID JSON only. Do not include markdown codeblocks or conversational filler.
 
@@ -811,7 +820,7 @@ JSON SCHEMA:
   "chapter": "Chapter X: Title",
   "location": "Room / Chamber Name",
   "title": "Scene Encounter Title",
-  "node_type": "exploration" | "combat" | "merchant" | "puzzle" | "campfire" | "boss",
+  "node_type": "exploration" | "combat" | "merchant" | "crossroads" | "chest" | "campfire" | "shrine",
   "outcome_summary": "1-2 concise Indonesian sentences explaining the immediate impact of the player's action (using English technical terms).",
   "narrative": "3-5 rich, immersive Indonesian sentences describing the new situation.",
   "audio_theme": "dungeon" | "danger" | "mystery",
@@ -975,18 +984,17 @@ async def process_live_turn(choice_id: str, choice_text: str = "", custom_text: 
     
     if raw_d20 > 0:
         stat_score = p["stats"].get(stat_key.lower(), 10) if stat_key else 10
-        # Standard RPG Modifier formula: (Score - 10) // 2
         stat_mod = (stat_score - 10) // 2
         total_roll_val = raw_d20 + stat_mod
 
         if raw_d20 == 20:
             roll_status = "CRITICAL SUCCESS"
-            exp_gained += 25 # Critical success bonus EXP!
+            exp_gained += 25
         elif raw_d20 == 1:
             roll_status = "CRITICAL FAIL"
         elif total_roll_val >= dc_target:
             roll_status = "SUCCESS"
-            exp_gained += 15 # Exploration / Check Success EXP!
+            exp_gained += 15
         else:
             roll_status = "FAIL"
 
@@ -1015,7 +1023,6 @@ async def process_live_turn(choice_id: str, choice_text: str = "", custom_text: 
             
             active_m["hp"] = max(0, active_m["hp"] - base_dmg)
             
-            # Check if monster died ONLY if HP reaches 0
             if active_m["hp"] <= 0:
                 active_m["hp"] = 0
                 active_m["status"] = "defeated"
@@ -1036,7 +1043,18 @@ async def process_live_turn(choice_id: str, choice_text: str = "", custom_text: 
     p["mp"] = max(0, min(p["max_mp"], p["mp"] + ai_resp.get("mp_change", 0)))
     p["gold"] = max(0, p["gold"] + ai_resp.get("gold_change", 0))
 
-    # Spawn new monster ONLY if requested by AI and not in combat
+    # Node Type & Encounter Management
+    node_type = ai_resp.get("node_type", "exploration")
+    
+    # 1. Merchant Encounter Stock Generation
+    if node_type == "merchant" and not game_state.get("merchant_stock"):
+        game_state["merchant_stock"] = generate_merchant_stock(p["level"])
+        game_state["merchant_discount"] = 0
+    elif node_type != "merchant":
+        game_state["merchant_stock"] = []
+        game_state["merchant_discount"] = 0
+
+    # 2. Spawn new monster ONLY if requested by AI and not currently in combat
     if not game_state.get("monster") and not monster_slain and ai_resp.get("monster_encounter") and isinstance(ai_resp.get("monster_encounter"), dict):
         m_info = ai_resp["monster_encounter"]
         if m_info.get("name"):
@@ -1044,7 +1062,7 @@ async def process_live_turn(choice_id: str, choice_text: str = "", custom_text: 
             is_elite = m_info.get("tier") == "elite"
             game_state["monster"] = generate_monster(p["level"], is_boss=is_boss, is_elite=is_elite)
 
-    # Dynamic Secret Job Awakening Trigger
+    # 3. Dynamic Secret Job Awakening Trigger
     if not game_state.get("monster") and not game_state.get("pending_awakening"):
         rng_job = random.randint(1, 1000)
         awakening_offer = None
@@ -1104,7 +1122,6 @@ async def process_live_turn(choice_id: str, choice_text: str = "", custom_text: 
     ch_info = get_current_chapter_info(game_state["step"])
     game_state["floor"] = ch_info["floor"]
     
-    # If AI returned a custom chapter, prefer progression if steps exceed
     new_chapter_title = ch_info["chapter"]
     if game_state["step"] < ch_info["min_step"] + 2 and ai_resp.get("chapter"):
         new_chapter_title = ai_resp.get("chapter")
@@ -1114,7 +1131,7 @@ async def process_live_turn(choice_id: str, choice_text: str = "", custom_text: 
     game_state["scene"]["location"] = ai_resp.get("location", f"{ch_info['theme']} (Floor {ch_info['floor']})")
     game_state["scene"]["narrative"] = ai_resp.get("narrative", "Suasana gua semakin pekat...")
     game_state["scene"]["choices"] = ai_resp.get("choices", scene.get("choices"))
-    game_state["current_node"]["type"] = ai_resp.get("node_type", "exploration")
+    game_state["current_node"]["type"] = node_type
     game_state["current_node"]["chapter"] = new_chapter_title
     game_state["current_node"]["location"] = game_state["scene"]["location"]
     game_state["scene"]["log"].append(outcome)
@@ -1196,7 +1213,6 @@ def use_consumable(item_index: int):
         if "cursed" in p["status_effects"]: p["status_effects"].remove("cursed")
         p["hp"] = min(p["max_hp"], p["hp"] + 30)
 
-    # Decrement stack count
     qty = item.get("qty", 1)
     if qty > 1:
         item["qty"] = qty - 1
@@ -1204,6 +1220,62 @@ def use_consumable(item_index: int):
         p["inventory"][item_index] = None
         
     save_game()
+
+# =========================================================================
+# MERCHANT SHOP ACTIONS (BUY, SELL, HAGGLE, SELL JUNK)
+# =========================================================================
+def buy_item_from_merchant(item_id: str) -> Optional[str]:
+    global game_state
+    p = game_state["player"]
+    stock = game_state.get("merchant_stock", [])
+    
+    item_idx = next((i for i, it in enumerate(stock) if it["id"] == item_id), None)
+    if item_idx is None: return "Barang tidak ditemukan di toko."
+    
+    item = stock[item_idx]
+    discount = game_state.get("merchant_discount", 0)
+    final_price = max(1, int(item.get("val", 10) * (1 - discount)))
+    
+    if p["gold"] < final_price:
+        return "Koin emas tidak mencukupi."
+        
+    if not add_item_to_inventory(p["inventory"], dict(item)):
+        return "Tas ransel penuh (40 Slot terpakai semua)!"
+        
+    p["gold"] -= final_price
+    stock.pop(item_idx)
+    save_game()
+    return f"Berhasil membeli {item['name']} seharga {final_price} Gold!"
+
+def sell_item_to_merchant(item_index: int) -> Optional[str]:
+    global game_state
+    p = game_state["player"]
+    if item_index < 0 or item_index >= len(p["inventory"]): return "Item tidak valid."
+    item = p["inventory"][item_index]
+    if not item: return "Slot kosong."
+    
+    sell_price = max(1, item.get("val", 2) // 2)
+    qty = item.get("qty", 1)
+    total_earned = sell_price * qty
+    
+    p["gold"] += total_earned
+    p["inventory"][item_index] = None
+    save_game()
+    return f"Berhasil menjual {item['name']} seharga {total_earned} Gold!"
+
+def sell_all_junk_items() -> str:
+    global game_state
+    p = game_state["player"]
+    total_earned = 0
+    count = 0
+    for idx, item in enumerate(p["inventory"]):
+        if item and item.get("rarity") == "common" and item.get("type") in ["weapon", "offhand", "armor", "head", "feet", "accessory", "material"]:
+            sell_price = max(1, item.get("val", 2) // 2)
+            total_earned += sell_price * item.get("qty", 1)
+            p["inventory"][idx] = None
+            count += 1
+    save_game()
+    return f"Berhasil menjual {count} barang rongsokan dan mendapatkan +{total_earned} Gold!"
 
 def accept_awakening():
     global game_state
@@ -1368,6 +1440,55 @@ async def ws_controller(websocket: WebSocket):
                 await asyncio.sleep(1.0)
                 update_data = await process_live_turn("CUSTOM", custom_text=custom_text, raw_d20=raw_roll, stat_key="STR", dc_target=10)
                 await manager.broadcast_all(update_data)
+
+            elif action_type == "buy_merchant_item":
+                item_id = data.get("item_id")
+                msg = buy_item_from_merchant(item_id)
+                await manager.broadcast_all({"type": "state_update", "state": game_state, "outcome": msg})
+
+            elif action_type == "sell_merchant_item":
+                item_idx = data.get("index")
+                msg = sell_item_to_merchant(item_idx)
+                await manager.broadcast_all({"type": "state_update", "state": game_state, "outcome": msg})
+
+            elif action_type == "sell_all_junk":
+                msg = sell_all_junk_items()
+                await manager.broadcast_all({"type": "state_update", "state": game_state, "outcome": msg})
+
+            elif action_type == "haggle_merchant":
+                p = game_state["player"]
+                raw_roll = random.randint(1, 20)
+                cha_score = p["stats"].get("cha", 10)
+                cha_mod = (cha_score - 10) // 2
+                tot = raw_roll + cha_mod
+                
+                await manager.broadcast_all({
+                    "type": "dice_rolling",
+                    "choice_text": "Haggling Price with Merchant",
+                    "stat": f"CHA Check (+{cha_mod})"
+                })
+                await asyncio.sleep(2.0)
+                await manager.broadcast_all({
+                    "type": "dice_result",
+                    "value": raw_roll,
+                    "total_value": tot,
+                    "stat_mod": cha_mod,
+                    "dc": 11
+                })
+                await asyncio.sleep(1.0)
+                
+                if raw_roll == 20 or tot >= 16:
+                    game_state["merchant_discount"] = 0.40
+                    msg = "🔥 CRITICAL SUCCESS! Pedagang memberi DISKON 40% untuk seluruh barang!"
+                elif tot >= 11:
+                    game_state["merchant_discount"] = 0.20
+                    msg = "⚔️ SUCCESS! Tawar menawar berhasil: Diskon 20% diberikan!"
+                else:
+                    game_state["merchant_discount"] = -0.15
+                    msg = "⚠️ FAIL! Pedagang tersinggung, harga barang naik 15%!"
+                    
+                save_game()
+                await manager.broadcast_all({"type": "state_update", "state": game_state, "outcome": msg})
 
             elif action_type == "equip_item":
                 item_idx = data.get("index")

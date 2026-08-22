@@ -307,6 +307,40 @@
             </div>
         </div>
 
+        <!-- DYNAMIC MERCHANT SHOP MODAL / SECTION -->
+        <div id="m-merchant-section" class="hidden bg-gradient-to-r from-amber-950/90 via-zinc-950/95 to-zinc-900/90 border-2 border-amber-500/80 p-4 rounded-3xl shadow-2xl space-y-3">
+            <div class="flex justify-between items-center border-b border-amber-900/60 pb-2">
+                <div class="flex items-center space-x-2.5">
+                    <span class="text-3xl">🦹‍♂️</span>
+                    <div>
+                        <h3 class="text-sm font-black font-cinzel text-amber-400">The Wandering Crypt Merchant</h3>
+                        <p class="text-[9px] text-zinc-300 font-mono">Living Crypt Barter Encampment</p>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-2">
+                    <button onclick="hagglePrice()" class="bg-amber-600/30 hover:bg-amber-600/50 border border-amber-500 text-amber-300 text-[9px] font-bold px-2.5 py-1 rounded-xl font-cinzel active:scale-95 transition-all">
+                        💬 HAGGLE (CHA)
+                    </button>
+                    <button onclick="sellAllJunk()" class="bg-zinc-800 hover:bg-zinc-700 border border-zinc-600 text-zinc-200 text-[9px] font-bold px-2.5 py-1 rounded-xl active:scale-95 transition-all">
+                        🧹 SELL ALL JUNK
+                    </button>
+                </div>
+            </div>
+
+            <!-- Discount Notice if active -->
+            <div id="m-discount-banner" class="hidden bg-emerald-950/80 border border-emerald-700 p-1.5 rounded-xl text-center text-[9px] font-mono font-bold text-emerald-300">
+                🎉 DISKON AKTIF: <span id="m-discount-text">20% OFF</span>
+            </div>
+
+            <!-- Merchant Stock Grid -->
+            <div class="space-y-1.5">
+                <p class="text-[9px] font-bold uppercase tracking-wider text-amber-400">MERCHANT WARES FOR SALE:</p>
+                <div id="m-merchant-wares-list" class="grid grid-cols-1 md:grid-cols-2 gap-2">
+                    <!-- Merchant items rendered dynamically -->
+                </div>
+            </div>
+        </div>
+
         <!-- MONSTER COMBAT CARD -->
         <div id="m-monster-section" class="hidden bg-gradient-to-r from-red-950/90 to-zinc-900/90 border border-red-800/80 p-3 rounded-2xl shadow-xl space-y-1.5">
             <div class="flex justify-between items-center">
@@ -856,6 +890,92 @@
             return { cleanText: clean, badgeHtml: badgeHtml };
         }
 
+        function renderMerchantShop(stock, discount, playerGold) {
+            const container = document.getElementById('m-merchant-wares-list');
+            if (!container) return;
+            container.innerHTML = '';
+            
+            const discBanner = document.getElementById('m-discount-banner');
+            if (discBanner) {
+                if (discount > 0) {
+                    discBanner.classList.remove('hidden');
+                    document.getElementById('m-discount-text').innerText = `${Math.round(discount * 100)}% OFF (Haggle Success)`;
+                } else if (discount < 0) {
+                    discBanner.classList.remove('hidden');
+                    discBanner.className = "bg-rose-950/80 border border-rose-700 p-1.5 rounded-xl text-center text-[9px] font-mono font-bold text-rose-300";
+                    document.getElementById('m-discount-text').innerText = `+15% SURCHARGE (Haggle Failed)`;
+                } else {
+                    discBanner.classList.add('hidden');
+                }
+            }
+
+            if (!stock || stock.length === 0) {
+                container.innerHTML = '<p class="text-xs text-zinc-500 text-center py-3 col-span-full font-mono">Pedagang kehabisan stok barang.</p>';
+                return;
+            }
+
+            stock.forEach(item => {
+                const row = document.createElement('div');
+                const rarityColor = `rarity-${item.rarity || 'common'}`;
+                row.className = `flex items-center justify-between p-3 rounded-2xl bg-zinc-950/90 border ${rarityColor} text-xs shadow-md`;
+                
+                const finalPrice = Math.max(1, Math.floor((item.val || 10) * (1 - discount)));
+                const canAfford = playerGold >= finalPrice;
+                
+                const bonusText = formatBonusText(item.bonus);
+                const bonusBadge = bonusText ? `<span class="bg-emerald-950/80 border border-emerald-700 text-emerald-300 text-[8px] font-mono font-bold px-1.5 py-0.2 rounded">${bonusText}</span>` : '';
+                const lvBadge = `<span class="bg-amber-950/80 border border-amber-700 text-amber-300 text-[8px] font-mono font-bold px-1.5 py-0.2 rounded">Lv.${item.item_level || 1}</span>`;
+                const qtyBadge = (item.qty && item.qty > 1) ? `<span class="bg-cyan-950 border border-cyan-700 text-cyan-300 text-[8px] font-mono font-black px-1.5 py-0.2 rounded">x${item.qty}</span>` : '';
+
+                row.innerHTML = `
+                    <div class="flex items-center space-x-2.5 min-w-0 flex-1">
+                        <span class="text-2xl">${item.icon || '📦'}</span>
+                        <div class="min-w-0 flex-1">
+                            <div class="flex items-center space-x-1.5 flex-wrap">
+                                <p class="font-bold truncate text-zinc-100 text-xs">${item.name}</p>
+                                ${qtyBadge}
+                                ${lvBadge}
+                            </div>
+                            <div class="flex items-center space-x-1.5 mt-0.5 flex-wrap gap-1">
+                                ${bonusBadge}
+                                <p class="text-[9px] text-zinc-400 truncate">${item.desc || item.type}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ml-2 flex-shrink-0">
+                        <button onclick="buyMerchantItem('${item.id}')" ${canAfford ? '' : 'disabled'} class="${canAfford ? 'bg-amber-500 hover:bg-amber-400 active:bg-amber-600 text-black shadow-lg font-cinzel' : 'bg-zinc-800 text-zinc-600 cursor-not-allowed'} font-bold text-[10px] px-3 py-1.5 rounded-xl transition-all">
+                            🪙 ${finalPrice} G
+                        </button>
+                    </div>
+                `;
+                container.appendChild(row);
+            });
+        }
+
+        function buyMerchantItem(itemId) {
+            if (navigator.vibrate) navigator.vibrate(25);
+            socket.send(JSON.stringify({
+                type: "buy_merchant_item",
+                item_id: itemId
+            }));
+        }
+
+        function sellAllJunk() {
+            if (confirm("Jual semua barang Common putih/abu-abu ke pedagang?")) {
+                if (navigator.vibrate) navigator.vibrate(25);
+                socket.send(JSON.stringify({
+                    type: "sell_all_junk"
+                }));
+            }
+        }
+
+        function hagglePrice() {
+            if (navigator.vibrate) navigator.vibrate(25);
+            socket.send(JSON.stringify({
+                type: "haggle_merchant"
+            }));
+        }
+
         function updateGameplayUI(state) {
             console.log("updateGameplayUI called with state:", state);
             const p = state.player || {};
@@ -936,6 +1056,19 @@
                     document.getElementById('awk-desc').innerText = awk.desc || "Takdir mistis memanggilmu...";
                 } else {
                     awkBanner.classList.add('hidden');
+                }
+            }
+
+            // Merchant Section in Controller
+            const merchantSec = document.getElementById('m-merchant-section');
+            const nodeType = (state.current_node && state.current_node.type) || 'exploration';
+            
+            if (merchantSec) {
+                if (nodeType === 'merchant' && state.merchant_stock && state.merchant_stock.length > 0) {
+                    merchantSec.classList.remove('hidden');
+                    renderMerchantShop(state.merchant_stock, state.merchant_discount || 0, p.gold || 0);
+                } else {
+                    merchantSec.classList.add('hidden');
                 }
             }
 
