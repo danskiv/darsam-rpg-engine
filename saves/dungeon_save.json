@@ -20,7 +20,7 @@
     "max_hp": 315,
     "mp": 475,
     "max_mp": 95,
-    "gold": 4083,
+    "gold": 4283,
     "stats": {
       "str": 47,
       "dex": 10,
@@ -132,21 +132,7 @@
       }
     },
     "inventory": [
-      {
-        "id": "item_28240",
-        "name": "Reinforced Leather Cap",
-        "item_level": 5,
-        "rarity": "rare",
-        "type": "head",
-        "slot": "head",
-        "icon": "\ud83e\udde2",
-        "bonus": {
-          "def": 12,
-          "wis": 7,
-          "cha": 7
-        },
-        "val": 54
-      },
+      null,
       {
         "id": "c_torch",
         "name": "Pine Pitch Torch",
@@ -239,22 +225,7 @@
         "val": 118,
         "handedness": "off_hand_only"
       },
-      {
-        "id": "item_54885",
-        "name": "Riveted Chainmail Shirt",
-        "item_level": 10,
-        "rarity": "rare",
-        "type": "armor",
-        "slot": "armor",
-        "icon": "\ud83e\udd4b",
-        "bonus": {
-          "def": 28,
-          "hp": 189,
-          "str": 14,
-          "cha": 14
-        },
-        "val": 108
-      },
+      null,
       {
         "id": "item_22056",
         "name": "Abyssal Dreadplate Mantle",
@@ -303,70 +274,10 @@
         },
         "val": 90
       },
-      {
-        "id": "item_37613",
-        "name": "Riveted Chainmail Shirt",
-        "item_level": 2,
-        "rarity": "uncommon",
-        "type": "armor",
-        "slot": "armor",
-        "icon": "\ud83e\udd4b",
-        "bonus": {
-          "def": 8,
-          "hp": 53,
-          "dex": 2
-        },
-        "val": 15
-      },
-      {
-        "id": "item_21304",
-        "name": "Zweihander Greatsword",
-        "item_level": 6,
-        "rarity": "rare",
-        "type": "weapon",
-        "slot": "main_hand",
-        "icon": "\ud83d\udde1\ufe0f",
-        "bonus": {
-          "atk": 37,
-          "str": 7,
-          "dodge": 5,
-          "dex": 8
-        },
-        "val": 64,
-        "handedness": "two_handed"
-      },
-      {
-        "id": "item_33430",
-        "name": "Vanguard Plated Hauberk",
-        "item_level": 7,
-        "rarity": "rare",
-        "type": "armor",
-        "slot": "armor",
-        "icon": "\ud83d\udee1\ufe0f",
-        "bonus": {
-          "def": 25,
-          "hp": 172,
-          "dodge": 5
-        },
-        "val": 75
-      },
-      {
-        "id": "item_94561",
-        "name": "Iron Broadsword",
-        "item_level": 8,
-        "rarity": "rare",
-        "type": "weapon",
-        "slot": "main_hand",
-        "icon": "\u2694\ufe0f",
-        "bonus": {
-          "atk": 37,
-          "str": 9,
-          "wis": 11,
-          "con": 11
-        },
-        "val": 86,
-        "handedness": "main_hand_only"
-      },
+      null,
+      null,
+      null,
+      null,
       {
         "id": "cons_86287",
         "name": "Healing Salve",

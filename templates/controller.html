@@ -966,6 +966,7 @@
 
             let hasItems = false;
             (inventory || []).forEach((item, idx) => {
+                // Only items in the backpack can be sold (equipped gear is in equipped slots and not in inventory array)
                 if (item) {
                     hasItems = true;
                     const row = document.createElement('div');
@@ -990,7 +991,7 @@
                         </div>
                         <div class="ml-2 shrink-0">
                             <button onclick="sellMerchantItem(${idx})" class="bg-emerald-700 hover:bg-emerald-600 active:bg-emerald-800 text-white font-bold text-[9px] px-2.5 py-1 rounded-xl shadow transition-all font-cinzel">
-                                JUAL +${sellVal} G
+                                SELL +${sellVal} G
                             </button>
                         </div>
                     `;
@@ -999,7 +1000,7 @@
             });
 
             if (!hasItems) {
-                container.innerHTML = '<p class="text-xs text-zinc-500 text-center py-4 col-span-full font-mono">Tas ransel kosong. Tidak ada item yang bisa dijual.</p>';
+                container.innerHTML = '<p class="text-xs text-zinc-500 text-center py-4 col-span-full font-mono text-zinc-400">Tas ransel kosong. Lepas perlengkapan ke tas jika ingin menjualnya.</p>';
             }
         }
 
