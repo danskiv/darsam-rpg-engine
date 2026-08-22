@@ -1,9 +1,9 @@
 {
   "status": "playing",
   "floor": 1,
-  "step": 2,
-  "active_sound_theme": "mystery",
-  "torch_turns": 11,
+  "step": 4,
+  "active_sound_theme": "danger",
+  "torch_turns": 9,
   "rations": 3,
   "story_history": [],
   "player": {
@@ -15,9 +15,9 @@
     "level": 1,
     "exp": 0,
     "exp_next": 75,
-    "hp": 115,
+    "hp": 109,
     "max_hp": 115,
-    "mp": 15,
+    "mp": 12,
     "max_mp": 15,
     "gold": 20,
     "stats": {
@@ -201,49 +201,64 @@
     "status_effects": []
   },
   "current_node": {
-    "type": "exploration",
+    "type": "combat",
     "title": "Collapse into the Forgotten Crypt",
     "location": "Subterranean Vault - Floor 1",
     "chapter": "Chapter 1: The Descent"
   },
-  "monster": null,
+  "monster": {
+    "name": "Tomb Scavenger Goblin (Lv.1)",
+    "title": "Tomb Scavenger Goblin",
+    "icon": "\ud83d\udc7a",
+    "desc": "Sneaky Trap-Lover",
+    "level": 1,
+    "tier": "common",
+    "hp": 26,
+    "max_hp": 26,
+    "attack": 6,
+    "exp_reward": 15,
+    "gold_reward": 3,
+    "status": "active"
+  },
   "pending_awakening": null,
   "scene": {
     "chapter": "Chapter 1: The Descent",
-    "title": "Rahasia di Balik Batu Basah",
-    "location": "Subterranean Vault - Floor 1 - Moss-Covered Corridor",
-    "narrative": "Mata Paduka yang terbiasa membaca tanah sawah kini menangkap apa yang tak akan terlihat orang awam: retakan halus berpola spiral pada batu kapur yang lembap itu. Di balik lapisan lumut tebal, sebuah ceruk tersembunyi tersingkap, menyimpan kantong kulit yang telah lapuk oleh waktu\u2014di dalamnya delapan keping Gold kuno masih berkilau redup. Hembusan udara dingin mengalir perlahan dari celah sempit di sisi timur, membawa aroma tanah liat dan bau busuk samar dari kegelapan jauh di ujung lorong. Tetesan air bergaung seperti detak jantung lambat, sementara bayangan berkedip pelan seolah makam purba ini sedang bernapas. Namun telinga Paduka juga menangkap dentingan logam tipis dari kejauhan\u2014sesuatu bergerak di kedalaman.",
+    "title": "Panah Bayangan yang Pudar",
+    "location": "Moss-Covered Corridor",
+    "narrative": "Paduka menarik napas, merasakan dinginnya bayangan merayap di sepanjang lengan\u2014lalu melepaskannya. Panah kegelapan itu hanya sempat terbentuk setengah jalan sebelum luruh menjadi kabut hitam yang lenyap ditelan lumut basah; energi vital Paduka terkuras sia-sia (-3 MP). Kilau samar dari jurus yang gagal itu memantul di mata goblin\u2014dua bola kuning keruh yang melebar nafsu. Ia meraung nyaring, suara serak seperti daun kering diremas, lalu menyambar bilah karat dari pinggangnya dan menyeret kakinya yang bungkuk menerjang lorong, cakar-cakarnya mencakar batu kapur demi kecepatan. Bau busuk mayat memenuhi udara saat jarak di antara Paduka dan makhluk itu menyusut dengan mengerikan.",
     "choices": [
       {
         "id": "A",
-        "text": "Bongkar lempeng batu retak yang menutup lorong samping menggunakan Rusty Farming Hoe (STR Check - DC 12)",
+        "text": "Ayunkan Rusty Farming Hoe dengan seluruh tenaga ke arah tengkorak goblin yang mendekat (STR Check - DC 12)",
         "type": "roll",
         "stat": "STR",
         "dc": 12
       },
       {
         "id": "B",
-        "text": "Merangkap melewati celah sempit tempat hembusan udara dingin mengalir keluar (DEX Check - DC 11)",
+        "text": "Meluncur ke samping lewat celah antara pecahan batu dan menembakkan panah biasa dari posisi baru (DEX Check - DC 11)",
         "type": "roll",
         "stat": "DEX",
         "dc": 11
       },
       {
         "id": "C",
-        "text": "Menelaah ukiran kuno di dinding untuk memetakan denah kript dan menghindari jebakan (INT Check - DC 10)",
+        "text": "Perhatikan pola gerak goblin dan cari titik lemah pada tubuh kurusnya sebelum bertindak (WIS Check - DC 13)",
         "type": "roll",
-        "stat": "INT",
-        "dc": 10
+        "stat": "WIS",
+        "dc": 13
       },
       {
         "id": "D",
-        "text": "Berteduh di sisi ceruk yang aman, makan roti gandum, dan melakukan Short Rest untuk memulihkan tenaga (Action)",
+        "text": "Tarik napas dan fokuskan sisa mana untuk mencoba Ghostflight Shot sekali lagi dengan lebih tenang (Action - butuh jarak)",
         "type": "action"
       }
     ],
     "log": [
       "Commoner 'Danas' (Hardy Peasant) begins the underground survival journey!",
-      "\ud83c\udfb2 [CRITICAL SUCCESS] WIS Check menghasilkan Critical Success! Paduka menemukan ceruk tersembunyi berisi kantong kulit lapuk dengan 8 Gold, serta mengenali pola retakan batu yang menandai jalur aman dan arus udara menuju kedalaman."
+      "\ud83c\udfb2 [CRITICAL SUCCESS] WIS Check menghasilkan Critical Success! Paduka menemukan ceruk tersembunyi berisi kantong kulit lapuk dengan 8 Gold, serta mengenali pola retakan batu yang menandai jalur aman dan arus udara menuju kedalaman.",
+      "\ud83c\udfb2 [CRITICAL FAIL] Critical Fail! Kepala Rusty Farming Hoe patah dengan suara nyaring dan lempeng batu runtuh menutup lorong samping. Dentingan logam menggema ke seluruh kripta\u2014sesuatu di kedalaman kini terbangun dan bergerak mendekat. (-4 HP)",
+      "\ud83c\udfb2 [FAIL] Ghostflight Shot mengalami Critical Fail\u2014energi bayangan Paduka menguap sebelum menyentuh sasaran (-3 MP), dan kilat samar itu justru menandai posisi Paduka. Goblin kubur itu meraung dan menerjang maju dengan bilah berkarat terangkat tinggi."
     ]
   }
 }

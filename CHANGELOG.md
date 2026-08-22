@@ -1,5 +1,18 @@
 # Darsam RPG Engine - Changelog
 
+## [2.1.0] - 2026-08-22
+### Added
+- **Dual AI Engine Integration:** Configured `openrouter/stealth/ox-alpha` as Primary Storyteller with `ag/gemini-3.7-flash-low` as High-Speed Fallback.
+- **AI Processing Loading Indicator:** Real-time floating pulse banner (`#m-ai-loading`) displayed in controller during D20 rolls and AI narrative generation.
+- **Desktop & Mobile Balanced UI:** Upgraded story pane to full vertical stretch (`flex-grow: 1`), enlarged narrative text (`text-base`), increased choices hitboxes, and eliminated whitespace.
+- **Dual Fail-Safe Hydration:** Combined DOMContentLoaded & WebSocket `onopen` REST sync to guarantee choices render instantaneously on any browser.
+- **Mathematical Combat Sync:** Monster defeat status is now strictly tied to numerical `HP <= 0`, preventing premature disappearance.
+
+### Fixed
+- Fixed choices button container rendering bug on initial character creation.
+- Fixed controller body viewport clipping on small laptop displays by enabling smooth native vertical scrolling (`overflow-y: auto`, `pb-24`).
+- Fixed prompt JSON schema enforcement to eliminate truncation.
+
 ## [2.0.0] - 2026-08-22
 ### Added
 - **6-Slot Equipment System:** Added Head, Body, Feet, Accessory, Main Hand, and Off Hand equipment slots.
