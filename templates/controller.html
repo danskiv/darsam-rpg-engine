@@ -754,7 +754,7 @@
             const choices = (s && s.choices) ? s.choices : [];
             choices.forEach(c => {
                 const btn = document.createElement('button');
-                btn.className = "choice-btn w-full text-left p-3 rounded-2xl bg-zinc-950 border border-zinc-800 hover:border-amber-500/80 flex items-center space-x-3 transition-all active:scale-[0.98] shadow-md group";
+                btn.className = "choice-btn w-full text-left p-3.5 rounded-2xl bg-zinc-950 border border-zinc-800 hover:border-amber-500/80 flex items-center space-x-3.5 transition-all active:scale-[0.98] shadow-md group";
                 btn.onclick = () => selectChoice(c);
                 
                 const isRoll = c.type === 'roll';
