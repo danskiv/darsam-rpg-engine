@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Darsam AI Dungeon — Grandmaster TV Matrix</title>
+    <title>Darsam AI Dungeon — Grandmaster TV Matrix v2.0.0</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;900&family=Plus+Jakarta+Sans:wght@500;600;700;800&family=JetBrains+Mono:wght@500;700;800&display=swap');
@@ -47,12 +47,24 @@
             text-shadow: 0 0 25px rgba(245, 158, 11, 0.6);
         }
 
-        /* Rarity Borders & Glows */
+        /* Class Tier Auras */
+        .tier-common { border-color: #52525b; }
+        .tier-special { border-color: #22c55e; box-shadow: 0 0 16px rgba(34, 197, 94, 0.4); }
+        .tier-epic { border-color: #a855f7; box-shadow: 0 0 20px rgba(168, 85, 247, 0.55); }
+        .tier-legendary { border-color: #eab308; box-shadow: 0 0 26px rgba(234, 179, 8, 0.7); }
+        .tier-mythic { border-color: #ef4444; box-shadow: 0 0 35px rgba(239, 68, 68, 0.9); animation: mythicPulse 2s infinite ease-in-out; }
+
+        @keyframes mythicPulse {
+            0%, 100% { filter: drop-shadow(0 0 12px rgba(239, 68, 68, 0.8)); transform: scale(1); }
+            50% { filter: drop-shadow(0 0 24px rgba(234, 179, 8, 1)); transform: scale(1.02); }
+        }
+
+        /* Rarity Borders */
         .rarity-common { border-color: #52525b; }
-        .rarity-uncommon { border-color: #22c55e; box-shadow: 0 0 10px rgba(34, 197, 94, 0.25); }
-        .rarity-rare { border-color: #3b82f6; box-shadow: 0 0 14px rgba(59, 130, 246, 0.35); }
-        .rarity-epic { border-color: #a855f7; box-shadow: 0 0 18px rgba(168, 85, 247, 0.45); }
-        .rarity-legendary { border-color: #eab308; box-shadow: 0 0 24px rgba(234, 179, 8, 0.6); }
+        .rarity-uncommon { border-color: #22c55e; }
+        .rarity-rare { border-color: #3b82f6; box-shadow: 0 0 8px rgba(59, 130, 246, 0.4); }
+        .rarity-epic { border-color: #a855f7; box-shadow: 0 0 12px rgba(168, 85, 247, 0.5); }
+        .rarity-legendary { border-color: #eab308; box-shadow: 0 0 16px rgba(234, 179, 8, 0.6); }
 
         @keyframes roll-shake {
             0% { transform: rotate(0deg) scale(1); }
@@ -85,7 +97,7 @@
             <div class="text-center space-y-1">
                 <p class="text-xs uppercase tracking-[0.35em] font-bold text-amber-500">ORIGIN SELECTION • ZERO TO HERO</p>
                 <h1 class="text-3xl lg:text-4xl font-black font-cinzel text-amber-400 glow-gold">Pilih Asal-Usul Karakter</h1>
-                <p class="text-zinc-300 text-xs">Pilih salah satu dari 8 latar belakang warga biasa melalui controller di HP Paduka...</p>
+                <p class="text-zinc-300 text-xs">Pilih salah satu dari 8 latar belakang warga biasa melalui controller di HP/Laptop Paduka...</p>
             </div>
 
             <!-- 8 Origins Grid (4x2 layout) -->
@@ -172,30 +184,33 @@
             </div>
 
             <div class="flex justify-between items-center text-xs text-zinc-400 border-t border-zinc-800 pt-2">
-                <span class="text-amber-400 font-mono font-bold">📱 Masukkan nama & pilih Origin di HP Paduka...</span>
+                <span class="text-amber-400 font-mono font-bold">📱 Masukkan nama & pilih Origin di Controller Paduka...</span>
                 <span class="text-emerald-400 font-semibold">● Sesi Live Terhubung</span>
             </div>
         </div>
 
-        <!-- 2. TV STAT DASHBOARD (COMPACT HEADER) -->
-        <header class="flex justify-between items-center bg-zinc-900/95 border border-zinc-800 px-4 py-2 rounded-2xl shadow-lg flex-shrink-0">
+        <!-- 2. TV STAT DASHBOARD (HEADER WITH AURA GLOW) -->
+        <header id="tv-header" class="flex justify-between items-center bg-zinc-900/95 border-2 p-2.5 rounded-2xl shadow-xl flex-shrink-0 transition-all">
             <div class="flex items-center space-x-3">
                 <div id="player-icon" class="w-10 h-10 rounded-xl bg-gradient-to-tr from-amber-600 to-yellow-400 flex items-center justify-center text-xl shadow-md">
                     🌾
                 </div>
                 <div>
-                    <h1 class="text-lg lg:text-xl font-black font-cinzel tracking-wider text-amber-400 glow-gold leading-none" id="player-name">Danas</h1>
+                    <div class="flex items-center space-x-2">
+                        <h1 class="text-lg lg:text-xl font-black font-cinzel tracking-wider text-amber-400 glow-gold leading-none" id="player-name">Danas</h1>
+                        <span id="player-tier-badge" class="bg-zinc-800 border border-zinc-700 text-[8px] font-mono font-bold px-1.5 py-0.2 rounded uppercase text-zinc-300">COMMON</span>
+                    </div>
                     <p class="text-[10px] uppercase tracking-widest text-zinc-300 font-extrabold mt-0.5" id="player-class">Hardy Peasant • Level 1</p>
                 </div>
             </div>
 
             <!-- EXP Progress Bar in Header -->
-            <div class="w-48 text-center space-y-0.5">
-                <div class="flex justify-between text-[9px] font-extrabold text-zinc-300">
-                    <span class="text-amber-400">LEVEL PROGRESS</span>
+            <div class="w-44 text-center space-y-0.5">
+                <div class="flex justify-between text-[8px] font-extrabold text-zinc-300">
+                    <span class="text-amber-400">EXP PROGRESS</span>
                     <span id="exp-text" class="font-mono">0 / 75 EXP</span>
                 </div>
-                <div class="w-full h-2 bg-zinc-950 rounded-full overflow-hidden border border-zinc-800">
+                <div class="w-full h-1.5 bg-zinc-950 rounded-full overflow-hidden border border-zinc-800">
                     <div id="exp-bar" class="h-full bg-gradient-to-r from-amber-600 to-yellow-400 transition-all duration-500" style="width: 0%;"></div>
                 </div>
             </div>
@@ -218,31 +233,29 @@
         </header>
 
         <!-- 3. BALANCED 3-COLUMN TACTICAL TV DISPLAY -->
-        <main class="grid grid-cols-12 gap-3.5 items-stretch flex-1 my-2 min-h-0">
+        <main class="grid grid-cols-12 gap-3 items-stretch flex-1 my-2 min-h-0">
             
-            <!-- Col 1: Vitals, 6 Core Attributes, & Equipped Paper Doll (Col 4) -->
-            <div class="col-span-4 flex flex-col justify-between bg-zinc-900/90 border border-zinc-800 p-3 rounded-2xl shadow-xl space-y-2">
-                <p class="text-[9px] uppercase font-black tracking-widest text-amber-400">HERO VITALS & EQUIPPED GEAR:</p>
+            <!-- Col 1: Vitals, 6 Core Attributes, & 6-Slot Paper Doll (Col 4) -->
+            <div class="col-span-4 flex flex-col justify-between bg-zinc-900/90 border border-zinc-800 p-3 rounded-2xl shadow-xl space-y-1.5">
+                <p class="text-[9px] font-black tracking-widest text-amber-400 uppercase">HERO VITALS & 6-SLOT GEAR:</p>
                 
                 <!-- HP & MP Dual Gauges -->
                 <div class="grid grid-cols-2 gap-2">
-                    <!-- HP -->
                     <div class="bg-zinc-950 p-2 rounded-xl border border-red-950/80">
                         <div class="flex justify-between items-center text-[10px] font-black">
                             <span class="text-red-400">❤️ HP</span>
                             <span id="hp-text" class="text-white font-mono font-bold">115/115</span>
                         </div>
-                        <div class="w-full h-2 bg-zinc-900 rounded-full overflow-hidden mt-1">
+                        <div class="w-full h-1.5 bg-zinc-900 rounded-full overflow-hidden mt-1">
                             <div id="hp-bar" class="h-full bg-red-600 rounded-full transition-all duration-500" style="width: 100%;"></div>
                         </div>
                     </div>
-                    <!-- MP -->
                     <div class="bg-zinc-950 p-2 rounded-xl border border-cyan-950/80">
                         <div class="flex justify-between items-center text-[10px] font-black">
                             <span class="text-cyan-400">✨ MP</span>
                             <span id="mp-text" class="text-white font-mono font-bold">15/15</span>
                         </div>
-                        <div class="w-full h-2 bg-zinc-900 rounded-full overflow-hidden mt-1">
+                        <div class="w-full h-1.5 bg-zinc-900 rounded-full overflow-hidden mt-1">
                             <div id="mp-bar" class="h-full bg-cyan-500 rounded-full transition-all duration-500" style="width: 100%;"></div>
                         </div>
                     </div>
@@ -250,100 +263,104 @@
 
                 <!-- 6 D&D Ability Scores Matrix -->
                 <div class="grid grid-cols-6 gap-1 text-center">
-                    <div class="bg-zinc-950 p-1.5 rounded-lg border border-zinc-800">
+                    <div class="bg-zinc-950 p-1 rounded-lg border border-zinc-800">
                         <p class="text-[7px] font-bold text-zinc-400">STR</p>
-                        <p id="stat-str" class="text-sm font-black font-mono text-amber-400">14</p>
+                        <p id="stat-str" class="text-xs font-black font-mono text-amber-400">14</p>
                     </div>
-                    <div class="bg-zinc-950 p-1.5 rounded-lg border border-zinc-800">
+                    <div class="bg-zinc-950 p-1 rounded-lg border border-zinc-800">
                         <p class="text-[7px] font-bold text-zinc-400">DEX</p>
-                        <p id="stat-dex" class="text-sm font-black font-mono text-emerald-400">10</p>
+                        <p id="stat-dex" class="text-xs font-black font-mono text-emerald-400">10</p>
                     </div>
-                    <div class="bg-zinc-950 p-1.5 rounded-lg border border-zinc-800">
+                    <div class="bg-zinc-950 p-1 rounded-lg border border-zinc-800">
                         <p class="text-[7px] font-bold text-zinc-400">CON</p>
-                        <p id="stat-con" class="text-sm font-black font-mono text-rose-400">15</p>
+                        <p id="stat-con" class="text-xs font-black font-mono text-rose-400">15</p>
                     </div>
-                    <div class="bg-zinc-950 p-1.5 rounded-lg border border-zinc-800">
+                    <div class="bg-zinc-950 p-1 rounded-lg border border-zinc-800">
                         <p class="text-[7px] font-bold text-zinc-400">INT</p>
-                        <p id="stat-int" class="text-sm font-black font-mono text-cyan-400">8</p>
+                        <p id="stat-int" class="text-xs font-black font-mono text-cyan-400">8</p>
                     </div>
-                    <div class="bg-zinc-950 p-1.5 rounded-lg border border-zinc-800">
+                    <div class="bg-zinc-950 p-1 rounded-lg border border-zinc-800">
                         <p class="text-[7px] font-bold text-zinc-400">WIS</p>
-                        <p id="stat-wis" class="text-sm font-black font-mono text-purple-400">12</p>
+                        <p id="stat-wis" class="text-xs font-black font-mono text-purple-400">12</p>
                     </div>
-                    <div class="bg-zinc-950 p-1.5 rounded-lg border border-zinc-800">
+                    <div class="bg-zinc-950 p-1 rounded-lg border border-zinc-800">
                         <p class="text-[7px] font-bold text-zinc-400">CHA</p>
-                        <p id="stat-cha" class="text-sm font-black font-mono text-yellow-400">8</p>
+                        <p id="stat-cha" class="text-xs font-black font-mono text-yellow-400">8</p>
                     </div>
                 </div>
 
-                <!-- 4 Equipped Paper Doll Slots -->
+                <!-- 6 Equipped Paper Doll Slots Grid -->
                 <div class="space-y-1 bg-zinc-950 p-2 rounded-xl border border-zinc-800">
-                    <p class="text-[8px] font-bold text-zinc-400 uppercase">EQUIPPED GEAR:</p>
-                    <div class="grid grid-cols-2 gap-1.5 text-[10px]">
-                        <!-- Main Hand -->
-                        <div id="eq-main" class="flex items-center space-x-1.5 bg-zinc-900 p-1.5 rounded-lg border border-zinc-700 truncate">
-                            <span>⚔️</span>
-                            <span id="eq-main-name" class="truncate font-bold text-zinc-200">Empty</span>
+                    <p class="text-[8px] font-bold text-amber-400 uppercase">6 EQUIPPED GEAR SLOTS:</p>
+                    <div class="grid grid-cols-3 gap-1 text-[9px]">
+                        <div id="eq-head" class="bg-zinc-900 p-1 rounded border border-zinc-700 truncate">
+                            <span class="text-zinc-400 text-[7px] block">HEAD</span>
+                            <span id="eq-head-name" class="font-bold text-zinc-200 truncate block">Empty</span>
                         </div>
-                        <!-- Off Hand -->
-                        <div id="eq-off" class="flex items-center space-x-1.5 bg-zinc-900 p-1.5 rounded-lg border border-zinc-700 truncate">
-                            <span>🛡️</span>
-                            <span id="eq-off-name" class="truncate font-bold text-zinc-200">Empty</span>
+                        <div id="eq-armor" class="bg-zinc-900 p-1 rounded border border-zinc-700 truncate">
+                            <span class="text-zinc-400 text-[7px] block">ARMOR</span>
+                            <span id="eq-armor-name" class="font-bold text-zinc-200 truncate block">Empty</span>
                         </div>
-                        <!-- Armor -->
-                        <div id="eq-armor" class="flex items-center space-x-1.5 bg-zinc-900 p-1.5 rounded-lg border border-zinc-700 truncate">
-                            <span>🥋</span>
-                            <span id="eq-armor-name" class="truncate font-bold text-zinc-200">Empty</span>
+                        <div id="eq-feet" class="bg-zinc-900 p-1 rounded border border-zinc-700 truncate">
+                            <span class="text-zinc-400 text-[7px] block">FEET</span>
+                            <span id="eq-feet-name" class="font-bold text-zinc-200 truncate block">Empty</span>
                         </div>
-                        <!-- Accessory -->
-                        <div id="eq-acc" class="flex items-center space-x-1.5 bg-zinc-900 p-1.5 rounded-lg border border-zinc-700 truncate">
-                            <span>💍</span>
-                            <span id="eq-acc-name" class="truncate font-bold text-zinc-200">Empty</span>
+                        <div id="eq-main" class="bg-zinc-900 p-1 rounded border border-zinc-700 truncate">
+                            <span class="text-zinc-400 text-[7px] block">MAIN HAND</span>
+                            <span id="eq-main-name" class="font-bold text-zinc-200 truncate block">Empty</span>
+                        </div>
+                        <div id="eq-off" class="bg-zinc-900 p-1 rounded border border-zinc-700 truncate">
+                            <span class="text-zinc-400 text-[7px] block">OFF HAND</span>
+                            <span id="eq-off-name" class="font-bold text-zinc-200 truncate block">Empty</span>
+                        </div>
+                        <div id="eq-acc" class="bg-zinc-900 p-1 rounded border border-zinc-700 truncate">
+                            <span class="text-zinc-400 text-[7px] block">ACCESSORY</span>
+                            <span id="eq-acc-name" class="font-bold text-zinc-200 truncate block">Empty</span>
                         </div>
                     </div>
                 </div>
 
                 <!-- Survival Resources -->
-                <div class="grid grid-cols-3 gap-1.5 text-[10px] font-mono text-center">
+                <div class="grid grid-cols-3 gap-1 text-[9px] font-mono text-center">
                     <div class="bg-amber-950/40 p-1 rounded-lg border border-amber-800/80">
                         <span class="text-amber-400 font-bold">🪙 <span id="gold-text">12</span> G</span>
                     </div>
                     <div class="bg-zinc-950 p-1 rounded-lg border border-zinc-800">
-                        <span class="text-zinc-300">🕯️ <span id="torch-text">12</span> Light</span>
+                        <span class="text-zinc-300">🕯️ <span id="torch-text">12</span> L</span>
                     </div>
                     <div class="bg-zinc-950 p-1 rounded-lg border border-zinc-800">
-                        <span class="text-zinc-300">🍞 <span id="ration-text">3</span> Rations</span>
+                        <span class="text-zinc-300">🍞 <span id="ration-text">3</span> R</span>
                     </div>
                 </div>
             </div>
 
-            <!-- Col 2: 25-Slot Inventory Grid (5x5) & D20 Live Chamber (Col 4) -->
-            <div class="col-span-4 flex flex-col justify-between bg-zinc-900/90 border border-zinc-800 p-3 rounded-2xl shadow-xl">
+            <!-- Col 2: 40-Slot Backpack Matrix Grid (8x5) & D20 Live Chamber (Col 4) -->
+            <div class="col-span-4 flex flex-col justify-between bg-zinc-900/90 border border-zinc-800 p-3 rounded-2xl shadow-xl space-y-1.5">
                 
                 <!-- D20 Roll Stage / DM Idle Header -->
-                <div class="bg-zinc-950 p-2.5 rounded-xl border border-zinc-800 text-center relative overflow-hidden">
+                <div class="bg-zinc-950 p-2 rounded-xl border border-zinc-800 text-center relative overflow-hidden">
                     <div id="dice-idle-view" class="space-y-0.5">
-                        <p class="font-cinzel text-xs font-bold text-amber-400">🎲 D20 Live Dice Chamber</p>
-                        <p class="text-[10px] text-zinc-400">Siap menguji takdir tindakan Paduka</p>
+                        <p class="font-cinzel text-[11px] font-bold text-amber-400">🎲 D20 Live Dice Chamber</p>
+                        <p class="text-[9px] text-zinc-400">Menguji takdir tindakan Sang Ksatria</p>
                     </div>
 
                     <div id="dice-active-view" class="hidden flex flex-col items-center justify-center space-y-1">
-                        <div id="dice-box" class="w-14 h-14 rounded-2xl bg-gradient-to-br from-amber-600 to-yellow-400 flex items-center justify-center text-3xl font-cinzel font-black text-black shadow-xl animate-roll">
+                        <div id="dice-box" class="w-12 h-12 rounded-xl bg-gradient-to-br from-amber-600 to-yellow-400 flex items-center justify-center text-2xl font-cinzel font-black text-black shadow-xl animate-roll">
                             ?
                         </div>
-                        <p id="dice-subtext" class="text-[10px] text-zinc-200 font-bold animate-pulse">Rolling D20 Check...</p>
+                        <p id="dice-subtext" class="text-[9px] text-zinc-200 font-bold animate-pulse">Rolling D20 Check...</p>
                     </div>
                 </div>
 
-                <!-- 25-Slot Backpack Matrix Grid (5x5) -->
+                <!-- 40-Slot Backpack Matrix Grid (8x5) -->
                 <div class="space-y-1">
-                    <div class="flex justify-between items-center text-[9px] font-black uppercase text-amber-400">
-                        <span>🎒 BACKPACK INVENTORY (25 SLOTS):</span>
-                        <span id="inv-count-text" class="text-zinc-400 font-mono">0 / 25</span>
+                    <div class="flex justify-between items-center text-[8px] font-black uppercase text-amber-400">
+                        <span>🎒 BACKPACK INVENTORY (40 SLOTS):</span>
+                        <span id="inv-count-text" class="text-zinc-400 font-mono">0 / 40</span>
                     </div>
                     
-                    <div id="grid-inventory" class="grid grid-cols-5 gap-1.5 bg-zinc-950 p-2 rounded-xl border border-zinc-800 aspect-square max-h-[36vh] overflow-hidden">
-                        <!-- 25 Slots generated dynamically by JS -->
+                    <div id="grid-inventory" class="grid grid-cols-8 gap-1 bg-zinc-950 p-1.5 rounded-xl border border-zinc-800 aspect-[8/5] max-h-[38vh] overflow-hidden">
+                        <!-- 40 Slots generated dynamically by JS -->
                     </div>
                 </div>
             </div>
@@ -352,19 +369,19 @@
             <div class="col-span-4 flex flex-col justify-between bg-zinc-900/90 border border-zinc-800 p-3 rounded-2xl shadow-xl overflow-hidden space-y-2">
                 
                 <!-- Active Monster Card or Dungeon Master View -->
-                <div id="monster-card" class="bg-zinc-950 p-3 rounded-xl border border-red-950/80 space-y-1.5">
+                <div id="monster-card" class="bg-zinc-950 p-2.5 rounded-xl border border-red-950/80 space-y-1">
                     <div class="flex justify-between items-center">
-                        <div class="flex items-center space-x-2">
-                            <span id="m-icon" class="text-2xl">💀</span>
+                        <div class="flex items-center space-x-1.5">
+                            <span id="m-icon" class="text-xl">💀</span>
                             <div>
                                 <h3 id="m-name" class="text-xs font-bold font-cinzel text-red-400">Restless Skeleton (Lv.1)</h3>
-                                <p id="m-desc" class="text-[9px] text-zinc-400">Common Minion • Undead</p>
+                                <p id="m-desc" class="text-[8px] text-zinc-400">Common Minion • Undead</p>
                             </div>
                         </div>
-                        <span id="m-tier-badge" class="bg-red-950 border border-red-800 text-red-300 text-[8px] font-bold px-1.5 py-0.5 rounded uppercase">COMMON</span>
+                        <span id="m-tier-badge" class="bg-red-950 border border-red-800 text-red-300 text-[8px] font-bold px-1.5 py-0.2 rounded uppercase font-mono">COMMON</span>
                     </div>
                     <!-- Monster HP Bar -->
-                    <div class="w-full h-2 bg-zinc-900 rounded-full overflow-hidden">
+                    <div class="w-full h-1.5 bg-zinc-900 rounded-full overflow-hidden">
                         <div id="m-hp-bar" class="h-full bg-red-600 rounded-full transition-all duration-500" style="width: 100%;"></div>
                     </div>
                     <div class="flex justify-between text-[8px] text-zinc-400 font-mono">
@@ -374,19 +391,19 @@
                 </div>
 
                 <!-- Idle Dungeon Master Card (shown when not in combat) -->
-                <div id="dm-idle-card" class="hidden bg-zinc-950 p-3 rounded-xl border border-zinc-800 flex items-center space-x-3">
-                    <span class="text-3xl">🏰</span>
+                <div id="dm-idle-card" class="hidden bg-zinc-950 p-2.5 rounded-xl border border-zinc-800 flex items-center space-x-2.5">
+                    <span class="text-2xl">🏰</span>
                     <div>
                         <h3 class="text-xs font-bold font-cinzel text-amber-400">Dungeon Master Darsam</h3>
-                        <p class="text-[10px] text-zinc-400">Menanti keputusan Sang Ksatria di HP...</p>
+                        <p class="text-[9px] text-zinc-400">Menanti keputusan dari Controller HP/Laptop...</p>
                     </div>
                 </div>
 
                 <!-- Live Chronicle Event Log -->
                 <div class="flex-1 flex flex-col justify-between overflow-hidden">
-                    <p class="text-[9px] uppercase font-black tracking-widest text-amber-400 mb-1">LIVE CHRONICLE LOG:</p>
+                    <p class="text-[8px] uppercase font-black tracking-widest text-amber-400 mb-1">LIVE CHRONICLE LOG:</p>
                     <div class="flex-1 overflow-y-auto pr-1">
-                        <ul id="log-list" class="space-y-1.5 text-[11px] text-zinc-200 leading-snug">
+                        <ul id="log-list" class="space-y-1.5 text-[10px] text-zinc-200 leading-snug">
                             <li class="break-words font-medium">• Petualangan dimulai...</li>
                         </ul>
                     </div>
@@ -395,12 +412,12 @@
         </main>
 
         <!-- 4. FOOTER STATUS BAR -->
-        <footer class="flex justify-between items-center bg-zinc-900/90 border border-zinc-800/90 px-4 py-1.5 rounded-xl text-[10px] text-zinc-300 flex-shrink-0 shadow">
+        <footer class="flex justify-between items-center bg-zinc-900/90 border border-zinc-800/90 px-4 py-1 rounded-xl text-[9px] text-zinc-300 flex-shrink-0 shadow">
             <div class="flex items-center space-x-2">
-                <span class="font-bold">📱 Buka Story & Controller di HP:</span>
-                <span class="font-mono bg-amber-500 text-black px-2 py-0.5 rounded-md font-black text-[10px] shadow">http://10.10.10.1:8090/controller</span>
+                <span class="font-bold">📱 Standalone Controller URL:</span>
+                <span class="font-mono bg-amber-500 text-black px-2 py-0.5 rounded-md font-black text-[9px] shadow">http://10.10.10.1:8090/controller</span>
             </div>
-            <p class="font-semibold text-zinc-400">⚔️ Engine: Gemini 3.7 Flash Low AI • 25-Slot Matrix</p>
+            <p class="font-semibold text-zinc-400">⚔️ Grandmaster v2.0.0 • 40-Slot & 6-Equip Matrix</p>
         </footer>
 
     </div>
@@ -734,6 +751,14 @@
             document.getElementById('player-icon').innerText = p.class_icon || '🌾';
             document.getElementById('player-class').innerText = `${p.class_name} • Level ${p.level || 1}`;
             
+            // Tier Aura Badge on TV Header
+            const tier = p.class_tier || "common";
+            const badge = document.getElementById('player-tier-badge');
+            badge.innerText = tier.toUpperCase();
+            
+            const header = document.getElementById('tv-header');
+            header.className = `flex justify-between items-center bg-zinc-900/95 border-2 p-2.5 rounded-2xl shadow-xl flex-shrink-0 transition-all tier-${tier}`;
+
             document.getElementById('hp-text').innerText = `${p.hp}/${p.max_hp}`;
             document.getElementById('hp-bar').style.width = `${Math.min(100, Math.max(0, (p.hp / p.max_hp) * 100))}%`;
             
@@ -759,15 +784,17 @@
             document.getElementById('stat-wis').innerText = stats.wis || 10;
             document.getElementById('stat-cha').innerText = stats.cha || 10;
 
-            // Equipped Paper Doll
+            // 6 Equipped Paper Doll
             const eq = p.equipped || {};
-            document.getElementById('eq-main-name').innerText = eq.main_hand ? eq.main_hand.name : "Empty";
-            document.getElementById('eq-off-name').innerText = eq.off_hand ? eq.off_hand.name : "Empty";
+            document.getElementById('eq-head-name').innerText = eq.head ? eq.head.name : "Empty";
             document.getElementById('eq-armor-name').innerText = eq.armor ? eq.armor.name : "Empty";
+            document.getElementById('eq-feet-name').innerText = eq.feet ? eq.feet.name : "Empty";
+            document.getElementById('eq-main-name').innerText = eq.main_hand ? eq.main_hand.name : "Empty";
+            document.getElementById('eq-off-name').innerText = eq.off_hand ? eq.off_hand.name : (eq.main_hand && eq.main_hand.handedness === 'two_handed' ? '[2-Hand Lock]' : "Empty");
             document.getElementById('eq-acc-name').innerText = eq.accessory ? eq.accessory.name : "Empty";
 
-            // Render 25-Slot Grid
-            render25SlotGrid(p.inventory || []);
+            // Render 40-Slot Grid (8x5)
+            render40SlotGrid(p.inventory || []);
 
             // Monster vs DM Card
             const m = state.monster;
@@ -794,43 +821,43 @@
             logList.innerHTML = '';
             s.log.slice(-4).forEach(l => {
                 const li = document.createElement('li');
-                li.className = "break-words leading-relaxed";
+                li.className = "break-words leading-snug";
                 li.innerText = `• ${l}`;
                 logList.appendChild(li);
             });
         }
 
-        function render25SlotGrid(inv) {
+        function render40SlotGrid(inv) {
             const grid = document.getElementById('grid-inventory');
             grid.innerHTML = '';
             let usedCount = 0;
 
-            for (let i = 0; i < 25; i++) {
+            for (let i = 0; i < 40; i++) {
                 const item = inv[i];
                 const slot = document.createElement('div');
-                slot.className = "rounded-lg flex items-center justify-center border transition-all text-xs relative";
+                slot.className = "rounded flex items-center justify-center border transition-all text-xs relative";
                 
                 if (item) {
                     usedCount++;
                     const rarityClass = `rarity-${item.rarity || 'common'}`;
-                    slot.classList.add('bg-zinc-900', rarityClass, 'border-2');
-                    slot.innerHTML = `<span class="text-sm">${item.icon || '📦'}</span>`;
+                    slot.classList.add('bg-zinc-900', rarityClass, 'border');
+                    slot.innerHTML = `<span class="text-xs">${item.icon || '📦'}</span>`;
                     slot.title = `${item.name} (${item.rarity})`;
                 } else {
                     slot.classList.add('bg-zinc-950/60', 'border-zinc-800/80');
-                    slot.innerHTML = `<span class="text-[8px] text-zinc-700 font-mono">${i + 1}</span>`;
+                    slot.innerHTML = `<span class="text-[7px] text-zinc-700 font-mono">${i + 1}</span>`;
                 }
                 grid.appendChild(slot);
             }
 
-            document.getElementById('inv-count-text').innerText = `${usedCount} / 25`;
+            document.getElementById('inv-count-text').innerText = `${usedCount} / 40`;
         }
 
         function triggerDiceRolling(choiceText, stat) {
             document.getElementById('dice-idle-view').classList.add('hidden');
             document.getElementById('dice-active-view').classList.remove('hidden');
             const box = document.getElementById('dice-box');
-            box.className = "w-14 h-14 rounded-2xl bg-gradient-to-br from-amber-600 to-yellow-400 flex items-center justify-center text-3xl font-cinzel font-black text-black shadow-xl animate-roll";
+            box.className = "w-12 h-12 rounded-xl bg-gradient-to-br from-amber-600 to-yellow-400 flex items-center justify-center text-2xl font-cinzel font-black text-black shadow-xl animate-roll";
             box.innerText = "?";
             document.getElementById('dice-subtext').innerText = `${stat} CHECK`;
 
@@ -850,19 +877,19 @@
             box.classList.remove('animate-roll');
             box.innerText = val;
             if (val >= 19) {
-                box.className = "w-14 h-14 rounded-2xl bg-gradient-to-br from-emerald-500 to-green-600 flex items-center justify-center text-3xl font-cinzel font-black text-white shadow-xl scale-105";
+                box.className = "w-12 h-12 rounded-xl bg-gradient-to-br from-emerald-500 to-green-600 flex items-center justify-center text-2xl font-cinzel font-black text-white shadow-xl scale-105";
                 document.getElementById('dice-subtext').innerText = "CRITICAL SUCCESS!";
                 sound.playVictoryFanfare();
             } else if (val === 1) {
-                box.className = "w-14 h-14 rounded-2xl bg-gradient-to-br from-red-600 to-rose-900 flex items-center justify-center text-3xl font-cinzel font-black text-white shadow-xl scale-105";
+                box.className = "w-12 h-12 rounded-xl bg-gradient-to-br from-red-600 to-rose-900 flex items-center justify-center text-2xl font-cinzel font-black text-white shadow-xl scale-105";
                 document.getElementById('dice-subtext').innerText = "CRITICAL FAIL!";
                 sound.playDoomThud();
             } else if (val >= 10) {
-                box.className = "w-14 h-14 rounded-2xl bg-gradient-to-br from-blue-600 to-cyan-500 flex items-center justify-center text-3xl font-cinzel font-black text-white shadow-xl scale-105";
+                box.className = "w-12 h-12 rounded-xl bg-gradient-to-br from-blue-600 to-cyan-500 flex items-center justify-center text-2xl font-cinzel font-black text-white shadow-xl scale-105";
                 document.getElementById('dice-subtext').innerText = `SUCCESS (${val})`;
                 sound.playCrystalNote(523.25, 1.2);
             } else {
-                box.className = "w-14 h-14 rounded-2xl bg-gradient-to-br from-zinc-700 to-zinc-900 flex items-center justify-center text-3xl font-cinzel font-black text-red-400 border border-red-500/40";
+                box.className = "w-12 h-12 rounded-xl bg-gradient-to-br from-zinc-700 to-zinc-900 flex items-center justify-center text-2xl font-cinzel font-black text-red-400 border border-red-500/40";
                 document.getElementById('dice-subtext').innerText = `FAIL (${val})`;
                 sound.playWarDrum();
             }

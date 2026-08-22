@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>Darsam Dungeon Story & Controller</title>
+    <title>Darsam Dungeon Story & Controller v2.0.0</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Plus+Jakarta+Sans:wght@500;600;700;800&family=JetBrains+Mono:wght@500;700;800&display=swap');
@@ -41,6 +41,12 @@
         .rarity-rare { border-color: #3b82f6; color: #60a5fa; }
         .rarity-epic { border-color: #a855f7; color: #c084fc; }
         .rarity-legendary { border-color: #eab308; color: #facc15; }
+
+        .tier-common { border-color: #52525b; }
+        .tier-special { border-color: #22c55e; }
+        .tier-epic { border-color: #a855f7; }
+        .tier-legendary { border-color: #eab308; }
+        .tier-mythic { border-color: #ef4444; }
 
         /* Custom Scrollbars */
         ::-webkit-scrollbar {
@@ -215,7 +221,7 @@
     <div id="m-gameplay-view" class="flex flex-col space-y-3 w-full">
         
         <!-- Top Sticky Header -->
-        <header class="bg-zinc-900/95 border border-zinc-800 p-3 rounded-2xl shadow-xl space-y-2.5">
+        <header id="c-header-card" class="bg-zinc-900/95 border-2 p-3 rounded-2xl shadow-xl space-y-2.5 transition-all">
             <div class="flex justify-between items-center">
                 <div class="flex items-center space-x-2.5">
                     <div id="m-char-icon" class="w-9 h-9 rounded-xl bg-gradient-to-tr from-amber-600 to-yellow-400 flex items-center justify-center text-lg font-bold text-black shadow">
@@ -224,9 +230,9 @@
                     <div>
                         <div class="flex items-center space-x-1.5">
                             <h1 id="m-char-name" class="text-xs lg:text-sm font-bold font-cinzel text-amber-400 truncate max-w-[120px]">Danas</h1>
-                            <span id="m-char-level" class="text-[8px] uppercase font-bold bg-zinc-800 px-1.5 py-0.5 rounded text-zinc-300 font-mono">Lv.1 Peasant</span>
+                            <span id="m-char-tier-badge" class="text-[8px] uppercase font-bold bg-zinc-800 px-1.5 py-0.2 rounded text-zinc-300 font-mono border border-zinc-700">COMMON</span>
                         </div>
-                        <p id="m-location" class="text-[9px] font-semibold text-zinc-400 truncate">📍 Subterranean Ruins</p>
+                        <p id="m-char-level" class="text-[9px] text-zinc-300 font-semibold truncate">Hardy Peasant • Level 1</p>
                     </div>
                 </div>
 
@@ -244,16 +250,36 @@
                 </div>
             </div>
 
-            <!-- TAB SELECTOR (CERITA vs STATS & TAS 25) -->
+            <!-- TAB SELECTOR (CERITA vs STATS & TAS 40) -->
             <div class="flex rounded-xl bg-zinc-950 p-1 border border-zinc-800 text-xs font-bold font-cinzel">
                 <button onclick="switchTab('story')" id="tab-btn-story" class="flex-1 py-1.5 rounded-lg bg-amber-500 text-black shadow font-bold transition-all">
                     📖 CERITA & TINDAKAN
                 </button>
                 <button onclick="switchTab('stats')" id="tab-btn-stats" class="flex-1 py-1.5 rounded-lg text-zinc-400 hover:text-zinc-200 transition-all">
-                    🎒 STATS, JURUS & TAS (25)
+                    🎒 STATS, JURUS & TAS (40)
                 </button>
             </div>
         </header>
+
+        <!-- DYNAMIC SECRET JOB AWAKENING BANNER (Peluang Langka) -->
+        <div id="m-awakening-banner" class="hidden bg-gradient-to-r from-amber-950/95 via-purple-950/95 to-zinc-950 border-2 border-amber-500 p-3.5 rounded-2xl shadow-2xl space-y-2 animate-pulse">
+            <div class="flex justify-between items-center">
+                <span class="text-xs font-black font-cinzel text-amber-300 tracking-wider">🌟 DESTINY AWAKENING DETECTED!</span>
+                <span id="awk-tier-badge" class="bg-amber-500 text-black text-[8px] font-black px-2 py-0.5 rounded font-mono uppercase">MYTHIC</span>
+            </div>
+            <div>
+                <h3 id="awk-title" class="text-sm font-black font-cinzel text-amber-400">Dragon-Heart Sovereign</h3>
+                <p id="awk-desc" class="text-[10px] text-zinc-300 leading-snug mt-0.5">Pewaris takhta naga purba. Tubuh kebal api dan setiap hantaman menggetarkan pilar dungeon.</p>
+            </div>
+            <div class="flex space-x-2 pt-1">
+                <button onclick="acceptAwakening()" class="flex-1 bg-gradient-to-r from-amber-500 to-yellow-400 text-black font-cinzel font-bold text-xs py-2 rounded-xl shadow-lg active:scale-[0.98]">
+                    TERIMA TAKDIR BARU ➔
+                </button>
+                <button onclick="declineAwakening()" class="px-3 bg-zinc-900 border border-zinc-700 text-zinc-400 text-xs py-2 rounded-xl active:scale-[0.98]">
+                    Tolak
+                </button>
+            </div>
+        </div>
 
         <!-- MONSTER COMBAT CARD -->
         <div id="m-monster-section" class="hidden bg-gradient-to-r from-red-950/90 to-zinc-900/90 border border-red-800/80 p-3 rounded-2xl shadow-xl space-y-1.5">
@@ -339,13 +365,16 @@
         </div>
 
         <!-- ============================================== -->
-        <!-- TAB 2: FULL STATS, SKILL MANAGEMENT & 25-SLOT  -->
+        <!-- TAB 2: FULL STATS, SKILL MANAGEMENT & 40-SLOT  -->
         <!-- ============================================== -->
         <div id="view-tab-stats" class="hidden flex-col space-y-3 w-full">
             
-            <!-- 1. COMBAT METRICS (ATK, DEF, CRIT, DODGE) -->
+            <!-- 1. COMBAT METRICS (ATK, DEF, CRIT, DODGE, DUAL WIELD) -->
             <div class="bg-zinc-900/90 border border-zinc-800 p-3.5 rounded-2xl shadow-xl space-y-2">
-                <p class="text-[9px] font-bold text-amber-400 uppercase tracking-wider">COMBAT STATS (DAPAT DARI STATUS & PERLENGKAPAN):</p>
+                <div class="flex justify-between items-center">
+                    <p class="text-[9px] font-bold text-amber-400 uppercase tracking-wider">COMBAT STATS (STATUS & PERLENGKAPAN):</p>
+                    <span id="dual-wield-badge" class="hidden text-[8px] font-mono font-bold bg-emerald-950 text-emerald-300 border border-emerald-700 px-2 py-0.5 rounded">⚔️ DUAL WIELD (+15% ATK)</span>
+                </div>
                 <div class="grid grid-cols-4 gap-2 text-center">
                     <div class="bg-zinc-950 p-2.5 rounded-xl border border-red-950">
                         <p class="text-[8px] font-bold text-zinc-400 uppercase">ATTACK (ATK)</p>
@@ -370,7 +399,68 @@
                 </div>
             </div>
 
-            <!-- 2. SKILL MANAGEMENT (ACTIVE LOADOUT 3 SLOTS & GRIMOIRE SPELLBOOK) -->
+            <!-- 2. 6 EQUIPPED GEAR SLOTS (HEAD, ARMOR, FEET, ACC, MAIN, OFF) -->
+            <div class="bg-zinc-900/90 border border-zinc-800 p-3.5 rounded-2xl shadow-xl space-y-2">
+                <p class="text-[9px] font-bold text-amber-400 uppercase tracking-wider">6 EQUIPPED GEAR SLOTS (KLIK UNTUK MELEPAS KE TAS):</p>
+                <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-2 text-xs">
+                    <!-- Head -->
+                    <button onclick="unequipSlot('head')" id="m-eq-head" class="flex flex-col p-2.5 rounded-xl bg-zinc-950 border border-zinc-800 text-left active:scale-[0.98] transition-all">
+                        <div class="flex items-center space-x-1.5 mb-1">
+                            <span class="text-base">🪖</span>
+                            <p class="text-[8px] text-zinc-400 uppercase font-bold">HEAD</p>
+                        </div>
+                        <p id="m-eq-head-name" class="font-bold text-zinc-200 truncate text-xs">Empty</p>
+                        <p id="m-eq-head-stat" class="text-[9px] text-emerald-400 font-mono font-bold mt-0.5">-</p>
+                    </button>
+                    <!-- Armor -->
+                    <button onclick="unequipSlot('armor')" id="m-eq-armor" class="flex flex-col p-2.5 rounded-xl bg-zinc-950 border border-zinc-800 text-left active:scale-[0.98] transition-all">
+                        <div class="flex items-center space-x-1.5 mb-1">
+                            <span class="text-base">🥋</span>
+                            <p class="text-[8px] text-zinc-400 uppercase font-bold">ARMOR</p>
+                        </div>
+                        <p id="m-eq-armor-name" class="font-bold text-zinc-200 truncate text-xs">Empty</p>
+                        <p id="m-eq-armor-stat" class="text-[9px] text-emerald-400 font-mono font-bold mt-0.5">-</p>
+                    </button>
+                    <!-- Feet -->
+                    <button onclick="unequipSlot('feet')" id="m-eq-feet" class="flex flex-col p-2.5 rounded-xl bg-zinc-950 border border-zinc-800 text-left active:scale-[0.98] transition-all">
+                        <div class="flex items-center space-x-1.5 mb-1">
+                            <span class="text-base">👢</span>
+                            <p class="text-[8px] text-zinc-400 uppercase font-bold">FEET</p>
+                        </div>
+                        <p id="m-eq-feet-name" class="font-bold text-zinc-200 truncate text-xs">Empty</p>
+                        <p id="m-eq-feet-stat" class="text-[9px] text-emerald-400 font-mono font-bold mt-0.5">-</p>
+                    </button>
+                    <!-- Main Hand -->
+                    <button onclick="unequipSlot('main_hand')" id="m-eq-main" class="flex flex-col p-2.5 rounded-xl bg-zinc-950 border border-zinc-800 text-left active:scale-[0.98] transition-all">
+                        <div class="flex items-center space-x-1.5 mb-1">
+                            <span class="text-base">⚔️</span>
+                            <p class="text-[8px] text-zinc-400 uppercase font-bold">MAIN HAND</p>
+                        </div>
+                        <p id="m-eq-main-name" class="font-bold text-zinc-200 truncate text-xs">Empty</p>
+                        <p id="m-eq-main-stat" class="text-[9px] text-emerald-400 font-mono font-bold mt-0.5">-</p>
+                    </button>
+                    <!-- Off Hand -->
+                    <button onclick="unequipSlot('off_hand')" id="m-eq-off" class="flex flex-col p-2.5 rounded-xl bg-zinc-950 border border-zinc-800 text-left active:scale-[0.98] transition-all">
+                        <div class="flex items-center space-x-1.5 mb-1">
+                            <span class="text-base">🛡️</span>
+                            <p class="text-[8px] text-zinc-400 uppercase font-bold">OFF HAND</p>
+                        </div>
+                        <p id="m-eq-off-name" class="font-bold text-zinc-200 truncate text-xs">Empty</p>
+                        <p id="m-eq-off-stat" class="text-[9px] text-emerald-400 font-mono font-bold mt-0.5">-</p>
+                    </button>
+                    <!-- Accessory -->
+                    <button onclick="unequipSlot('accessory')" id="m-eq-acc" class="flex flex-col p-2.5 rounded-xl bg-zinc-950 border border-zinc-800 text-left active:scale-[0.98] transition-all">
+                        <div class="flex items-center space-x-1.5 mb-1">
+                            <span class="text-base">💍</span>
+                            <p class="text-[8px] text-zinc-400 uppercase font-bold">ACCESSORY</p>
+                        </div>
+                        <p id="m-eq-acc-name" class="font-bold text-zinc-200 truncate text-xs">Empty</p>
+                        <p id="m-eq-acc-stat" class="text-[9px] text-emerald-400 font-mono font-bold mt-0.5">-</p>
+                    </button>
+                </div>
+            </div>
+
+            <!-- 3. SKILL MANAGEMENT (ACTIVE LOADOUT 3 SLOTS & GRIMOIRE) -->
             <div class="bg-zinc-900/90 border border-zinc-800 p-3.5 rounded-2xl shadow-xl space-y-3">
                 <div class="flex justify-between items-center">
                     <p class="text-[9px] font-bold text-cyan-400 uppercase tracking-wider">⚡ KELOLA JURUS (LOADOUT MAKSIMAL 3 JURUS AKTIF):</p>
@@ -397,7 +487,7 @@
                 </div>
             </div>
 
-            <!-- 3. 6 CORE D&D ABILITY SCORES -->
+            <!-- 4. 6 CORE D&D ABILITY SCORES -->
             <div class="bg-zinc-900/90 border border-zinc-800 p-3.5 rounded-2xl shadow-xl space-y-2">
                 <p class="text-[9px] font-bold text-amber-400 uppercase tracking-wider">6 CORE ABILITY SCORES (ATRIBUT DASAR & PENJELASANNYA):</p>
                 <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-2">
@@ -406,7 +496,7 @@
                             <span class="text-[8px] font-bold text-zinc-400">STRENGTH</span>
                             <span id="m-stat-str" class="text-base font-black font-mono text-amber-400">14</span>
                         </div>
-                        <p class="text-[7px] text-zinc-300 mt-1">Daya hancur fisik, angkat batu & senjata berat.</p>
+                        <p class="text-[7px] text-zinc-300 mt-1">Daya serang fisik & senjata berat.</p>
                     </div>
                     <div class="bg-zinc-950 p-2 rounded-xl border border-zinc-800">
                         <div class="flex justify-between items-center">
@@ -420,83 +510,40 @@
                             <span class="text-[8px] font-bold text-zinc-400">CONSTITUTION</span>
                             <span id="m-stat-con" class="text-base font-black font-mono text-rose-400">15</span>
                         </div>
-                        <p class="text-[7px] text-zinc-300 mt-1">Kapasitas darah (HP), stamina, & tahan racun.</p>
+                        <p class="text-[7px] text-zinc-300 mt-1">Kapasitas HP, stamina, & tahan racun.</p>
                     </div>
                     <div class="bg-zinc-950 p-2 rounded-xl border border-zinc-800">
                         <div class="flex justify-between items-center">
                             <span class="text-[8px] font-bold text-zinc-400">INTELLIGENCE</span>
                             <span id="m-stat-int" class="text-base font-black font-mono text-cyan-400">8</span>
                         </div>
-                        <p class="text-[7px] text-zinc-300 mt-1">Membaca runes purba, meracik kimia & sihir.</p>
+                        <p class="text-[7px] text-zinc-300 mt-1">Membaca runes purba & daya hancur sihir.</p>
                     </div>
                     <div class="bg-zinc-950 p-2 rounded-xl border border-zinc-800">
                         <div class="flex justify-between items-center">
                             <span class="text-[8px] font-bold text-zinc-400">WISDOM</span>
                             <span id="m-stat-wis" class="text-base font-black font-mono text-purple-400">12</span>
                         </div>
-                        <p class="text-[7px] text-zinc-300 mt-1">Kepekaan jebakan (Perception), insting, & doa.</p>
+                        <p class="text-[7px] text-zinc-300 mt-1">Kepekaan jebakan (Perception) & doa mukjizat.</p>
                     </div>
                     <div class="bg-zinc-950 p-2 rounded-xl border border-zinc-800">
                         <div class="flex justify-between items-center">
                             <span class="text-[8px] font-bold text-zinc-400">CHARISMA</span>
                             <span id="m-stat-cha" class="text-base font-black font-mono text-yellow-400">8</span>
                         </div>
-                        <p class="text-[7px] text-zinc-300 mt-1">Tawar-menawar toko, barter, & wibawa NPC.</p>
+                        <p class="text-[7px] text-zinc-300 mt-1">Tawar-menawar toko & wibawa NPC.</p>
                     </div>
                 </div>
             </div>
 
-            <!-- 4. EQUIPPED PAPER DOLL SLOTS -->
-            <div class="bg-zinc-900/90 border border-zinc-800 p-3.5 rounded-2xl shadow-xl space-y-2">
-                <p class="text-[9px] font-bold text-amber-400 uppercase tracking-wider">EQUIPPED GEAR (KLIK UNTUK MELEPAS):</p>
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-2 text-xs">
-                    <!-- Main Hand -->
-                    <button onclick="unequipSlot('main_hand')" id="m-eq-main" class="flex flex-col p-2.5 rounded-xl bg-zinc-950 border border-zinc-800 text-left active:scale-[0.98] transition-all">
-                        <div class="flex items-center space-x-1.5 mb-1">
-                            <span class="text-base">⚔️</span>
-                            <p class="text-[8px] text-zinc-400 uppercase font-bold">MAIN HAND</p>
-                        </div>
-                        <p id="m-eq-main-name" class="font-bold text-zinc-200 truncate text-xs">Empty</p>
-                        <p id="m-eq-main-stat" class="text-[9px] text-emerald-400 font-mono font-bold mt-0.5">-</p>
-                    </button>
-                    <!-- Off Hand -->
-                    <button onclick="unequipSlot('off_hand')" id="m-eq-off" class="flex flex-col p-2.5 rounded-xl bg-zinc-950 border border-zinc-800 text-left active:scale-[0.98] transition-all">
-                        <div class="flex items-center space-x-1.5 mb-1">
-                            <span class="text-base">🛡️</span>
-                            <p class="text-[8px] text-zinc-400 uppercase font-bold">OFF HAND</p>
-                        </div>
-                        <p id="m-eq-off-name" class="font-bold text-zinc-200 truncate text-xs">Empty</p>
-                        <p id="m-eq-off-stat" class="text-[9px] text-emerald-400 font-mono font-bold mt-0.5">-</p>
-                    </button>
-                    <!-- Armor -->
-                    <button onclick="unequipSlot('armor')" id="m-eq-armor" class="flex flex-col p-2.5 rounded-xl bg-zinc-950 border border-zinc-800 text-left active:scale-[0.98] transition-all">
-                        <div class="flex items-center space-x-1.5 mb-1">
-                            <span class="text-base">🥋</span>
-                            <p class="text-[8px] text-zinc-400 uppercase font-bold">ARMOR</p>
-                        </div>
-                        <p id="m-eq-armor-name" class="font-bold text-zinc-200 truncate text-xs">Empty</p>
-                        <p id="m-eq-armor-stat" class="text-[9px] text-emerald-400 font-mono font-bold mt-0.5">-</p>
-                    </button>
-                    <!-- Accessory -->
-                    <button onclick="unequipSlot('accessory')" id="m-eq-acc" class="flex flex-col p-2.5 rounded-xl bg-zinc-950 border border-zinc-800 text-left active:scale-[0.98] transition-all">
-                        <div class="flex items-center space-x-1.5 mb-1">
-                            <span class="text-base">💍</span>
-                            <p class="text-[8px] text-zinc-400 uppercase font-bold">ACCESSORY</p>
-                        </div>
-                        <p id="m-eq-acc-name" class="font-bold text-zinc-200 truncate text-xs">Empty</p>
-                        <p id="m-eq-acc-stat" class="text-[9px] text-emerald-400 font-mono font-bold mt-0.5">-</p>
-                    </button>
-                </div>
-            </div>
-
-            <!-- 5. 25-SLOT BACKPACK ITEMS LIST WITH RARITY COLORS & STAT BADGES -->
+            <!-- 5. 40-SLOT BACKPACK ITEMS LIST WITH RARITY COLORS & STAT BADGES -->
             <div class="bg-zinc-900/90 border border-zinc-800 p-3.5 rounded-2xl shadow-xl space-y-2">
                 <div class="flex justify-between items-center text-[9px] uppercase font-black tracking-widest text-amber-400">
-                    <span>BACKPACK ITEMS (25 SLOTS):</span>
-                    <span id="m-inv-count" class="font-mono text-zinc-300">0 / 25</span>
+                    <span>BACKPACK ITEMS (40 SLOTS):</span>
+                    <span id="m-inv-count" class="font-mono text-zinc-300">0 / 40</span>
                 </div>
                 <div id="m-inventory-items" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2.5">
-                    <!-- Populated dynamically -->
+                    <!-- 40 Items Populated dynamically -->
                 </div>
             </div>
         </div>
@@ -608,6 +655,15 @@
             switchTab('story');
         }
 
+        function acceptAwakening() {
+            if (navigator.vibrate) navigator.vibrate(60);
+            socket.send(JSON.stringify({ type: "accept_awakening" }));
+        }
+
+        function declineAwakening() {
+            socket.send(JSON.stringify({ type: "decline_awakening" }));
+        }
+
         function handleMessage(data) {
             if (data.type === "init" || data.type === "state_update") {
                 hideDice();
@@ -638,7 +694,15 @@
 
             document.getElementById('m-char-name').innerText = p.name;
             document.getElementById('m-char-icon').innerText = p.class_icon || '🌾';
-            document.getElementById('m-char-level').innerText = `Lv.${p.level || 1} ${p.class_name.split(' ')[0]}`;
+            document.getElementById('m-char-level').innerText = `${p.class_name} • Lv.${p.level || 1}`;
+
+            // Class Tier Badge in Controller Header
+            const tier = p.class_tier || "common";
+            const badge = document.getElementById('m-char-tier-badge');
+            badge.innerText = tier.toUpperCase();
+            
+            const headerCard = document.getElementById('c-header-card');
+            headerCard.className = `bg-zinc-900/95 border-2 p-3 rounded-2xl shadow-xl space-y-2.5 transition-all tier-${tier}`;
 
             document.getElementById('m-hp').innerText = `${p.hp}/${p.max_hp}`;
             document.getElementById('m-mp').innerText = `${p.mp}/${p.max_mp}`;
@@ -648,6 +712,18 @@
             document.getElementById('m-location').innerText = `📍 ${s.location}`;
             document.getElementById('m-title').innerText = s.title;
             document.getElementById('m-narrative').innerText = s.narrative;
+
+            // Secret Job Awakening Offer Banner
+            const awkBanner = document.getElementById('m-awakening-banner');
+            if (state.pending_awakening) {
+                const awk = state.pending_awakening;
+                awkBanner.classList.remove('hidden');
+                document.getElementById('awk-tier-badge').innerText = (awk.tier || "SPECIAL").toUpperCase();
+                document.getElementById('awk-title').innerText = `${awk.icon} ${awk.title}`;
+                document.getElementById('awk-desc').innerText = awk.desc || "Takdir mistis memanggilmu...";
+            } else {
+                awkBanner.classList.add('hidden');
+            }
 
             // Monster Card in Controller & Combat Skill Bar
             const m = state.monster;
@@ -743,11 +819,23 @@
             const st = p.stats || {};
             const eq = p.equipped || {};
 
-            // Calculate Combat Stats
+            // Calculate Combat Stats & Dual Wielding
             let totalAtk = Math.floor((st.str || 10) / 2);
             let totalDef = Math.floor((st.con || 10) / 3);
             let totalCrit = 5;
             let totalDodge = Math.floor((st.dex || 10) / 3);
+
+            const m_hand = eq.main_hand;
+            const o_hand = eq.off_hand;
+            const isDualWield = m_hand && o_hand && m_hand.handedness === 'versatile' && o_hand.handedness === 'versatile';
+            const dualBadge = document.getElementById('dual-wield-badge');
+            if (isDualWield) {
+                totalAtk = Math.floor(totalAtk * 1.15);
+                totalCrit += 5;
+                dualBadge.classList.remove('hidden');
+            } else {
+                dualBadge.classList.add('hidden');
+            }
 
             for (const [slot, item] of Object.entries(eq)) {
                 if (item && item.bonus) {
@@ -770,6 +858,24 @@
             document.getElementById('m-stat-int').innerText = st.int || 10;
             document.getElementById('m-stat-wis').innerText = st.wis || 10;
             document.getElementById('m-stat-cha').innerText = st.cha || 10;
+
+            // RENDER 6 EQUIPPED GEAR SLOTS
+            updatePaperDollSlot('m-eq-head', 'm-eq-head-name', 'm-eq-head-stat', eq.head);
+            updatePaperDollSlot('m-eq-armor', 'm-eq-armor-name', 'm-eq-armor-stat', eq.armor);
+            updatePaperDollSlot('m-eq-feet', 'm-eq-feet-name', 'm-eq-feet-stat', eq.feet);
+            updatePaperDollSlot('m-eq-main', 'm-eq-main-name', 'm-eq-main-stat', eq.main_hand);
+            
+            // Special 2-Handed Lock Display for Off Hand
+            if (eq.main_hand && eq.main_hand.handedness === 'two_handed') {
+                const offBtn = document.getElementById('m-eq-off');
+                document.getElementById('m-eq-off-name').innerText = "[2-Handed Locked]";
+                document.getElementById('m-eq-off-stat').innerText = "Terkunci Senjata 2-Tangan";
+                offBtn.className = "flex flex-col p-2.5 rounded-xl bg-zinc-950 border border-red-950 text-left opacity-70";
+            } else {
+                updatePaperDollSlot('m-eq-off', 'm-eq-off-name', 'm-eq-off-stat', eq.off_hand);
+            }
+            
+            updatePaperDollSlot('m-eq-acc', 'm-eq-acc-name', 'm-eq-acc-stat', eq.accessory);
 
             // RENDER SKILL MANAGEMENT (3 Active Slots + Grimoire)
             const activeSkills = p.active_skills || [];
@@ -839,13 +945,7 @@
                 grimoireList.appendChild(row);
             });
 
-            // Paper Doll Names & Stat Badges
-            updatePaperDollSlot('m-eq-main', 'm-eq-main-name', 'm-eq-main-stat', eq.main_hand);
-            updatePaperDollSlot('m-eq-off', 'm-eq-off-name', 'm-eq-off-stat', eq.off_hand);
-            updatePaperDollSlot('m-eq-armor', 'm-eq-armor-name', 'm-eq-armor-stat', eq.armor);
-            updatePaperDollSlot('m-eq-acc', 'm-eq-acc-name', 'm-eq-acc-stat', eq.accessory);
-
-            // Render 25 Backpack Items
+            // Render 40 Backpack Items
             const invContainer = document.getElementById('m-inventory-items');
             invContainer.innerHTML = '';
             let usedCount = 0;
@@ -861,12 +961,13 @@
                     let actionBtn = '';
                     if (item.type === 'consumable') {
                         actionBtn = `<button onclick="useItem(${idx})" class="bg-emerald-700 hover:bg-emerald-600 active:bg-emerald-800 text-white text-[10px] font-bold px-3 py-1.5 rounded-xl shadow">USE</button>`;
-                    } else if (['weapon', 'offhand', 'armor', 'accessory'].includes(item.type)) {
+                    } else if (['weapon', 'offhand', 'armor', 'head', 'feet', 'accessory'].includes(item.type)) {
                         actionBtn = `<button onclick="equipItem(${idx})" class="bg-amber-600 hover:bg-amber-500 active:bg-amber-700 text-black text-[10px] font-bold px-3 py-1.5 rounded-xl font-cinzel shadow">EQUIP</button>`;
                     }
 
                     const bonusText = formatBonusText(item.bonus);
                     const bonusBadge = bonusText ? `<span class="bg-emerald-950/80 border border-emerald-700 text-emerald-300 text-[8px] font-mono font-bold px-1.5 py-0.2 rounded">${bonusText}</span>` : '';
+                    const handBadge = item.handedness ? `<span class="bg-zinc-900 border border-zinc-700 text-zinc-300 text-[7px] font-mono px-1 py-0.2 rounded uppercase">${item.handedness.replace('_', ' ')}</span>` : '';
 
                     row.innerHTML = `
                         <div class="flex items-center space-x-2.5 min-w-0 flex-1">
@@ -876,8 +977,9 @@
                                     <p class="font-bold truncate text-zinc-100 text-xs">${item.name}</p>
                                     <span class="text-[8px] uppercase font-mono font-bold text-zinc-400">(${item.rarity || 'common'})</span>
                                 </div>
-                                <div class="flex items-center space-x-1.5 mt-0.5">
+                                <div class="flex items-center space-x-1.5 mt-0.5 flex-wrap gap-1">
                                     ${bonusBadge}
+                                    ${handBadge}
                                     <p class="text-[9px] text-zinc-400 truncate">${item.desc || item.type}</p>
                                 </div>
                             </div>
@@ -894,7 +996,7 @@
                 invContainer.innerHTML = '<p class="text-xs text-zinc-500 text-center py-6 col-span-full">Tas ransel masih kosong.</p>';
             }
 
-            document.getElementById('m-inv-count').innerText = `${usedCount} / 25`;
+            document.getElementById('m-inv-count').innerText = `${usedCount} / 40`;
         }
 
         function updatePaperDollSlot(btnId, nameId, statId, item) {

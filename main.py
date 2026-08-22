@@ -10,11 +10,12 @@ from fastapi.responses import HTMLResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 
-app = FastAPI(title="Darsam RPG Dungeon Engine - Grandmaster Ultimate Edition")
+app = FastAPI(title="Darsam RPG Dungeon Engine - Grandmaster v2.0.0")
 
 os.makedirs("/home/ubuntu/Github/darsam-rpg-engine/static", exist_ok=True)
 os.makedirs("/home/ubuntu/Github/darsam-rpg-engine/templates", exist_ok=True)
 os.makedirs("/home/ubuntu/Github/darsam-rpg-engine/saves", exist_ok=True)
+os.makedirs("/home/ubuntu/Github/darsam-rpg-engine/docs", exist_ok=True)
 
 app.mount("/static", StaticFiles(directory="/home/ubuntu/Github/darsam-rpg-engine/static"), name="static")
 templates = Jinja2Templates(directory="/home/ubuntu/Github/darsam-rpg-engine/templates")
@@ -33,24 +34,25 @@ def get_9router_key() -> str:
 NINE_ROUTER_KEY = get_9router_key()
 
 # =========================================================================
-# 8 DIVERSE STARTING ORIGINS WITH LEVEL-UP MILESTONES (LV 1, LV 5, LV 10)
+# 8 DIVERSE STARTING ORIGINS (ZERO TO HERO) WITH 6-SLOT INITIAL GEAR
 # =========================================================================
 CLASSES_INFO = {
     "peasant": {
-        "title": "Hardy Peasant",
-        "icon": "🌾",
+        "title": "Hardy Peasant", "icon": "🌾", "tier": "common",
         "desc": "Petani tangguh berotot liat. Bertahan hidup dengan stamina alamiah, ketabahan mental, dan insting tanah liat.",
         "base_hp": 115, "base_mp": 15, "str": 14, "dex": 10, "con": 15, "int": 8, "wis": 12, "cha": 8,
         "equipped": {
-            "main_hand": {"id": "w_hoe", "name": "Rusty Farming Hoe", "rarity": "common", "type": "weapon", "slot": "main_hand", "icon": "⛏️", "bonus": {"str": 1, "atk": 4}, "val": 3},
-            "off_hand": None,
+            "head": {"id": "h_straw", "name": "Weathered Straw Hat", "rarity": "common", "type": "head", "slot": "head", "icon": "👒", "bonus": {"wis": 1}, "val": 2},
             "armor": {"id": "a_linen", "name": "Homespun Tunic", "rarity": "common", "type": "armor", "slot": "armor", "icon": "👕", "bonus": {"hp": 5, "def": 1}, "val": 2},
-            "accessory": None
+            "feet": {"id": "f_sandals", "name": "Woven Straw Sandals", "rarity": "common", "type": "feet", "slot": "feet", "icon": "👡", "bonus": {"dodge": 2}, "val": 2},
+            "accessory": None,
+            "main_hand": {"id": "w_hoe", "name": "Rusty Farming Hoe", "rarity": "common", "type": "weapon", "slot": "main_hand", "handedness": "versatile", "icon": "⛏️", "bonus": {"str": 1, "atk": 4}, "val": 3},
+            "off_hand": None
         },
         "starting_inventory": [
-            {"id": "c_ration_1", "name": "Dry Ration Bread", "rarity": "common", "type": "consumable", "icon": "🍞", "effect": "heal_hp_20", "desc": "Restores 20 HP", "val": 2},
-            {"id": "c_ration_2", "name": "Dry Ration Bread", "rarity": "common", "type": "consumable", "icon": "🍞", "effect": "heal_hp_20", "desc": "Restores 20 HP", "val": 2},
-            {"id": "c_torch_1", "name": "Pine Pitch Torch", "rarity": "common", "type": "consumable", "icon": "🕯️", "effect": "add_light_5", "desc": "+5 Torch Light turns", "val": 3},
+            {"id": "c_ration_1", "name": "Dry Ration Bread", "rarity": "common", "type": "consumable", "icon": "🍞", "effect": "heal_hp_25", "desc": "Restores 25 HP", "val": 2},
+            {"id": "c_ration_2", "name": "Dry Ration Bread", "rarity": "common", "type": "consumable", "icon": "🍞", "effect": "heal_hp_25", "desc": "Restores 25 HP", "val": 2},
+            {"id": "c_torch_1", "name": "Pine Pitch Torch", "rarity": "common", "type": "consumable", "icon": "🕯️", "effect": "add_light_6", "desc": "+6 Torch Light turns", "val": 3},
             {"id": "m_rope", "name": "Hemp Rope (15m)", "rarity": "common", "type": "material", "icon": "🪢", "desc": "Utility rope for climbing", "val": 2}
         ],
         "initial_skills": [
@@ -62,21 +64,22 @@ CLASSES_INFO = {
         }
     },
     "blacksmith": {
-        "title": "Smith Apprentice",
-        "icon": "🔨",
+        "title": "Smith Apprentice", "icon": "🔨", "tier": "common",
         "desc": "Magang bengkel tempa desa. Lengan kokoh terbiasa memukul baja panas, paham titik lemah struktur logam & batu.",
         "base_hp": 125, "base_mp": 10, "str": 16, "dex": 9, "con": 14, "int": 9, "wis": 10, "cha": 8,
         "equipped": {
-            "main_hand": {"id": "w_smith_hammer", "name": "Heavy Smith Hammer", "rarity": "uncommon", "type": "weapon", "slot": "main_hand", "icon": "🔨", "bonus": {"str": 2, "atk": 6}, "val": 8},
-            "off_hand": None,
+            "head": {"id": "h_band", "name": "Sweat-Soaked Headband", "rarity": "common", "type": "head", "slot": "head", "icon": "🎽", "bonus": {"con": 1}, "val": 2},
             "armor": {"id": "a_apron", "name": "Thick Leather Apron", "rarity": "common", "type": "armor", "slot": "armor", "icon": "🦺", "bonus": {"con": 1, "def": 2}, "val": 5},
-            "accessory": None
+            "feet": {"id": "f_boots", "name": "Iron-Toed Work Boots", "rarity": "common", "type": "feet", "slot": "feet", "icon": "👢", "bonus": {"def": 1}, "val": 4},
+            "accessory": None,
+            "main_hand": {"id": "w_smith_hammer", "name": "Heavy Smith Hammer", "rarity": "uncommon", "type": "weapon", "slot": "main_hand", "handedness": "main_hand_only", "icon": "🔨", "bonus": {"str": 2, "atk": 6}, "val": 8},
+            "off_hand": None
         },
         "starting_inventory": [
             {"id": "m_spikes", "name": "Iron Spikes (x5)", "rarity": "common", "type": "material", "icon": "🔩", "desc": "Wedge doors or climb walls", "val": 3},
             {"id": "m_whetstone", "name": "Smith Whetstone", "rarity": "common", "type": "consumable", "icon": "🪨", "effect": "buff_atk_2", "desc": "+2 ATK on equipped weapon", "val": 4},
             {"id": "c_ration_1", "name": "Smoked Meat Jerky", "rarity": "common", "type": "consumable", "icon": "🥩", "effect": "heal_hp_25", "desc": "Restores 25 HP", "val": 3},
-            {"id": "c_torch_1", "name": "Pine Pitch Torch", "rarity": "common", "type": "consumable", "icon": "🕯️", "effect": "add_light_5", "desc": "+5 Torch Light turns", "val": 3}
+            {"id": "c_torch_1", "name": "Pine Pitch Torch", "rarity": "common", "type": "consumable", "icon": "🕯️", "effect": "add_light_6", "desc": "+6 Torch Light turns", "val": 3}
         ],
         "initial_skills": [
             {"id": "sk_anvil", "name": "Anvil Crush", "cost_mp": 5, "cd": 3, "dmg_type": "damage", "est_val": "22-30 Blunt DMG", "desc": "Menghantam monster dengan palu berat (22-30 DMG) dan melumpuhkan (Stun) 1 turn."}
@@ -87,20 +90,21 @@ CLASSES_INFO = {
         }
     },
     "scholar": {
-        "title": "Village Scholar",
-        "icon": "📜",
+        "title": "Village Scholar", "icon": "📜", "tier": "common",
         "desc": "Asisten tabib dan pembaca naskah tua. Fisik ringkih namun cerdas mengurai ancient runes dan ramuan herbal.",
         "base_hp": 85, "base_mp": 60, "str": 7, "dex": 11, "con": 10, "int": 16, "wis": 14, "cha": 10,
         "equipped": {
-            "main_hand": {"id": "w_carver", "name": "Silver Lore Scalpel", "rarity": "uncommon", "type": "weapon", "slot": "main_hand", "icon": "🗡️", "bonus": {"int": 1, "atk": 3}, "val": 7},
-            "off_hand": {"id": "o_diary", "name": "Ancient Herbarium Grimoire", "rarity": "uncommon", "type": "offhand", "slot": "off_hand", "icon": "📖", "bonus": {"wis": 1, "int": 1}, "val": 8},
-            "armor": {"id": "a_robe", "name": "Scholar Travel Robes", "rarity": "common", "type": "armor", "slot": "armor", "icon": "👘", "bonus": {"mp": 10, "def": 1}, "val": 4},
-            "accessory": None
+            "head": {"id": "h_hood", "name": "Scholar Scholar's Cowl", "rarity": "common", "type": "head", "slot": "head", "icon": "🧙", "bonus": {"int": 1, "mp": 10}, "val": 4},
+            "armor": {"id": "a_robe", "name": "Scholar Travel Robes", "rarity": "common", "type": "armor", "slot": "armor", "icon": "👘", "bonus": {"mp": 15, "def": 1}, "val": 4},
+            "feet": {"id": "f_shoes", "name": "Soft Cloth Slippers", "rarity": "common", "type": "feet", "slot": "feet", "icon": "👞", "bonus": {"dodge": 2}, "val": 2},
+            "accessory": None,
+            "main_hand": {"id": "w_carver", "name": "Silver Lore Scalpel", "rarity": "uncommon", "type": "weapon", "slot": "main_hand", "handedness": "versatile", "icon": "🗡️", "bonus": {"int": 1, "atk": 3}, "val": 7},
+            "off_hand": {"id": "o_diary", "name": "Ancient Herbarium Grimoire", "rarity": "uncommon", "type": "offhand", "slot": "off_hand", "handedness": "off_hand_only", "icon": "📖", "bonus": {"wis": 1, "int": 1}, "val": 8}
         },
         "starting_inventory": [
-            {"id": "c_salve_1", "name": "Herbal Healing Salve", "rarity": "uncommon", "type": "consumable", "icon": "🧪", "effect": "heal_hp_35", "desc": "Restores 35 HP & cures Bleeding", "val": 6},
-            {"id": "c_salve_2", "name": "Herbal Healing Salve", "rarity": "uncommon", "type": "consumable", "icon": "🧪", "effect": "heal_hp_35", "desc": "Restores 35 HP & cures Bleeding", "val": 6},
-            {"id": "c_torch_1", "name": "Pine Pitch Torch", "rarity": "common", "type": "consumable", "icon": "🕯️", "effect": "add_light_5", "desc": "+5 Torch Light turns", "val": 3},
+            {"id": "c_salve_1", "name": "Herbal Healing Salve", "rarity": "uncommon", "type": "consumable", "icon": "🧪", "effect": "heal_hp_40", "desc": "Restores 40 HP & cures Bleeding", "val": 6},
+            {"id": "c_salve_2", "name": "Herbal Healing Salve", "rarity": "uncommon", "type": "consumable", "icon": "🧪", "effect": "heal_hp_40", "desc": "Restores 40 HP & cures Bleeding", "val": 6},
+            {"id": "c_torch_1", "name": "Pine Pitch Torch", "rarity": "common", "type": "consumable", "icon": "🕯️", "effect": "add_light_6", "desc": "+6 Torch Light turns", "val": 3},
             {"id": "m_chalk", "name": "Alchemical Rune Chalk", "rarity": "common", "type": "material", "icon": "🖍️", "desc": "Inscribe protective glyphs", "val": 3}
         ],
         "initial_skills": [
@@ -112,21 +116,22 @@ CLASSES_INFO = {
         }
     },
     "trapper": {
-        "title": "Forest Trapper",
-        "icon": "🏹",
+        "title": "Forest Trapper", "icon": "🏹", "tier": "common",
         "desc": "Pemburu satwa lereng bukit berkabut. Langkah hening tanpa jejak, awas jebakan, dan ahli membidik di kegelapan.",
         "base_hp": 95, "base_mp": 25, "str": 10, "dex": 16, "con": 11, "int": 10, "wis": 14, "cha": 8,
         "equipped": {
-            "main_hand": {"id": "w_bow", "name": "Yew Shortbow", "rarity": "uncommon", "type": "weapon", "slot": "main_hand", "icon": "🏹", "bonus": {"dex": 2, "atk": 5}, "val": 8},
-            "off_hand": {"id": "w_quiver", "name": "Fletched Arrow Quiver (15)", "rarity": "common", "type": "offhand", "slot": "off_hand", "icon": "🎯", "bonus": {"dex": 1}, "val": 4},
+            "head": {"id": "h_cap", "name": "Stalker Camo Cap", "rarity": "common", "type": "head", "slot": "head", "icon": "🧢", "bonus": {"dex": 1}, "val": 3},
             "armor": {"id": "a_camo", "name": "Camouflage Pelt Vest", "rarity": "common", "type": "armor", "slot": "armor", "icon": "🦺", "bonus": {"dex": 1, "def": 1}, "val": 5},
-            "accessory": None
+            "feet": {"id": "f_stalker", "name": "Silent Stalker Moccasins", "rarity": "uncommon", "type": "feet", "slot": "feet", "icon": "👟", "bonus": {"dodge": 4, "dex": 1}, "val": 6},
+            "accessory": None,
+            "main_hand": {"id": "w_bow", "name": "Yew Shortbow", "rarity": "uncommon", "type": "weapon", "slot": "main_hand", "handedness": "two_handed", "icon": "🏹", "bonus": {"dex": 2, "atk": 7}, "val": 10},
+            "off_hand": None
         },
         "starting_inventory": [
-            {"id": "c_snare", "name": "Serrated Wire Snare", "rarity": "uncommon", "type": "consumable", "icon": "🪤", "effect": "trap_bleed", "desc": "Deals 20 damage & immobilizes foe", "val": 6},
-            {"id": "c_torch_1", "name": "Resin Torch", "rarity": "common", "type": "consumable", "icon": "🕯️", "effect": "add_light_5", "desc": "+5 Torch Light turns", "val": 3},
-            {"id": "c_ration_1", "name": "Dried Game Rations", "rarity": "common", "type": "consumable", "icon": "🥩", "effect": "heal_hp_20", "desc": "Restores 20 HP", "val": 2},
-            {"id": "m_dagger", "name": "Flint Skinning Knife", "rarity": "common", "type": "weapon", "icon": "🔪", "bonus": {"dex": 1, "atk": 3}, "val": 3}
+            {"id": "c_snare", "name": "Serrated Wire Snare", "rarity": "uncommon", "type": "consumable", "icon": "🪤", "effect": "trap_bleed", "desc": "Deals 25 damage & immobilizes foe", "val": 6},
+            {"id": "c_torch_1", "name": "Resin Torch", "rarity": "common", "type": "consumable", "icon": "🕯️", "effect": "add_light_6", "desc": "+6 Torch Light turns", "val": 3},
+            {"id": "c_ration_1", "name": "Dried Game Rations", "rarity": "common", "type": "consumable", "icon": "🥩", "effect": "heal_hp_25", "desc": "Restores 25 HP", "val": 2},
+            {"id": "m_dagger", "name": "Flint Skinning Knife", "rarity": "common", "type": "weapon", "slot": "main_hand", "handedness": "versatile", "icon": "🔪", "bonus": {"dex": 1, "atk": 3}, "val": 3}
         ],
         "initial_skills": [
             {"id": "sk_caltrop", "name": "Caltrop Scatter", "cost_mp": 8, "cd": 2, "dmg_type": "damage", "est_val": "18-24 Bleed DMG", "desc": "Menebar duri beracun (18-24 DMG) yang melukai dan memperlambat musuh."}
@@ -137,20 +142,21 @@ CLASSES_INFO = {
         }
     },
     "guard": {
-        "title": "Disgraced Watchman",
-        "icon": "🛡️",
+        "title": "Disgraced Watchman", "icon": "🛡️", "tier": "common",
         "desc": "Mantan penjaga gerbang kota yang terbuang. Terbiasa menahan benturan tameng dan pertarungan jarak dekat.",
         "base_hp": 120, "base_mp": 15, "str": 15, "dex": 11, "con": 14, "int": 8, "wis": 10, "cha": 9,
         "equipped": {
-            "main_hand": {"id": "w_sword", "name": "Notched Iron Broadsword", "rarity": "uncommon", "type": "weapon", "slot": "main_hand", "icon": "⚔️", "bonus": {"str": 2, "atk": 5}, "val": 8},
-            "off_hand": {"id": "o_shield", "name": "Reinforced Oak Buckler", "rarity": "uncommon", "type": "offhand", "slot": "off_hand", "icon": "🛡️", "bonus": {"def": 3, "con": 1}, "val": 7},
+            "head": {"id": "h_iron", "name": "Dented Iron Sallet", "rarity": "common", "type": "head", "slot": "head", "icon": "🪖", "bonus": {"def": 1}, "val": 3},
             "armor": {"id": "a_chain", "name": "Tattered Chain Shirt", "rarity": "uncommon", "type": "armor", "slot": "armor", "icon": "🥋", "bonus": {"def": 3, "hp": 10}, "val": 9},
-            "accessory": None
+            "feet": {"id": "f_greaves", "name": "Iron Shin Greaves", "rarity": "common", "type": "feet", "slot": "feet", "icon": "👢", "bonus": {"def": 1}, "val": 4},
+            "accessory": None,
+            "main_hand": {"id": "w_sword", "name": "Notched Iron Broadsword", "rarity": "uncommon", "type": "weapon", "slot": "main_hand", "handedness": "main_hand_only", "icon": "⚔️", "bonus": {"str": 2, "atk": 5}, "val": 8},
+            "off_hand": {"id": "o_shield", "name": "Reinforced Oak Buckler", "rarity": "uncommon", "type": "offhand", "slot": "off_hand", "handedness": "off_hand_only", "icon": "🛡️", "bonus": {"def": 3, "con": 1}, "val": 7}
         },
         "starting_inventory": [
             {"id": "c_bandage", "name": "Sterile Cloth Bandage", "rarity": "common", "type": "consumable", "icon": "🩹", "effect": "cure_bleed_heal_15", "desc": "Stops Bleeding & heals 15 HP", "val": 3},
-            {"id": "c_torch_1", "name": "Pine Pitch Torch", "rarity": "common", "type": "consumable", "icon": "🕯️", "effect": "add_light_5", "desc": "+5 Torch Light turns", "val": 3},
-            {"id": "c_ration_1", "name": "Hardtack Biscuit", "rarity": "common", "type": "consumable", "icon": "🍘", "effect": "heal_hp_20", "desc": "Restores 20 HP", "val": 2}
+            {"id": "c_torch_1", "name": "Pine Pitch Torch", "rarity": "common", "type": "consumable", "icon": "🕯️", "effect": "add_light_6", "desc": "+6 Torch Light turns", "val": 3},
+            {"id": "c_ration_1", "name": "Hardtack Biscuit", "rarity": "common", "type": "consumable", "icon": "🍘", "effect": "heal_hp_25", "desc": "Restores 25 HP", "val": 2}
         ],
         "initial_skills": [
             {"id": "sk_shield_wall", "name": "Shield Wall Bastion", "cost_mp": 6, "cd": 3, "dmg_type": "buff", "est_val": "+6 DEF & Reflect", "desc": "Meningkatkan DEF sebesar +6 dan memantulkan 50% serangan melee musuh."}
@@ -161,19 +167,20 @@ CLASSES_INFO = {
         }
     },
     "grave_robber": {
-        "title": "Tomb Grave-Robber",
-        "icon": "🕯️",
+        "title": "Tomb Grave-Robber", "icon": "🕯️", "tier": "common",
         "desc": "Penyusup liang kubur yang serakah. Ahli membobol gembok kuno, mencari jebakan rahasia, dan menyerang dari bayangan.",
         "base_hp": 90, "base_mp": 30, "str": 9, "dex": 16, "con": 11, "int": 13, "wis": 11, "cha": 12,
         "equipped": {
-            "main_hand": {"id": "w_stiletto", "name": "Rusty Stiletto Dagger", "rarity": "uncommon", "type": "weapon", "slot": "main_hand", "icon": "🗡️", "bonus": {"dex": 2, "atk": 4}, "val": 7},
-            "off_hand": {"id": "o_lockpick", "name": "Master Thieves' Tools", "rarity": "uncommon", "type": "offhand", "slot": "off_hand", "icon": "🗝️", "bonus": {"dex": 1, "cha": 1}, "val": 8},
+            "head": {"id": "h_mask", "name": "Silk Thief Veil", "rarity": "common", "type": "head", "slot": "head", "icon": "🎭", "bonus": {"dex": 1}, "val": 3},
             "armor": {"id": "a_cloak", "name": "Shadowed Scavenger Cloak", "rarity": "common", "type": "armor", "slot": "armor", "icon": "🧥", "bonus": {"dex": 1, "def": 1}, "val": 5},
-            "accessory": {"id": "acc_lucky_coin", "name": "Gilded Luck Charm", "rarity": "rare", "type": "accessory", "slot": "accessory", "icon": "🪙", "bonus": {"cha": 2, "gold_drop": 15}, "val": 15}
+            "feet": {"id": "f_soft", "name": "Padded Leather Boots", "rarity": "common", "type": "feet", "slot": "feet", "icon": "👢", "bonus": {"dodge": 3}, "val": 4},
+            "accessory": {"id": "acc_lucky_coin", "name": "Gilded Luck Charm", "rarity": "rare", "type": "accessory", "slot": "accessory", "icon": "🪙", "bonus": {"cha": 2, "gold_drop": 15}, "val": 15},
+            "main_hand": {"id": "w_stiletto", "name": "Rusty Stiletto Dagger", "rarity": "uncommon", "type": "weapon", "slot": "main_hand", "handedness": "versatile", "icon": "🗡️", "bonus": {"dex": 2, "atk": 4}, "val": 7},
+            "off_hand": {"id": "o_lockpick", "name": "Master Thieves' Tools", "rarity": "uncommon", "type": "offhand", "slot": "off_hand", "handedness": "off_hand_only", "icon": "🗝️", "bonus": {"dex": 1, "cha": 1}, "val": 8}
         },
         "starting_inventory": [
             {"id": "c_smokebomb", "name": "Sulfur Smoke Vial", "rarity": "uncommon", "type": "consumable", "icon": "💨", "effect": "escape_guarantee", "desc": "100% Escape chance from any fight", "val": 8},
-            {"id": "c_torch_1", "name": "Pine Pitch Torch", "rarity": "common", "type": "consumable", "icon": "🕯️", "effect": "add_light_5", "desc": "+5 Torch Light turns", "val": 3},
+            {"id": "c_torch_1", "name": "Pine Pitch Torch", "rarity": "common", "type": "consumable", "icon": "🕯️", "effect": "add_light_6", "desc": "+6 Torch Light turns", "val": 3},
             {"id": "m_crowbar", "name": "Iron Prying Crowbar", "rarity": "common", "type": "material", "icon": "🦯", "desc": "Pries open sarcophagi & stuck grates", "val": 4}
         ],
         "initial_skills": [
@@ -185,20 +192,21 @@ CLASSES_INFO = {
         }
     },
     "monk": {
-        "title": "Exiled Temple Acolyte",
-        "icon": "⛪",
+        "title": "Exiled Temple Acolyte", "icon": "⛪", "tier": "common",
         "desc": "Murid kuil suci yang diasingkan. Memiliki keteguhan batin, doa mukjizat perlindungan, dan kemahiran tongkat bela diri.",
         "base_hp": 105, "base_mp": 45, "str": 11, "dex": 12, "con": 13, "int": 10, "wis": 16, "cha": 12,
         "equipped": {
-            "main_hand": {"id": "w_staff", "name": "Polished Ash Quarterstaff", "rarity": "uncommon", "type": "weapon", "slot": "main_hand", "icon": "🦯", "bonus": {"wis": 2, "atk": 4}, "val": 7},
-            "off_hand": {"id": "o_beads", "name": "Sandalwood Prayer Beads", "rarity": "uncommon", "type": "offhand", "slot": "off_hand", "icon": "📿", "bonus": {"wis": 1, "mp": 15}, "val": 8},
+            "head": {"id": "h_circlet", "name": "Braided Bamboo Circlet", "rarity": "common", "type": "head", "slot": "head", "icon": "👑", "bonus": {"wis": 1}, "val": 3},
             "armor": {"id": "a_cassock", "name": "Pilgrim Cassock", "rarity": "common", "type": "armor", "slot": "armor", "icon": "🥋", "bonus": {"wis": 1, "def": 1}, "val": 4},
-            "accessory": None
+            "feet": {"id": "f_straw_monk", "name": "Temple Straw Sandals", "rarity": "common", "type": "feet", "slot": "feet", "icon": "👡", "bonus": {"dodge": 3}, "val": 2},
+            "accessory": None,
+            "main_hand": {"id": "w_staff", "name": "Polished Ash Quarterstaff", "rarity": "uncommon", "type": "weapon", "slot": "main_hand", "handedness": "versatile", "icon": "🦯", "bonus": {"wis": 2, "atk": 4}, "val": 7},
+            "off_hand": {"id": "o_beads", "name": "Sandalwood Prayer Beads", "rarity": "uncommon", "type": "offhand", "slot": "off_hand", "handedness": "off_hand_only", "icon": "📿", "bonus": {"wis": 1, "mp": 15}, "val": 8}
         },
         "starting_inventory": [
-            {"id": "c_holy_water", "name": "Blessed Holy Water", "rarity": "uncommon", "type": "consumable", "icon": "🏺", "effect": "cure_curse_heal_25", "desc": "Cleanses Curse/Poison & heals 25 HP", "val": 7},
-            {"id": "c_torch_1", "name": "Pine Pitch Torch", "rarity": "common", "type": "consumable", "icon": "🕯️", "effect": "add_light_5", "desc": "+5 Torch Light turns", "val": 3},
-            {"id": "c_ration_1", "name": "Dried Figs & Nuts", "rarity": "common", "type": "consumable", "icon": "🥜", "effect": "heal_hp_20", "desc": "Restores 20 HP & 10 MP", "val": 3}
+            {"id": "c_holy_water", "name": "Blessed Holy Water", "rarity": "uncommon", "type": "consumable", "icon": "🏺", "effect": "cure_curse_heal_30", "desc": "Cleanses Curse/Poison & heals 30 HP", "val": 7},
+            {"id": "c_torch_1", "name": "Pine Pitch Torch", "rarity": "common", "type": "consumable", "icon": "🕯️", "effect": "add_light_6", "desc": "+6 Torch Light turns", "val": 3},
+            {"id": "c_ration_1", "name": "Dried Figs & Nuts", "rarity": "common", "type": "consumable", "icon": "🥜", "effect": "heal_hp_25", "desc": "Restores 25 HP & 10 MP", "val": 3}
         ],
         "initial_skills": [
             {"id": "sk_mend", "name": "Sacred Prayer of Radiance", "cost_mp": 12, "cd": 2, "dmg_type": "heal", "est_val": "+35 HP & Blind", "desc": "Memulihkan 35 HP dan membutakan musuh mayat hidup selama 1 turn."}
@@ -209,20 +217,21 @@ CLASSES_INFO = {
         }
     },
     "alchemist": {
-        "title": "Alchemist Apprentice",
-        "icon": "🧪",
+        "title": "Alchemist Apprentice", "icon": "🧪", "tier": "common",
         "desc": "Pencampur ramuan berbahaya yang diusir dari kota. Terbiasa meracik cairan asam, minyak peledak, dan eliksir ajaib.",
         "base_hp": 85, "base_mp": 50, "str": 8, "dex": 13, "con": 11, "int": 16, "wis": 12, "cha": 9,
         "equipped": {
-            "main_hand": {"id": "w_pestle", "name": "Brass Mortar & Pestle Club", "rarity": "uncommon", "type": "weapon", "slot": "main_hand", "icon": "🪓", "bonus": {"int": 1, "atk": 3}, "val": 6},
-            "off_hand": {"id": "o_flask", "name": "Volatile Acid Catalyst Flask", "rarity": "uncommon", "type": "offhand", "slot": "off_hand", "icon": "🧪", "bonus": {"int": 2}, "val": 9},
+            "head": {"id": "h_goggles", "name": "Brass Tinted Goggles", "rarity": "uncommon", "type": "head", "slot": "head", "icon": "🥽", "bonus": {"int": 1, "wis": 1}, "val": 6},
             "armor": {"id": "a_treated", "name": "Acid-Treated Leather Jerkin", "rarity": "uncommon", "type": "armor", "slot": "armor", "icon": "🦺", "bonus": {"con": 1, "def": 2}, "val": 7},
-            "accessory": None
+            "feet": {"id": "f_rubber", "name": "Chemical-Resistant Boots", "rarity": "common", "type": "feet", "slot": "feet", "icon": "👢", "bonus": {"def": 1}, "val": 4},
+            "accessory": None,
+            "main_hand": {"id": "w_pestle", "name": "Brass Mortar & Pestle Club", "rarity": "uncommon", "type": "weapon", "slot": "main_hand", "handedness": "versatile", "icon": "🪓", "bonus": {"int": 1, "atk": 3}, "val": 6},
+            "off_hand": {"id": "o_flask", "name": "Volatile Acid Catalyst Flask", "rarity": "uncommon", "type": "offhand", "slot": "off_hand", "handedness": "off_hand_only", "icon": "🧪", "bonus": {"int": 2}, "val": 9}
         },
         "starting_inventory": [
-            {"id": "c_fire_flask", "name": "Flask of Wildfire Oil", "rarity": "uncommon", "type": "consumable", "icon": "🔥", "effect": "damage_fire_30", "desc": "Deals 30 Fire DMG to target monster", "val": 8},
-            {"id": "c_antidote", "name": "Universal Antidote Draught", "rarity": "uncommon", "type": "consumable", "icon": "🧪", "effect": "cure_poison_heal_20", "desc": "Cures Poison & restores 20 HP", "val": 5},
-            {"id": "c_torch_1", "name": "Pine Pitch Torch", "rarity": "common", "type": "consumable", "icon": "🕯️", "effect": "add_light_5", "desc": "+5 Torch Light turns", "val": 3}
+            {"id": "c_fire_flask", "name": "Flask of Wildfire Oil", "rarity": "uncommon", "type": "consumable", "icon": "🔥", "effect": "damage_fire_35", "desc": "Deals 35 Fire DMG to target monster", "val": 8},
+            {"id": "c_antidote", "name": "Universal Antidote Draught", "rarity": "uncommon", "type": "consumable", "icon": "🧪", "effect": "cure_poison_heal_25", "desc": "Cures Poison & restores 25 HP", "val": 5},
+            {"id": "c_torch_1", "name": "Pine Pitch Torch", "rarity": "common", "type": "consumable", "icon": "🕯️", "effect": "add_light_6", "desc": "+6 Torch Light turns", "val": 3}
         ],
         "initial_skills": [
             {"id": "sk_acid_throw", "name": "Corrosive Acid Bomb", "cost_mp": 10, "cd": 2, "dmg_type": "damage", "est_val": "24-32 Acid DMG", "desc": "Melelehkan zirah monster (-4 DEF) dan memberi 24-32 luka asam."}
@@ -234,68 +243,148 @@ CLASSES_INFO = {
     }
 }
 
-# ==========================================
-# LOOT TABLES & GENERATORS (RARITY SCALING)
-# ==========================================
-LOOT_DB = {
-    "common": [
-        {"name": "Chipped Iron Broadsword", "type": "weapon", "slot": "main_hand", "icon": "⚔️", "bonus": {"str": 1, "atk": 4}, "val": 4},
-        {"name": "Crude Oak Staff", "type": "weapon", "slot": "main_hand", "icon": "🦯", "bonus": {"int": 1, "atk": 3}, "val": 3},
-        {"name": "Reinforced Hide Vest", "type": "armor", "slot": "armor", "icon": "🦺", "bonus": {"def": 2, "hp": 10}, "val": 5},
-        {"name": "Wooden Round Shield", "type": "offhand", "slot": "off_hand", "icon": "🛡️", "bonus": {"def": 2}, "val": 4},
-        {"name": "Copper Signet Ring", "type": "accessory", "slot": "accessory", "icon": "💍", "bonus": {"cha": 1}, "val": 6},
-        {"name": "Dry Ration Pack", "type": "consumable", "icon": "🍞", "effect": "heal_hp_20", "desc": "Restores 20 HP", "val": 2},
-        {"name": "Pine Pitch Torch", "type": "consumable", "icon": "🕯️", "effect": "add_light_5", "desc": "+5 Torch Light turns", "val": 3},
-        {"name": "Sterile Linen Bandage", "type": "consumable", "icon": "🩹", "effect": "cure_bleed_heal_15", "desc": "Stops Bleeding & heals 15 HP", "val": 3}
-    ],
-    "uncommon": [
-        {"name": "Honed Steel Longsword", "type": "weapon", "slot": "main_hand", "icon": "⚔️", "bonus": {"str": 2, "atk": 7}, "val": 12},
-        {"name": "Hunter's Composite Bow", "type": "weapon", "slot": "main_hand", "icon": "🏹", "bonus": {"dex": 3, "atk": 6}, "val": 14},
-        {"name": "Iron-Studded Leather Cuirass", "type": "armor", "slot": "armor", "icon": "🥋", "bonus": {"def": 4, "hp": 20, "con": 1}, "val": 16},
-        {"name": "Engraved Bronze Kite Shield", "type": "offhand", "slot": "off_hand", "icon": "🛡️", "bonus": {"def": 4, "con": 1}, "val": 14},
-        {"name": "Silver Amulet of Vitality", "type": "accessory", "slot": "accessory", "icon": "📿", "bonus": {"hp": 25, "con": 2}, "val": 18},
-        {"name": "Greater Healing Draught", "type": "consumable", "icon": "🧪", "effect": "heal_hp_45", "desc": "Restores 45 HP", "val": 10},
-        {"name": "Aether Mana Flask", "type": "consumable", "icon": "✨", "effect": "heal_mp_30", "desc": "Restores 30 MP", "val": 10}
-    ],
-    "rare": [
-        {"name": "Obsidian Edge War-Cleaver", "type": "weapon", "slot": "main_hand", "icon": "🪓", "bonus": {"str": 4, "atk": 12, "crit": 5}, "val": 35},
-        {"name": "Stormcaller Quartz Scepter", "type": "weapon", "slot": "main_hand", "icon": "🔮", "bonus": {"int": 4, "wis": 2, "atk": 9}, "val": 38},
-        {"name": "Gilded Plate of the Vanguard", "type": "armor", "slot": "armor", "icon": "🛡️", "bonus": {"def": 7, "hp": 45, "str": 2}, "val": 45},
-        {"name": "Aegis of the Sunlit Citadel", "type": "offhand", "slot": "off_hand", "icon": "🛡️", "bonus": {"def": 6, "wis": 2, "hp": 20}, "val": 40},
-        {"name": "Band of the Shadow Assassin", "type": "accessory", "slot": "accessory", "icon": "💍", "bonus": {"dex": 3, "crit": 10, "dodge": 5}, "val": 50},
-        {"name": "Elixir of Restoration", "type": "consumable", "icon": "🌟", "effect": "full_restore", "desc": "Fully restores HP, MP & cleanses all status ailments", "val": 25}
+# =========================================================================
+# SECRET AWAKENING JOBS (SPECIAL, EPIC, LEGENDARY, MYTHIC)
+# =========================================================================
+SECRET_CLASSES_DB = {
+    "special": [
+        {"id": "sec_blood_zealot", "title": "Blood-Pact Zealot", "tier": "special", "icon": "🩸", "bonus_stats": {"str": 3, "con": 2}, "desc": "Ksatria kultus darah. Mengorbankan darah sendiri demi serangan fisik berlipat ganda.", "skills": [{"id": "sk_blood_strike", "name": "Sanguine Cleave", "cost_mp": 5, "dmg_type": "damage", "est_val": "45-60 Blood DMG", "desc": "Mengorbankan 10 HP untuk menebas monster dengan 45-60 damage brutal."}]},
+        {"id": "sec_shadow_ranger", "title": "Shadowveil Ranger", "tier": "special", "icon": "🏹", "bonus_stats": {"dex": 4, "wis": 2}, "desc": "Pemanah malam berkabut. Tembakan panahnya tidak terdengar dan selalu menusuk titik lemah.", "skills": [{"id": "sk_ghost_arrow", "name": "Ghostflight Shot", "cost_mp": 8, "dmg_type": "damage", "est_val": "40-52 Pierce DMG", "desc": "Anak panah hantu yang menembus perisai dan armor musuh secara mutlak."}]}
     ],
     "epic": [
-        {"name": "Malakor's Cursed Dreadblade", "type": "weapon", "slot": "main_hand", "icon": "🗡️", "bonus": {"str": 6, "dex": 3, "atk": 18, "lifesteal": 10}, "val": 95},
-        {"name": "Archmage's Chrono-Weave Robes", "type": "armor", "slot": "armor", "icon": "👘", "bonus": {"def": 8, "int": 6, "mp": 50, "spell_power": 15}, "val": 110},
-        {"name": "Ring of the Dragon Sovereign", "type": "accessory", "slot": "accessory", "icon": "👑", "bonus": {"str": 3, "con": 3, "hp": 60, "fire_res": 25}, "val": 130}
+        {"id": "sec_chronomancer", "title": "Rift Chronomancer", "tier": "epic", "icon": "⏳", "bonus_stats": {"int": 5, "wis": 3}, "desc": "Penyihir pemutar sangkala waktu. Mampu membatalkan kegagalan dan mempercepat perputaran mantra.", "skills": [{"id": "sk_time_dilation", "name": "Chrono-Stasis Surge", "cost_mp": 15, "dmg_type": "damage", "est_val": "60-80 Time DMG", "desc": "Menghentikan waktu selama 1 turn dan menghancurkan musuh dalam gelombang temporal."}]},
+        {"id": "sec_nightblade", "title": "Nightblade Death-Shadow", "tier": "epic", "icon": "🗡️", "bonus_stats": {"dex": 6, "cha": 2}, "desc": "Pencabut nyawa legendaris dari ordo kegelapan tak bernama.", "skills": [{"id": "sk_fatal_strike", "name": "Eclipse Decapitation", "cost_mp": 18, "dmg_type": "damage", "est_val": "75-100 Fatal DMG", "desc": "Tebasan bayangan gerhana yang memberikan garansi Critical Hit dan luka pendarahan masif."}]}
     ],
     "legendary": [
-        {"name": "Garuda's Solar Relic Spear", "type": "weapon", "slot": "main_hand", "icon": "🔱", "bonus": {"str": 8, "dex": 5, "atk": 25, "crit": 15, "sun_burst": 20}, "val": 250},
-        {"name": "Immortal Aegis of Primeval Earth", "type": "armor", "slot": "armor", "icon": "🛡️", "bonus": {"def": 14, "con": 8, "hp": 120, "dmg_reduction": 8}, "val": 300}
+        {"id": "sec_dragon_sovereign", "title": "Dragon-Heart Sovereign", "tier": "legendary", "icon": "🐉", "bonus_stats": {"str": 8, "con": 6, "cha": 4}, "desc": "Pewaris takhta naga purba. Tubuh kebal api dan setiap hantaman menggetarkan pilar dungeon.", "skills": [{"id": "sk_dragon_breath", "name": "Primeval Dragon Breath", "cost_mp": 25, "dmg_type": "damage", "est_val": "110-145 Fire DMG", "desc": "Semburan api naga primordial yang menghanguskan seluruh monster di ruangan."}]},
+        {"id": "sec_void_archon", "title": "Void Archon of Eclipse", "tier": "legendary", "icon": "🌌", "bonus_stats": {"int": 8, "wis": 6, "mp": 50}, "desc": "Penguasa dimensi kehampaan tak berujung yang mampu menelan materi menjadi energi murni.", "skills": [{"id": "sk_event_horizon", "name": "Black Hole Event Horizon", "cost_mp": 30, "dmg_type": "damage", "est_val": "125-160 Void DMG", "desc": "Menciptakan singularitas lubang hitam yang meremukkan monster hingga lebur."}]}
+    ],
+    "mythic": [
+        {"id": "sec_omniscient_keeper", "title": "Omniscient Sovereign of Creation", "tier": "mythic", "icon": "👑", "bonus_stats": {"str": 10, "dex": 10, "con": 10, "int": 10, "wis": 10, "cha": 10, "hp": 100, "mp": 100}, "desc": "Entitas Transenden yang memegang hakikat penciptaan. Seluruh realitas dan takdir tunduk di hadapannya.", "skills": [{"id": "sk_genesis_verdict", "name": "Genesis Divine Judgment", "cost_mp": 40, "dmg_type": "damage", "est_val": "200-280 True DMG", "desc": "Sabda pemusnah semesta yang menghabisi musuh apa pun dalam 1 serangan mutlak."}]}
     ]
 }
 
-def roll_loot(monster_tier: str = "common", monster_lv: int = 1) -> Dict[str, Any]:
-    roll = random.randint(1, 100)
-    rarity = "common"
-    if monster_tier == "boss":
-        if roll <= 40: rarity = "epic"
-        else: rarity = "legendary"
-    elif monster_tier == "elite":
-        if roll <= 45: rarity = "uncommon"
-        elif roll <= 85: rarity = "rare"
-        else: rarity = "epic"
-    else: # common
-        if roll <= 60: rarity = "common"
-        elif roll <= 92: rarity = "uncommon"
-        else: rarity = "rare"
+# =========================================================================
+# DYNAMIC ITEM LEVEL (iLvl) & PROGRESSIVE SCALED LOOT DB (TIER 1 - 5)
+# =========================================================================
+LOOT_DB_TIERED = {
+    1: { # Player Level 1 - 4 (Rustic / Iron / Minor)
+        "weapons": [
+            {"name": "Honed Iron Broadsword", "type": "weapon", "slot": "main_hand", "handedness": "main_hand_only", "icon": "⚔️", "bonus": {"str": 2, "atk": 6}, "val": 6},
+            {"name": "Hunting Shortbow", "type": "weapon", "slot": "main_hand", "handedness": "two_handed", "icon": "🏹", "bonus": {"dex": 2, "atk": 6}, "val": 7},
+            {"name": "Smith's Heavy Mallet", "type": "weapon", "slot": "main_hand", "handedness": "main_hand_only", "icon": "🔨", "bonus": {"str": 3, "atk": 7}, "val": 8},
+            {"name": "Flint Stiletto Knife", "type": "weapon", "slot": "main_hand", "handedness": "versatile", "icon": "🗡️", "bonus": {"dex": 2, "atk": 4}, "val": 5}
+        ],
+        "offhands": [
+            {"name": "Reinforced Oak Buckler", "type": "offhand", "slot": "off_hand", "handedness": "off_hand_only", "icon": "🛡️", "bonus": {"def": 2, "con": 1}, "val": 5},
+            {"name": "Acolyte's Birch Cross", "type": "offhand", "slot": "off_hand", "handedness": "off_hand_only", "icon": "✝️", "bonus": {"wis": 2}, "val": 5}
+        ],
+        "armors": [
+            {"name": "Studded Leather Jerkin", "type": "armor", "slot": "armor", "icon": "🦺", "bonus": {"def": 2, "hp": 15}, "val": 6},
+            {"name": "Acolyte Travel Habit", "type": "armor", "slot": "armor", "icon": "🥋", "bonus": {"def": 1, "mp": 15}, "val": 5}
+        ],
+        "helmets": [
+            {"name": "Reinforced Leather Cap", "type": "head", "slot": "head", "icon": "🧢", "bonus": {"def": 1}, "val": 4}
+        ],
+        "boots": [
+            {"name": "Sturdy Walking Boots", "type": "feet", "slot": "feet", "icon": "👢", "bonus": {"dodge": 3}, "val": 4}
+        ],
+        "accessories": [
+            {"name": "Copper Lucky Ring", "type": "accessory", "slot": "accessory", "icon": "💍", "bonus": {"cha": 1, "gold_drop": 5}, "val": 8}
+        ],
+        "consumables": [
+            {"name": "Minor Healing Draught", "type": "consumable", "icon": "🧪", "effect": "heal_hp_30", "desc": "Restores 30 HP", "val": 4},
+            {"name": "Minor Mana Vial", "type": "consumable", "icon": "✨", "effect": "heal_mp_20", "desc": "Restores 20 MP", "val": 4},
+            {"name": "Pine Pitch Torch", "type": "consumable", "icon": "🕯️", "effect": "add_light_6", "desc": "+6 Torch Light turns", "val": 3}
+        ]
+    },
+    2: { # Player Level 5 - 8 (Steel / Silver / Standard)
+        "weapons": [
+            {"name": "Tempered Steel Longsword", "type": "weapon", "slot": "main_hand", "handedness": "main_hand_only", "icon": "⚔️", "bonus": {"str": 4, "atk": 14}, "val": 20},
+            {"name": "Zweihander Greatsword", "type": "weapon", "slot": "main_hand", "handedness": "two_handed", "icon": "🗡️", "bonus": {"str": 6, "atk": 22, "crit": 5}, "val": 30},
+            {"name": "Silver Lore Quarterstaff", "type": "weapon", "slot": "main_hand", "handedness": "versatile", "icon": "🦯", "bonus": {"int": 4, "wis": 2, "atk": 10}, "val": 22},
+            {"name": "Shadow Ranger Warbow", "type": "weapon", "slot": "main_hand", "handedness": "two_handed", "icon": "🏹", "bonus": {"dex": 5, "atk": 18}, "val": 25}
+        ],
+        "offhands": [
+            {"name": "Steel Kite Shield", "type": "offhand", "slot": "off_hand", "handedness": "off_hand_only", "icon": "🛡️", "bonus": {"def": 5, "con": 2}, "val": 18},
+            {"name": "Enchanted Spellbook Grimoire", "type": "offhand", "slot": "off_hand", "handedness": "off_hand_only", "icon": "📖", "bonus": {"int": 3, "mp": 25}, "val": 22}
+        ],
+        "armors": [
+            {"name": "Riveted Steel Chainmail", "type": "armor", "slot": "armor", "icon": "🥋", "bonus": {"def": 5, "hp": 35, "con": 2}, "val": 25},
+            {"name": "Shadowstalker Silk Tunic", "type": "armor", "slot": "armor", "icon": "🥷", "bonus": {"def": 3, "dex": 3, "dodge": 6}, "val": 28}
+        ],
+        "helmets": [
+            {"name": "Steel Visored Greathelm", "type": "head", "slot": "head", "icon": "🪖", "bonus": {"def": 3, "con": 1}, "val": 15}
+        ],
+        "boots": [
+            {"name": "Elven Pathfinder Boots", "type": "feet", "slot": "feet", "icon": "👟", "bonus": {"dodge": 6, "dex": 2}, "val": 16}
+        ],
+        "accessories": [
+            {"name": "Silver Amulet of Vitality", "type": "accessory", "slot": "accessory", "icon": "📿", "bonus": {"hp": 35, "con": 2}, "val": 24}
+        ],
+        "consumables": [
+            {"name": "Standard Healing Draught", "type": "consumable", "icon": "🧪", "effect": "heal_hp_65", "desc": "Restores 65 HP", "val": 12},
+            {"name": "Aether Mana Flask", "type": "consumable", "icon": "✨", "effect": "heal_mp_40", "desc": "Restores 40 MP", "val": 12},
+            {"name": "Universal Antidote Draught", "type": "consumable", "icon": "🧪", "effect": "cure_poison_heal_30", "desc": "Cures Poison & restores 30 HP", "val": 8}
+        ]
+    },
+    3: { # Player Level 9+ (Obsidian / Mythic / Greater)
+        "weapons": [
+            {"name": "Obsidian Edge War-Cleaver", "type": "weapon", "slot": "main_hand", "handedness": "main_hand_only", "icon": "🪓", "bonus": {"str": 7, "atk": 28, "crit": 8}, "val": 60},
+            {"name": "Colossus Titan Greatsword", "type": "weapon", "slot": "main_hand", "handedness": "two_handed", "icon": "🗡️", "bonus": {"str": 10, "atk": 42, "sunder": 10}, "val": 85},
+            {"name": "Stormcaller Quartz Scepter", "type": "weapon", "slot": "main_hand", "handedness": "versatile", "icon": "🔮", "bonus": {"int": 8, "wis": 4, "atk": 22}, "val": 70}
+        ],
+        "offhands": [
+            {"name": "Aegis of the Sunlit Citadel", "type": "offhand", "slot": "off_hand", "handedness": "off_hand_only", "icon": "🛡️", "bonus": {"def": 9, "wis": 3, "hp": 40}, "val": 55}
+        ],
+        "armors": [
+            {"name": "Gilded Plate of the Vanguard", "type": "armor", "slot": "armor", "icon": "🛡️", "bonus": {"def": 10, "hp": 70, "con": 4}, "val": 75}
+        ],
+        "helmets": [
+            {"name": "Crown of the Void Seeker", "type": "head", "slot": "head", "icon": "👑", "bonus": {"def": 5, "int": 4, "mp": 40}, "val": 50}
+        ],
+        "boots": [
+            {"name": "Greaves of the Mountain Titan", "type": "feet", "slot": "feet", "icon": "👢", "bonus": {"def": 4, "con": 3, "dodge": 4}, "val": 45}
+        ],
+        "accessories": [
+            {"name": "Band of the Shadow Assassin", "type": "accessory", "slot": "accessory", "icon": "💍", "bonus": {"dex": 5, "crit": 12, "dodge": 8}, "val": 75}
+        ],
+        "consumables": [
+            {"name": "Greater Vitality Potion", "type": "consumable", "icon": "🧪", "effect": "heal_hp_140", "desc": "Restores 140 HP", "val": 35},
+            {"name": "Astral Essence Potion", "type": "consumable", "icon": "✨", "effect": "heal_mp_90", "desc": "Restores 90 MP", "val": 35},
+            {"name": "Elixir of Full Restoration", "type": "consumable", "icon": "🌟", "effect": "full_restore", "desc": "Fully restores HP, MP & cleanses all status ailments", "val": 70}
+        ]
+    }
+}
+
+def get_tier_for_level(level: int) -> int:
+    if level < 5: return 1
+    elif level < 9: return 2
+    else: return 3
+
+def roll_dynamic_loot(player_lv: int, monster_tier: str = "common") -> Dict[str, Any]:
+    tier_key = get_tier_for_level(player_lv)
+    pool = LOOT_DB_TIERED[tier_key]
     
-    item_pool = LOOT_DB[rarity]
-    base_item = random.choice(item_pool)
+    categories = ["weapons", "offhands", "armors", "helmets", "boots", "accessories", "consumables"]
+    cat = random.choice(categories)
+    item_list = pool.get(cat, pool["consumables"])
+    base_item = random.choice(item_list)
+    
     loot_item = dict(base_item)
     loot_item["id"] = f"item_{random.randint(10000, 99999)}"
-    loot_item["rarity"] = rarity
+    
+    # Assign rarity
+    roll = random.randint(1, 100)
+    if monster_tier == "boss":
+        loot_item["rarity"] = "legendary" if roll <= 30 else "epic"
+    elif monster_tier == "elite":
+        loot_item["rarity"] = "epic" if roll <= 25 else "rare"
+    else:
+        if roll <= 50: loot_item["rarity"] = "common"
+        elif roll <= 85: loot_item["rarity"] = "uncommon"
+        else: loot_item["rarity"] = "rare"
+        
     return loot_item
 
 def generate_monster(player_lv: int, is_boss: bool = False, is_elite: bool = False) -> Dict[str, Any]:
@@ -363,7 +452,7 @@ DEFAULT_GAME_STATE = {
     "floor": 1,
     "step": 1,
     "active_sound_theme": "creation",
-    "torch_turns": 10,
+    "torch_turns": 12,
     "rations": 3,
     "story_history": [],
     "player": {
@@ -371,6 +460,7 @@ DEFAULT_GAME_STATE = {
         "class_id": "peasant",
         "class_name": "Hardy Peasant",
         "class_icon": "🌾",
+        "class_tier": "common", # common | special | epic | legendary | mythic
         "level": 1,
         "exp": 0,
         "exp_next": 75,
@@ -378,34 +468,36 @@ DEFAULT_GAME_STATE = {
         "max_hp": 115,
         "mp": 15,
         "max_mp": 15,
-        "gold": 10,
+        "gold": 12,
         "stats": {"str": 14, "dex": 10, "con": 15, "int": 8, "wis": 12, "cha": 8},
         "equipped": {
-            "main_hand": None,
-            "off_hand": None,
+            "head": None,
             "armor": None,
-            "accessory": None
+            "feet": None,
+            "accessory": None,
+            "main_hand": None,
+            "off_hand": None
         },
-        "inventory": [], # 25 slot max array
-        "grimoire": [], # All learned skills
-        "active_skills": [], # Max 3 equipped skills
-        "status_effects": [] # "bleeding", "poisoned", "blind", "cursed"
+        "inventory": [], # 40 slots
+        "grimoire": [],
+        "active_skills": [], # Max 3
+        "status_effects": []
     },
     "current_node": {
-        "type": "entrance", # entrance | exploration | combat | merchant | puzzle | campfire | boss
+        "type": "entrance",
         "title": "Collapse into the Forgotten Crypt",
         "location": "Subterranean Vault - Floor 1",
         "chapter": "Chapter 1: The Dark Descent"
     },
     "monster": None,
-    "merchant_stock": [],
+    "pending_awakening": None, # Offer secret class change
     "scene": {
         "narrative": "Paduka hanyalah seorang warga biasa yang mencari kayu di lereng bukit. Tanah mendadak amblas runtuh! Paduka jatuh terperosok ke dalam rongga makam kuno bawah tanah. Lubang keluar di atas tertutup bebatuan tebal. Di hadapan Paduka, lorong batu berlumut gelap memancarkan hembusan angin dingin purba.",
         "choices": [
             {"id": "A", "text": "Inspect the stone wall & search for weak structural points (Perception / WIS Check - DC 10)", "type": "roll", "dc": 10, "stat": "WIS"},
-            {"id": "B", "text": "Use farming tools to clear heavy rubble and force a breach (Athletics / STR Check - DC 12)", "type": "roll", "dc": 12, "stat": "STR"},
-            {"id": "C", "text": "Light a torch and stealthily navigate the corridor (Stealth / DEX Check - DC 9)", "type": "roll", "dc": 9, "stat": "DEX"},
-            {"id": "D", "text": "Take a short rest, catch breath, and inspect inventory (Action)", "type": "action"}
+            {"id": "B", "text": "Use tools to clear heavy rubble and force a breach (Athletics / STR Check - DC 12)", "type": "roll", "dc": 12, "stat": "STR"},
+            {"id": "C", "text": "Light a pine torch and stealthily navigate the corridor (Stealth / DEX Check - DC 9)", "type": "roll", "dc": 9, "stat": "DEX"},
+            {"id": "D", "text": "Take a short rest, catch breath, and inspect 40-slot backpack (Action)", "type": "action"}
         ],
         "log": ["A commoner's dark fantasy survival journey begins in the underground crypt..."]
     }
@@ -482,6 +574,16 @@ def compute_total_stats(player: Dict[str, Any]) -> Dict[str, int]:
     base["dodge"] = base["dex"] // 3
     
     eq = player.get("equipped", {})
+    # Check Dual Wielding
+    m_hand = eq.get("main_hand")
+    o_hand = eq.get("off_hand")
+    if m_hand and o_hand and m_hand.get("handedness") == "versatile" and o_hand.get("handedness") == "versatile":
+        base["dual_wield"] = True
+        base["atk"] = int(base["atk"] * 1.15)
+        base["crit"] += 5
+    else:
+        base["dual_wield"] = False
+
     for slot, item in eq.items():
         if item and "bonus" in item:
             for k, v in item["bonus"].items():
@@ -499,13 +601,14 @@ def init_new_character(name: str, class_id: str):
     game_state["active_sound_theme"] = "dungeon"
     game_state["story_history"] = []
     game_state["monster"] = None
-    game_state["merchant_stock"] = []
+    game_state["pending_awakening"] = None
     
-    inv_25 = []
+    # 40 Slots array
+    inv_40 = []
     for item in c.get("starting_inventory", []):
-        inv_25.append(item)
-    while len(inv_25) < 25:
-        inv_25.append(None)
+        inv_40.append(item)
+    while len(inv_40) < 40:
+        inv_40.append(None)
 
     init_skills = list(c.get("initial_skills", []))
 
@@ -514,6 +617,7 @@ def init_new_character(name: str, class_id: str):
         "class_id": class_id,
         "class_name": c["title"],
         "class_icon": c["icon"],
+        "class_tier": "common",
         "level": 1,
         "exp": 0,
         "exp_next": get_required_exp_for_level(1),
@@ -531,9 +635,9 @@ def init_new_character(name: str, class_id: str):
             "cha": c["cha"]
         },
         "equipped": json.loads(json.dumps(c.get("equipped", {}))),
-        "inventory": inv_25,
-        "grimoire": list(init_skills), # All learned skills
-        "active_skills": list(init_skills[:3]), # Max 3 active loadout
+        "inventory": inv_40,
+        "grimoire": list(init_skills),
+        "active_skills": list(init_skills[:3]),
         "status_effects": []
     }
     game_state["current_node"] = {
@@ -551,15 +655,15 @@ def init_new_character(name: str, class_id: str):
             {"id": "A", "text": "Examine the ancient wall runes to decipher structural exits (INT / Arcana Check - DC 10)", "type": "roll", "dc": 10, "stat": "INT"},
             {"id": "B", "text": "Use farming/smithing tools to clear heavy debris (STR / Athletics Check - DC 12)", "type": "roll", "dc": 12, "stat": "STR"},
             {"id": "C", "text": "Light a pine pitch torch and stealthily navigate the corridor (DEX / Stealth Check - DC 9)", "type": "roll", "dc": 9, "stat": "DEX"},
-            {"id": "D", "text": "Take a short rest, catch breath, and inspect equipment bag (Action)", "type": "action"}
+            {"id": "D", "text": "Take a short rest, catch breath, and inspect 40-slot backpack (Action)", "type": "action"}
         ],
         "log": [f"Commoner '{game_state['player']['name']}' ({c['title']}) begins the underground survival journey!"]
     }
     save_game()
 
-# ==========================================
+# =========================================================================
 # GRANDMASTER AI PROMPT & STORY GENERATOR
-# ==========================================
+# =========================================================================
 async def generate_infinite_story(player: Dict[str, Any], current_scene: Dict[str, Any], current_node: Dict[str, Any], monster: Optional[Dict[str, Any]], action_taken: str, roll_result: int, roll_status: str, history: List[str]) -> Dict[str, Any]:
     url = "http://127.0.0.1:20128/v1/chat/completions"
     headers = {
@@ -567,13 +671,13 @@ async def generate_infinite_story(player: Dict[str, Any], current_scene: Dict[st
         "Authorization": f"Bearer {NINE_ROUTER_KEY}"
     }
 
-    system_prompt = """You are Dungeon Master Darsam — an elite, atmospheric Grandmaster TTRPG storyteller for an authentic Dark Fantasy Solo Campaign (Zero to Hero edition).
+    system_prompt = """You are Dungeon Master Darsam — an elite Grandmaster TTRPG storyteller for an authentic Dark Fantasy Solo Campaign (Zero to Hero edition).
 
 RULES OF THE SYSTEM:
 1. Narrative prose and dialogue MUST be in elegant, sensory-rich Indonesian (address player respectfully as 'Paduka').
-2. ALL TECHNICAL, RPG, COMBAT, SPELL, ITEM, AND STAT TERMS MUST BE IN CLEAN STANDARD ENGLISH (e.g. 'STR Check', 'DEX Check', 'INT Check', 'WIS Check', 'CON Check', 'CHA Check', 'DC 12', 'Critical Hit', 'Critical Fail', 'Success', 'Fail', 'Short Rest', 'Poisoned', 'Bleeding', 'Shield Wall', 'Adrenaline Surge').
-3. Show, Don't Tell: Rich sensory details (smell of damp sulfur, cold condensation, the scrape of rusted steel).
-4. Meaningful Failure (Fail-Forward): Failure never halts the game; it inflicts damage, burns torch turns, alerts foes, or damages equipment.
+2. ALL TECHNICAL, RPG, COMBAT, SPELL, ITEM, AND STAT TERMS MUST BE IN CLEAN STANDARD ENGLISH (e.g. 'STR Check', 'DEX Check', 'INT Check', 'WIS Check', 'CON Check', 'CHA Check', 'DC 12', 'Critical Hit', 'Critical Fail', 'Success', 'Fail', 'Short Rest', 'Poisoned', 'Bleeding', 'Dual Wielding', 'Two-Handed').
+3. Show, Don't Tell: Sensory details of decay, cold limestone, and flickering shadows.
+4. Fail-Forward: Failure creates complications, monster aggression, or resource loss while driving the story forward.
 5. Provide 4 distinct tactical choices (A, B, C, D) with varied mechanics (Physical, Stealth, Mental/Arcane, Item/Rest).
 6. Audio Theme Selector: Choose 'dungeon', 'danger', 'mystery', or 'suspense'.
 7. Output MUST BE PURE VALID JSON only.
@@ -587,10 +691,10 @@ JSON SCHEMA:
   "outcome_summary": "1-2 concise Indonesian sentences explaining the immediate impact of the player's action (using English technical terms).",
   "narrative": "3-5 rich, immersive Indonesian sentences describing the new situation.",
   "audio_theme": "dungeon" | "danger" | "mystery",
-  "hp_change": 0, // negative for damage (-5 to -25), positive for heal
+  "hp_change": 0,
   "mp_change": 0,
   "gold_change": 0,
-  "monster_encounter": { // null if no monster in this scene
+  "monster_encounter": { // null if no monster
     "name": "Monster Name",
     "tier": "common" | "elite" | "boss",
     "level": 1
@@ -607,11 +711,11 @@ JSON SCHEMA:
     inv_count = len([x for x in player.get('inventory', []) if x])
     
     user_prompt = f"""CHARACTER PROFILE:
-- Name: {player['name']} | Origin: {player['class_name']} | Level: {player['level']} (EXP: {player['exp']}/{player['exp_next']})
+- Name: {player['name']} | Class: [{player.get('class_tier', 'common').upper()}] {player['class_name']} | Level: {player['level']} (EXP: {player['exp']}/{player['exp_next']})
 - Vitals: HP {player['hp']}/{player['max_hp']} | MP {player['mp']}/{player['max_mp']} | Gold: {player['gold']} G
 - Stats: STR {player['stats']['str']} | DEX {player['stats']['dex']} | CON {player['stats']['con']} | INT {player['stats']['int']} | WIS {player['stats']['wis']} | CHA {player['stats']['cha']}
 - Equipped: {', '.join(equipped_names) if equipped_names else 'None'}
-- Inventory: {inv_count}/25 slots used
+- Inventory: {inv_count}/40 slots used
 - Status Ailments: {', '.join(player.get('status_effects', [])) if player.get('status_effects') else 'Healthy'}
 
 CURRENT CONTEXT:
@@ -627,7 +731,7 @@ ACTION TAKEN BY PLAYER:
 CHRONICLE LOG:
 {chr(10).join(history[-3:]) if history else "- Just collapsed into the subterranean crypt."}
 
-Generate the next immersive chapter of this dark fantasy dungeon crawl!"""
+Generate the next chapter of this dark fantasy survival tale!"""
 
     payload = {
         "model": "ag/gemini-3.7-flash-low",
@@ -742,26 +846,25 @@ async def process_live_turn(choice_id: str, choice_text: str = "", custom_text: 
     if active_m and active_m.get("status") == "active":
         total_stats = compute_total_stats(p)
         if roll_status in ["CRITICAL SUCCESS", "SUCCESS"]:
-            # Player hits monster
             base_dmg = total_stats.get("atk", 4) + random.randint(6, 14)
             if roll_status == "CRITICAL SUCCESS":
                 base_dmg = int(base_dmg * 2.0)
             
             active_m["hp"] = max(0, active_m["hp"] - base_dmg)
             
-            # Check if monster died from damage OR if AI narrative declared it defeated/killed
+            # Check if monster died from damage OR if AI declared it dead
             narrative_lower = (ai_resp.get("outcome_summary", "") + " " + ai_resp.get("narrative", "")).lower()
-            declared_dead_by_ai = any(w in narrative_lower for w in ["mati", "tumbang", "tewas", "slain", "defeated", "hancur", "terbelah", "roboh", "terbunuh"])
+            declared_dead = any(w in narrative_lower for w in ["mati", "tumbang", "tewas", "slain", "defeated", "hancur", "terbelah", "roboh", "terbunuh"])
             
-            if active_m["hp"] == 0 or declared_dead_by_ai:
+            if active_m["hp"] == 0 or declared_dead:
                 active_m["hp"] = 0
                 active_m["status"] = "defeated"
                 monster_slain = True
                 exp_gained = active_m["exp_reward"]
                 p["gold"] += active_m["gold_reward"]
-                loot_dropped = roll_loot(active_m["tier"], active_m["level"])
+                loot_dropped = roll_dynamic_loot(p["level"], active_m["tier"])
                 
-                # Add loot to first free inventory slot
+                # Add loot to first free slot in 40-slot backpack
                 for i in range(len(p["inventory"])):
                     if p["inventory"][i] is None:
                         p["inventory"][i] = loot_dropped
@@ -769,7 +872,6 @@ async def process_live_turn(choice_id: str, choice_text: str = "", custom_text: 
                 
                 game_state["monster"] = None
         else:
-            # Player failed check: Monster attacks player
             m_dmg = max(2, active_m["attack"] - total_stats.get("def", 0))
             p["hp"] = max(0, p["hp"] - m_dmg)
 
@@ -779,14 +881,31 @@ async def process_live_turn(choice_id: str, choice_text: str = "", custom_text: 
     p["mp"] = max(0, min(p["max_mp"], p["mp"] + ai_resp.get("mp_change", 0)))
     p["gold"] = max(0, p["gold"] + ai_resp.get("gold_change", 0))
 
-    # Spawn new monster if requested by AI and not currently in active combat
+    # Spawn new monster if requested by AI
     if not game_state.get("monster") and not monster_slain and ai_resp.get("monster_encounter"):
         m_info = ai_resp["monster_encounter"]
         is_boss = m_info.get("tier") == "boss"
         is_elite = m_info.get("tier") == "elite"
         game_state["monster"] = generate_monster(p["level"], is_boss=is_boss, is_elite=is_elite)
 
-    # Level Up Progression & Skill Unlock Milestone Every 5 Levels (Lv 5, 10, 15, 20)
+    # Dynamic Secret Job Awakening Trigger (RNG chance on exploration)
+    # Special: ~18%, Epic: ~6%, Legendary: ~1.5%, Mythic: ~0.1%
+    if not game_state.get("monster") and not game_state.get("pending_awakening"):
+        rng_job = random.randint(1, 1000)
+        awakening_offer = None
+        if rng_job <= 1: # 0.1% Mythic
+            awakening_offer = random.choice(SECRET_CLASSES_DB["mythic"])
+        elif rng_job <= 15: # 1.5% Legendary
+            awakening_offer = random.choice(SECRET_CLASSES_DB["legendary"])
+        elif rng_job <= 75: # 6% Epic
+            awakening_offer = random.choice(SECRET_CLASSES_DB["epic"])
+        elif rng_job <= 250: # 17.5% Special
+            awakening_offer = random.choice(SECRET_CLASSES_DB["special"])
+            
+        if awakening_offer and awakening_offer["title"] != p["class_name"]:
+            game_state["pending_awakening"] = awakening_offer
+
+    # Level Up Progression & Milestone Skill Unlocks Every 5 Levels
     p["exp"] += exp_gained
     leveled_up = False
     new_skill_unlocked = None
@@ -802,16 +921,13 @@ async def process_live_turn(choice_id: str, choice_text: str = "", custom_text: 
         p["stats"]["con"] += 1
         leveled_up = True
 
-        # Check for skill unlock every 5 levels (e.g. Lv 5, 10)
         c_info = CLASSES_INFO.get(p.get("class_id"), {})
         level_unlocks = c_info.get("level_unlocks", {})
         if p["level"] in level_unlocks:
             unlocked = level_unlocks[p["level"]]
-            # Add to grimoire if not already learned
             if not any(sk["id"] == unlocked["id"] for sk in p.get("grimoire", [])):
                 p.setdefault("grimoire", []).append(unlocked)
                 new_skill_unlocked = unlocked
-                # Auto-equip if less than 3 active skills
                 if len(p.get("active_skills", [])) < 3:
                     p.setdefault("active_skills", []).append(unlocked)
 
@@ -836,7 +952,6 @@ async def process_live_turn(choice_id: str, choice_text: str = "", custom_text: 
     game_state["scene"]["log"].append(outcome)
     if len(game_state["scene"]["log"]) > 4: game_state["scene"]["log"].pop(0)
 
-    # Save to storage
     save_game()
 
     return {
@@ -845,18 +960,38 @@ async def process_live_turn(choice_id: str, choice_text: str = "", custom_text: 
         "state": game_state
     }
 
-# ==========================================
-# INVENTORY & EQUIPMENT ACTIONS
-# ==========================================
+# =========================================================================
+# 6-SLOT EQUIPMENT & WEAPON HANDEDNESS LOGIC
+# =========================================================================
 def equip_item(item_index: int):
     global game_state
     p = game_state["player"]
     if item_index < 0 or item_index >= len(p["inventory"]): return
     item = p["inventory"][item_index]
-    if not item or item.get("type") not in ["weapon", "offhand", "armor", "accessory"]: return
+    if not item or item.get("type") not in ["weapon", "offhand", "armor", "head", "feet", "accessory"]: return
     
     slot = item.get("slot")
     if not slot or slot not in p["equipped"]: return
+
+    # Handedness Logic for Two-Handed Weapons
+    if slot == "main_hand" and item.get("handedness") == "two_handed":
+        # Unequip offhand if present
+        if p["equipped"]["off_hand"]:
+            # Find free slot in 40-slot bag
+            for i in range(len(p["inventory"])):
+                if p["inventory"][i] is None:
+                    p["inventory"][i] = p["equipped"]["off_hand"]
+                    p["equipped"]["off_hand"] = None
+                    break
+
+    # If equipping offhand but mainhand is two-handed, block or unequip mainhand
+    if slot == "off_hand" and p["equipped"].get("main_hand") and p["equipped"]["main_hand"].get("handedness") == "two_handed":
+        # Move two-handed mainhand to inventory
+        for i in range(len(p["inventory"])):
+            if p["inventory"][i] is None:
+                p["inventory"][i] = p["equipped"]["main_hand"]
+                p["equipped"]["main_hand"] = None
+                break
 
     old_equipped = p["equipped"][slot]
     p["equipped"][slot] = item
@@ -868,17 +1003,12 @@ def unequip_item(slot_name: str):
     p = game_state["player"]
     if slot_name not in p["equipped"] or not p["equipped"][slot_name]: return
     
-    # Find free inventory slot
-    free_idx = -1
     for i in range(len(p["inventory"])):
         if p["inventory"][i] is None:
-            free_idx = i
+            p["inventory"][i] = p["equipped"][slot_name]
+            p["equipped"][slot_name] = None
+            save_game()
             break
-    if free_idx == -1: return # Inventory full!
-
-    p["inventory"][free_idx] = p["equipped"][slot_name]
-    p["equipped"][slot_name] = None
-    save_game()
 
 def use_consumable(item_index: int):
     global game_state
@@ -894,37 +1024,67 @@ def use_consumable(item_index: int):
     elif eff.startswith("heal_mp_"):
         amount = int(eff.split("_")[-1])
         p["mp"] = min(p["max_mp"], p["mp"] + amount)
-    elif eff == "add_light_5":
-        game_state["torch_turns"] += 6
+    elif eff.startswith("add_light_"):
+        amount = int(eff.split("_")[-1])
+        game_state["torch_turns"] += amount
         if "blind" in p["status_effects"]: p["status_effects"].remove("blind")
     elif eff == "full_restore":
         p["hp"] = p["max_hp"]
         p["mp"] = p["max_mp"]
         p["status_effects"] = []
     
-    # Remove consumed item
     p["inventory"][item_index] = None
     save_game()
 
-# ==========================================
-# SKILL MANAGEMENT (3-SLOT DECK & GRIMOIRE)
-# ==========================================
+def accept_awakening():
+    global game_state
+    p = game_state["player"]
+    awakening = game_state.get("pending_awakening")
+    if not awakening: return
+    
+    p["class_name"] = awakening["title"]
+    p["class_icon"] = awakening["icon"]
+    p["class_tier"] = awakening["tier"]
+    
+    # Apply bonus stats
+    if "bonus_stats" in awakening:
+        for k, v in awakening["bonus_stats"].items():
+            if k in p["stats"]:
+                p["stats"][k] += v
+            elif k == "hp":
+                p["max_hp"] += v
+                p["hp"] += v
+            elif k == "mp":
+                p["max_mp"] += v
+                p["mp"] += v
+                
+    # Add new skills to grimoire
+    for sk in awakening.get("skills", []):
+        if not any(s["id"] == sk["id"] for s in p.get("grimoire", [])):
+            p.setdefault("grimoire", []).append(sk)
+            if len(p.get("active_skills", [])) < 3:
+                p.setdefault("active_skills", []).append(sk)
+                
+    game_state["pending_awakening"] = None
+    save_game()
+
+def decline_awakening():
+    global game_state
+    game_state["pending_awakening"] = None
+    save_game()
+
 def equip_active_skill(skill_id: str):
     global game_state
     p = game_state["player"]
     grimoire = p.get("grimoire", [])
     active_skills = p.setdefault("active_skills", [])
     
-    # Find skill in grimoire
     skill_obj = next((s for s in grimoire if s["id"] == skill_id), None)
     if not skill_obj: return
-    
-    # If already equipped, do nothing
     if any(s["id"] == skill_id for s in active_skills): return
     
-    # Max 3 active skills
     if len(active_skills) >= 3:
-        active_skills.pop(0) # Replace oldest
+        active_skills.pop(0)
     
     active_skills.append(skill_obj)
     save_game()
@@ -1040,6 +1200,14 @@ async def ws_controller(websocket: WebSocket):
                 item_idx = data.get("index")
                 use_consumable(item_idx)
                 await manager.broadcast_all({"type": "state_update", "state": game_state, "outcome": "Item konsumsi berhasil digunakan!"})
+
+            elif action_type == "accept_awakening":
+                accept_awakening()
+                await manager.broadcast_all({"type": "state_update", "state": game_state, "outcome": f"🌟 TAKDIR DITERIMA! Paduka telah bangkit menjadi [{game_state['player']['class_tier'].upper()}] {game_state['player']['class_name']}!"})
+
+            elif action_type == "decline_awakening":
+                decline_awakening()
+                await manager.broadcast_all({"type": "state_update", "state": game_state, "outcome": "Tawaran kebangkitan kelas ditolak."})
 
             elif action_type == "equip_skill":
                 sk_id = data.get("skill_id")
