@@ -53,7 +53,9 @@ CLASSES_INFO = {
             {"id": "c_torch_1", "name": "Pine Pitch Torch", "rarity": "common", "type": "consumable", "icon": "🕯️", "effect": "add_light_5", "desc": "+5 Torch Light turns", "val": 3},
             {"id": "m_rope", "name": "Hemp Rope (15m)", "rarity": "common", "type": "material", "icon": "🪢", "desc": "Utility rope for climbing", "val": 2}
         ],
-        "skills": [{"id": "sk_adrenaline", "name": "Adrenaline Surge", "cost_mp": 5, "cd": 3, "desc": "Instantly restores 25 HP & gain +2 STR for 2 turns."}]
+        "skills": [
+            {"id": "sk_adrenaline", "name": "Adrenaline Surge", "cost_mp": 5, "cd": 3, "dmg_type": "heal", "est_val": "+25 HP & +2 STR", "desc": "Memulihkan 25 HP seketika & memberi bonus +2 STR selama 2 turn."}
+        ]
     },
     "blacksmith": {
         "title": "Smith Apprentice",
@@ -72,7 +74,9 @@ CLASSES_INFO = {
             {"id": "c_ration_1", "name": "Smoked Meat Jerky", "rarity": "common", "type": "consumable", "icon": "🥩", "effect": "heal_hp_25", "desc": "Restores 25 HP", "val": 3},
             {"id": "c_torch_1", "name": "Pine Pitch Torch", "rarity": "common", "type": "consumable", "icon": "🕯️", "effect": "add_light_5", "desc": "+5 Torch Light turns", "val": 3}
         ],
-        "skills": [{"id": "sk_anvil", "name": "Anvil Crush", "cost_mp": 5, "cd": 3, "desc": "Deals massive STR-based blunt damage and stuns the monster for 1 turn."}]
+        "skills": [
+            {"id": "sk_anvil", "name": "Anvil Crush", "cost_mp": 5, "cd": 3, "dmg_type": "damage", "est_val": "22-30 Blunt DMG", "desc": "Menghantam monster dengan palu berat (22-30 DMG) dan melumpuhkan (Stun) 1 turn."}
+        ]
     },
     "scholar": {
         "title": "Village Scholar",
@@ -91,7 +95,9 @@ CLASSES_INFO = {
             {"id": "c_torch_1", "name": "Pine Pitch Torch", "rarity": "common", "type": "consumable", "icon": "🕯️", "effect": "add_light_5", "desc": "+5 Torch Light turns", "val": 3},
             {"id": "m_chalk", "name": "Alchemical Rune Chalk", "rarity": "common", "type": "material", "icon": "🖍️", "desc": "Inscribe protective glyphs", "val": 3}
         ],
-        "skills": [{"id": "sk_arcane_spark", "name": "Arcane Spark", "cost_mp": 10, "cd": 1, "desc": "Blasts the target with pure INT magic damage (Bypasses armor)."}]
+        "skills": [
+            {"id": "sk_arcane_spark", "name": "Arcane Spark", "cost_mp": 10, "cd": 1, "dmg_type": "damage", "est_val": "25-36 Magic DMG", "desc": "Menembakkan petir sihir murni (25-36 DMG) yang menembus armor monster."}
+        ]
     },
     "trapper": {
         "title": "Forest Trapper",
@@ -110,7 +116,9 @@ CLASSES_INFO = {
             {"id": "c_ration_1", "name": "Dried Game Rations", "rarity": "common", "type": "consumable", "icon": "🥩", "effect": "heal_hp_20", "desc": "Restores 20 HP", "val": 2},
             {"id": "m_dagger", "name": "Flint Skinning Knife", "rarity": "common", "type": "weapon", "icon": "🔪", "bonus": {"dex": 1, "atk": 3}, "val": 3}
         ],
-        "skills": [{"id": "sk_caltrop", "name": "Caltrop Scatter", "cost_mp": 8, "cd": 2, "desc": "Scatters razor spikes, inflicting Bleed and giving Advantage on next turn."}]
+        "skills": [
+            {"id": "sk_caltrop", "name": "Caltrop Scatter", "cost_mp": 8, "cd": 2, "dmg_type": "damage", "est_val": "18-24 Bleed DMG", "desc": "Menebar duri beracun (18-24 DMG) yang melukai dan memperlambat musuh."}
+        ]
     },
     "guard": {
         "title": "Disgraced Watchman",
@@ -128,7 +136,9 @@ CLASSES_INFO = {
             {"id": "c_torch_1", "name": "Pine Pitch Torch", "rarity": "common", "type": "consumable", "icon": "🕯️", "effect": "add_light_5", "desc": "+5 Torch Light turns", "val": 3},
             {"id": "c_ration_1", "name": "Hardtack Biscuit", "rarity": "common", "type": "consumable", "icon": "🍘", "effect": "heal_hp_20", "desc": "Restores 20 HP", "val": 2}
         ],
-        "skills": [{"id": "sk_shield_wall", "name": "Shield Wall Bastion", "cost_mp": 6, "cd": 3, "desc": "Increases DEF by +6 and reflects 50% of melee damage for 2 turns."}]
+        "skills": [
+            {"id": "sk_shield_wall", "name": "Shield Wall Bastion", "cost_mp": 6, "cd": 3, "dmg_type": "buff", "est_val": "+6 DEF & Reflect", "desc": "Meningkatkan DEF sebesar +6 dan memantulkan 50% serangan melee musuh."}
+        ]
     },
     "grave_robber": {
         "title": "Tomb Grave-Robber",
@@ -146,7 +156,9 @@ CLASSES_INFO = {
             {"id": "c_torch_1", "name": "Pine Pitch Torch", "rarity": "common", "type": "consumable", "icon": "🕯️", "effect": "add_light_5", "desc": "+5 Torch Light turns", "val": 3},
             {"id": "m_crowbar", "name": "Iron Prying Crowbar", "rarity": "common", "type": "material", "icon": "🦯", "desc": "Pries open sarcophagi & stuck grates", "val": 4}
         ],
-        "skills": [{"id": "sk_backstab", "name": "Shadow Ambush", "cost_mp": 10, "cd": 2, "desc": "Strikes from behind for 2.5x DEX damage with a guaranteed Critical Hit."}]
+        "skills": [
+            {"id": "sk_backstab", "name": "Shadow Ambush", "cost_mp": 10, "cd": 2, "dmg_type": "damage", "est_val": "28-42 Crit DMG", "desc": "Menyerang dari balik bayangan (28-42 DMG) dengan garansi Critical Hit."}
+        ]
     },
     "monk": {
         "title": "Exiled Temple Acolyte",
@@ -164,7 +176,9 @@ CLASSES_INFO = {
             {"id": "c_torch_1", "name": "Pine Pitch Torch", "rarity": "common", "type": "consumable", "icon": "🕯️", "effect": "add_light_5", "desc": "+5 Torch Light turns", "val": 3},
             {"id": "c_ration_1", "name": "Dried Figs & Nuts", "rarity": "common", "type": "consumable", "icon": "🥜", "effect": "heal_hp_20", "desc": "Restores 20 HP & 10 MP", "val": 3}
         ],
-        "skills": [{"id": "sk_mend", "name": "Sacred Prayer of Radiance", "cost_mp": 12, "cd": 2, "desc": "Restores 35 HP to self and blinds all undead monsters for 1 turn."}]
+        "skills": [
+            {"id": "sk_mend", "name": "Sacred Prayer of Radiance", "cost_mp": 12, "cd": 2, "dmg_type": "heal", "est_val": "+35 HP & Blind", "desc": "Memulihkan 35 HP dan membutakan musuh mayat hidup selama 1 turn."}
+        ]
     },
     "alchemist": {
         "title": "Alchemist Apprentice",
@@ -182,7 +196,9 @@ CLASSES_INFO = {
             {"id": "c_antidote", "name": "Universal Antidote Draught", "rarity": "uncommon", "type": "consumable", "icon": "🧪", "effect": "cure_poison_heal_20", "desc": "Cures Poison & restores 20 HP", "val": 5},
             {"id": "c_torch_1", "name": "Pine Pitch Torch", "rarity": "common", "type": "consumable", "icon": "🕯️", "effect": "add_light_5", "desc": "+5 Torch Light turns", "val": 3}
         ],
-        "skills": [{"id": "sk_acid_throw", "name": "Corrosive Acid Bomb", "cost_mp": 10, "cd": 2, "desc": "Melts monster armor (-4 DEF) and deals continuous poison burn damage."}]
+        "skills": [
+            {"id": "sk_acid_throw", "name": "Corrosive Acid Bomb", "cost_mp": 10, "cd": 2, "dmg_type": "damage", "est_val": "24-32 Acid DMG", "desc": "Melelehkan zirah monster (-4 DEF) dan memberi 24-32 luka asam."}
+        ]
     }
 }
 
