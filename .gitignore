@@ -1,0 +1,21 @@
+# Virtual Environment
+venv/
+.venv/
+env/
+
+# Python Cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Game Saves (Keep local only for user privacy)
+saves/
+
+# Environment Variables
+.env
+.env.*
+
+# Logs & OS artifacts
+*.log
+.DS_Store
+*.swp
