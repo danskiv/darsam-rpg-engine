@@ -10,7 +10,7 @@ from fastapi.responses import HTMLResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 
-app = FastAPI(title="Darsam RPG Dungeon Engine - Grandmaster v2.2.0")
+app = FastAPI(title="Darsam RPG Dungeon Engine - Encounter Expansion v2.4.0")
 
 os.makedirs("/home/ubuntu/Github/darsam-rpg-engine/static", exist_ok=True)
 os.makedirs("/home/ubuntu/Github/darsam-rpg-engine/templates", exist_ok=True)
@@ -34,7 +34,7 @@ def get_9router_key() -> str:
 NINE_ROUTER_KEY = get_9router_key()
 
 # =========================================================================
-# 8 DIVERSE STARTING ORIGINS WITH STACKABLE CONSUMABLES & EQUIPMENT LEVELS
+# 8 DIVERSE STARTING ORIGINS (ZERO TO HERO)
 # =========================================================================
 CLASSES_INFO = {
     "peasant": {
@@ -241,28 +241,40 @@ CLASSES_INFO = {
 }
 
 # =========================================================================
-# SECRET AWAKENING JOBS (SPECIAL, EPIC, LEGENDARY, MYTHIC)
+# SECRET AWAKENING JOBS ROSTER (CROSS-CLASS EXPANSION: COMMON ➔ MYTHIC)
 # =========================================================================
 SECRET_CLASSES_DB = {
+    "common": [
+        {"id": "sec_crypt_scavenger", "title": "Crypt Scavenger", "tier": "common", "icon": "⛏️", "bonus_stats": {"dex": 1, "con": 1}, "desc": "Pencari rongsokan makam kuno. Langkah liat dan awas terhadap sisa jarahan.", "skills": [{"id": "sk_scavenge_strike", "name": "Prying Pickaxe Strike", "cost_mp": 4, "dmg_type": "damage", "est_val": "18-24 Pick DMG", "desc": "Hantaman beliung runcing yang mencungkil kelemahan pelindung musuh."}]},
+        {"id": "sec_wandering_mercenary", "title": "Wandering Sellsword", "tier": "common", "icon": "🗡️", "bonus_stats": {"str": 2, "atk": 2}, "desc": "Prajurit bayaran pengelana. Berpengalaman dalam duel senjata tajam jarak dekat.", "skills": [{"id": "sk_cleave_strike", "name": "Mercenary Brutal Slash", "cost_mp": 5, "dmg_type": "damage", "est_val": "22-28 Slash DMG", "desc": "Tebasan pedang beruntun yang mengoyak luka fisik musuh."}]},
+        {"id": "sec_hermit_apothecary", "title": "Hermit Apothecary", "tier": "common", "icon": "🌿", "bonus_stats": {"wis": 2, "mp": 10}, "desc": "Tabib pertapa lereng makam. Ahli meramu daun obat dan mensterilkan bisa racun.", "skills": [{"id": "sk_herbal_steam", "name": "Soothing Herbal Poultice", "cost_mp": 6, "dmg_type": "heal", "est_val": "+28 HP & Cleanse", "desc": "Baluran ramuan daun herbal yang memulihkan 28 HP dan membersihkan status Bleed."}]}
+    ],
     "special": [
-        {"id": "sec_blood_zealot", "title": "Blood-Pact Zealot", "tier": "special", "icon": "🩸", "bonus_stats": {"str": 3, "con": 2}, "desc": "Ksatria kultus darah. Mengorbankan darah sendiri demi serangan fisik berlipat ganda.", "skills": [{"id": "sk_blood_strike", "name": "Sanguine Cleave", "cost_mp": 5, "dmg_type": "damage", "est_val": "45-60 Blood DMG", "desc": "Mengorbankan 10 HP untuk menebas monster dengan 45-60 damage brutal."}]},
-        {"id": "sec_shadow_ranger", "title": "Shadowveil Ranger", "tier": "special", "icon": "🏹", "bonus_stats": {"dex": 4, "wis": 2}, "desc": "Pemanah malam berkabut. Tembakan panahnya tidak terdengar dan selalu menusuk titik lemah.", "skills": [{"id": "sk_ghost_arrow", "name": "Ghostflight Shot", "cost_mp": 8, "dmg_type": "damage", "est_val": "40-52 Pierce DMG", "desc": "Anak panah hantu yang menembus perisai dan armor musuh secara mutlak."}]}
+        {"id": "sec_blood_zealot", "title": "Blood-Pact Zealot", "tier": "special", "icon": "🩸", "bonus_stats": {"str": 4, "con": 3}, "desc": "Ksatria kultus darah. Mengorbankan darah sendiri demi serangan fisik berlipat ganda.", "skills": [{"id": "sk_blood_strike", "name": "Sanguine Cleave", "cost_mp": 5, "dmg_type": "damage", "est_val": "45-60 Blood DMG", "desc": "Mengorbankan 10 HP untuk menebas monster dengan 45-60 damage brutal."}]},
+        {"id": "sec_shadow_ranger", "title": "Shadowveil Ranger", "tier": "special", "icon": "🏹", "bonus_stats": {"dex": 5, "wis": 2}, "desc": "Pemanah malam berkabut. Tembakan panahnya tidak terdengar dan selalu menusuk titik lemah.", "skills": [{"id": "sk_ghost_arrow", "name": "Ghostflight Shot", "cost_mp": 8, "dmg_type": "damage", "est_val": "40-52 Pierce DMG", "desc": "Anak panah hantu yang menembus perisai dan armor musuh secara mutlak."}]},
+        {"id": "sec_iron_juggernaut", "title": "Iron Juggernaut Vanguard", "tier": "special", "icon": "🛡️", "bonus_stats": {"str": 4, "con": 4, "def": 4}, "desc": "Ksatria benteng berlapis baja tebal. Tubuhnya laksana tembok karang yang menolak runtuh.", "skills": [{"id": "sk_unbreakable_slam", "name": "Titanium Shield Bash", "cost_mp": 8, "dmg_type": "damage", "est_val": "35-48 Stun DMG", "desc": "Hantaman perisai titanium yang menghancurkan keseimbangan musuh dan memberi efek Stun 1 turn."}]},
+        {"id": "sec_pyro_cultist", "title": "Infernal Pyromancer", "tier": "special", "icon": "🔥", "bonus_stats": {"int": 5, "mp": 20}, "desc": "Pemuja api neraka bawah tanah. Menyulap udara dingin makam menjadi lautan abu membara.", "skills": [{"id": "sk_pyro_blast", "name": "Hellfire Scorch Flare", "cost_mp": 10, "dmg_type": "damage", "est_val": "42-56 Fire Burn", "desc": "Semburan api membara yang membakar musuh dan melelehkan armornya."}]}
     ],
     "epic": [
-        {"id": "sec_chronomancer", "title": "Rift Chronomancer", "tier": "epic", "icon": "⏳", "bonus_stats": {"int": 5, "wis": 3}, "desc": "Penyihir pemutar sangkala waktu. Mampu membatalkan kegagalan dan mempercepat perputaran mantra.", "skills": [{"id": "sk_time_dilation", "name": "Chrono-Stasis Surge", "cost_mp": 15, "dmg_type": "damage", "est_val": "60-80 Time DMG", "desc": "Menghentikan waktu selama 1 turn dan menghancurkan musuh dalam gelombang temporal."}]},
-        {"id": "sec_nightblade", "title": "Nightblade Death-Shadow", "tier": "epic", "icon": "🗡️", "bonus_stats": {"dex": 6, "cha": 2}, "desc": "Pencabut nyawa legendaris dari ordo kegelapan tak bernama.", "skills": [{"id": "sk_fatal_strike", "name": "Eclipse Decapitation", "cost_mp": 18, "dmg_type": "damage", "est_val": "75-100 Fatal DMG", "desc": "Tebasan bayangan gerhana yang memberikan garansi Critical Hit dan luka pendarahan masif."}]}
+        {"id": "sec_chronomancer", "title": "Rift Chronomancer", "tier": "epic", "icon": "⏳", "bonus_stats": {"int": 7, "wis": 4, "mp": 30}, "desc": "Penyihir pemutar sangkala waktu. Mampu membatalkan kegagalan dan mempercepat perputaran mantra.", "skills": [{"id": "sk_time_dilation", "name": "Chrono-Stasis Surge", "cost_mp": 15, "dmg_type": "damage", "est_val": "60-80 Time DMG", "desc": "Menghentikan waktu selama 1 turn dan menghancurkan musuh dalam gelombang temporal."}]},
+        {"id": "sec_nightblade", "title": "Nightblade Death-Shadow", "tier": "epic", "icon": "🗡️", "bonus_stats": {"dex": 8, "cha": 3, "crit": 10}, "desc": "Pencabut nyawa legendaris dari ordo kegelapan tak bernama.", "skills": [{"id": "sk_fatal_strike", "name": "Eclipse Decapitation", "cost_mp": 18, "dmg_type": "damage", "est_val": "75-100 Fatal DMG", "desc": "Tebasan bayangan gerhana yang memberikan garansi Critical Hit dan luka pendarahan masif."}]},
+        {"id": "sec_storm_valkyrie", "title": "Tempest Storm-Weaver", "tier": "epic", "icon": "⚡", "bonus_stats": {"dex": 6, "int": 6, "atk": 8}, "desc": "Pengendali badai petir purba. Menyambar dari balik awan kelam dengan kecepatan kilat.", "skills": [{"id": "sk_lightning_spear", "name": "Gungnir Stormlance", "cost_mp": 16, "dmg_type": "damage", "est_val": "70-92 Shock DMG", "desc": "Lembing petir halilintar yang menembus jantung monster dan meremukkan pertahanan."}]},
+        {"id": "sec_necro_alchemist", "title": "Soul-Transmutation Plague-Lord", "tier": "epic", "icon": "🧪", "bonus_stats": {"int": 8, "con": 4, "wis": 3}, "desc": "Alkemis penyeberang maut yang menggabungkan racun biang mayat dengan filosofi transmutasi.", "skills": [{"id": "sk_plague_nova", "name": "Abyssal Vitriol Plague", "cost_mp": 16, "dmg_type": "damage", "est_val": "65-88 Acid DoT", "desc": "Ledakan kabut asam beracun yang menggerogoti daging dan tulang monster setiap turn."}]}
     ],
     "legendary": [
-        {"id": "sec_dragon_sovereign", "title": "Dragon-Heart Sovereign", "tier": "legendary", "icon": "🐉", "bonus_stats": {"str": 8, "con": 6, "cha": 4}, "desc": "Pewaris takhta naga purba. Tubuh kebal api dan setiap hantaman menggetarkan pilar dungeon.", "skills": [{"id": "sk_dragon_breath", "name": "Primeval Dragon Breath", "cost_mp": 25, "dmg_type": "damage", "est_val": "110-145 Fire DMG", "desc": "Semburan api naga primordial yang menghanguskan seluruh monster di ruangan."}]},
-        {"id": "sec_void_archon", "title": "Void Archon of Eclipse", "tier": "legendary", "icon": "🌌", "bonus_stats": {"int": 8, "wis": 6, "mp": 50}, "desc": "Penguasa dimensi kehampaan tak berujung yang mampu menelan materi menjadi energi murni.", "skills": [{"id": "sk_event_horizon", "name": "Black Hole Event Horizon", "cost_mp": 30, "dmg_type": "damage", "est_val": "125-160 Void DMG", "desc": "Menciptakan singularitas lubang hitam yang meremukkan monster hingga lebur."}]}
+        {"id": "sec_dragon_sovereign", "title": "Dragon-Heart Sovereign", "tier": "legendary", "icon": "🐉", "bonus_stats": {"str": 12, "con": 10, "cha": 6, "hp": 40}, "desc": "Pewaris takhta naga purba. Tubuh kebal api dan setiap hantaman menggetarkan pilar dungeon.", "skills": [{"id": "sk_dragon_breath", "name": "Primeval Dragon Breath", "cost_mp": 25, "dmg_type": "damage", "est_val": "110-145 Fire DMG", "desc": "Semburan api naga primordial yang menghanguskan seluruh monster di ruangan."}]},
+        {"id": "sec_void_archon", "title": "Void Archon of Eclipse", "tier": "legendary", "icon": "🌌", "bonus_stats": {"int": 14, "wis": 10, "mp": 60}, "desc": "Penguasa dimensi kehampaan tak berujung yang mampu menelan materi menjadi energi murni.", "skills": [{"id": "sk_event_horizon", "name": "Black Hole Event Horizon", "cost_mp": 30, "dmg_type": "damage", "est_val": "125-160 Void DMG", "desc": "Menciptakan singularitas lubang hitam yang meremukkan monster hingga lebur."}]},
+        {"id": "sec_celestial_seraph", "title": "Solar Archangel of Dawn", "tier": "legendary", "icon": "☀️", "bonus_stats": {"wis": 14, "con": 8, "str": 6, "hp": 50}, "desc": "Utusan surya abadi dari kubah nirwana tertinggi. Membawa mukjizat pemurnian murni.", "skills": [{"id": "sk_solar_verdict", "name": "Wrath of the Seven Suns", "cost_mp": 28, "dmg_type": "damage", "est_val": "120-155 Holy DMG", "desc": "Tujuh pilar cahaya surya yang membakar habis kejahatan makam dan memulihkan 50 HP karakter."}]},
+        {"id": "sec_dread_warlord", "title": "Ashen Dread-Emperor", "tier": "legendary", "icon": "👑", "bonus_stats": {"str": 14, "con": 10, "atk": 16, "crit": 12}, "desc": "Kaisar perang dari abu peradaban lampau. Membawa pedang pemenggal jutaan jiwa.", "skills": [{"id": "sk_apocalypse_cleave", "name": "Sovereign Oblivion Strike", "cost_mp": 26, "dmg_type": "damage", "est_val": "130-170 Brutal DMG", "desc": "Tebasan pedang kehancuran mutlak yang mengabaikan 100% Defense musuh."}]}
     ],
     "mythic": [
-        {"id": "sec_omniscient_keeper", "title": "Omniscient Sovereign of Creation", "tier": "mythic", "icon": "👑", "bonus_stats": {"str": 10, "dex": 10, "con": 10, "int": 10, "wis": 10, "cha": 10, "hp": 100, "mp": 100}, "desc": "Entitas Transenden yang memegang hakikat penciptaan. Seluruh realitas dan takdir tunduk di hadapannya.", "skills": [{"id": "sk_genesis_verdict", "name": "Genesis Divine Judgment", "cost_mp": 40, "dmg_type": "damage", "est_val": "200-280 True DMG", "desc": "Sabda pemusnah semesta yang menghabisi musuh apa pun dalam 1 serangan mutlak."}]}
+        {"id": "sec_omniscient_keeper", "title": "Omniscient Sovereign of Creation", "tier": "mythic", "icon": "🌌", "bonus_stats": {"str": 15, "dex": 15, "con": 15, "int": 15, "wis": 15, "cha": 15, "hp": 120, "mp": 120}, "desc": "Entitas Transenden yang memegang hakikat penciptaan. Seluruh realitas dan takdir tunduk di hadapannya.", "skills": [{"id": "sk_genesis_verdict", "name": "Genesis Divine Judgment", "cost_mp": 40, "dmg_type": "damage", "est_val": "200-280 True DMG", "desc": "Sabda pemusnah semesta yang menghabisi musuh apa pun dalam 1 serangan mutlak."}]},
+        {"id": "sec_chaos_ouroboros", "title": "Primordial Void Ouroboros", "tier": "mythic", "icon": "♾️", "bonus_stats": {"str": 18, "con": 18, "dex": 18, "atk": 25, "hp": 150, "mp": 80}, "desc": "Ular naga kekacauan abadi yang menelan ujung awal dan akhir semesta.", "skills": [{"id": "sk_world_eater", "name": "Ouroboros Eternity Devour", "cost_mp": 45, "dmg_type": "damage", "est_val": "220-300 Chaos DMG", "desc": "Menelan dimensi ruangan: Menghasilkan 220-300 Chaos Damage dan memulihkan 100% HP & MP karakter."}]}
     ]
 }
 
 # =========================================================================
-# DYNAMIC RARITY & ITEM LEVEL SCALING GENERATOR (NO MORE IDENTICAL STATS)
+# DYNAMIC RARITY & ITEM LEVEL SCALING GENERATOR
 # =========================================================================
 RARITY_CONFIG = {
     "common": {"mult": 1.0, "extra_stats": 0, "color": "zinc-400"},
@@ -323,7 +335,6 @@ def generate_dynamic_equipment(player_lv: int, category: str = "", forced_rarity
     tpl = random.choice(ITEM_BASE_TEMPLATES[category])
     i_lv = max(1, player_lv + random.randint(-1, 1))
     
-    # Determine Rarity if not forced
     if not forced_rarity:
         roll = random.randint(1, 100)
         if roll <= 50: rarity = "common"
@@ -346,13 +357,12 @@ def generate_dynamic_equipment(player_lv: int, category: str = "", forced_rarity
         "slot": tpl["slot"],
         "icon": tpl["icon"],
         "bonus": {},
-        "val": int((10 * i_lv * mult) // 2)
+        "val": max(5, int((12 * i_lv * mult) // 2))
     }
     
     if "handedness" in tpl:
         item["handedness"] = tpl["handedness"]
 
-    # Calculate Core Stats scaled with Level & Rarity
     if "base_atk" in tpl:
         item["bonus"]["atk"] = int((tpl["base_atk"] + (i_lv * 2)) * mult)
     if "base_def" in tpl:
@@ -366,7 +376,6 @@ def generate_dynamic_equipment(player_lv: int, category: str = "", forced_rarity
     if "base_stat" in tpl:
         item["bonus"][tpl["base_stat"]] = max(1, int((1 + (i_lv // 2)) * mult))
 
-    # Add extra random secondary stat based on rarity
     extra_count = cfg["extra_stats"]
     possible_secondaries = ["str", "dex", "con", "int", "wis", "cha", "crit", "dodge"]
     for _ in range(extra_count):
@@ -405,7 +414,6 @@ def generate_dynamic_consumable(player_lv: int) -> Dict[str, Any]:
     }
 
 def roll_dynamic_loot(player_lv: int, monster_tier: str = "common") -> Dict[str, Any]:
-    # 70% Gear, 30% Consumable
     if random.randint(1, 100) <= 30:
         return generate_dynamic_consumable(player_lv)
     
@@ -477,20 +485,47 @@ def generate_monster(player_lv: int, is_boss: bool = False, is_elite: bool = Fal
 def get_required_exp_for_level(level: int) -> int:
     return int(75 * (level ** 1.6))
 
-# Chapter Transition Milestone Table
-CHAPTER_PROGRESSION = [
-    {"min_step": 1, "max_step": 5, "chapter": "Chapter 1: The Descent", "floor": 1, "theme": "Ruang Makam Runtuh & Lorong Lumut", "danger": "Common vermin & ancient traps"},
-    {"min_step": 6, "max_step": 12, "chapter": "Chapter 2: The Sarcophagus Halls", "floor": 1, "theme": "Kubah Sarkofagus & Altar Terkutuk", "danger": "Skeletal sentinels & dark cultists"},
-    {"min_step": 13, "max_step": 20, "chapter": "Chapter 3: The Abyssal Waterway", "floor": 2, "theme": "Kanal Bawah Tanah & Jembatan Rapuh", "danger": "Venomous brood & aquatic horrors"},
-    {"min_step": 21, "max_step": 30, "chapter": "Chapter 4: The Forgotten Necropolis", "floor": 2, "theme": "Kota Mati Purba & Toko Terlarang", "danger": "Elite shadowblades & dread revenants"},
-    {"min_step": 31, "max_step": 45, "chapter": "Chapter 5: The Archon's Sanctum", "floor": 3, "theme": "Pintu Gerbang Utama & Istana Dewa Kegelapan", "danger": "Lich Lord Malakor (Boss Encounter)"}
+# Infinite Milestone Chapter & Floor Progression (Tiers of Depth)
+CHAPTER_THEMES = [
+    {"floor": 1, "theme": "Ruang Makam Kuno & Lorong Lumut", "titles": ["The Descent", "The Sarcophagus Halls", "The Bone Crypts", "The Weeping Catacombs"]},
+    {"floor": 2, "theme": "Kanal Bawah Tanah & Gorong-gorong Gelap", "titles": ["The Abyssal Waterway", "The Submerged Ruins", "The Sunken Cistern", "The Venomous Depths"]},
+    {"floor": 3, "theme": "Kota Mati Purba & Kubah Pemuja Kegelapan", "titles": ["The Forgotten Necropolis", "The Obsidian Mausoleum", "The Archon's Sanctum", "The Blood-Forged Citadel"]},
+    {"floor": 4, "theme": "Jurang Kehampaan & Labirin Dimensi", "titles": ["The Void Chasm", "The Astral Rift", "The Hall of Shifting Realities", "The Singularity Gate"]},
+    {"floor": 5, "theme": "Kuil Penciptaan Purba & Tahta Akhir Semesta", "titles": ["The Primordial Sanctum", "The Crown of Eternity", "The Genesis Vault", "The Transcendent Apex"]}
 ]
 
 def get_current_chapter_info(step: int) -> Dict[str, Any]:
-    for ch in CHAPTER_PROGRESSION:
-        if ch["min_step"] <= step <= ch["max_step"]:
-            return ch
-    return CHAPTER_PROGRESSION[-1]
+    # Every 8 steps advances to the next chapter!
+    ch_num = max(1, ((step - 1) // 8) + 1)
+    floor_num = min(5, max(1, ((ch_num - 1) // 3) + 1))
+    
+    tier_idx = min(len(CHAPTER_THEMES) - 1, floor_num - 1)
+    tier_info = CHAPTER_THEMES[tier_idx]
+    
+    title_idx = (ch_num - 1) % len(tier_info["titles"])
+    ch_title = tier_info["titles"][title_idx]
+    
+    return {
+        "chapter": f"Chapter {ch_num}: {ch_title}",
+        "chapter_num": ch_num,
+        "floor": floor_num,
+        "theme": tier_info["theme"]
+    }
+
+# =========================================================================
+# ENCOUNTER GENERATOR (MERCHANT, CHEST, CROSSROADS, CAMPFIRE, SHRINE)
+# =========================================================================
+def generate_merchant_stock(player_lv: int) -> List[Dict[str, Any]]:
+    stock = []
+    # 2-3 Equipments
+    for _ in range(random.randint(2, 3)):
+        stock.append(generate_dynamic_equipment(player_lv))
+    # 2-3 Consumables
+    for _ in range(random.randint(2, 3)):
+        c = generate_dynamic_consumable(player_lv)
+        c["qty"] = random.randint(1, 3)
+        stock.append(c)
+    return stock
 
 INITIAL_CHAPTER_CHOICES = [
     {"id": "A", "text": "Inspect the stone wall & search for weak structural points (Perception / WIS Check - DC 10)", "type": "roll", "dc": 10, "stat": "WIS"},
@@ -582,9 +617,11 @@ DEFAULT_GAME_STATE = {
         "type": "entrance",
         "title": "Collapse into the Forgotten Crypt",
         "location": "Subterranean Vault - Floor 1",
-        "chapter": "Chapter 1: The Dark Descent"
+        "chapter": "Chapter 1: The Descent"
     },
     "monster": None,
+    "merchant_stock": [],
+    "merchant_discount": 0,
     "pending_awakening": None,
     "scene": {
         "narrative": "Paduka hanyalah seorang warga biasa yang mencari kayu di lereng bukit. Tanah mendadak amblas runtuh! Paduka jatuh terperosok ke dalam rongga makam kuno bawah tanah. Lubang keluar di atas tertutup bebatuan tebal. Di hadapan Paduka, lorong batu berlumut gelap memancarkan hembusan angin dingin purba.",
@@ -656,10 +693,23 @@ class ConnectionManager:
 
 manager = ConnectionManager()
 
+def get_effective_max_vitals(player: Dict[str, Any]) -> tuple[int, int]:
+    base_hp = player.get("max_hp", 100)
+    base_mp = player.get("max_mp", 10)
+    extra_hp = 0
+    extra_mp = 0
+    
+    eq = player.get("equipped", {})
+    for slot, item in eq.items():
+        if item and "bonus" in item:
+            if "hp" in item["bonus"]: extra_hp += item["bonus"]["hp"]
+            if "mp" in item["bonus"]: extra_mp += item["bonus"]["mp"]
+            
+    return (base_hp + extra_hp, base_mp + extra_mp)
+
 def compute_total_stats(player: Dict[str, Any]) -> Dict[str, int]:
     base = dict(player["stats"])
     
-    # Calculate Total Attributes (Base + Gear Bonuses)
     eq = player.get("equipped", {})
     for slot, item in eq.items():
         if item and "bonus" in item:
@@ -672,7 +722,6 @@ def compute_total_stats(player: Dict[str, Any]) -> Dict[str, int]:
     base["crit"] = 5
     base["dodge"] = base["dex"] // 3
     
-    # Gear HP and MP bonuses
     extra_hp = 0
     extra_mp = 0
     for slot, item in eq.items():
@@ -687,7 +736,6 @@ def compute_total_stats(player: Dict[str, Any]) -> Dict[str, int]:
     base["effective_max_hp"] = player["max_hp"] + extra_hp
     base["effective_max_mp"] = player["max_mp"] + extra_mp
 
-    # Dual Wielding
     m_hand = eq.get("main_hand")
     o_hand = eq.get("off_hand")
     if m_hand and o_hand and m_hand.get("handedness") == "versatile" and o_hand.get("handedness") == "versatile":
@@ -700,14 +748,12 @@ def compute_total_stats(player: Dict[str, Any]) -> Dict[str, int]:
     return base
 
 def add_item_to_inventory(inventory: List[Optional[Dict[str, Any]]], new_item: Dict[str, Any]) -> bool:
-    # 1. Check if stackable consumable
     if new_item.get("type") == "consumable":
         for item in inventory:
             if item and item.get("type") == "consumable" and item.get("name") == new_item.get("name") and item.get("effect") == new_item.get("effect"):
                 item["qty"] = item.get("qty", 1) + new_item.get("qty", 1)
                 return True
                 
-    # 2. Otherwise find first empty slot
     for i in range(len(inventory)):
         if inventory[i] is None:
             if "qty" not in new_item and new_item.get("type") == "consumable":
@@ -727,9 +773,10 @@ def init_new_character(name: str, class_id: str):
     game_state["active_sound_theme"] = "dungeon"
     game_state["story_history"] = []
     game_state["monster"] = None
+    game_state["merchant_stock"] = []
+    game_state["merchant_discount"] = 0
     game_state["pending_awakening"] = None
     
-    # 40 Slots array
     inv_40 = []
     for item in c.get("starting_inventory", []):
         item_copy = dict(item)
@@ -800,9 +847,9 @@ async def generate_infinite_story(player: Dict[str, Any], current_scene: Dict[st
 RULES OF THE SYSTEM:
 1. Narrative prose and dialogue MUST be in elegant, sensory-rich Indonesian. IMPORTANT: NEVER use royal honorifics like 'Yang Mulia', 'Paduka', or 'Tuan' in the game. ALWAYS address the protagonist directly by their character name (e.g. 'Danas', 'Danas melangkah...', 'Danas merasakan...').
 2. ALL TECHNICAL, RPG, COMBAT, SPELL, ITEM, AND STAT TERMS MUST BE IN CLEAN STANDARD ENGLISH (e.g. 'STR Check', 'DEX Check', 'INT Check', 'WIS Check', 'CON Check', 'CHA Check', 'DC 12', 'Critical Hit', 'Critical Fail', 'Success', 'Fail', 'Short Rest', 'Poisoned', 'Bleeding', 'Dual Wielding', 'Two-Handed').
-3. Show, Don't Tell: Sensory details of decay, cold limestone, and flickering shadows.
-4. Fail-Forward: Failure creates complications, monster aggression, or resource loss while driving the story forward.
-5. Provide 4 distinct tactical choices (A, B, C, D) with varied mechanics (Physical, Stealth, Mental/Arcane, Item/Rest). Keep DCs balanced (between 8 and 12 for normal actions).
+3. Show, Don't Tell: Sensory details of decay, cold limestone, flickering torches, and whispers in the dark.
+4. Dynamic Encounter Context: Support varied node types ('combat', 'merchant', 'crossroads', 'chest', 'campfire', 'shrine', 'exploration').
+5. Provide 4 distinct tactical choices (A, B, C, D) matching the current node type. Keep DCs balanced (between 8 and 12 for normal actions).
 6. Audio Theme Selector: Choose 'dungeon', 'danger', 'mystery', or 'suspense'.
 7. Output MUST BE PURE VALID JSON only. Do not include markdown codeblocks or conversational filler.
 
@@ -811,13 +858,18 @@ JSON SCHEMA:
   "chapter": "Chapter X: Title",
   "location": "Room / Chamber Name",
   "title": "Scene Encounter Title",
-  "node_type": "exploration" | "combat" | "merchant" | "puzzle" | "campfire" | "boss",
+  "node_type": "exploration" | "combat" | "merchant" | "crossroads" | "chest" | "campfire" | "shrine",
   "outcome_summary": "1-2 concise Indonesian sentences explaining the immediate impact of the player's action (using English technical terms).",
   "narrative": "3-5 rich, immersive Indonesian sentences describing the new situation.",
   "audio_theme": "dungeon" | "danger" | "mystery",
   "hp_change": 0,
   "mp_change": 0,
   "gold_change": 0,
+  "item_awarded": {
+    "name": "Item Name",
+    "type": "weapon" | "armor" | "head" | "feet" | "offhand" | "accessory" | "consumable",
+    "rarity": "common" | "uncommon" | "rare" | "epic" | "legendary"
+  },
   "monster_encounter": {
     "name": "Monster Name",
     "tier": "common" | "elite" | "boss",
@@ -975,18 +1027,17 @@ async def process_live_turn(choice_id: str, choice_text: str = "", custom_text: 
     
     if raw_d20 > 0:
         stat_score = p["stats"].get(stat_key.lower(), 10) if stat_key else 10
-        # Standard RPG Modifier formula: (Score - 10) // 2
         stat_mod = (stat_score - 10) // 2
         total_roll_val = raw_d20 + stat_mod
 
         if raw_d20 == 20:
             roll_status = "CRITICAL SUCCESS"
-            exp_gained += 25 # Critical success bonus EXP!
+            exp_gained += 25
         elif raw_d20 == 1:
             roll_status = "CRITICAL FAIL"
         elif total_roll_val >= dc_target:
             roll_status = "SUCCESS"
-            exp_gained += 15 # Exploration / Check Success EXP!
+            exp_gained += 15
         else:
             roll_status = "FAIL"
 
@@ -1002,6 +1053,9 @@ async def process_live_turn(choice_id: str, choice_text: str = "", custom_text: 
         history=game_state.get("story_history", [])
     )
 
+    # Node Type & Encounter Management
+    node_type = ai_resp.get("node_type", "exploration")
+
     # Combat Resolution if Monster is active
     loot_dropped = None
     monster_slain = False
@@ -1009,14 +1063,19 @@ async def process_live_turn(choice_id: str, choice_text: str = "", custom_text: 
     if active_m and active_m.get("status") == "active":
         total_stats = compute_total_stats(p)
         if roll_status in ["CRITICAL SUCCESS", "SUCCESS"]:
-            base_dmg = total_stats.get("atk", 4) + random.randint(6, 14)
+            base_dmg = total_stats.get("atk", 4) + random.randint(10, 20)
             if roll_status == "CRITICAL SUCCESS":
                 base_dmg = int(base_dmg * 2.0)
             
             active_m["hp"] = max(0, active_m["hp"] - base_dmg)
             
-            # Check if monster died ONLY if HP reaches 0
-            if active_m["hp"] <= 0:
+            # Check defeat condition: either HP <= 0 OR narrative declares monster defeated/crushed/slain
+            narr_lower = (ai_resp.get("narrative", "") + " " + ai_resp.get("outcome_summary", "")).lower()
+            defeat_keywords = ["dikalahkan", "tumbang", "tewas", "hancur", "terbelah", "lebur", "musnah", "slain", "defeated", "terkapar", "runtuh berserakan"]
+            is_narratively_defeated = any(kw in narr_lower for kw in defeat_keywords)
+            
+            # Also if AI node_type moved away from combat (e.g. into chest/exploration/merchant), monster is clearly defeated
+            if active_m["hp"] <= 0 or is_narratively_defeated or node_type in ["chest", "exploration", "merchant", "campfire", "crossroads"]:
                 active_m["hp"] = 0
                 active_m["status"] = "defeated"
                 monster_slain = True
@@ -1031,12 +1090,37 @@ async def process_live_turn(choice_id: str, choice_text: str = "", custom_text: 
             p["hp"] = max(0, p["hp"] - m_dmg)
 
     # Apply Vitals Changes from Story
+    eff_max_hp, eff_max_mp = get_effective_max_vitals(p)
     hp_diff = ai_resp.get("hp_change", 0)
-    p["hp"] = max(0, min(p["max_hp"], p["hp"] + hp_diff))
-    p["mp"] = max(0, min(p["max_mp"], p["mp"] + ai_resp.get("mp_change", 0)))
+    p["hp"] = max(0, min(eff_max_hp, p["hp"] + hp_diff))
+    p["mp"] = max(0, min(eff_max_mp, p["mp"] + ai_resp.get("mp_change", 0)))
     p["gold"] = max(0, p["gold"] + ai_resp.get("gold_change", 0))
 
-    # Spawn new monster ONLY if requested by AI and not in combat
+    # Narrative Item Grant / Story Chest Loot Resolution
+    story_item = None
+    if ai_resp.get("item_awarded") and isinstance(ai_resp.get("item_awarded"), dict):
+        it_info = ai_resp["item_awarded"]
+        if it_info.get("name"):
+            cat_map = {"weapon": "weapons", "offhand": "offhands", "armor": "armors", "head": "helmets", "feet": "boots", "accessory": "accessories"}
+            cat = cat_map.get(it_info.get("type", "weapon"), "")
+            story_item = generate_dynamic_equipment(p["level"], category=cat, forced_rarity=it_info.get("rarity", "uncommon"))
+            if it_info.get("name"): story_item["name"] = it_info["name"]
+            add_item_to_inventory(p["inventory"], story_item)
+    elif roll_status in ["CRITICAL SUCCESS", "SUCCESS"] and any(k in action_description.lower() for k in ["peti", "chest", "gembok", "sarkofagus", "sarcophagus", "beli", "buy", "ambil"]):
+        # Automatic Chest Loot if not already handled
+        if random.randint(1, 100) <= 60 and not loot_dropped:
+            story_item = roll_dynamic_loot(p["level"], "elite" if roll_status == "CRITICAL SUCCESS" else "common")
+            add_item_to_inventory(p["inventory"], story_item)
+
+    # 1. Merchant Encounter Stock Generation
+    if node_type == "merchant" and not game_state.get("merchant_stock"):
+        game_state["merchant_stock"] = generate_merchant_stock(p["level"])
+        game_state["merchant_discount"] = 0
+    elif node_type != "merchant":
+        game_state["merchant_stock"] = []
+        game_state["merchant_discount"] = 0
+
+    # 2. Spawn new monster ONLY if requested by AI and not currently in combat
     if not game_state.get("monster") and not monster_slain and ai_resp.get("monster_encounter") and isinstance(ai_resp.get("monster_encounter"), dict):
         m_info = ai_resp["monster_encounter"]
         if m_info.get("name"):
@@ -1044,18 +1128,20 @@ async def process_live_turn(choice_id: str, choice_text: str = "", custom_text: 
             is_elite = m_info.get("tier") == "elite"
             game_state["monster"] = generate_monster(p["level"], is_boss=is_boss, is_elite=is_elite)
 
-    # Dynamic Secret Job Awakening Trigger
+    # 3. Dynamic Secret Job Awakening Trigger (Common, Special, Epic, Legendary, Mythic)
     if not game_state.get("monster") and not game_state.get("pending_awakening"):
         rng_job = random.randint(1, 1000)
         awakening_offer = None
-        if rng_job <= 1: # 0.1% Mythic
+        if rng_job <= 2: # 0.2% Mythic
             awakening_offer = random.choice(SECRET_CLASSES_DB["mythic"])
-        elif rng_job <= 15: # 1.5% Legendary
+        elif rng_job <= 18: # 1.6% Legendary
             awakening_offer = random.choice(SECRET_CLASSES_DB["legendary"])
-        elif rng_job <= 75: # 6% Epic
+        elif rng_job <= 80: # 6.2% Epic
             awakening_offer = random.choice(SECRET_CLASSES_DB["epic"])
-        elif rng_job <= 250: # 17.5% Special
+        elif rng_job <= 250: # 17% Special
             awakening_offer = random.choice(SECRET_CLASSES_DB["special"])
+        elif rng_job <= 450: # 20% Cross-Class Common Encounter
+            awakening_offer = random.choice(SECRET_CLASSES_DB["common"])
             
         if awakening_offer and awakening_offer["title"] != p["class_name"]:
             game_state["pending_awakening"] = awakening_offer
@@ -1064,14 +1150,16 @@ async def process_live_turn(choice_id: str, choice_text: str = "", custom_text: 
     p["exp"] += exp_gained
     leveled_up = False
     new_skill_unlocked = None
+    eff_max_hp, eff_max_mp = get_effective_max_vitals(p)
     while p["exp"] >= p["exp_next"] and p["level"] < 20:
         p["level"] += 1
         p["exp"] -= p["exp_next"]
         p["exp_next"] = get_required_exp_for_level(p["level"])
         p["max_hp"] += 15
-        p["hp"] = p["max_hp"]
         p["max_mp"] += 8
-        p["mp"] = p["max_mp"]
+        eff_max_hp, eff_max_mp = get_effective_max_vitals(p)
+        p["hp"] = eff_max_hp
+        p["mp"] = eff_max_mp
         p["stats"]["str"] += 1
         p["stats"]["con"] += 1
         leveled_up = True
@@ -1096,6 +1184,9 @@ async def process_live_turn(choice_id: str, choice_text: str = "", custom_text: 
     if loot_dropped: 
         qty_str = f" x{loot_dropped.get('qty', 1)}" if loot_dropped.get("qty", 1) > 1 else ""
         outcome += f" 💎 LOOT DROP: [{loot_dropped['rarity'].upper()}] {loot_dropped['name']}{qty_str}!"
+    elif story_item:
+        qty_str = f" x{story_item.get('qty', 1)}" if story_item.get("qty", 1) > 1 else ""
+        outcome += f" 🎁 ITEM OBTAINED: [{story_item['rarity'].upper()}] {story_item['name']}{qty_str}!"
     if hp_diff < 0: outcome += f" (-{-hp_diff} HP)"
     if leveled_up: outcome += f" 🌟 LEVEL UP! {p['name']} naik ke Level {p['level']} (Max HP/MP meningkat & HP pulih penuh)!"
     if new_skill_unlocked: outcome += f" ⚡ NEW SKILL UNLOCKED (Lv.{p['level']}): {new_skill_unlocked['name']}!"
@@ -1103,18 +1194,14 @@ async def process_live_turn(choice_id: str, choice_text: str = "", custom_text: 
     # Update Scene State & Chapter Progression
     ch_info = get_current_chapter_info(game_state["step"])
     game_state["floor"] = ch_info["floor"]
-    
-    # If AI returned a custom chapter, prefer progression if steps exceed
     new_chapter_title = ch_info["chapter"]
-    if game_state["step"] < ch_info["min_step"] + 2 and ai_resp.get("chapter"):
-        new_chapter_title = ai_resp.get("chapter")
 
     game_state["scene"]["chapter"] = new_chapter_title
     game_state["scene"]["title"] = ai_resp.get("title", "Dungeon Chamber")
     game_state["scene"]["location"] = ai_resp.get("location", f"{ch_info['theme']} (Floor {ch_info['floor']})")
     game_state["scene"]["narrative"] = ai_resp.get("narrative", "Suasana gua semakin pekat...")
     game_state["scene"]["choices"] = ai_resp.get("choices", scene.get("choices"))
-    game_state["current_node"]["type"] = ai_resp.get("node_type", "exploration")
+    game_state["current_node"]["type"] = node_type
     game_state["current_node"]["chapter"] = new_chapter_title
     game_state["current_node"]["location"] = game_state["scene"]["location"]
     game_state["scene"]["log"].append(outcome)
@@ -1172,31 +1259,31 @@ def use_consumable(item_index: int):
     if not item or item.get("type") != "consumable": return
 
     eff = item.get("effect", "")
+    eff_max_hp, eff_max_mp = get_effective_max_vitals(p)
     if eff.startswith("heal_hp_"):
         amount = int(eff.split("_")[-1])
-        p["hp"] = min(p["max_hp"], p["hp"] + amount)
+        p["hp"] = min(eff_max_hp, p["hp"] + amount)
     elif eff.startswith("heal_mp_"):
         amount = int(eff.split("_")[-1])
-        p["mp"] = min(p["max_mp"], p["mp"] + amount)
+        p["mp"] = min(eff_max_mp, p["mp"] + amount)
     elif eff.startswith("add_light_"):
         amount = int(eff.split("_")[-1])
         game_state["torch_turns"] += amount
         if "blind" in p["status_effects"]: p["status_effects"].remove("blind")
     elif eff == "full_restore":
-        p["hp"] = p["max_hp"]
-        p["mp"] = p["max_mp"]
+        p["hp"] = eff_max_hp
+        p["mp"] = eff_max_mp
         p["status_effects"] = []
     elif eff == "cure_bleed_heal_20":
         if "bleeding" in p["status_effects"]: p["status_effects"].remove("bleeding")
-        p["hp"] = min(p["max_hp"], p["hp"] + 20)
+        p["hp"] = min(eff_max_hp, p["hp"] + 20)
     elif eff == "cure_poison_heal_25":
         if "poisoned" in p["status_effects"]: p["status_effects"].remove("poisoned")
-        p["hp"] = min(p["max_hp"], p["hp"] + 25)
+        p["hp"] = min(eff_max_hp, p["hp"] + 25)
     elif eff == "cure_curse_heal_30":
         if "cursed" in p["status_effects"]: p["status_effects"].remove("cursed")
-        p["hp"] = min(p["max_hp"], p["hp"] + 30)
+        p["hp"] = min(eff_max_hp, p["hp"] + 30)
 
-    # Decrement stack count
     qty = item.get("qty", 1)
     if qty > 1:
         item["qty"] = qty - 1
@@ -1204,6 +1291,62 @@ def use_consumable(item_index: int):
         p["inventory"][item_index] = None
         
     save_game()
+
+# =========================================================================
+# MERCHANT SHOP ACTIONS (BUY, SELL, HAGGLE, SELL JUNK)
+# =========================================================================
+def buy_item_from_merchant(item_id: str) -> Optional[str]:
+    global game_state
+    p = game_state["player"]
+    stock = game_state.get("merchant_stock", [])
+    
+    item_idx = next((i for i, it in enumerate(stock) if it["id"] == item_id), None)
+    if item_idx is None: return "Barang tidak ditemukan di toko."
+    
+    item = stock[item_idx]
+    discount = game_state.get("merchant_discount", 0)
+    final_price = max(1, int(item.get("val", 10) * (1 - discount)))
+    
+    if p["gold"] < final_price:
+        return "Koin emas tidak mencukupi."
+        
+    if not add_item_to_inventory(p["inventory"], dict(item)):
+        return "Tas ransel penuh (40 Slot terpakai semua)!"
+        
+    p["gold"] -= final_price
+    stock.pop(item_idx)
+    save_game()
+    return f"Berhasil membeli {item['name']} seharga {final_price} Gold!"
+
+def sell_item_to_merchant(item_index: int) -> Optional[str]:
+    global game_state
+    p = game_state["player"]
+    if item_index < 0 or item_index >= len(p["inventory"]): return "Item tidak valid."
+    item = p["inventory"][item_index]
+    if not item: return "Slot kosong."
+    
+    sell_price = max(1, item.get("val", 2) // 2)
+    qty = item.get("qty", 1)
+    total_earned = sell_price * qty
+    
+    p["gold"] += total_earned
+    p["inventory"][item_index] = None
+    save_game()
+    return f"Berhasil menjual {item['name']} seharga {total_earned} Gold!"
+
+def sell_all_junk_items() -> str:
+    global game_state
+    p = game_state["player"]
+    total_earned = 0
+    count = 0
+    for idx, item in enumerate(p["inventory"]):
+        if item and item.get("rarity") == "common" and item.get("type") in ["weapon", "offhand", "armor", "head", "feet", "accessory", "material"]:
+            sell_price = max(1, item.get("val", 2) // 2)
+            total_earned += sell_price * item.get("qty", 1)
+            p["inventory"][idx] = None
+            count += 1
+    save_game()
+    return f"Berhasil menjual {count} barang rongsokan dan mendapatkan +{total_earned} Gold!"
 
 def accept_awakening():
     global game_state
@@ -1368,6 +1511,55 @@ async def ws_controller(websocket: WebSocket):
                 await asyncio.sleep(1.0)
                 update_data = await process_live_turn("CUSTOM", custom_text=custom_text, raw_d20=raw_roll, stat_key="STR", dc_target=10)
                 await manager.broadcast_all(update_data)
+
+            elif action_type == "buy_merchant_item":
+                item_id = data.get("item_id")
+                msg = buy_item_from_merchant(item_id)
+                await manager.broadcast_all({"type": "state_update", "state": game_state, "outcome": msg})
+
+            elif action_type == "sell_merchant_item":
+                item_idx = data.get("index")
+                msg = sell_item_to_merchant(item_idx)
+                await manager.broadcast_all({"type": "state_update", "state": game_state, "outcome": msg})
+
+            elif action_type == "sell_all_junk":
+                msg = sell_all_junk_items()
+                await manager.broadcast_all({"type": "state_update", "state": game_state, "outcome": msg})
+
+            elif action_type == "haggle_merchant":
+                p = game_state["player"]
+                raw_roll = random.randint(1, 20)
+                cha_score = p["stats"].get("cha", 10)
+                cha_mod = (cha_score - 10) // 2
+                tot = raw_roll + cha_mod
+                
+                await manager.broadcast_all({
+                    "type": "dice_rolling",
+                    "choice_text": "Haggling Price with Merchant",
+                    "stat": f"CHA Check (+{cha_mod})"
+                })
+                await asyncio.sleep(2.0)
+                await manager.broadcast_all({
+                    "type": "dice_result",
+                    "value": raw_roll,
+                    "total_value": tot,
+                    "stat_mod": cha_mod,
+                    "dc": 11
+                })
+                await asyncio.sleep(1.0)
+                
+                if raw_roll == 20 or tot >= 16:
+                    game_state["merchant_discount"] = 0.40
+                    msg = "🔥 CRITICAL SUCCESS! Pedagang memberi DISKON 40% untuk seluruh barang!"
+                elif tot >= 11:
+                    game_state["merchant_discount"] = 0.20
+                    msg = "⚔️ SUCCESS! Tawar menawar berhasil: Diskon 20% diberikan!"
+                else:
+                    game_state["merchant_discount"] = -0.15
+                    msg = "⚠️ FAIL! Pedagang tersinggung, harga barang naik 15%!"
+                    
+                save_game()
+                await manager.broadcast_all({"type": "state_update", "state": game_state, "outcome": msg})
 
             elif action_type == "equip_item":
                 item_idx = data.get("index")

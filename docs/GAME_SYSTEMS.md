@@ -1,22 +1,15 @@
-# Darsam RPG Engine - Game Systems & Mathematical Mechanics (v2.3.3)
+# Darsam RPG Engine - Game Systems & Mathematical Mechanics (v2.4.2)
 
-## 1. Chapter Progression & Dungeon Floors
-Sebelumnya, pergantian bab (*Chapter*) bergantung murni pada respons model AI yang kerap mempertahankan teks `"Chapter 1: The Descent"` meskipun pemain telah melangkah belasan kali.
-Di v2.3.3, sistem bab diatur secara terstruktur dan deterministik berdasarkan jumlah langkah (*Milestone Steps*):
+## 1. Dynamic Infinite Chapter & Floor Milestone Scaling
+Sebelumnya, tabel bab terkunci di batas maksimal Chapter 5 (langkah 45+), sehingga ketika pemain mencapai langkah ke-100+, status bab tetap terkunci di Chapter 5 selamanya.
+Di v2.4.2, sistem bab diubah menjadi **Formula Progresi Tak Terbatas (*Infinite Milestone Scaling*)**:
 
-| Bab & Lantai | Rentang Langkah (*Steps*) | Nama Bab & Tema Lingkungan | Musuh & Ancaman Utama |
-|---|---|---|---|
-| **Chapter 1 (Floor 1)** | Langkah `1 – 5` | **The Descent:** Reruntuhan Rongga Makam Runtuh & Lorong Lumut | Hewan buas & serangga gua biasa |
-| **Chapter 2 (Floor 1)** | Langkah `6 – 12` | **The Sarcophagus Halls:** Aula Makam Kuno & Altar Terkutuk | Prajurit kerangka & penyihir sesat |
-| **Chapter 3 (Floor 2)** | Langkah `13 – 20`| **The Abyssal Waterway:** Kanal Bawah Tanah & Jembatan Rapuh | Lendir asam, monster air & racun |
-| **Chapter 4 (Floor 2)** | Langkah `21 – 30`| **The Forgotten Necropolis:** Kota Mati Purba & Toko Terlarang | Pembunuh bayangan & ksatria terkutuk |
-| **Chapter 5 (Floor 3)** | Langkah `31+` | **The Archon's Sanctum:** Istana Dewa Kehampaan | Pertarungan Puncak Boss: Lich Lord Malakor |
+$$\text{Chapter Number} = \left\lfloor \frac{\text{Steps} - 1}{8} \right\rfloor + 1$$
+$$\text{Floor Depth} = \min\left(5, \max\left(1, \left\lfloor \frac{\text{Chapter Number} - 1}{3} \right\rfloor + 1\right)\right)$$
 
----
-
-## 2. Mobile Responsive Layout Architecture
-- **Baris 1:** Profil Karakter di Kiri + Dropdown Model AI di Kanan (tidak lagi bertubrukan).
-- **Baris 2:** Grid 3 Kolom Simetris Berdimensi Seragam (`❤️ HP`, `✨ MP`, `🪙 Gold`).
-- **Baris 3:** Bilah Kemajuan EXP (`⭐ EXPERIENCE`).
-- **Baris 4:** Tab Navigasi Seimbang 50:50 (`📖 STORY & ACTIONS` vs `🎒 STATS & BACKPACK`).
-- **Bantalan Bawah Aman (`pb-32`):** Memastikan pilihan aksi di bagian paling bawah tidak pernah terpotong di tepi layar ponsel.
+Setiap **8 Langkah Penjelajahan**, bab akan otomatis berganti ke babak baru dengan tema lantai yang semakin dalam dan berbahaya:
+1. **Floor 1 (Lantai 1 - Makam Atas):** *The Descent*, *The Sarcophagus Halls*, *The Bone Crypts*, *The Weeping Catacombs*.
+2. **Floor 2 (Lantai 2 - Kanal Bawah Tanah):** *The Abyssal Waterway*, *The Submerged Ruins*, *The Sunken Cistern*, *The Venomous Depths*.
+3. **Floor 3 (Lantai 3 - Kubah Kegelapan):** *The Forgotten Necropolis*, *The Obsidian Mausoleum*, *The Archon's Sanctum*, *The Blood-Forged Citadel*.
+4. **Floor 4 (Lantai 4 - Labirin Kehampaan):** *The Void Chasm*, *The Astral Rift*, *The Hall of Shifting Realities*, *The Singularity Gate*.
+5. **Floor 5 (Lantai 5 - Kuil Penciptaan Purba):** *The Primordial Sanctum*, *The Crown of Eternity*, *The Genesis Vault*, *The Transcendent Apex*.

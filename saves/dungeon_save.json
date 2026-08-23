@@ -1,105 +1,159 @@
 {
   "status": "playing",
-  "floor": 1,
-  "step": 1,
-  "active_sound_theme": "dungeon",
+  "floor": 5,
+  "step": 191,
+  "active_sound_theme": "danger",
   "selected_model": "openrouter/stealth/ox-alpha",
-  "torch_turns": 12,
+  "torch_turns": 0,
   "rations": 3,
   "story_history": [],
   "player": {
     "name": "Danas",
     "class_id": "peasant",
-    "class_name": "Hardy Peasant",
-    "class_icon": "\ud83c\udf3e",
-    "class_tier": "common",
-    "level": 1,
-    "exp": 0,
-    "exp_next": 75,
-    "hp": 115,
-    "max_hp": 115,
-    "mp": 15,
-    "max_mp": 15,
-    "gold": 12,
+    "class_name": "Ashen Dread-Emperor",
+    "class_icon": "\ud83d\udc51",
+    "class_tier": "legendary",
+    "level": 13,
+    "exp": 446,
+    "exp_next": 4543,
+    "hp": 1132,
+    "max_hp": 345,
+    "mp": 359,
+    "max_mp": 111,
+    "gold": 11828,
     "stats": {
-      "str": 14,
+      "str": 49,
       "dex": 10,
-      "con": 15,
+      "con": 47,
       "int": 8,
-      "wis": 12,
+      "wis": 26,
       "cha": 8
     },
     "equipped": {
       "head": {
-        "id": "h_straw",
-        "name": "Weathered Straw Hat",
-        "item_level": 1,
-        "rarity": "common",
+        "id": "item_73784",
+        "name": "Crown of the Abyssal Sovereign",
+        "item_level": 9,
+        "rarity": "legendary",
         "type": "head",
         "slot": "head",
-        "icon": "\ud83d\udc52",
+        "icon": "\ud83e\uddd9",
         "bonus": {
-          "wis": 1
+          "mp": 248,
+          "int": 18,
+          "cha": 25,
+          "crit": 10,
+          "dex": 25
         },
-        "val": 2
+        "val": 194
       },
       "armor": {
-        "id": "a_linen",
-        "name": "Homespun Tunic",
-        "item_level": 1,
-        "rarity": "common",
+        "id": "item_23101",
+        "name": "Dread-Forged Void Plate",
+        "item_level": 11,
+        "rarity": "legendary",
         "type": "armor",
         "slot": "armor",
-        "icon": "\ud83d\udc55",
+        "icon": "\ud83e\uddba",
         "bonus": {
-          "hp": 5,
-          "def": 1
+          "def": 54,
+          "hp": 370,
+          "dex": 31,
+          "str": 31,
+          "crit": 10
         },
-        "val": 2
+        "val": 237
       },
       "feet": {
-        "id": "f_sandals",
-        "name": "Woven Straw Sandals",
-        "item_level": 1,
-        "rarity": "common",
+        "id": "item_76762",
+        "name": "Molten Greaves of the Archon",
+        "item_level": 12,
+        "rarity": "legendary",
         "type": "feet",
         "slot": "feet",
-        "icon": "\ud83d\udc61",
+        "icon": "\ud83d\udc62",
         "bonus": {
-          "dodge": 2
+          "def": 55,
+          "dodge": 7,
+          "wis": 34,
+          "con": 34,
+          "dex": 34
         },
-        "val": 2
+        "val": 259
       },
-      "accessory": null,
+      "accessory": {
+        "id": "item_27153",
+        "name": "Heart of the Abyssal Core",
+        "item_level": 12,
+        "rarity": "legendary",
+        "type": "accessory",
+        "slot": "accessory",
+        "icon": "\ud83d\udcff",
+        "bonus": {
+          "hp": 417,
+          "con": 25,
+          "crit": 10,
+          "int": 34,
+          "cha": 34,
+          "wis": 34
+        },
+        "val": 259
+      },
       "main_hand": {
-        "id": "w_hoe",
-        "name": "Rusty Farming Hoe",
-        "item_level": 1,
-        "rarity": "common",
+        "id": "item_35261",
+        "name": "Voidforged Dreadblade",
+        "item_level": 12,
+        "rarity": "legendary",
         "type": "weapon",
         "slot": "main_hand",
-        "handedness": "versatile",
-        "icon": "\u26cf\ufe0f",
+        "icon": "\ud83e\ude93",
         "bonus": {
-          "str": 1,
-          "atk": 4
+          "atk": 108,
+          "str": 25,
+          "crit": 10,
+          "dex": 34,
+          "con": 34,
+          "int": 34
         },
-        "val": 3
+        "val": 259,
+        "handedness": "main_hand_only"
       },
-      "off_hand": null
+      "off_hand": {
+        "id": "item_16149",
+        "name": "Aegis of the Void Sovereign",
+        "item_level": 12,
+        "rarity": "legendary",
+        "type": "offhand",
+        "slot": "off_hand",
+        "icon": "\ud83d\udee1\ufe0f",
+        "bonus": {
+          "def": 62,
+          "con": 25,
+          "cha": 34,
+          "dodge": 10,
+          "dex": 34,
+          "crit": 10
+        },
+        "val": 259,
+        "handedness": "off_hand_only"
+      }
     },
     "inventory": [
       {
-        "id": "c_ration",
-        "name": "Dry Ration Bread",
-        "item_level": 1,
-        "rarity": "common",
-        "type": "consumable",
-        "icon": "\ud83c\udf5e",
-        "qty": 3,
-        "effect": "heal_hp_25",
-        "desc": "Restores 25 HP",
-        "val": 2
+        "id": "item_40349",
+        "name": "Heart of the Smoldering Archon",
+        "item_level": 10,
+        "rarity": "epic",
+        "type": "accessory",
+        "slot": "accessory",
+        "icon": "\ud83d\udcff",
+        "bonus": {
+          "hp": 250,
+          "con": 15,
+          "dodge": 7,
+          "str": 20
+        },
+        "val": 150
       },
       {
         "id": "c_torch",
@@ -108,59 +162,590 @@
         "rarity": "common",
         "type": "consumable",
         "icon": "\ud83d\udd6f\ufe0f",
-        "qty": 3,
+        "qty": 9,
         "effect": "add_light_6",
         "desc": "+6 Torch Light turns",
         "val": 3
       },
       {
-        "id": "m_rope",
-        "name": "Hemp Rope (15m)",
-        "item_level": 1,
-        "rarity": "common",
-        "type": "material",
-        "icon": "\ud83e\udea2",
-        "qty": 1,
-        "desc": "Utility rope for climbing",
-        "val": 2
+        "id": "cons_25797",
+        "name": "Aether Mana Flask",
+        "item_level": 10,
+        "rarity": "rare",
+        "type": "consumable",
+        "icon": "\u2728",
+        "qty": 2,
+        "effect": "heal_mp_170",
+        "desc": "Restores 170 MP",
+        "val": 30
       },
-      null,
-      null,
-      null,
-      null,
-      null,
-      null,
-      null,
-      null,
-      null,
-      null,
-      null,
-      null,
-      null,
-      null,
-      null,
-      null,
-      null,
-      null,
-      null,
-      null,
-      null,
-      null,
-      null,
-      null,
-      null,
-      null,
-      null,
-      null,
-      null,
-      null,
-      null,
-      null,
-      null,
-      null,
-      null,
-      null,
-      null
+      {
+        "id": "cons_53717",
+        "name": "Healing Salve",
+        "item_level": 10,
+        "rarity": "rare",
+        "type": "consumable",
+        "icon": "\ud83e\uddea",
+        "qty": 2,
+        "effect": "heal_hp_175",
+        "desc": "Restores 175 HP",
+        "val": 30
+      },
+      {
+        "id": "cons_76372",
+        "name": "Blessed Holy Water",
+        "item_level": 2,
+        "rarity": "common",
+        "type": "consumable",
+        "icon": "\ud83c\udffa",
+        "qty": 4,
+        "effect": "cure_curse_heal_30",
+        "desc": "Cleanses Curse & heals 30 HP",
+        "val": 6
+      },
+      {
+        "id": "cons_82149",
+        "name": "Sterile Cloth Bandage",
+        "item_level": 2,
+        "rarity": "common",
+        "type": "consumable",
+        "icon": "\ud83e\ude79",
+        "qty": 2,
+        "effect": "cure_bleed_heal_20",
+        "desc": "Stops Bleeding & heals 20 HP",
+        "val": 6
+      },
+      {
+        "id": "item_14672",
+        "name": "Abyssal Warden Carapace",
+        "item_level": 10,
+        "rarity": "epic",
+        "type": "armor",
+        "slot": "armor",
+        "icon": "\ud83e\uddba",
+        "bonus": {
+          "def": 35,
+          "hp": 237,
+          "int": 20,
+          "dex": 20
+        },
+        "val": 150
+      },
+      {
+        "id": "item_96110",
+        "name": "Tower Bastion Shield",
+        "item_level": 11,
+        "rarity": "rare",
+        "type": "offhand",
+        "slot": "off_hand",
+        "icon": "\ud83d\udee1\ufe0f",
+        "bonus": {
+          "def": 32,
+          "con": 10,
+          "cha": 15
+        },
+        "val": 118,
+        "handedness": "off_hand_only"
+      },
+      {
+        "id": "item_11381",
+        "name": "Obsidian Heart Amulet",
+        "item_level": 10,
+        "rarity": "epic",
+        "type": "accessory",
+        "slot": "accessory",
+        "icon": "\ud83d\udcff",
+        "bonus": {
+          "hp": 250,
+          "con": 15,
+          "str": 20,
+          "cha": 20
+        },
+        "val": 150
+      },
+      {
+        "id": "item_40197",
+        "name": "Sigil of Ash Ward",
+        "item_level": 12,
+        "rarity": "rare",
+        "type": "accessory",
+        "slot": "accessory",
+        "icon": "\ud83d\udc8d",
+        "bonus": {
+          "str": 12,
+          "dex": 17
+        },
+        "val": 129
+      },
+      {
+        "id": "item_87343",
+        "name": "Runed Scholar Cowl",
+        "item_level": 10,
+        "rarity": "epic",
+        "type": "head",
+        "slot": "head",
+        "icon": "\ud83e\uddd9",
+        "bonus": {
+          "mp": 187,
+          "int": 15,
+          "con": 20,
+          "crit": 7,
+          "wis": 20
+        },
+        "val": 150
+      },
+      {
+        "id": "item_23541",
+        "name": "Obsidian Heart Core",
+        "item_level": 10,
+        "rarity": "epic",
+        "type": "accessory",
+        "slot": "accessory",
+        "icon": "\ud83d\udc8d",
+        "bonus": {
+          "str": 15,
+          "crit": 7
+        },
+        "val": 150
+      },
+      {
+        "id": "item_14637",
+        "name": "Silent Stalker Moccasins",
+        "item_level": 5,
+        "rarity": "epic",
+        "type": "feet",
+        "slot": "feet",
+        "icon": "\ud83d\udc5f",
+        "bonus": {
+          "dodge": 12,
+          "dex": 7,
+          "con": 10,
+          "cha": 10,
+          "wis": 10
+        },
+        "val": 75
+      },
+      {
+        "id": "item_26493",
+        "name": "Abyssal Soul Ring",
+        "item_level": 10,
+        "rarity": "epic",
+        "type": "accessory",
+        "slot": "accessory",
+        "icon": "\ud83e\ude99",
+        "bonus": {
+          "cha": 15,
+          "int": 20,
+          "dodge": 7,
+          "con": 20
+        },
+        "val": 150
+      },
+      {
+        "id": "item_79522",
+        "name": "Infernal Core Fragment",
+        "item_level": 10,
+        "rarity": "rare",
+        "type": "accessory",
+        "slot": "accessory",
+        "icon": "\ud83e\ude99",
+        "bonus": {
+          "cha": 10,
+          "str": 14,
+          "con": 14
+        },
+        "val": 108
+      },
+      {
+        "id": "item_76358",
+        "name": "Shadow Stiletto",
+        "item_level": 12,
+        "rarity": "rare",
+        "type": "weapon",
+        "slot": "main_hand",
+        "icon": "\ud83d\udde1\ufe0f",
+        "bonus": {
+          "atk": 50,
+          "dex": 12,
+          "int": 17,
+          "crit": 5
+        },
+        "val": 129,
+        "handedness": "versatile"
+      },
+      {
+        "id": "cons_86287",
+        "name": "Healing Salve",
+        "item_level": 8,
+        "rarity": "uncommon",
+        "type": "consumable",
+        "icon": "\ud83e\uddea",
+        "qty": 1,
+        "effect": "heal_hp_145",
+        "desc": "Restores 145 HP",
+        "val": 24
+      },
+      {
+        "id": "item_12840",
+        "name": "Visored Iron Greathelm",
+        "item_level": 10,
+        "rarity": "rare",
+        "type": "head",
+        "slot": "head",
+        "icon": "\ud83e\ude96",
+        "bonus": {
+          "def": 27,
+          "int": 14,
+          "crit": 5
+        },
+        "val": 108
+      },
+      {
+        "id": "item_90283",
+        "name": "Runed Scholar Cowl",
+        "item_level": 10,
+        "rarity": "rare",
+        "type": "head",
+        "slot": "head",
+        "icon": "\ud83e\uddd9",
+        "bonus": {
+          "mp": 135,
+          "int": 10,
+          "crit": 5,
+          "str": 14
+        },
+        "val": 108
+      },
+      {
+        "id": "item_74770",
+        "name": "Core of the Scorched Archon",
+        "item_level": 12,
+        "rarity": "epic",
+        "type": "accessory",
+        "slot": "accessory",
+        "icon": "\ud83e\ude99",
+        "bonus": {
+          "cha": 17,
+          "dex": 24,
+          "int": 24,
+          "con": 24
+        },
+        "val": 180
+      },
+      {
+        "id": "item_45169",
+        "name": "Essence of the Primordial Core",
+        "item_level": 11,
+        "rarity": "epic",
+        "type": "accessory",
+        "slot": "accessory",
+        "icon": "\ud83e\ude99",
+        "bonus": {
+          "cha": 15,
+          "dex": 22,
+          "con": 22
+        },
+        "val": 165
+      },
+      {
+        "id": "cons_84909",
+        "name": "Healing Salve",
+        "item_level": 11,
+        "rarity": "rare",
+        "type": "consumable",
+        "icon": "\ud83e\uddea",
+        "qty": 1,
+        "effect": "heal_hp_190",
+        "desc": "Restores 190 HP",
+        "val": 33
+      },
+      {
+        "id": "item_67760",
+        "name": "Heart of the Smoldering Archon",
+        "item_level": 12,
+        "rarity": "epic",
+        "type": "accessory",
+        "slot": "accessory",
+        "icon": "\ud83d\udcff",
+        "bonus": {
+          "hp": 290,
+          "con": 17,
+          "str": 24,
+          "wis": 24
+        },
+        "val": 180
+      },
+      {
+        "id": "item_79510",
+        "name": "Heart of the Sulphur Primordial",
+        "item_level": 11,
+        "rarity": "legendary",
+        "type": "accessory",
+        "slot": "accessory",
+        "icon": "\ud83d\udcff",
+        "bonus": {
+          "hp": 388,
+          "con": 21,
+          "crit": 10,
+          "int": 31
+        },
+        "val": 237
+      },
+      {
+        "id": "item_99944",
+        "name": "Abyssal Venom Greaves",
+        "item_level": 11,
+        "rarity": "epic",
+        "type": "feet",
+        "slot": "feet",
+        "icon": "\ud83d\udc5f",
+        "bonus": {
+          "dodge": 12,
+          "dex": 15,
+          "crit": 7,
+          "con": 22
+        },
+        "val": 165
+      },
+      {
+        "id": "item_20294",
+        "name": "Ashen Dread-Emperor Regalia",
+        "item_level": 11,
+        "rarity": "legendary",
+        "type": "armor",
+        "slot": "armor",
+        "icon": "\ud83e\uddba",
+        "bonus": {
+          "def": 54,
+          "hp": 370,
+          "wis": 31,
+          "dodge": 10,
+          "cha": 31,
+          "str": 31
+        },
+        "val": 237
+      },
+      {
+        "id": "item_28985",
+        "name": "Heart of the Smoldering Colossus",
+        "item_level": 13,
+        "rarity": "legendary",
+        "type": "accessory",
+        "slot": "accessory",
+        "icon": "\ud83e\ude99",
+        "bonus": {
+          "cha": 25,
+          "wis": 37,
+          "dodge": 10,
+          "int": 37
+        },
+        "val": 280
+      },
+      {
+        "id": "item_58613",
+        "name": "Dread-Emperor's Oblivion Regalia",
+        "item_level": 10,
+        "rarity": "legendary",
+        "type": "armor",
+        "slot": "armor",
+        "icon": "\ud83d\udee1\ufe0f",
+        "bonus": {
+          "def": 64,
+          "hp": 432,
+          "str": 28,
+          "wis": 28
+        },
+        "val": 216
+      },
+      {
+        "id": "item_19193",
+        "name": "Reinforced Leather Cap",
+        "item_level": 13,
+        "rarity": "rare",
+        "type": "head",
+        "slot": "head",
+        "icon": "\ud83e\udde2",
+        "bonus": {
+          "def": 29,
+          "dex": 18,
+          "dodge": 5
+        },
+        "val": 140
+      },
+      {
+        "id": "item_50402",
+        "name": "Shard of the Void Core",
+        "item_level": 13,
+        "rarity": "epic",
+        "type": "accessory",
+        "slot": "accessory",
+        "icon": "\ud83d\udcff",
+        "bonus": {
+          "hp": 310,
+          "con": 17,
+          "int": 26,
+          "cha": 26
+        },
+        "val": 195
+      },
+      {
+        "id": "item_96883",
+        "name": "Band of Omnipotent Cataclysm",
+        "item_level": 11,
+        "rarity": "legendary",
+        "type": "accessory",
+        "slot": "accessory",
+        "icon": "\ud83d\udc8d",
+        "bonus": {
+          "str": 21,
+          "int": 31,
+          "cha": 31,
+          "wis": 31
+        },
+        "val": 237
+      },
+      {
+        "id": "item_52243",
+        "name": "Orb of the Abyssal Singularity",
+        "item_level": 11,
+        "rarity": "legendary",
+        "type": "accessory",
+        "slot": "accessory",
+        "icon": "\ud83e\ude99",
+        "bonus": {
+          "cha": 21,
+          "int": 31,
+          "dodge": 10
+        },
+        "val": 237
+      },
+      {
+        "id": "item_20371",
+        "name": "Amulet of Vitality",
+        "item_level": 12,
+        "rarity": "rare",
+        "type": "accessory",
+        "slot": "accessory",
+        "icon": "\ud83d\udcff",
+        "bonus": {
+          "hp": 208,
+          "con": 12,
+          "dodge": 5
+        },
+        "val": 129
+      },
+      {
+        "id": "item_70072",
+        "name": "Essence Core of the Warden",
+        "item_level": 13,
+        "rarity": "epic",
+        "type": "accessory",
+        "slot": "accessory",
+        "icon": "\ud83d\udc8d",
+        "bonus": {
+          "str": 17,
+          "con": 26,
+          "int": 26
+        },
+        "val": 195
+      },
+      {
+        "id": "item_42687",
+        "name": "Oblivion Core Shard",
+        "item_level": 11,
+        "rarity": "epic",
+        "type": "accessory",
+        "slot": "accessory",
+        "icon": "\ud83d\udcff",
+        "bonus": {
+          "hp": 270,
+          "con": 15,
+          "crit": 7,
+          "dodge": 7
+        },
+        "val": 165
+      },
+      {
+        "id": "item_97493",
+        "name": "Shattered Core of the Void Emperor",
+        "item_level": 11,
+        "rarity": "legendary",
+        "type": "accessory",
+        "slot": "accessory",
+        "icon": "\ud83e\ude99",
+        "bonus": {
+          "cha": 21,
+          "dex": 31,
+          "dodge": 10,
+          "wis": 31,
+          "int": 31
+        },
+        "val": 237
+      },
+      {
+        "id": "item_14001",
+        "name": "Padded Leather Cuirass",
+        "item_level": 13,
+        "rarity": "epic",
+        "type": "armor",
+        "slot": "armor",
+        "icon": "\ud83e\uddba",
+        "bonus": {
+          "def": 44,
+          "hp": 297,
+          "str": 26,
+          "con": 26
+        },
+        "val": 195
+      },
+      {
+        "id": "item_52728",
+        "name": "Abyssal Core Shard",
+        "item_level": 13,
+        "rarity": "rare",
+        "type": "accessory",
+        "slot": "accessory",
+        "icon": "\ud83d\udcff",
+        "bonus": {
+          "hp": 223,
+          "con": 12,
+          "cha": 18,
+          "wis": 18
+        },
+        "val": 140
+      },
+      {
+        "id": "item_56721",
+        "name": "Blood-Forged Genesis Relic",
+        "item_level": 12,
+        "rarity": "epic",
+        "type": "accessory",
+        "slot": "accessory",
+        "icon": "\ud83e\ude99",
+        "bonus": {
+          "cha": 17,
+          "crit": 7,
+          "wis": 24,
+          "str": 24
+        },
+        "val": 180
+      },
+      {
+        "id": "item_36309",
+        "name": "Oblivion Siphon Core",
+        "item_level": 11,
+        "rarity": "legendary",
+        "type": "accessory",
+        "slot": "accessory",
+        "icon": "\ud83e\ude99",
+        "bonus": {
+          "cha": 21,
+          "int": 31,
+          "con": 31,
+          "wis": 31
+        },
+        "val": 237
+      }
     ],
     "grimoire": [
       {
@@ -171,64 +756,128 @@
         "dmg_type": "heal",
         "est_val": "+25 HP & +2 STR",
         "desc": "Memulihkan 25 HP seketika & memberi bonus +2 STR selama 2 turn."
+      },
+      {
+        "id": "sk_blood_strike",
+        "name": "Sanguine Cleave",
+        "cost_mp": 5,
+        "dmg_type": "damage",
+        "est_val": "45-60 Blood DMG",
+        "desc": "Mengorbankan 10 HP untuk menebas monster dengan 45-60 damage brutal."
+      },
+      {
+        "id": "sk_solar_verdict",
+        "name": "Wrath of the Seven Suns",
+        "cost_mp": 28,
+        "dmg_type": "damage",
+        "est_val": "120-155 Holy DMG",
+        "desc": "Tujuh pilar cahaya surya yang membakar habis kejahatan makam dan memulihkan 50 HP karakter."
+      },
+      {
+        "id": "sk_apocalypse_cleave",
+        "name": "Sovereign Oblivion Strike",
+        "cost_mp": 26,
+        "dmg_type": "damage",
+        "est_val": "130-170 Brutal DMG",
+        "desc": "Tebasan pedang kehancuran mutlak yang mengabaikan 100% Defense musuh."
+      },
+      {
+        "id": "sk_reaper",
+        "name": "Reaper's Harvest Sweep",
+        "cost_mp": 10,
+        "cd": 2,
+        "dmg_type": "damage",
+        "est_val": "35-48 Area DMG",
+        "desc": "Ayunan sabit luas yang menebas musuh dengan kekuatan penuh (35-48 DMG)."
+      },
+      {
+        "id": "sk_titan_soil",
+        "name": "Titan of the Soil",
+        "cost_mp": 15,
+        "cd": 4,
+        "dmg_type": "buff",
+        "est_val": "+50 Max HP & Invuln",
+        "desc": "Menyerap energi bumi: kebal damage 1 turn dan menambah +50 Max HP."
       }
     ],
     "active_skills": [
       {
-        "id": "sk_adrenaline",
-        "name": "Adrenaline Surge",
+        "id": "sk_blood_strike",
+        "name": "Sanguine Cleave",
         "cost_mp": 5,
-        "cd": 3,
-        "dmg_type": "heal",
-        "est_val": "+25 HP & +2 STR",
-        "desc": "Memulihkan 25 HP seketika & memberi bonus +2 STR selama 2 turn."
+        "dmg_type": "damage",
+        "est_val": "45-60 Blood DMG",
+        "desc": "Mengorbankan 10 HP untuk menebas monster dengan 45-60 damage brutal."
+      },
+      {
+        "id": "sk_solar_verdict",
+        "name": "Wrath of the Seven Suns",
+        "cost_mp": 28,
+        "dmg_type": "damage",
+        "est_val": "120-155 Holy DMG",
+        "desc": "Tujuh pilar cahaya surya yang membakar habis kejahatan makam dan memulihkan 50 HP karakter."
+      },
+      {
+        "id": "sk_apocalypse_cleave",
+        "name": "Sovereign Oblivion Strike",
+        "cost_mp": 26,
+        "dmg_type": "damage",
+        "est_val": "130-170 Brutal DMG",
+        "desc": "Tebasan pedang kehancuran mutlak yang mengabaikan 100% Defense musuh."
       }
     ],
-    "status_effects": []
+    "status_effects": [
+      "blind"
+    ]
   },
   "current_node": {
-    "type": "exploration",
+    "type": "combat",
     "title": "Collapse into the Forgotten Crypt",
-    "location": "Subterranean Vault - Floor 1",
-    "chapter": "Chapter 1: The Descent"
+    "location": "Infernal Void Caldera - Primordial Altar",
+    "chapter": "Chapter 24: The Transcendent Apex"
   },
   "monster": null,
+  "merchant_stock": [],
+  "merchant_discount": 0,
   "pending_awakening": null,
   "scene": {
-    "chapter": "Chapter 1: The Descent",
-    "title": "Collapse into the Forgotten Crypt",
-    "location": "Subterranean Vault - Floor 1",
-    "narrative": "Sang Hardy Peasant, Danas, hanyalah warga biasa yang hidup sederhana di desa. Namun takdir berkata lain: saat sedang mencari kayu di lereng bukit berkabut, tanah di bawah kaki amblas runtuh seketika! Danas terperosok jatuh ke dalam rongga makam kuno bawah tanah. Lubang keluar di atas tertutup reruntuhan batu besar. Satu-satunya jalan bertahan hidup adalah menembus lorong batu berlumut yang dingin dan gelap di depan mata.",
+    "chapter": "Chapter 24: The Transcendent Apex",
+    "title": "Benturan Kehampaan dan Lahar Purba",
+    "location": "Infernal Void Caldera - Primordial Altar",
+    "narrative": "Ledakan magma berkilap membentur perisai Danas, memercikkan bara kehampaan yang berpendar dingin ke seluruh lantai obsidian yang retak. Monster purba itu melolong saat kekuatannya terpantul kembali, meninggalkan tubuh berisiknya terbuka lebar di tengah kepulan asap belerang yang mencekik. Rantai kehampaan yang mengekang makhluk itu kini berderak di ambang kehancuran total, memperlihatkan denyut inti energi yang telanjang. Danas merasakan getaran dahsyat di bawah kakinya saat sang raksasa bersiap untuk runtuh atau meledakkan sisa kekuatannya.",
     "choices": [
       {
         "id": "A",
-        "text": "Inspect the stone wall & search for weak structural points (Perception / WIS Check - DC 10)",
+        "text": "Menghujamkan Voidforged Dreadblade langsung ke inti retak titan (STR Check - DC 11)",
         "type": "roll",
-        "dc": 10,
-        "stat": "WIS"
+        "stat": "STR",
+        "dc": 11
       },
       {
         "id": "B",
-        "text": "Use tools to clear heavy rubble and force a breach (Athletics / STR Check - DC 12)",
+        "text": "Menggeser posisi menyelinap di balik semburan uap magma (DEX Check - DC 10)",
         "type": "roll",
-        "dc": 12,
-        "stat": "STR"
+        "stat": "DEX",
+        "dc": 10
       },
       {
         "id": "C",
-        "text": "Light a pine pitch torch and stealthily navigate the corridor (Stealth / DEX Check - DC 9)",
+        "text": "Membaca pola aliran energi kehampaan untuk serangan balik kritis (WIS Check - DC 9)",
         "type": "roll",
-        "dc": 9,
-        "stat": "DEX"
+        "stat": "WIS",
+        "dc": 9
       },
       {
         "id": "D",
-        "text": "Take a short rest, catch breath, and inspect 40-slot backpack (Action)",
+        "text": "Mengunci posisi bertahan dan menyalurkan aura Dread-Forged Plate (Action)",
         "type": "action"
       }
     ],
     "log": [
-      "Commoner 'Danas' (Hardy Peasant) begins the underground survival journey!"
+      "\ud83c\udfb2 [SUCCESS \u2022 D20: 17+8=25 vs DC 11] Danas berhasil menundukkan kutukan cincin kuno berkat WIS Check yang luar biasa, memulihkan sebagian energi vital dan mengklaim relikui tersebut. (+15 EXP) \ud83c\udf81 ITEM OBTAINED: [EPIC] Band of the Null Sovereign!",
+      "\ud83c\udfb2 [SUCCESS \u2022 D20: 8+18=26 vs DC 11] Danas berhasil menahan gelombang hawa panas ekstrem berkat CON Check yang sukses, melenyapkan status Blind saat api magma membakar sisa kabut kutukan. (+15 EXP)",
+      "\ud83c\udfb2 [SUCCESS \u2022 D20: 5+19=24 vs DC 11] Tebasan bertenaga penuh dari Danas menghasilkan Critical Hit telak yang meremukkan cangkang lahar musuh, memicu ledakan energi kehampaan masif. (+15 EXP) (-25 HP)",
+      "\ud83c\udfb2 [SUCCESS \u2022 D20: 11+18=29 vs DC 11] Danas berhasil melakukan CON Check dengan sempurna, menahan hempasan lahar menggunakan Aegis of the Void Sovereign tanpa goyah sedikit pun. (+795 EXP) \ud83d\udc8e LOOT DROP: [RARE] Spellcaster Grimoire! \ud83c\udf1f LEVEL UP! Danas naik ke Level 13 (Max HP/MP meningkat & HP pulih penuh)!"
     ]
   }
 }
