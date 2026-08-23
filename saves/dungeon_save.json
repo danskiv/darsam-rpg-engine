@@ -1,9 +1,9 @@
 {
   "status": "playing",
   "floor": 5,
-  "step": 171,
+  "step": 191,
   "active_sound_theme": "danger",
-  "selected_model": "ag/gemini-3.7-flash-low",
+  "selected_model": "openrouter/stealth/ox-alpha",
   "torch_turns": 0,
   "rations": 3,
   "story_history": [],
@@ -13,18 +13,18 @@
     "class_name": "Ashen Dread-Emperor",
     "class_icon": "\ud83d\udc51",
     "class_tier": "legendary",
-    "level": 12,
-    "exp": 1833,
-    "exp_next": 3997,
-    "hp": 700,
-    "max_hp": 330,
-    "mp": 306,
-    "max_mp": 103,
-    "gold": 7676,
+    "level": 13,
+    "exp": 446,
+    "exp_next": 4543,
+    "hp": 1132,
+    "max_hp": 345,
+    "mp": 359,
+    "max_mp": 111,
+    "gold": 11828,
     "stats": {
-      "str": 48,
+      "str": 49,
       "dex": 10,
-      "con": 46,
+      "con": 47,
       "int": 8,
       "wis": 26,
       "cha": 8
@@ -82,20 +82,22 @@
         "val": 259
       },
       "accessory": {
-        "id": "item_96883",
-        "name": "Band of Omnipotent Cataclysm",
-        "item_level": 11,
+        "id": "item_27153",
+        "name": "Heart of the Abyssal Core",
+        "item_level": 12,
         "rarity": "legendary",
         "type": "accessory",
         "slot": "accessory",
-        "icon": "\ud83d\udc8d",
+        "icon": "\ud83d\udcff",
         "bonus": {
-          "str": 21,
-          "int": 31,
-          "cha": 31,
-          "wis": 31
+          "hp": 417,
+          "con": 25,
+          "crit": 10,
+          "int": 34,
+          "cha": 34,
+          "wis": 34
         },
-        "val": 237
+        "val": 259
       },
       "main_hand": {
         "id": "item_35261",
@@ -586,16 +588,164 @@
         },
         "val": 195
       },
-      null,
-      null,
-      null,
-      null,
-      null,
-      null,
-      null,
-      null,
-      null,
-      null
+      {
+        "id": "item_96883",
+        "name": "Band of Omnipotent Cataclysm",
+        "item_level": 11,
+        "rarity": "legendary",
+        "type": "accessory",
+        "slot": "accessory",
+        "icon": "\ud83d\udc8d",
+        "bonus": {
+          "str": 21,
+          "int": 31,
+          "cha": 31,
+          "wis": 31
+        },
+        "val": 237
+      },
+      {
+        "id": "item_52243",
+        "name": "Orb of the Abyssal Singularity",
+        "item_level": 11,
+        "rarity": "legendary",
+        "type": "accessory",
+        "slot": "accessory",
+        "icon": "\ud83e\ude99",
+        "bonus": {
+          "cha": 21,
+          "int": 31,
+          "dodge": 10
+        },
+        "val": 237
+      },
+      {
+        "id": "item_20371",
+        "name": "Amulet of Vitality",
+        "item_level": 12,
+        "rarity": "rare",
+        "type": "accessory",
+        "slot": "accessory",
+        "icon": "\ud83d\udcff",
+        "bonus": {
+          "hp": 208,
+          "con": 12,
+          "dodge": 5
+        },
+        "val": 129
+      },
+      {
+        "id": "item_70072",
+        "name": "Essence Core of the Warden",
+        "item_level": 13,
+        "rarity": "epic",
+        "type": "accessory",
+        "slot": "accessory",
+        "icon": "\ud83d\udc8d",
+        "bonus": {
+          "str": 17,
+          "con": 26,
+          "int": 26
+        },
+        "val": 195
+      },
+      {
+        "id": "item_42687",
+        "name": "Oblivion Core Shard",
+        "item_level": 11,
+        "rarity": "epic",
+        "type": "accessory",
+        "slot": "accessory",
+        "icon": "\ud83d\udcff",
+        "bonus": {
+          "hp": 270,
+          "con": 15,
+          "crit": 7,
+          "dodge": 7
+        },
+        "val": 165
+      },
+      {
+        "id": "item_97493",
+        "name": "Shattered Core of the Void Emperor",
+        "item_level": 11,
+        "rarity": "legendary",
+        "type": "accessory",
+        "slot": "accessory",
+        "icon": "\ud83e\ude99",
+        "bonus": {
+          "cha": 21,
+          "dex": 31,
+          "dodge": 10,
+          "wis": 31,
+          "int": 31
+        },
+        "val": 237
+      },
+      {
+        "id": "item_14001",
+        "name": "Padded Leather Cuirass",
+        "item_level": 13,
+        "rarity": "epic",
+        "type": "armor",
+        "slot": "armor",
+        "icon": "\ud83e\uddba",
+        "bonus": {
+          "def": 44,
+          "hp": 297,
+          "str": 26,
+          "con": 26
+        },
+        "val": 195
+      },
+      {
+        "id": "item_52728",
+        "name": "Abyssal Core Shard",
+        "item_level": 13,
+        "rarity": "rare",
+        "type": "accessory",
+        "slot": "accessory",
+        "icon": "\ud83d\udcff",
+        "bonus": {
+          "hp": 223,
+          "con": 12,
+          "cha": 18,
+          "wis": 18
+        },
+        "val": 140
+      },
+      {
+        "id": "item_56721",
+        "name": "Blood-Forged Genesis Relic",
+        "item_level": 12,
+        "rarity": "epic",
+        "type": "accessory",
+        "slot": "accessory",
+        "icon": "\ud83e\ude99",
+        "bonus": {
+          "cha": 17,
+          "crit": 7,
+          "wis": 24,
+          "str": 24
+        },
+        "val": 180
+      },
+      {
+        "id": "item_36309",
+        "name": "Oblivion Siphon Core",
+        "item_level": 11,
+        "rarity": "legendary",
+        "type": "accessory",
+        "slot": "accessory",
+        "icon": "\ud83e\ude99",
+        "bonus": {
+          "cha": 21,
+          "int": 31,
+          "con": 31,
+          "wis": 31
+        },
+        "val": 237
+      }
     ],
     "grimoire": [
       {
@@ -683,51 +833,51 @@
   "current_node": {
     "type": "combat",
     "title": "Collapse into the Forgotten Crypt",
-    "location": "Obsidian Sepulcher of the Forgotten Titan",
-    "chapter": "Chapter 22: The Crown of Eternity"
+    "location": "Infernal Void Caldera - Primordial Altar",
+    "chapter": "Chapter 24: The Transcendent Apex"
   },
   "monster": null,
   "merchant_stock": [],
   "merchant_discount": 0,
   "pending_awakening": null,
   "scene": {
-    "chapter": "Chapter 22: The Crown of Eternity",
-    "title": "Tumbangnya Sang Penjaga Bayangan",
-    "location": "Kuil Penciptaan Purba & Tahta Akhir Semesta (Floor 5)",
-    "narrative": "Meski penglihatan Danas masih terbungkus pekatnya status Blind, insting predator Ashen Dread-Emperor menuntun ayunan Voidforged Dreadblade tepat menghantam celah zirah pada lutut sang monster. Suara logam terkoyak dan derak obsidian pecah menggema memekakkan telinga saat sendi raksasa itu hancur berkeping-keping. Shadowblade Stalker melolong parau, terhempas berlutut di atas lantai batu dingin yang berlumuran cairan bayangan hitam kental. Udara bergetar penuh ancaman kematian ketika inti energi di dada monster itu berkedip liar, bersiap melepaskan ledakan keputusasaan sebelum ia binasa.",
+    "chapter": "Chapter 24: The Transcendent Apex",
+    "title": "Benturan Kehampaan dan Lahar Purba",
+    "location": "Infernal Void Caldera - Primordial Altar",
+    "narrative": "Ledakan magma berkilap membentur perisai Danas, memercikkan bara kehampaan yang berpendar dingin ke seluruh lantai obsidian yang retak. Monster purba itu melolong saat kekuatannya terpantul kembali, meninggalkan tubuh berisiknya terbuka lebar di tengah kepulan asap belerang yang mencekik. Rantai kehampaan yang mengekang makhluk itu kini berderak di ambang kehancuran total, memperlihatkan denyut inti energi yang telanjang. Danas merasakan getaran dahsyat di bawah kakinya saat sang raksasa bersiap untuk runtuh atau meledakkan sisa kekuatannya.",
     "choices": [
       {
         "id": "A",
-        "text": "Hujamkan Voidforged Dreadblade ke inti dada monster yang terpapar (STR Check - DC 11)",
+        "text": "Menghujamkan Voidforged Dreadblade langsung ke inti retak titan (STR Check - DC 11)",
         "type": "roll",
         "stat": "STR",
         "dc": 11
       },
       {
         "id": "B",
-        "text": "Gunakan perisai Aegis untuk meredam gelombang ledakan energi bayangan (CON Check - DC 10)",
+        "text": "Menggeser posisi menyelinap di balik semburan uap magma (DEX Check - DC 10)",
         "type": "roll",
-        "stat": "CON",
+        "stat": "DEX",
         "dc": 10
       },
       {
         "id": "C",
-        "text": "Membaca arus ether untuk menetralisir ledakan sebelum memicu instabilitas (WIS Check - DC 11)",
+        "text": "Membaca pola aliran energi kehampaan untuk serangan balik kritis (WIS Check - DC 9)",
         "type": "roll",
         "stat": "WIS",
-        "dc": 11
+        "dc": 9
       },
       {
         "id": "D",
-        "text": "Lompat mundur dan siapkan posisi bertahan kokoh (Action)",
+        "text": "Mengunci posisi bertahan dan menyalurkan aura Dread-Forged Plate (Action)",
         "type": "action"
       }
     ],
     "log": [
-      "\ud83c\udfb2 [SUCCESS \u2022 D20: 17+19=36 vs DC 11] Danas berhasil melakukan STR Check dengan Critical Success, meremukkan gembok kuno berlumur sulfur dan membuka paksa peti magma purba. (+15 EXP) \ud83c\udf81 ITEM OBTAINED: [LEGENDARY] Heart of the Sulphur Primordial!",
-      "\ud83c\udfb2 [SUCCESS \u2022 D20: 4+19=23 vs DC 11] Danas berhasil melakukan Critical Success pada STR Check, menghancurkan dinding batu padat dalam sekali hantaman dan mengamankan sebuah artefak legendaris. (+15 EXP) \ud83c\udf81 ITEM OBTAINED: [LEGENDARY] Heart of the Smoldering Colossus!",
-      "\ud83c\udfb2 [SUCCESS \u2022 D20: 8+19=27 vs DC 11] Danas melancarkan STR Check dengan hasil Critical Success, membelah serangan kapak lawan dan melumpuhkan keseimbangan Shadowblade Stalker. (+15 EXP)",
-      "\ud83c\udfb2 [SUCCESS \u2022 D20: 6+19=25 vs DC 11] Tebasan STR Check Danas berhasil dengan Critical Success, menghancurkan sendi tempurung Shadowblade Stalker dan memicu stagger berat. (+795 EXP) \ud83d\udc8e LOOT DROP: [RARE] Reinforced Leather Cap!"
+      "\ud83c\udfb2 [SUCCESS \u2022 D20: 17+8=25 vs DC 11] Danas berhasil menundukkan kutukan cincin kuno berkat WIS Check yang luar biasa, memulihkan sebagian energi vital dan mengklaim relikui tersebut. (+15 EXP) \ud83c\udf81 ITEM OBTAINED: [EPIC] Band of the Null Sovereign!",
+      "\ud83c\udfb2 [SUCCESS \u2022 D20: 8+18=26 vs DC 11] Danas berhasil menahan gelombang hawa panas ekstrem berkat CON Check yang sukses, melenyapkan status Blind saat api magma membakar sisa kabut kutukan. (+15 EXP)",
+      "\ud83c\udfb2 [SUCCESS \u2022 D20: 5+19=24 vs DC 11] Tebasan bertenaga penuh dari Danas menghasilkan Critical Hit telak yang meremukkan cangkang lahar musuh, memicu ledakan energi kehampaan masif. (+15 EXP) (-25 HP)",
+      "\ud83c\udfb2 [SUCCESS \u2022 D20: 11+18=29 vs DC 11] Danas berhasil melakukan CON Check dengan sempurna, menahan hempasan lahar menggunakan Aegis of the Void Sovereign tanpa goyah sedikit pun. (+795 EXP) \ud83d\udc8e LOOT DROP: [RARE] Spellcaster Grimoire! \ud83c\udf1f LEVEL UP! Danas naik ke Level 13 (Max HP/MP meningkat & HP pulih penuh)!"
     ]
   }
 }
